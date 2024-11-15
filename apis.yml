@@ -1,3 +1,4 @@
+aid: lago
 url: >-
   https://example.com/apis/getlagolago-openapi-open-api-specification-for-lago-project.yml
 apis:
@@ -8,10 +9,10 @@ apis:
     description: >-
       Lago offers a self-hosted and cloud, scalable and modular architecture for
       metering and usage-based billing, at every stage of your company.
-aid: lago
-name: Lago project
+name: Lago
 tags:
-  - Bookmark
+  - Billing
+  - Metering
 type: Index
 image: >-
   https://kinlane-productions2.s3.amazonaws.com/apis-json-icons/getlagolago-openapi-open-api-specification-for-lago-project.png
