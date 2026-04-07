@@ -21,95 +21,95 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: analytics
-    description: Everything about Analytics
-  - name: billable_metrics
-    description: Everything about Billable metric collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/billable_metrics/billable-metric-object
-  - name: customers
-    description: Everything about Customer collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/customers/customer-object
-  - name: plans
-    description: Everything about Plan collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/plans/plan-object
-  - name: subscriptions
-    description: Everything about Subscription collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/subscriptions/subscription-object
-  - name: events
-    description: Everything about Event collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/events/event-object
-  - name: organizations
-    description: Everything about Organization collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/organizations/organization-object
-  - name: taxes
-    description: Everything about Tax collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/taxes/tax-object
-  - name: coupons
-    description: Everything about Coupon collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/coupons/coupon-object
-  - name: add_ons
+  - name: Add_ons
     description: Everything about Add-on collection
     externalDocs:
       description: Find out more
       url: https://doc.getlago.com/docs/api/add_ons/add-on-object
-  - name: fees
-    description: Everything about Fees
+  - name: Analytics
+    description: Everything about Analytics
+  - name: Billable_metrics
+    description: Everything about Billable metric collection
     externalDocs:
       description: Find out more
-      url: https://doc.getlago.com/docs/api/invoices/invoice-object#fee-object
-  - name: invoices
-    description: Everything about Invoice collection
+      url: https://doc.getlago.com/docs/api/billable_metrics/billable-metric-object
+  - name: Coupons
+    description: Everything about Coupon collection
     externalDocs:
       description: Find out more
-      url: https://doc.getlago.com/docs/api/invoices/invoice-object
-  - name: wallets
-    description: Everything about Wallet collection
-    externalDocs:
-      description: Find out more
-      url: https://doc.getlago.com/docs/api/wallets/wallet-object
-  - name: credit_notes
+      url: https://doc.getlago.com/docs/api/coupons/coupon-object
+  - name: Credit_notes
     description: Everything about Credit notes collection
     externalDocs:
       description: Find out more
       url: https://doc.getlago.com/docs/api/credit_notes/credit-note-object
-  - name: webhooks
-    description: Everything about Webhooks
+  - name: Customers
+    description: Everything about Customer collection
     externalDocs:
       description: Find out more
-      url: >-
-        https://doc.getlago.com/docs/api/webhooks/message-signature#1-retrieve-the-public-key
-  - name: webhook_endpoints
+      url: https://doc.getlago.com/docs/api/customers/customer-object
+  - name: Events
+    description: Everything about Event collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/events/event-object
+  - name: Fees
+    description: Everything about Fees
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/invoices/invoice-object#fee-object
+  - name: Invoices
+    description: Everything about Invoice collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/invoices/invoice-object
+  - name: Organizations
+    description: Everything about Organization collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/organizations/organization-object
+  - name: Payment_requests
+    description: Everything about PaymentRequests
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/payment_requests/payment_request-object
+  - name: Plans
+    description: Everything about Plan collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/plans/plan-object
+  - name: Subscriptions
+    description: Everything about Subscription collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/subscriptions/subscription-object
+  - name: Taxes
+    description: Everything about Tax collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/taxes/tax-object
+  - name: Wallets
+    description: Everything about Wallet collection
+    externalDocs:
+      description: Find out more
+      url: https://doc.getlago.com/docs/api/wallets/wallet-object
+  - name: Webhook_endpoints
     description: Everything about Webhook Endpoints
     externalDocs:
       description: Find out more
       url: >-
         https://doc.getlago.com/docs/api/webhook_endpoints/webhook-endpoint-object
-  - name: payment_requests
-    description: Everything about PaymentRequests
+  - name: Webhooks
+    description: Everything about Webhooks
     externalDocs:
       description: Find out more
-      url: https://doc.getlago.com/docs/api/payment_requests/payment_request-object
+      url: >-
+        https://doc.getlago.com/docs/api/webhooks/message-signature#1-retrieve-the-public-key
 paths:
   /add_ons:
     post:
       tags:
-        - add_ons
+        - Add_ons
       summary: Lago Create an add-on
       description: >-
         This endpoint is used to create an add-on that can be then attached to a
@@ -137,7 +137,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - add_ons
+        - Add_ons
       summary: Lago List all add-ons
       description: This endpoint is used to list all existing add-ons.
       operationId: findAllAddOns
@@ -164,7 +164,7 @@ paths:
           example: setup_fee
     put:
       tags:
-        - add_ons
+        - Add_ons
       summary: Lago Update an add-on
       description: This endpoint is used to update an existing add-on.
       operationId: updateAddOn
@@ -192,7 +192,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - add_ons
+        - Add_ons
       summary: Lago Retrieve an add-on
       description: This endpoint is used to retrieve a specific add-on.
       operationId: findAddOn
@@ -209,7 +209,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - add_ons
+        - Add_ons
       summary: Lago Delete an add-on
       description: This endpoint is used to delete an existing add-on.
       operationId: destroyAddOn
@@ -227,7 +227,7 @@ paths:
   /analytics/gross_revenue:
     get:
       tags:
-        - analytics
+        - Analytics
       summary: Lago List gross revenue
       description: >-
         Gross revenue is the sum of monthly `finalized` invoice payments and
@@ -268,7 +268,7 @@ paths:
   /analytics/invoice_collection:
     get:
       tags:
-        - analytics
+        - Analytics
       summary: Lago List of finalized invoices
       description: >-
         Represents a monthly aggregation, detailing both the total count and the
@@ -298,7 +298,7 @@ paths:
   /analytics/invoiced_usage:
     get:
       tags:
-        - analytics
+        - Analytics
       summary: Lago List usage revenue
       description: >-
         Reports a monthly analysis focused on the revenue generated from all
@@ -330,7 +330,7 @@ paths:
   /analytics/mrr:
     get:
       tags:
-        - analytics
+        - Analytics
       summary: Lago List MRR
       description: This endpoint is used to list MRR.
       operationId: findAllMrrs
@@ -386,7 +386,7 @@ paths:
   /analytics/overdue_balance:
     get:
       tags:
-        - analytics
+        - Analytics
       summary: Lago List overdue balance
       description: >-
         Overdue balance is the total amount associated with overdue invoices
@@ -427,7 +427,7 @@ paths:
   /applied_coupons:
     post:
       tags:
-        - coupons
+        - Coupons
       summary: Lago Apply a coupon to a customer
       description: >-
         This endpoint is used to apply a specific coupon to a customer, before
@@ -457,7 +457,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - coupons
+        - Coupons
       summary: Lago List all applied coupons
       description: >-
         This endpoint is used to list all applied coupons. You can filter by
@@ -499,7 +499,7 @@ paths:
   /billable_metrics:
     post:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago Create a billable metric
       description: >-
         This endpoint creates a new billable metric representing a pricing
@@ -527,7 +527,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago List all billable metrics
       description: >-
         This endpoint retrieves all existing billable metrics that represent
@@ -548,7 +548,7 @@ paths:
   /billable_metrics/evaluate_expression:
     post:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago Evaluate an expression for a billable metric
       description: >-
         Evaluate an expression for a billable metric creation by providing the
@@ -585,7 +585,7 @@ paths:
           example: storage
     put:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago Update a billable metric
       description: >-
         This endpoint updates an existing billable metric representing a pricing
@@ -615,7 +615,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     delete:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago Delete a billable metric
       description: >-
         This endpoint deletes an existing billable metric representing a pricing
@@ -634,7 +634,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     get:
       tags:
-        - billable_metrics
+        - Billable_metrics
       summary: Lago Retrieve a billable metric
       description: >-
         This endpoint retrieves an existing billable metric that represents a
@@ -655,7 +655,7 @@ paths:
   /coupons:
     post:
       tags:
-        - coupons
+        - Coupons
       summary: Lago Create a coupon
       description: >-
         This endpoint is used to create a coupon that can be then attached to a
@@ -683,7 +683,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - coupons
+        - Coupons
       summary: Lago List all coupons
       description: This endpoint is used to list all existing coupons.
       operationId: findAllCoupons
@@ -710,7 +710,7 @@ paths:
           example: startup_deal
     put:
       tags:
-        - coupons
+        - Coupons
       summary: Lago Update a coupon
       description: >-
         This endpoint is used to update a coupon that can be then attached to a
@@ -740,7 +740,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - coupons
+        - Coupons
       summary: Lago Retrieve a coupon
       description: This endpoint is used to retrieve a specific coupon.
       operationId: findCoupon
@@ -757,7 +757,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - coupons
+        - Coupons
       summary: Lago Delete a coupon
       description: This endpoint is used to delete a coupon.
       operationId: destroyCoupon
@@ -775,7 +775,7 @@ paths:
   /credit_notes:
     post:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Create a credit note
       description: This endpoint creates a new credit note.
       operationId: createCreditNote
@@ -801,7 +801,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago List all credit notes
       description: This endpoint list all existing credit notes.
       operationId: findAllCreditNotes
@@ -829,7 +829,7 @@ paths:
           example: '12345'
     put:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Update a credit note
       description: This endpoint updates an existing credit note.
       operationId: updateCreditNote
@@ -857,7 +857,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Retrieve a credit note
       description: This endpoint retrieves an existing credit note.
       operationId: findCreditNote
@@ -875,7 +875,7 @@ paths:
   /credit_notes/{lago_id}/download:
     post:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Download a credit note PDF
       description: This endpoint downloads the PDF of an existing credit note.
       parameters:
@@ -902,7 +902,7 @@ paths:
   /credit_notes/estimate:
     post:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Estimate amounts for a new credit note
       description: >-
         This endpoint allows you to retrieve amounts for a new credit note
@@ -930,7 +930,7 @@ paths:
   /credit_notes/{lago_id}/void:
     put:
       tags:
-        - credit_notes
+        - Credit_notes
       summary: Lago Void available credit
       description: >-
         This endpoint voids the available credit linked to a specific credit
@@ -961,7 +961,7 @@ paths:
   /customers:
     post:
       tags:
-        - customers
+        - Customers
       summary: Lago Create a customer
       description: This endpoint creates a new customer.
       operationId: createCustomer
@@ -987,7 +987,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - customers
+        - Customers
       summary: Lago List all customers
       description: This endpoint retrieves all existing customers.
       operationId: findAllCustomers
@@ -1014,7 +1014,7 @@ paths:
           example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     get:
       tags:
-        - customers
+        - Customers
       summary: Lago Retrieve a customer
       description: This endpoint retrieves an existing customer.
       operationId: findCustomer
@@ -1031,7 +1031,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - customers
+        - Customers
       summary: Lago Delete a customer
       description: This endpoint deletes an existing customer.
       operationId: destroyCustomer
@@ -1049,8 +1049,8 @@ paths:
   /customers/{external_customer_id}/applied_coupons/{applied_coupon_id}:
     delete:
       tags:
-        - coupons
-        - customers
+        - Coupons
+        - Customers
       summary: Lago Delete an applied coupon
       description: >-
         This endpoint is used to delete a specific coupon that has been applied
@@ -1089,7 +1089,7 @@ paths:
   /customers/{external_customer_id}/portal_url:
     get:
       tags:
-        - customers
+        - Customers
       summary: Lago Get a customer portal URL
       description: >-
         Retrieves an embeddable link for displaying a customer portal.
@@ -1132,7 +1132,7 @@ paths:
   /customers/{external_customer_id}/current_usage:
     get:
       tags:
-        - customers
+        - Customers
       summary: Lago Retrieve customer current usage
       description: >-
         This endpoint enables the retrieval of the usage-based billing data for
@@ -1170,7 +1170,7 @@ paths:
   /customers/{external_customer_id}/past_usage:
     get:
       tags:
-        - customers
+        - Customers
       summary: Lago Retrieve customer past usage
       description: >-
         This endpoint enables the retrieval of the usage-based billing data for
@@ -1228,7 +1228,7 @@ paths:
   /customers/{external_customer_id}/checkout_url:
     post:
       tags:
-        - customers
+        - Customers
       summary: Lago Generate a Customer Payment Provider Checkout URL
       description: >-
         This endpoint regenerates the Payment Provider Checkout URL of a
@@ -1289,7 +1289,7 @@ paths:
   /events:
     post:
       tags:
-        - events
+        - Events
       summary: Lago Send usage events
       description: >-
         This endpoint is used for transmitting usage measurement events to
@@ -1317,7 +1317,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - events
+        - Events
       summary: Lago List all events
       description: This endpoint is used for retrieving all events.
       operationId: findAllEvents
@@ -1373,7 +1373,7 @@ paths:
   /events/batch:
     post:
       tags:
-        - events
+        - Events
       summary: Lago Batch multiple events
       description: >-
         This endpoint can be used to send a batch of usage records. Each request
@@ -1398,7 +1398,7 @@ paths:
   /events/estimate_fees:
     post:
       tags:
-        - events
+        - Events
       summary: Lago Estimate fees for a pay in advance charge
       description: >-
         Estimate the fees that would be created after reception of an event for
@@ -1439,7 +1439,7 @@ paths:
           example: transaction_1234567890
     get:
       tags:
-        - events
+        - Events
       summary: Lago Retrieve a specific event
       description: >-
         This endpoint is used for retrieving a specific usage measurement event
@@ -1459,7 +1459,7 @@ paths:
   /fees:
     get:
       tags:
-        - fees
+        - Fees
       summary: Lago List all fees
       description: This endpoint is used for retrieving all fees that has been issued.
       operationId: findAllFees
@@ -1629,7 +1629,7 @@ paths:
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
     get:
       tags:
-        - fees
+        - Fees
       summary: Lago Retrieve a specific fee
       description: >-
         This endpoint is used for retrieving a specific fee that has been
@@ -1648,7 +1648,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       tags:
-        - fees
+        - Fees
       summary: Lago Update a fee
       description: This endpoint is used for updating a specific fee that has been issued.
       operationId: updateFee
@@ -1677,7 +1677,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     delete:
       tags:
-        - fees
+        - Fees
       summary: Lago Delete a fee
       description: >-
         This endpoint is used for deleting a specific fee that has not yet been
@@ -1699,7 +1699,7 @@ paths:
   /invoices:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Create a one-off invoice
       description: This endpoint is used for issuing a one-off invoice.
       operationId: createInvoice
@@ -1725,7 +1725,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - invoices
+        - Invoices
       summary: Lago List all invoices
       description: This endpoint is used for retrieving all invoices.
       operationId: findAllInvoices
@@ -1845,7 +1845,7 @@ paths:
       - $ref: '#/components/parameters/lago_invoice_id'
     put:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Update an invoice
       description: This endpoint is used for updating an existing invoice.
       operationId: updateInvoice
@@ -1873,7 +1873,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Retrieve an invoice
       description: >-
         This endpoint is used for retrieving a specific invoice that has been
@@ -1893,7 +1893,7 @@ paths:
   /invoices/{lago_id}/download:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Download an invoice PDF
       parameters:
         - $ref: '#/components/parameters/lago_invoice_id'
@@ -1913,7 +1913,7 @@ paths:
   /invoices/{lago_id}/finalize:
     put:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Finalize a draft invoice
       description: This endpoint is used for finalizing a draft invoice.
       parameters:
@@ -1933,7 +1933,7 @@ paths:
   /invoices/{lago_id}/lose_dispute:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Mark an invoice payment dispute as lost
       description: This endpoint is used for setting invoice's payment dispute as lost.
       parameters:
@@ -1955,7 +1955,7 @@ paths:
   /invoices/{lago_id}/refresh:
     put:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Refresh a draft invoice
       description: This endpoint is used for refreshing a draft invoice.
       parameters:
@@ -1975,7 +1975,7 @@ paths:
   /invoices/{lago_id}/retry:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Retry generation of a failed invoice
       description: This endpoint is used for retrying to generate a failed invoice.
       parameters:
@@ -1995,7 +1995,7 @@ paths:
   /invoices/{lago_id}/payment_url:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Generate a payment URL
       description: This endpoint generates a checkout link for a specific invoice.
       parameters:
@@ -2052,7 +2052,7 @@ paths:
   /invoices/{lago_id}/retry_payment:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Retry an invoice payment
       description: This endpoint resends an invoice for collection and retry a payment.
       parameters:
@@ -2070,7 +2070,7 @@ paths:
   /invoices/{lago_id}/void:
     post:
       tags:
-        - invoices
+        - Invoices
       summary: Lago Void an invoice
       description: >-
         This endpoint is used for voiding an invoice. You can void an invoice
@@ -2093,7 +2093,7 @@ paths:
   /organizations:
     put:
       tags:
-        - organizations
+        - Organizations
       summary: Lago Update your organization
       description: This endpoint is used to update your own organization's settings.
       operationId: updateOrganization
@@ -2120,7 +2120,7 @@ paths:
   /payment_requests:
     post:
       tags:
-        - payment_requests
+        - Payment_requests
       summary: Lago Create a payment request
       description: >-
         This endpoint is used to create a payment request to collect payments of
@@ -2189,7 +2189,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - payment_requests
+        - Payment_requests
       summary: Lago List all payment requests
       description: This endpoint is used to list all existing payment requests.
       operationId: findAllPaymentRequests
@@ -2209,7 +2209,7 @@ paths:
   /plans:
     post:
       tags:
-        - plans
+        - Plans
       summary: Lago Create a plan
       description: >-
         This endpoint creates a plan with subscription and usage-based charges.
@@ -2240,7 +2240,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - plans
+        - Plans
       summary: Lago List all plans
       description: This endpoint retrieves all existing plans.
       operationId: findAllPlans
@@ -2271,7 +2271,7 @@ paths:
           example: startup
     put:
       tags:
-        - plans
+        - Plans
       summary: Lago Update a plan
       description: >-
         This endpoint updates a specific plan with subscription and usage-based
@@ -2302,7 +2302,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - plans
+        - Plans
       summary: Lago Retrieve a plan
       description: This endpoint retrieves a specific plan.
       operationId: findPlan
@@ -2319,7 +2319,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - plans
+        - Plans
       summary: Lago Delete a plan
       description: >-
         This endpoint deletes a specific plan. Note that this plan could be
@@ -2339,7 +2339,7 @@ paths:
   /subscriptions:
     post:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Assign a plan to a customer
       description: >-
         This endpoint assigns a plan to a customer, creating or modifying a
@@ -2370,7 +2370,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago List all subscriptions
       description: This endpoint retrieves all active subscriptions.
       operationId: findAllSubscriptions
@@ -2442,7 +2442,7 @@ paths:
           example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     get:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Retrieve a subscription
       description: This endpoint retrieves a specific subscription.
       operationId: findSubscription
@@ -2459,7 +2459,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Update a subscription
       description: This endpoint allows you to update a subscription.
       operationId: updateSubscription
@@ -2487,7 +2487,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     delete:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Terminate a subscription
       description: This endpoint allows you to terminate a subscription.
       operationId: destroySubscription
@@ -2528,7 +2528,7 @@ paths:
           example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     get:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Retrive subscription lifetime usage
       description: >-
         This endpoint enables the retrieval of the lifetime usage of a
@@ -2547,7 +2547,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       tags:
-        - subscriptions
+        - Subscriptions
       summary: Lago Update a subscription lifetime usage
       description: This endpoint allows you to update the lifetime usage of a subscription.
       operationId: updateSubscriptionLifetimeUsage
@@ -2576,7 +2576,7 @@ paths:
   /taxes:
     post:
       tags:
-        - taxes
+        - Taxes
       summary: Lago Create a tax
       description: >-
         This endpoint creates a new tax representing a customizable tax rate
@@ -2604,7 +2604,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - taxes
+        - Taxes
       summary: Lago List all taxes
       description: >-
         This endpoint retrieves all existing taxes representing a customizable
@@ -2660,7 +2660,7 @@ paths:
           example: french_standard_vat
     put:
       tags:
-        - taxes
+        - Taxes
       summary: Lago Update a tax
       description: >-
         This endpoint updates an existing tax representing a customizable tax
@@ -2690,7 +2690,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - taxes
+        - Taxes
       summary: Lago Retrieve a Tax
       description: >-
         This endpoint retrieves an existing tax representing a customizable tax
@@ -2710,7 +2710,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - taxes
+        - Taxes
       summary: Lago Delete a tax
       description: This endpoint is used to delete a tax.
       operationId: destroyTax
@@ -2728,7 +2728,7 @@ paths:
   /wallets:
     post:
       tags:
-        - wallets
+        - Wallets
       summary: Lago Create a wallet
       description: This endpoint is used to create a wallet with prepaid credits.
       operationId: createWallet
@@ -2754,7 +2754,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - wallets
+        - Wallets
       summary: Lago List all wallets
       description: This endpoint is used to list all wallets with prepaid credits.
       operationId: findAllWallets
@@ -2795,7 +2795,7 @@ paths:
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
     put:
       tags:
-        - wallets
+        - Wallets
       summary: Lago Update a wallet
       description: This endpoint is used to update an existing wallet with prepaid credits.
       operationId: updateWallet
@@ -2823,7 +2823,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - wallets
+        - Wallets
       summary: Lago Retrieve a wallet
       description: >-
         This endpoint is used to retrieve an existing wallet with prepaid
@@ -2842,7 +2842,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - wallets
+        - Wallets
       summary: Lago Terminate a wallet
       description: >-
         This endpoint is used to terminate an existing wallet with prepaid
@@ -2864,7 +2864,7 @@ paths:
   /wallet_transactions:
     post:
       tags:
-        - wallets
+        - Wallets
       summary: Lago Top up a wallet
       description: This endpoint is used to top-up an active wallet.
       operationId: createWalletTransaction
@@ -2891,7 +2891,7 @@ paths:
   /wallets/{lago_id}/wallet_transactions:
     get:
       tags:
-        - wallets
+        - Wallets
       summary: Lago List all wallet transactions
       description: This endpoint is used to list all wallet transactions.
       operationId: findAllWalletTransactions
@@ -2955,7 +2955,7 @@ paths:
   /webhooks/public_key:
     get:
       tags:
-        - webhooks
+        - Webhooks
       summary: Lago Retrieve webhook public key
       description: >-
         This endpoint is used to retrieve the public key used to verify the
@@ -2975,7 +2975,7 @@ paths:
   /webhook_endpoints:
     post:
       tags:
-        - webhook_endpoints
+        - Webhook_endpoints
       summary: Lago Create a webhook_endpoint
       description: This endpoint is used to create a webhook endpoint.
       operationId: createWebhookEndpoint
@@ -3001,7 +3001,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - webhook_endpoints
+        - Webhook_endpoints
       summary: Lago List all webhook endpoints
       description: This endpoint is used to list all webhook endpoints.
       operationId: findAllWebhookEndpoints
@@ -3033,7 +3033,7 @@ paths:
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
     put:
       tags:
-        - webhook_endpoints
+        - Webhook_endpoints
       summary: Lago Update a webhook endpoint
       description: This endpoint is used to update an existing webhook endpoint.
       operationId: updateWebhookEndpoint
@@ -3061,7 +3061,7 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-        - webhook_endpoints
+        - Webhook_endpoints
       summary: Lago Retrieve a webhook endpoint
       description: This endpoint is used to retrieve an existing webhook endpoint.
       operationId: findWebhookEndpoint
@@ -3078,7 +3078,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-        - webhook_endpoints
+        - Webhook_endpoints
       summary: Lago Delete a webhook endpoint
       description: This endpoint is used to delete an existing webhook endpoint.
       operationId: destroyWebhookEndpoint
