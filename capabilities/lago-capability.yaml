@@ -1,0 +1,2292 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation
+  description: Lago API allows your application to push customer information and metrics (events) from your application to
+    the billing application.
+  tags:
+  - Lago
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: lago
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation HTTP API.
+    authentication:
+      type: bearer
+      token: '{{LAGO_TOKEN}}'
+    resources:
+    - name: add-ons
+      path: /add_ons
+      operations:
+      - name: createaddon
+        method: POST
+        description: Lago Create an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findalladdons
+        method: GET
+        description: Lago List all add-ons
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: add-ons-code
+      path: /add_ons/{code}
+      operations:
+      - name: updateaddon
+        method: PUT
+        description: Lago Update an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findaddon
+        method: GET
+        description: Lago Retrieve an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroyaddon
+        method: DELETE
+        description: Lago Delete an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-gross-revenue
+      path: /analytics/gross_revenue
+      operations:
+      - name: findallgrossrevenues
+        method: GET
+        description: Lago List gross revenue
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Currency of revenue analytics. Format must be ISO 4217.
+        - name: external_customer_id
+          in: query
+          type: string
+          description: The customer external unique identifier (provided by your own application). Use it to filter revenue
+            analytics at the customer level.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-invoice-collection
+      path: /analytics/invoice_collection
+      operations:
+      - name: findallinvoicecollections
+        method: GET
+        description: Lago List of finalized invoices
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: The currency of revenue analytics. Format must be ISO 4217.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-invoiced-usage
+      path: /analytics/invoiced_usage
+      operations:
+      - name: findallinvoicedusages
+        method: GET
+        description: Lago List usage revenue
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: The currency of invoiced usage analytics. Format must be ISO 4217.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-mrr
+      path: /analytics/mrr
+      operations:
+      - name: findallmrrs
+        method: GET
+        description: Lago List MRR
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Quantifies the revenue generated from `subscription` fees on a monthly basis. This figure is calculated
+            post-application of applicable taxes and deduction of an
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-overdue-balance
+      path: /analytics/overdue_balance
+      operations:
+      - name: findalloverduebalances
+        method: GET
+        description: Lago List overdue balance
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Currency of revenue analytics. Format must be ISO 4217.
+        - name: external_customer_id
+          in: query
+          type: string
+          description: The customer external unique identifier (provided by your own application). Use it to filter revenue
+            analytics at the customer level.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applied-coupons
+      path: /applied_coupons
+      operations:
+      - name: applycoupon
+        method: POST
+        description: Lago Apply a coupon to a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallappliedcoupons
+        method: GET
+        description: Lago List all applied coupons
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: The status of the coupon. Can be either `active` or `terminated`.
+        - name: external_customer_id
+          in: query
+          type: string
+          description: The customer external unique identifier (provided by your own application)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: billable-metrics
+      path: /billable_metrics
+      operations:
+      - name: createbillablemetric
+        method: POST
+        description: Lago Create a billable metric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallbillablemetrics
+        method: GET
+        description: Lago List all billable metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: billable-metrics-evaluate-expression
+      path: /billable_metrics/evaluate_expression
+      operations:
+      - name: evaluatebillablemetricexpression
+        method: POST
+        description: Lago Evaluate an expression for a billable metric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: billable-metrics-code
+      path: /billable_metrics/{code}
+      operations:
+      - name: updatebillablemetric
+        method: PUT
+        description: Lago Update a billable metric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroybillablemetric
+        method: DELETE
+        description: Lago Delete a billable metric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findbillablemetric
+        method: GET
+        description: Lago Retrieve a billable metric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: coupons
+      path: /coupons
+      operations:
+      - name: createcoupon
+        method: POST
+        description: Lago Create a coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallcoupons
+        method: GET
+        description: Lago List all coupons
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: coupons-code
+      path: /coupons/{code}
+      operations:
+      - name: updatecoupon
+        method: PUT
+        description: Lago Update a coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findcoupon
+        method: GET
+        description: Lago Retrieve a coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroycoupon
+        method: DELETE
+        description: Lago Delete a coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit-notes
+      path: /credit_notes
+      operations:
+      - name: createcreditnote
+        method: POST
+        description: Lago Create a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallcreditnotes
+        method: GET
+        description: Lago List all credit notes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit-notes-lago-id
+      path: /credit_notes/{lago_id}
+      operations:
+      - name: updatecreditnote
+        method: PUT
+        description: Lago Update a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findcreditnote
+        method: GET
+        description: Lago Retrieve a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit-notes-lago-id-download
+      path: /credit_notes/{lago_id}/download
+      operations:
+      - name: downloadcreditnote
+        method: POST
+        description: Lago Download a credit note PDF
+        inputParameters:
+        - name: lago_id
+          in: path
+          type: string
+          required: true
+          description: The credit note unique identifier, created by Lago.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit-notes-estimate
+      path: /credit_notes/estimate
+      operations:
+      - name: estimatecreditnote
+        method: POST
+        description: Lago Estimate amounts for a new credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit-notes-lago-id-void
+      path: /credit_notes/{lago_id}/void
+      operations:
+      - name: voidcreditnote
+        method: PUT
+        description: Lago Void available credit
+        inputParameters:
+        - name: lago_id
+          in: path
+          type: string
+          required: true
+          description: The credit note unique identifier, created by Lago.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers
+      path: /customers
+      operations:
+      - name: createcustomer
+        method: POST
+        description: Lago Create a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallcustomers
+        method: GET
+        description: Lago List all customers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-id
+      path: /customers/{external_id}
+      operations:
+      - name: findcustomer
+        method: GET
+        description: Lago Retrieve a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroycustomer
+        method: DELETE
+        description: Lago Delete a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-customer-id-applied-coupons-a
+      path: /customers/{external_customer_id}/applied_coupons/{applied_coupon_id}
+      operations:
+      - name: deleteappliedcoupon
+        method: DELETE
+        description: Lago Delete an applied coupon
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          required: true
+          description: The customer external unique identifier (provided by your own application)
+        - name: applied_coupon_id
+          in: path
+          type: string
+          required: true
+          description: Unique identifier of the applied coupon, created by Lago.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-customer-id-portal-url
+      path: /customers/{external_customer_id}/portal_url
+      operations:
+      - name: getcustomerportalurl
+        method: GET
+        description: Lago Get a customer portal URL
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          required: true
+          description: External ID of the existing customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-customer-id-current-usage
+      path: /customers/{external_customer_id}/current_usage
+      operations:
+      - name: findcustomercurrentusage
+        method: GET
+        description: Lago Retrieve customer current usage
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          required: true
+          description: The customer external unique identifier (provided by your own application).
+        - name: external_subscription_id
+          in: query
+          type: string
+          required: true
+          description: The unique identifier of the subscription within your application.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-customer-id-past-usage
+      path: /customers/{external_customer_id}/past_usage
+      operations:
+      - name: findallcustomerpastusage
+        method: GET
+        description: Lago Retrieve customer past usage
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          required: true
+          description: The customer external unique identifier (provided by your own application).
+        - name: external_subscription_id
+          in: query
+          type: string
+          required: true
+          description: The unique identifier of the subscription within your application.
+        - name: billable_metric_code
+          in: query
+          type: string
+          description: Billable metric code filter to apply to the charge usage
+        - name: periods_count
+          in: query
+          type: integer
+          description: Number of past billing period to returns in the result
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external-customer-id-checkout-url
+      path: /customers/{external_customer_id}/checkout_url
+      operations:
+      - name: generatecustomercheckouturl
+        method: POST
+        description: Lago Generate a Customer Payment Provider Checkout URL
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          required: true
+          description: The customer external unique identifier (provided by your own application).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events
+      path: /events
+      operations:
+      - name: createevent
+        method: POST
+        description: Lago Send usage events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallevents
+        method: GET
+        description: Lago List all events
+        inputParameters:
+        - name: code
+          in: query
+          type: string
+          description: Filter events by its code.
+        - name: timestamp_from
+          in: query
+          type: string
+          description: Filter events by timestamp starting from a specific date.
+        - name: timestamp_to
+          in: query
+          type: string
+          description: Filter events by timestamp up to a specific date.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events-batch
+      path: /events/batch
+      operations:
+      - name: createbatchevents
+        method: POST
+        description: Lago Batch multiple events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events-estimate-fees
+      path: /events/estimate_fees
+      operations:
+      - name: eventestimatefees
+        method: POST
+        description: Lago Estimate fees for a pay in advance charge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events-transaction-id
+      path: /events/{transaction_id}
+      operations:
+      - name: findevent
+        method: GET
+        description: Lago Retrieve a specific event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fees
+      path: /fees
+      operations:
+      - name: findallfees
+        method: GET
+        description: Lago List all fees
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Filter results by fee's currency.
+        - name: fee_type
+          in: query
+          type: string
+          description: The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`.
+        - name: billable_metric_code
+          in: query
+          type: string
+          description: Filter results by the `code` of the billable metric attached to the fee. Only applies to `charge` types.
+        - name: payment_status
+          in: query
+          type: string
+          description: Indicates the payment status of the fee. It represents the current status of the payment associated
+            with the fee. The possible values for this field are `pendin
+        - name: created_at_from
+          in: query
+          type: string
+          description: Filter results created after creation date and time in UTC.
+        - name: created_at_to
+          in: query
+          type: string
+          description: Filter results created before creation date and time in UTC.
+        - name: succeeded_at_from
+          in: query
+          type: string
+          description: Filter results with payment success after creation date and time in UTC.
+        - name: succeeded_at_to
+          in: query
+          type: string
+          description: Filter results with payment success after creation date and time in UTC.
+        - name: failed_at_from
+          in: query
+          type: string
+          description: Filter results with payment failure after creation date and time in UTC.
+        - name: failed_at_to
+          in: query
+          type: string
+          description: Filter results with payment failure after creation date and time in UTC.
+        - name: refunded_at_from
+          in: query
+          type: string
+          description: Filter results with payment refund after creation date and time in UTC.
+        - name: refunded_at_to
+          in: query
+          type: string
+          description: Filter results with payment refund after creation date and time in UTC.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fees-lago-id
+      path: /fees/{lago_id}
+      operations:
+      - name: findfee
+        method: GET
+        description: Lago Retrieve a specific fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefee
+        method: PUT
+        description: Lago Update a fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefee
+        method: DELETE
+        description: Lago Delete a fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices
+      path: /invoices
+      operations:
+      - name: createinvoice
+        method: POST
+        description: Lago Create a one-off invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findallinvoices
+        method: GET
+        description: Lago List all invoices
+        inputParameters:
+        - name: issuing_date_from
+          in: query
+          type: string
+          description: Filter invoices starting from a specific date.
+        - name: issuing_date_to
+          in: query
+          type: string
+          description: Filter invoices up to a specific date.
+        - name: status
+          in: query
+          type: string
+          description: Filter invoices by status. Possible values are `draft` or `finalized`.
+        - name: payment_status
+          in: query
+          type: string
+          description: Filter invoices by payment status. Possible values are `pending`, `failed` or `succeeded`.
+        - name: payment_overdue
+          in: query
+          type: boolean
+          description: Filter invoices by payment_overdue. Possible values are `true` or `false`.
+        - name: search_term
+          in: query
+          type: string
+          description: Search invoices by id, number, customer name, customer external_id or customer email.
+        - name: currency
+          in: query
+          type: string
+          description: Filter invoices by currency in. Possible values ISO 4217 currency codes.
+        - name: payment_dispute_lost
+          in: query
+          type: boolean
+          description: Filter invoices with a payment dispute lost. Possible values are `true` or `false`.
+        - name: invoice_type
+          in: query
+          type: string
+          description: Filter invoices by invoice type. Possible values are `subscription`, `add_on`, `credit`, `one_off`
+            or `advance_charges`
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id
+      path: /invoices/{lago_id}
+      operations:
+      - name: updateinvoice
+        method: PUT
+        description: Lago Update an invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: findinvoice
+        method: GET
+        description: Lago Retrieve an invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-download
+      path: /invoices/{lago_id}/download
+      operations:
+      - name: downloadinvoice
+        method: POST
+        description: Lago Download an invoice PDF
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-finalize
+      path: /invoices/{lago_id}/finalize
+      operations:
+      - name: finalizeinvoice
+        method: PUT
+        description: Lago Finalize a draft invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-lose-dispute
+      path: /invoices/{lago_id}/lose_dispute
+      operations:
+      - name: losedisputeinvoice
+        method: POST
+        description: Lago Mark an invoice payment dispute as lost
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-refresh
+      path: /invoices/{lago_id}/refresh
+      operations:
+      - name: refreshinvoice
+        method: PUT
+        description: Lago Refresh a draft invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-retry
+      path: /invoices/{lago_id}/retry
+      operations:
+      - name: retryinvoice
+        method: POST
+        description: Lago Retry generation of a failed invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-payment-url
+      path: /invoices/{lago_id}/payment_url
+      operations:
+      - name: invoicepaymenturl
+        method: POST
+        description: Lago Generate a payment URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-retry-payment
+      path: /invoices/{lago_id}/retry_payment
+      operations:
+      - name: retrypayment
+        method: POST
+        description: Lago Retry an invoice payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invoices-lago-id-void
+      path: /invoices/{lago_id}/void
+      operations:
+      - name: voidinvoice
+        method: POST
+        description: Lago Void an invoice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: lago-rest
+    description: REST adapter for Lago API documentation.
+    resources:
+    - path: /add_ons
+      name: createaddon
+      operations:
+      - method: POST
+        name: createaddon
+        description: Lago Create an add-on
+        call: lago.createaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /add_ons
+      name: findalladdons
+      operations:
+      - method: GET
+        name: findalladdons
+        description: Lago List all add-ons
+        call: lago.findalladdons
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /add_ons/{code}
+      name: updateaddon
+      operations:
+      - method: PUT
+        name: updateaddon
+        description: Lago Update an add-on
+        call: lago.updateaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /add_ons/{code}
+      name: findaddon
+      operations:
+      - method: GET
+        name: findaddon
+        description: Lago Retrieve an add-on
+        call: lago.findaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /add_ons/{code}
+      name: destroyaddon
+      operations:
+      - method: DELETE
+        name: destroyaddon
+        description: Lago Delete an add-on
+        call: lago.destroyaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /analytics/gross_revenue
+      name: findallgrossrevenues
+      operations:
+      - method: GET
+        name: findallgrossrevenues
+        description: Lago List gross revenue
+        call: lago.findallgrossrevenues
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /analytics/invoice_collection
+      name: findallinvoicecollections
+      operations:
+      - method: GET
+        name: findallinvoicecollections
+        description: Lago List of finalized invoices
+        call: lago.findallinvoicecollections
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /analytics/invoiced_usage
+      name: findallinvoicedusages
+      operations:
+      - method: GET
+        name: findallinvoicedusages
+        description: Lago List usage revenue
+        call: lago.findallinvoicedusages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /analytics/mrr
+      name: findallmrrs
+      operations:
+      - method: GET
+        name: findallmrrs
+        description: Lago List MRR
+        call: lago.findallmrrs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /analytics/overdue_balance
+      name: findalloverduebalances
+      operations:
+      - method: GET
+        name: findalloverduebalances
+        description: Lago List overdue balance
+        call: lago.findalloverduebalances
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /applied_coupons
+      name: applycoupon
+      operations:
+      - method: POST
+        name: applycoupon
+        description: Lago Apply a coupon to a customer
+        call: lago.applycoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /applied_coupons
+      name: findallappliedcoupons
+      operations:
+      - method: GET
+        name: findallappliedcoupons
+        description: Lago List all applied coupons
+        call: lago.findallappliedcoupons
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics
+      name: createbillablemetric
+      operations:
+      - method: POST
+        name: createbillablemetric
+        description: Lago Create a billable metric
+        call: lago.createbillablemetric
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics
+      name: findallbillablemetrics
+      operations:
+      - method: GET
+        name: findallbillablemetrics
+        description: Lago List all billable metrics
+        call: lago.findallbillablemetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics/evaluate_expression
+      name: evaluatebillablemetricexpression
+      operations:
+      - method: POST
+        name: evaluatebillablemetricexpression
+        description: Lago Evaluate an expression for a billable metric
+        call: lago.evaluatebillablemetricexpression
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics/{code}
+      name: updatebillablemetric
+      operations:
+      - method: PUT
+        name: updatebillablemetric
+        description: Lago Update a billable metric
+        call: lago.updatebillablemetric
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics/{code}
+      name: destroybillablemetric
+      operations:
+      - method: DELETE
+        name: destroybillablemetric
+        description: Lago Delete a billable metric
+        call: lago.destroybillablemetric
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /billable_metrics/{code}
+      name: findbillablemetric
+      operations:
+      - method: GET
+        name: findbillablemetric
+        description: Lago Retrieve a billable metric
+        call: lago.findbillablemetric
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /coupons
+      name: createcoupon
+      operations:
+      - method: POST
+        name: createcoupon
+        description: Lago Create a coupon
+        call: lago.createcoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /coupons
+      name: findallcoupons
+      operations:
+      - method: GET
+        name: findallcoupons
+        description: Lago List all coupons
+        call: lago.findallcoupons
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /coupons/{code}
+      name: updatecoupon
+      operations:
+      - method: PUT
+        name: updatecoupon
+        description: Lago Update a coupon
+        call: lago.updatecoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /coupons/{code}
+      name: findcoupon
+      operations:
+      - method: GET
+        name: findcoupon
+        description: Lago Retrieve a coupon
+        call: lago.findcoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /coupons/{code}
+      name: destroycoupon
+      operations:
+      - method: DELETE
+        name: destroycoupon
+        description: Lago Delete a coupon
+        call: lago.destroycoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes
+      name: createcreditnote
+      operations:
+      - method: POST
+        name: createcreditnote
+        description: Lago Create a credit note
+        call: lago.createcreditnote
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes
+      name: findallcreditnotes
+      operations:
+      - method: GET
+        name: findallcreditnotes
+        description: Lago List all credit notes
+        call: lago.findallcreditnotes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes/{lago_id}
+      name: updatecreditnote
+      operations:
+      - method: PUT
+        name: updatecreditnote
+        description: Lago Update a credit note
+        call: lago.updatecreditnote
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes/{lago_id}
+      name: findcreditnote
+      operations:
+      - method: GET
+        name: findcreditnote
+        description: Lago Retrieve a credit note
+        call: lago.findcreditnote
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes/{lago_id}/download
+      name: downloadcreditnote
+      operations:
+      - method: POST
+        name: downloadcreditnote
+        description: Lago Download a credit note PDF
+        call: lago.downloadcreditnote
+        with:
+          lago_id: rest.lago_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes/estimate
+      name: estimatecreditnote
+      operations:
+      - method: POST
+        name: estimatecreditnote
+        description: Lago Estimate amounts for a new credit note
+        call: lago.estimatecreditnote
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /credit_notes/{lago_id}/void
+      name: voidcreditnote
+      operations:
+      - method: PUT
+        name: voidcreditnote
+        description: Lago Void available credit
+        call: lago.voidcreditnote
+        with:
+          lago_id: rest.lago_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers
+      name: createcustomer
+      operations:
+      - method: POST
+        name: createcustomer
+        description: Lago Create a customer
+        call: lago.createcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers
+      name: findallcustomers
+      operations:
+      - method: GET
+        name: findallcustomers
+        description: Lago List all customers
+        call: lago.findallcustomers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_id}
+      name: findcustomer
+      operations:
+      - method: GET
+        name: findcustomer
+        description: Lago Retrieve a customer
+        call: lago.findcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_id}
+      name: destroycustomer
+      operations:
+      - method: DELETE
+        name: destroycustomer
+        description: Lago Delete a customer
+        call: lago.destroycustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_customer_id}/applied_coupons/{applied_coupon_id}
+      name: deleteappliedcoupon
+      operations:
+      - method: DELETE
+        name: deleteappliedcoupon
+        description: Lago Delete an applied coupon
+        call: lago.deleteappliedcoupon
+        with:
+          external_customer_id: rest.external_customer_id
+          applied_coupon_id: rest.applied_coupon_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_customer_id}/portal_url
+      name: getcustomerportalurl
+      operations:
+      - method: GET
+        name: getcustomerportalurl
+        description: Lago Get a customer portal URL
+        call: lago.getcustomerportalurl
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_customer_id}/current_usage
+      name: findcustomercurrentusage
+      operations:
+      - method: GET
+        name: findcustomercurrentusage
+        description: Lago Retrieve customer current usage
+        call: lago.findcustomercurrentusage
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_customer_id}/past_usage
+      name: findallcustomerpastusage
+      operations:
+      - method: GET
+        name: findallcustomerpastusage
+        description: Lago Retrieve customer past usage
+        call: lago.findallcustomerpastusage
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /customers/{external_customer_id}/checkout_url
+      name: generatecustomercheckouturl
+      operations:
+      - method: POST
+        name: generatecustomercheckouturl
+        description: Lago Generate a Customer Payment Provider Checkout URL
+        call: lago.generatecustomercheckouturl
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /events
+      name: createevent
+      operations:
+      - method: POST
+        name: createevent
+        description: Lago Send usage events
+        call: lago.createevent
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /events
+      name: findallevents
+      operations:
+      - method: GET
+        name: findallevents
+        description: Lago List all events
+        call: lago.findallevents
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /events/batch
+      name: createbatchevents
+      operations:
+      - method: POST
+        name: createbatchevents
+        description: Lago Batch multiple events
+        call: lago.createbatchevents
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /events/estimate_fees
+      name: eventestimatefees
+      operations:
+      - method: POST
+        name: eventestimatefees
+        description: Lago Estimate fees for a pay in advance charge
+        call: lago.eventestimatefees
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /events/{transaction_id}
+      name: findevent
+      operations:
+      - method: GET
+        name: findevent
+        description: Lago Retrieve a specific event
+        call: lago.findevent
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fees
+      name: findallfees
+      operations:
+      - method: GET
+        name: findallfees
+        description: Lago List all fees
+        call: lago.findallfees
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fees/{lago_id}
+      name: findfee
+      operations:
+      - method: GET
+        name: findfee
+        description: Lago Retrieve a specific fee
+        call: lago.findfee
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fees/{lago_id}
+      name: updatefee
+      operations:
+      - method: PUT
+        name: updatefee
+        description: Lago Update a fee
+        call: lago.updatefee
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fees/{lago_id}
+      name: deletefee
+      operations:
+      - method: DELETE
+        name: deletefee
+        description: Lago Delete a fee
+        call: lago.deletefee
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices
+      name: createinvoice
+      operations:
+      - method: POST
+        name: createinvoice
+        description: Lago Create a one-off invoice
+        call: lago.createinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices
+      name: findallinvoices
+      operations:
+      - method: GET
+        name: findallinvoices
+        description: Lago List all invoices
+        call: lago.findallinvoices
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}
+      name: updateinvoice
+      operations:
+      - method: PUT
+        name: updateinvoice
+        description: Lago Update an invoice
+        call: lago.updateinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}
+      name: findinvoice
+      operations:
+      - method: GET
+        name: findinvoice
+        description: Lago Retrieve an invoice
+        call: lago.findinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/download
+      name: downloadinvoice
+      operations:
+      - method: POST
+        name: downloadinvoice
+        description: Lago Download an invoice PDF
+        call: lago.downloadinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/finalize
+      name: finalizeinvoice
+      operations:
+      - method: PUT
+        name: finalizeinvoice
+        description: Lago Finalize a draft invoice
+        call: lago.finalizeinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/lose_dispute
+      name: losedisputeinvoice
+      operations:
+      - method: POST
+        name: losedisputeinvoice
+        description: Lago Mark an invoice payment dispute as lost
+        call: lago.losedisputeinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/refresh
+      name: refreshinvoice
+      operations:
+      - method: PUT
+        name: refreshinvoice
+        description: Lago Refresh a draft invoice
+        call: lago.refreshinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/retry
+      name: retryinvoice
+      operations:
+      - method: POST
+        name: retryinvoice
+        description: Lago Retry generation of a failed invoice
+        call: lago.retryinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/payment_url
+      name: invoicepaymenturl
+      operations:
+      - method: POST
+        name: invoicepaymenturl
+        description: Lago Generate a payment URL
+        call: lago.invoicepaymenturl
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/retry_payment
+      name: retrypayment
+      operations:
+      - method: POST
+        name: retrypayment
+        description: Lago Retry an invoice payment
+        call: lago.retrypayment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /invoices/{lago_id}/void
+      name: voidinvoice
+      operations:
+      - method: POST
+        name: voidinvoice
+        description: Lago Void an invoice
+        call: lago.voidinvoice
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: lago-mcp
+    transport: http
+    description: MCP adapter for Lago API documentation for AI agent use.
+    tools:
+    - name: createaddon
+      description: Lago Create an add-on
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createaddon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findalladdons
+      description: Lago List all add-ons
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findalladdons
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateaddon
+      description: Lago Update an add-on
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updateaddon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findaddon
+      description: Lago Retrieve an add-on
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findaddon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroyaddon
+      description: Lago Delete an add-on
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.destroyaddon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallgrossrevenues
+      description: Lago List gross revenue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallgrossrevenues
+      with:
+        currency: tools.currency
+        external_customer_id: tools.external_customer_id
+      inputParameters:
+      - name: currency
+        type: string
+        description: Currency of revenue analytics. Format must be ISO 4217.
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application). Use it to filter revenue
+          analytics at the customer level.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallinvoicecollections
+      description: Lago List of finalized invoices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallinvoicecollections
+      with:
+        currency: tools.currency
+      inputParameters:
+      - name: currency
+        type: string
+        description: The currency of revenue analytics. Format must be ISO 4217.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallinvoicedusages
+      description: Lago List usage revenue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallinvoicedusages
+      with:
+        currency: tools.currency
+      inputParameters:
+      - name: currency
+        type: string
+        description: The currency of invoiced usage analytics. Format must be ISO 4217.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallmrrs
+      description: Lago List MRR
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallmrrs
+      with:
+        currency: tools.currency
+      inputParameters:
+      - name: currency
+        type: string
+        description: Quantifies the revenue generated from `subscription` fees on a monthly basis. This figure is calculated
+          post-application of applicable taxes and deduction of an
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findalloverduebalances
+      description: Lago List overdue balance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findalloverduebalances
+      with:
+        currency: tools.currency
+        external_customer_id: tools.external_customer_id
+      inputParameters:
+      - name: currency
+        type: string
+        description: Currency of revenue analytics. Format must be ISO 4217.
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application). Use it to filter revenue
+          analytics at the customer level.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: applycoupon
+      description: Lago Apply a coupon to a customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.applycoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallappliedcoupons
+      description: Lago List all applied coupons
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallappliedcoupons
+      with:
+        status: tools.status
+        external_customer_id: tools.external_customer_id
+      inputParameters:
+      - name: status
+        type: string
+        description: The status of the coupon. Can be either `active` or `terminated`.
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application)
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createbillablemetric
+      description: Lago Create a billable metric
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createbillablemetric
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallbillablemetrics
+      description: Lago List all billable metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallbillablemetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: evaluatebillablemetricexpression
+      description: Lago Evaluate an expression for a billable metric
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.evaluatebillablemetricexpression
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatebillablemetric
+      description: Lago Update a billable metric
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updatebillablemetric
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroybillablemetric
+      description: Lago Delete a billable metric
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.destroybillablemetric
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findbillablemetric
+      description: Lago Retrieve a billable metric
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findbillablemetric
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcoupon
+      description: Lago Create a coupon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createcoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallcoupons
+      description: Lago List all coupons
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallcoupons
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecoupon
+      description: Lago Update a coupon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updatecoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findcoupon
+      description: Lago Retrieve a coupon
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findcoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroycoupon
+      description: Lago Delete a coupon
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.destroycoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcreditnote
+      description: Lago Create a credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createcreditnote
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallcreditnotes
+      description: Lago List all credit notes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallcreditnotes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecreditnote
+      description: Lago Update a credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updatecreditnote
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findcreditnote
+      description: Lago Retrieve a credit note
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findcreditnote
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: downloadcreditnote
+      description: Lago Download a credit note PDF
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.downloadcreditnote
+      with:
+        lago_id: tools.lago_id
+      inputParameters:
+      - name: lago_id
+        type: string
+        description: The credit note unique identifier, created by Lago.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: estimatecreditnote
+      description: Lago Estimate amounts for a new credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.estimatecreditnote
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: voidcreditnote
+      description: Lago Void available credit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.voidcreditnote
+      with:
+        lago_id: tools.lago_id
+      inputParameters:
+      - name: lago_id
+        type: string
+        description: The credit note unique identifier, created by Lago.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcustomer
+      description: Lago Create a customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallcustomers
+      description: Lago List all customers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallcustomers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findcustomer
+      description: Lago Retrieve a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroycustomer
+      description: Lago Delete a customer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.destroycustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteappliedcoupon
+      description: Lago Delete an applied coupon
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.deleteappliedcoupon
+      with:
+        external_customer_id: tools.external_customer_id
+        applied_coupon_id: tools.applied_coupon_id
+      inputParameters:
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application)
+        required: true
+      - name: applied_coupon_id
+        type: string
+        description: Unique identifier of the applied coupon, created by Lago.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcustomerportalurl
+      description: Lago Get a customer portal URL
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.getcustomerportalurl
+      with:
+        external_customer_id: tools.external_customer_id
+      inputParameters:
+      - name: external_customer_id
+        type: string
+        description: External ID of the existing customer
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findcustomercurrentusage
+      description: Lago Retrieve customer current usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findcustomercurrentusage
+      with:
+        external_customer_id: tools.external_customer_id
+        external_subscription_id: tools.external_subscription_id
+      inputParameters:
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application).
+        required: true
+      - name: external_subscription_id
+        type: string
+        description: The unique identifier of the subscription within your application.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallcustomerpastusage
+      description: Lago Retrieve customer past usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallcustomerpastusage
+      with:
+        external_customer_id: tools.external_customer_id
+        external_subscription_id: tools.external_subscription_id
+        billable_metric_code: tools.billable_metric_code
+        periods_count: tools.periods_count
+      inputParameters:
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application).
+        required: true
+      - name: external_subscription_id
+        type: string
+        description: The unique identifier of the subscription within your application.
+        required: true
+      - name: billable_metric_code
+        type: string
+        description: Billable metric code filter to apply to the charge usage
+      - name: periods_count
+        type: integer
+        description: Number of past billing period to returns in the result
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generatecustomercheckouturl
+      description: Lago Generate a Customer Payment Provider Checkout URL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.generatecustomercheckouturl
+      with:
+        external_customer_id: tools.external_customer_id
+      inputParameters:
+      - name: external_customer_id
+        type: string
+        description: The customer external unique identifier (provided by your own application).
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createevent
+      description: Lago Send usage events
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createevent
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallevents
+      description: Lago List all events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallevents
+      with:
+        code: tools.code
+        timestamp_from: tools.timestamp_from
+        timestamp_to: tools.timestamp_to
+      inputParameters:
+      - name: code
+        type: string
+        description: Filter events by its code.
+      - name: timestamp_from
+        type: string
+        description: Filter events by timestamp starting from a specific date.
+      - name: timestamp_to
+        type: string
+        description: Filter events by timestamp up to a specific date.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createbatchevents
+      description: Lago Batch multiple events
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createbatchevents
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: eventestimatefees
+      description: Lago Estimate fees for a pay in advance charge
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.eventestimatefees
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findevent
+      description: Lago Retrieve a specific event
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findevent
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallfees
+      description: Lago List all fees
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallfees
+      with:
+        currency: tools.currency
+        fee_type: tools.fee_type
+        billable_metric_code: tools.billable_metric_code
+        payment_status: tools.payment_status
+        created_at_from: tools.created_at_from
+        created_at_to: tools.created_at_to
+        succeeded_at_from: tools.succeeded_at_from
+        succeeded_at_to: tools.succeeded_at_to
+        failed_at_from: tools.failed_at_from
+        failed_at_to: tools.failed_at_to
+        refunded_at_from: tools.refunded_at_from
+        refunded_at_to: tools.refunded_at_to
+      inputParameters:
+      - name: currency
+        type: string
+        description: Filter results by fee's currency.
+      - name: fee_type
+        type: string
+        description: The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`.
+      - name: billable_metric_code
+        type: string
+        description: Filter results by the `code` of the billable metric attached to the fee. Only applies to `charge` types.
+      - name: payment_status
+        type: string
+        description: Indicates the payment status of the fee. It represents the current status of the payment associated with
+          the fee. The possible values for this field are `pendin
+      - name: created_at_from
+        type: string
+        description: Filter results created after creation date and time in UTC.
+      - name: created_at_to
+        type: string
+        description: Filter results created before creation date and time in UTC.
+      - name: succeeded_at_from
+        type: string
+        description: Filter results with payment success after creation date and time in UTC.
+      - name: succeeded_at_to
+        type: string
+        description: Filter results with payment success after creation date and time in UTC.
+      - name: failed_at_from
+        type: string
+        description: Filter results with payment failure after creation date and time in UTC.
+      - name: failed_at_to
+        type: string
+        description: Filter results with payment failure after creation date and time in UTC.
+      - name: refunded_at_from
+        type: string
+        description: Filter results with payment refund after creation date and time in UTC.
+      - name: refunded_at_to
+        type: string
+        description: Filter results with payment refund after creation date and time in UTC.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findfee
+      description: Lago Retrieve a specific fee
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findfee
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatefee
+      description: Lago Update a fee
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updatefee
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefee
+      description: Lago Delete a fee
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago.deletefee
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createinvoice
+      description: Lago Create a one-off invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.createinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findallinvoices
+      description: Lago List all invoices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findallinvoices
+      with:
+        issuing_date_from: tools.issuing_date_from
+        issuing_date_to: tools.issuing_date_to
+        status: tools.status
+        payment_status: tools.payment_status
+        payment_overdue: tools.payment_overdue
+        search_term: tools.search_term
+        currency: tools.currency
+        payment_dispute_lost: tools.payment_dispute_lost
+        invoice_type: tools.invoice_type
+      inputParameters:
+      - name: issuing_date_from
+        type: string
+        description: Filter invoices starting from a specific date.
+      - name: issuing_date_to
+        type: string
+        description: Filter invoices up to a specific date.
+      - name: status
+        type: string
+        description: Filter invoices by status. Possible values are `draft` or `finalized`.
+      - name: payment_status
+        type: string
+        description: Filter invoices by payment status. Possible values are `pending`, `failed` or `succeeded`.
+      - name: payment_overdue
+        type: boolean
+        description: Filter invoices by payment_overdue. Possible values are `true` or `false`.
+      - name: search_term
+        type: string
+        description: Search invoices by id, number, customer name, customer external_id or customer email.
+      - name: currency
+        type: string
+        description: Filter invoices by currency in. Possible values ISO 4217 currency codes.
+      - name: payment_dispute_lost
+        type: boolean
+        description: Filter invoices with a payment dispute lost. Possible values are `true` or `false`.
+      - name: invoice_type
+        type: string
+        description: Filter invoices by invoice type. Possible values are `subscription`, `add_on`, `credit`, `one_off` or
+          `advance_charges`
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateinvoice
+      description: Lago Update an invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.updateinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: findinvoice
+      description: Lago Retrieve an invoice
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago.findinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: downloadinvoice
+      description: Lago Download an invoice PDF
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.downloadinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: finalizeinvoice
+      description: Lago Finalize a draft invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.finalizeinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: losedisputeinvoice
+      description: Lago Mark an invoice payment dispute as lost
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.losedisputeinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: refreshinvoice
+      description: Lago Refresh a draft invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago.refreshinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retryinvoice
+      description: Lago Retry generation of a failed invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.retryinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invoicepaymenturl
+      description: Lago Generate a payment URL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.invoicepaymenturl
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrypayment
+      description: Lago Retry an invoice payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.retrypayment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: voidinvoice
+      description: Lago Void an invoice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago.voidinvoice
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    LAGO_TOKEN: LAGO_TOKEN
