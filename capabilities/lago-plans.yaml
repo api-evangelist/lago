@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Plans
+  description: 'Lago API documentation — Plans. 5 operations. Lead operation: Lago Create a plan. Self-contained Naftiko capability
+    covering one Lago business surface.'
+  tags:
+  - Lago
+  - Plans
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-plans
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Plans business capability. Self-contained, no shared references.
+    resources:
+    - name: plans
+      path: /plans
+      operations:
+      - name: createplan
+        method: POST
+        description: Lago Create a plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findallplans
+        method: GET
+        description: Lago List all plans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: plans-code
+      path: /plans/{code}
+      operations:
+      - name: updateplan
+        method: PUT
+        description: Lago Update a plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findplan
+        method: GET
+        description: Lago Retrieve a plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroyplan
+        method: DELETE
+        description: Lago Delete a plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-plans-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Plans. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/plans
+      name: plans
+      description: REST surface for plans.
+      operations:
+      - method: POST
+        name: createplan
+        description: Lago Create a plan
+        call: lago-plans.createplan
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findallplans
+        description: Lago List all plans
+        call: lago-plans.findallplans
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/plans/{code}
+      name: plans-code
+      description: REST surface for plans-code.
+      operations:
+      - method: PUT
+        name: updateplan
+        description: Lago Update a plan
+        call: lago-plans.updateplan
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findplan
+        description: Lago Retrieve a plan
+        call: lago-plans.findplan
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: destroyplan
+        description: Lago Delete a plan
+        call: lago-plans.destroyplan
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-plans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Plans. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: lago-create-plan
+      description: Lago Create a plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-plans.createplan
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-list-all-plans
+      description: Lago List all plans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-plans.findallplans
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-update-plan
+      description: Lago Update a plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-plans.updateplan
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-plan
+      description: Lago Retrieve a plan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-plans.findplan
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-plan
+      description: Lago Delete a plan
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-plans.destroyplan
+      outputParameters:
+      - type: object
+        mapping: $.

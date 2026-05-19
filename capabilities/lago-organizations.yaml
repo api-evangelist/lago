@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Organizations
+  description: 'Lago API documentation — Organizations. 1 operations. Lead operation: Lago Update your organization. Self-contained
+    Naftiko capability covering one Lago business surface.'
+  tags:
+  - Lago
+  - Organizations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-organizations
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Organizations business capability. Self-contained, no shared references.
+    resources:
+    - name: organizations
+      path: /organizations
+      operations:
+      - name: updateorganization
+        method: PUT
+        description: Lago Update your organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-organizations-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Organizations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/organizations
+      name: organizations
+      description: REST surface for organizations.
+      operations:
+      - method: PUT
+        name: updateorganization
+        description: Lago Update your organization
+        call: lago-organizations.updateorganization
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Organizations. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: lago-update-your-organization
+      description: Lago Update your organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-organizations.updateorganization
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

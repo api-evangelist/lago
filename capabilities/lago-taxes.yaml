@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Taxes
+  description: 'Lago API documentation — Taxes. 5 operations. Lead operation: Lago Create a tax. Self-contained Naftiko capability
+    covering one Lago business surface.'
+  tags:
+  - Lago
+  - Taxes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-taxes
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Taxes business capability. Self-contained, no shared references.
+    resources:
+    - name: taxes
+      path: /taxes
+      operations:
+      - name: createtax
+        method: POST
+        description: Lago Create a tax
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findalltaxes
+        method: GET
+        description: Lago List all taxes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: taxes-code
+      path: /taxes/{code}
+      operations:
+      - name: updatetax
+        method: PUT
+        description: Lago Update a tax
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findtax
+        method: GET
+        description: Lago Retrieve a Tax
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroytax
+        method: DELETE
+        description: Lago Delete a tax
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-taxes-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Taxes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/taxes
+      name: taxes
+      description: REST surface for taxes.
+      operations:
+      - method: POST
+        name: createtax
+        description: Lago Create a tax
+        call: lago-taxes.createtax
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findalltaxes
+        description: Lago List all taxes
+        call: lago-taxes.findalltaxes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/taxes/{code}
+      name: taxes-code
+      description: REST surface for taxes-code.
+      operations:
+      - method: PUT
+        name: updatetax
+        description: Lago Update a tax
+        call: lago-taxes.updatetax
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findtax
+        description: Lago Retrieve a Tax
+        call: lago-taxes.findtax
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: destroytax
+        description: Lago Delete a tax
+        call: lago-taxes.destroytax
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-taxes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Taxes. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: lago-create-tax
+      description: Lago Create a tax
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-taxes.createtax
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-list-all-taxes
+      description: Lago List all taxes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-taxes.findalltaxes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-update-tax
+      description: Lago Update a tax
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-taxes.updatetax
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-tax
+      description: Lago Retrieve a Tax
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-taxes.findtax
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-tax
+      description: Lago Delete a tax
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-taxes.destroytax
+      outputParameters:
+      - type: object
+        mapping: $.

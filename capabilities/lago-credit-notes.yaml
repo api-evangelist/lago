@@ -1,0 +1,298 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Credit_notes
+  description: 'Lago API documentation — Credit_notes. 7 operations. Lead operation: Lago Create a credit note. Self-contained
+    Naftiko capability covering one Lago business surface.'
+  tags:
+  - Lago
+  - Credit_notes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-credit-notes
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Credit_notes business capability. Self-contained, no shared references.
+    resources:
+    - name: credit_notes
+      path: /credit_notes
+      operations:
+      - name: createcreditnote
+        method: POST
+        description: Lago Create a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findallcreditnotes
+        method: GET
+        description: Lago List all credit notes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit_notes-estimate
+      path: /credit_notes/estimate
+      operations:
+      - name: estimatecreditnote
+        method: POST
+        description: Lago Estimate amounts for a new credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: credit_notes-lago_id
+      path: /credit_notes/{lago_id}
+      operations:
+      - name: updatecreditnote
+        method: PUT
+        description: Lago Update a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findcreditnote
+        method: GET
+        description: Lago Retrieve a credit note
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: credit_notes-lago_id-download
+      path: /credit_notes/{lago_id}/download
+      operations:
+      - name: downloadcreditnote
+        method: POST
+        description: Lago Download a credit note PDF
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: lago_id
+          in: path
+          type: string
+          description: The credit note unique identifier, created by Lago.
+          required: true
+    - name: credit_notes-lago_id-void
+      path: /credit_notes/{lago_id}/void
+      operations:
+      - name: voidcreditnote
+        method: PUT
+        description: Lago Void available credit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: lago_id
+          in: path
+          type: string
+          description: The credit note unique identifier, created by Lago.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-credit-notes-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Credit_notes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/credit-notes
+      name: credit-notes
+      description: REST surface for credit_notes.
+      operations:
+      - method: POST
+        name: createcreditnote
+        description: Lago Create a credit note
+        call: lago-credit-notes.createcreditnote
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findallcreditnotes
+        description: Lago List all credit notes
+        call: lago-credit-notes.findallcreditnotes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/credit-notes/estimate
+      name: credit-notes-estimate
+      description: REST surface for credit_notes-estimate.
+      operations:
+      - method: POST
+        name: estimatecreditnote
+        description: Lago Estimate amounts for a new credit note
+        call: lago-credit-notes.estimatecreditnote
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/credit-notes/{lago-id}
+      name: credit-notes-lago-id
+      description: REST surface for credit_notes-lago_id.
+      operations:
+      - method: PUT
+        name: updatecreditnote
+        description: Lago Update a credit note
+        call: lago-credit-notes.updatecreditnote
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findcreditnote
+        description: Lago Retrieve a credit note
+        call: lago-credit-notes.findcreditnote
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/credit-notes/{lago-id}/download
+      name: credit-notes-lago-id-download
+      description: REST surface for credit_notes-lago_id-download.
+      operations:
+      - method: POST
+        name: downloadcreditnote
+        description: Lago Download a credit note PDF
+        call: lago-credit-notes.downloadcreditnote
+        with:
+          lago_id: rest.lago_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/credit-notes/{lago-id}/void
+      name: credit-notes-lago-id-void
+      description: REST surface for credit_notes-lago_id-void.
+      operations:
+      - method: PUT
+        name: voidcreditnote
+        description: Lago Void available credit
+        call: lago-credit-notes.voidcreditnote
+        with:
+          lago_id: rest.lago_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-credit-notes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Credit_notes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: lago-create-credit-note
+      description: Lago Create a credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-credit-notes.createcreditnote
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-list-all-credit-notes
+      description: Lago List all credit notes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-credit-notes.findallcreditnotes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-estimate-amounts-new-credit
+      description: Lago Estimate amounts for a new credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-credit-notes.estimatecreditnote
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-update-credit-note
+      description: Lago Update a credit note
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-credit-notes.updatecreditnote
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-credit-note
+      description: Lago Retrieve a credit note
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-credit-notes.findcreditnote
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-download-credit-note-pdf
+      description: Lago Download a credit note PDF
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-credit-notes.downloadcreditnote
+      with:
+        lago_id: tools.lago_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-void-available-credit
+      description: Lago Void available credit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-credit-notes.voidcreditnote
+      with:
+        lago_id: tools.lago_id
+      outputParameters:
+      - type: object
+        mapping: $.

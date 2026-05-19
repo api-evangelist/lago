@@ -1,0 +1,238 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Fees
+  description: 'Lago API documentation — Fees. 4 operations. Lead operation: Lago List all fees. Self-contained Naftiko capability
+    covering one Lago business surface.'
+  tags:
+  - Lago
+  - Fees
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-fees
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Fees business capability. Self-contained, no shared references.
+    resources:
+    - name: fees
+      path: /fees
+      operations:
+      - name: findallfees
+        method: GET
+        description: Lago List all fees
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Filter results by fee's currency.
+        - name: fee_type
+          in: query
+          type: string
+          description: The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`.
+        - name: billable_metric_code
+          in: query
+          type: string
+          description: Filter results by the `code` of the billable metric attached to the fee. Only applies to `charge` types.
+        - name: payment_status
+          in: query
+          type: string
+          description: Indicates the payment status of the fee. It represents the current status of the payment associated
+            with the fee. The possible values for this field are `pendin
+        - name: created_at_from
+          in: query
+          type: string
+          description: Filter results created after creation date and time in UTC.
+        - name: created_at_to
+          in: query
+          type: string
+          description: Filter results created before creation date and time in UTC.
+        - name: succeeded_at_from
+          in: query
+          type: string
+          description: Filter results with payment success after creation date and time in UTC.
+        - name: succeeded_at_to
+          in: query
+          type: string
+          description: Filter results with payment success after creation date and time in UTC.
+        - name: failed_at_from
+          in: query
+          type: string
+          description: Filter results with payment failure after creation date and time in UTC.
+        - name: failed_at_to
+          in: query
+          type: string
+          description: Filter results with payment failure after creation date and time in UTC.
+        - name: refunded_at_from
+          in: query
+          type: string
+          description: Filter results with payment refund after creation date and time in UTC.
+        - name: refunded_at_to
+          in: query
+          type: string
+          description: Filter results with payment refund after creation date and time in UTC.
+    - name: fees-lago_id
+      path: /fees/{lago_id}
+      operations:
+      - name: findfee
+        method: GET
+        description: Lago Retrieve a specific fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefee
+        method: PUT
+        description: Lago Update a fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletefee
+        method: DELETE
+        description: Lago Delete a fee
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-fees-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Fees. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/fees
+      name: fees
+      description: REST surface for fees.
+      operations:
+      - method: GET
+        name: findallfees
+        description: Lago List all fees
+        call: lago-fees.findallfees
+        with:
+          currency: rest.currency
+          fee_type: rest.fee_type
+          billable_metric_code: rest.billable_metric_code
+          payment_status: rest.payment_status
+          created_at_from: rest.created_at_from
+          created_at_to: rest.created_at_to
+          succeeded_at_from: rest.succeeded_at_from
+          succeeded_at_to: rest.succeeded_at_to
+          failed_at_from: rest.failed_at_from
+          failed_at_to: rest.failed_at_to
+          refunded_at_from: rest.refunded_at_from
+          refunded_at_to: rest.refunded_at_to
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fees/{lago-id}
+      name: fees-lago-id
+      description: REST surface for fees-lago_id.
+      operations:
+      - method: GET
+        name: findfee
+        description: Lago Retrieve a specific fee
+        call: lago-fees.findfee
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatefee
+        description: Lago Update a fee
+        call: lago-fees.updatefee
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefee
+        description: Lago Delete a fee
+        call: lago-fees.deletefee
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-fees-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Fees. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: lago-list-all-fees
+      description: Lago List all fees
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-fees.findallfees
+      with:
+        currency: tools.currency
+        fee_type: tools.fee_type
+        billable_metric_code: tools.billable_metric_code
+        payment_status: tools.payment_status
+        created_at_from: tools.created_at_from
+        created_at_to: tools.created_at_to
+        succeeded_at_from: tools.succeeded_at_from
+        succeeded_at_to: tools.succeeded_at_to
+        failed_at_from: tools.failed_at_from
+        failed_at_to: tools.failed_at_to
+        refunded_at_from: tools.refunded_at_from
+        refunded_at_to: tools.refunded_at_to
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-specific-fee
+      description: Lago Retrieve a specific fee
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-fees.findfee
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-update-fee
+      description: Lago Update a fee
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-fees.updatefee
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-fee
+      description: Lago Delete a fee
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-fees.deletefee
+      outputParameters:
+      - type: object
+        mapping: $.

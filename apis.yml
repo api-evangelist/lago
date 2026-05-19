@@ -1,48 +1,81 @@
 aid: lago
 name: Lago
-description: >-
-  Lago offers a self-hosted and cloud, scalable and modular architecture for
-  metering and usage-based billing, at every stage of your company.
+description: Lago offers a self-hosted and cloud, scalable and modular architecture for metering and usage-based billing,
+  at every stage of your company.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Billing
-  - Metering
-  - Open Source
-  - Usage-Based
+- Billing
+- Metering
+- Open Source
+- Usage-Based
 url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml
 created: '2024-07-02'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: lago:lago-api
-    name: Lago API
-    description: >-
-      Lago's API for metering and usage-based billing, providing programmatic
-      access to customers, subscriptions, events, and invoices.
-    humanURL: https://getlago.com/
-    tags:
-      - Billing
-      - Metering
-      - Usage-Based
-    properties:
-      - type: Documentation
-        url: https://doc.getlago.com/
-      - type: GettingStarted
-        url: https://doc.getlago.com/docs/introduction
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml
-common:
-  - type: Website
-    url: https://getlago.com/
+- aid: lago:lago-api
+  name: Lago API
+  description: Lago's API for metering and usage-based billing, providing programmatic access to customers, subscriptions,
+    events, and invoices.
+  humanURL: https://getlago.com/
+  tags:
+  - Billing
+  - Metering
+  - Usage-Based
+  properties:
   - type: Documentation
     url: https://doc.getlago.com/
-  - type: GitHubOrganization
-    url: https://github.com/getlago/lago
-  - name: Agent Skills
-    url: https://github.com/getlago/inside-lago-voice-skill
-    type: AgentSkill
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml
+  - type: NaftikoCapability
+    url: capabilities/lago-add-ons.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-analytics.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-billable-metrics.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-coupons.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-credit-notes.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-customers.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-events.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-fees.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-invoices.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-organizations.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-payment-requests.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-plans.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-subscriptions.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-taxes.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-wallets.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-webhook-endpoints.yaml
+  - type: NaftikoCapability
+    url: capabilities/lago-webhooks.yaml
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/getlago
+- type: Website
+  url: https://getlago.com/
+- type: Documentation
+  url: https://doc.getlago.com/
+- type: GitHubOrganization
+  url: https://github.com/getlago/lago
+- name: Agent Skills
+  url: https://github.com/getlago/inside-lago-voice-skill
+  type: AgentSkill
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Add_ons
+  description: 'Lago API documentation — Add_ons. 5 operations. Lead operation: Lago Create an add-on. Self-contained Naftiko
+    capability covering one Lago business surface.'
+  tags:
+  - Lago
+  - Add_ons
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-add-ons
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Add_ons business capability. Self-contained, no shared references.
+    resources:
+    - name: add_ons
+      path: /add_ons
+      operations:
+      - name: createaddon
+        method: POST
+        description: Lago Create an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findalladdons
+        method: GET
+        description: Lago List all add-ons
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: add_ons-code
+      path: /add_ons/{code}
+      operations:
+      - name: updateaddon
+        method: PUT
+        description: Lago Update an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findaddon
+        method: GET
+        description: Lago Retrieve an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroyaddon
+        method: DELETE
+        description: Lago Delete an add-on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-add-ons-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Add_ons. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/add-ons
+      name: add-ons
+      description: REST surface for add_ons.
+      operations:
+      - method: POST
+        name: createaddon
+        description: Lago Create an add-on
+        call: lago-add-ons.createaddon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findalladdons
+        description: Lago List all add-ons
+        call: lago-add-ons.findalladdons
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/add-ons/{code}
+      name: add-ons-code
+      description: REST surface for add_ons-code.
+      operations:
+      - method: PUT
+        name: updateaddon
+        description: Lago Update an add-on
+        call: lago-add-ons.updateaddon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findaddon
+        description: Lago Retrieve an add-on
+        call: lago-add-ons.findaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: destroyaddon
+        description: Lago Delete an add-on
+        call: lago-add-ons.destroyaddon
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-add-ons-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Add_ons. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: lago-create-add
+      description: Lago Create an add-on
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-add-ons.createaddon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-list-all-add-ons
+      description: Lago List all add-ons
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-add-ons.findalladdons
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-update-add
+      description: Lago Update an add-on
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: lago-add-ons.updateaddon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-add
+      description: Lago Retrieve an add-on
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-add-ons.findaddon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-add
+      description: Lago Delete an add-on
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-add-ons.destroyaddon
+      outputParameters:
+      - type: object
+        mapping: $.

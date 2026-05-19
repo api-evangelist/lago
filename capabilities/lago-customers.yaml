@@ -1,0 +1,405 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lago API documentation — Customers
+  description: 'Lago API documentation — Customers. 9 operations. Lead operation: Lago Create a customer. Self-contained Naftiko
+    capability covering one Lago business surface.'
+  tags:
+  - Lago
+  - Customers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LAGO_API_KEY: LAGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lago-customers
+    baseUri: https://api.getlago.com/api/v1
+    description: Lago API documentation — Customers business capability. Self-contained, no shared references.
+    resources:
+    - name: customers
+      path: /customers
+      operations:
+      - name: createcustomer
+        method: POST
+        description: Lago Create a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: findallcustomers
+        method: GET
+        description: Lago List all customers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: customers-external_customer_id-applied_coupons-applied_coupon_id
+      path: /customers/{external_customer_id}/applied_coupons/{applied_coupon_id}
+      operations:
+      - name: deleteappliedcoupon
+        method: DELETE
+        description: Lago Delete an applied coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          description: The customer external unique identifier (provided by your own application)
+          required: true
+        - name: applied_coupon_id
+          in: path
+          type: string
+          description: Unique identifier of the applied coupon, created by Lago.
+          required: true
+    - name: customers-external_customer_id-checkout_url
+      path: /customers/{external_customer_id}/checkout_url
+      operations:
+      - name: generatecustomercheckouturl
+        method: POST
+        description: Lago Generate a Customer Payment Provider Checkout URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          description: The customer external unique identifier (provided by your own application).
+          required: true
+    - name: customers-external_customer_id-current_usage
+      path: /customers/{external_customer_id}/current_usage
+      operations:
+      - name: findcustomercurrentusage
+        method: GET
+        description: Lago Retrieve customer current usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          description: The customer external unique identifier (provided by your own application).
+          required: true
+        - name: external_subscription_id
+          in: query
+          type: string
+          description: The unique identifier of the subscription within your application.
+          required: true
+    - name: customers-external_customer_id-past_usage
+      path: /customers/{external_customer_id}/past_usage
+      operations:
+      - name: findallcustomerpastusage
+        method: GET
+        description: Lago Retrieve customer past usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          description: The customer external unique identifier (provided by your own application).
+          required: true
+        - name: external_subscription_id
+          in: query
+          type: string
+          description: The unique identifier of the subscription within your application.
+          required: true
+        - name: billable_metric_code
+          in: query
+          type: string
+          description: Billable metric code filter to apply to the charge usage
+        - name: periods_count
+          in: query
+          type: integer
+          description: Number of past billing period to returns in the result
+    - name: customers-external_customer_id-portal_url
+      path: /customers/{external_customer_id}/portal_url
+      operations:
+      - name: getcustomerportalurl
+        method: GET
+        description: Lago Get a customer portal URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: external_customer_id
+          in: path
+          type: string
+          description: External ID of the existing customer
+          required: true
+    - name: customers-external_id
+      path: /customers/{external_id}
+      operations:
+      - name: findcustomer
+        method: GET
+        description: Lago Retrieve a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: destroycustomer
+        method: DELETE
+        description: Lago Delete a customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LAGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: lago-customers-rest
+    port: 8080
+    description: REST adapter for Lago API documentation — Customers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/customers
+      name: customers
+      description: REST surface for customers.
+      operations:
+      - method: POST
+        name: createcustomer
+        description: Lago Create a customer
+        call: lago-customers.createcustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: findallcustomers
+        description: Lago List all customers
+        call: lago-customers.findallcustomers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-customer-id}/applied-coupons/{applied-coupon-id}
+      name: customers-external-customer-id-applied-coupons-applied-coupon-id
+      description: REST surface for customers-external_customer_id-applied_coupons-applied_coupon_id.
+      operations:
+      - method: DELETE
+        name: deleteappliedcoupon
+        description: Lago Delete an applied coupon
+        call: lago-customers.deleteappliedcoupon
+        with:
+          external_customer_id: rest.external_customer_id
+          applied_coupon_id: rest.applied_coupon_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-customer-id}/checkout-url
+      name: customers-external-customer-id-checkout-url
+      description: REST surface for customers-external_customer_id-checkout_url.
+      operations:
+      - method: POST
+        name: generatecustomercheckouturl
+        description: Lago Generate a Customer Payment Provider Checkout URL
+        call: lago-customers.generatecustomercheckouturl
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-customer-id}/current-usage
+      name: customers-external-customer-id-current-usage
+      description: REST surface for customers-external_customer_id-current_usage.
+      operations:
+      - method: GET
+        name: findcustomercurrentusage
+        description: Lago Retrieve customer current usage
+        call: lago-customers.findcustomercurrentusage
+        with:
+          external_customer_id: rest.external_customer_id
+          external_subscription_id: rest.external_subscription_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-customer-id}/past-usage
+      name: customers-external-customer-id-past-usage
+      description: REST surface for customers-external_customer_id-past_usage.
+      operations:
+      - method: GET
+        name: findallcustomerpastusage
+        description: Lago Retrieve customer past usage
+        call: lago-customers.findallcustomerpastusage
+        with:
+          external_customer_id: rest.external_customer_id
+          external_subscription_id: rest.external_subscription_id
+          billable_metric_code: rest.billable_metric_code
+          periods_count: rest.periods_count
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-customer-id}/portal-url
+      name: customers-external-customer-id-portal-url
+      description: REST surface for customers-external_customer_id-portal_url.
+      operations:
+      - method: GET
+        name: getcustomerportalurl
+        description: Lago Get a customer portal URL
+        call: lago-customers.getcustomerportalurl
+        with:
+          external_customer_id: rest.external_customer_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{external-id}
+      name: customers-external-id
+      description: REST surface for customers-external_id.
+      operations:
+      - method: GET
+        name: findcustomer
+        description: Lago Retrieve a customer
+        call: lago-customers.findcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: destroycustomer
+        description: Lago Delete a customer
+        call: lago-customers.destroycustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: lago-customers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Lago API documentation — Customers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: lago-create-customer
+      description: Lago Create a customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-customers.createcustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-list-all-customers
+      description: Lago List all customers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-customers.findallcustomers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-applied-coupon
+      description: Lago Delete an applied coupon
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-customers.deleteappliedcoupon
+      with:
+        external_customer_id: tools.external_customer_id
+        applied_coupon_id: tools.applied_coupon_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-generate-customer-payment-provider
+      description: Lago Generate a Customer Payment Provider Checkout URL
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: lago-customers.generatecustomercheckouturl
+      with:
+        external_customer_id: tools.external_customer_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-customer-current-usage
+      description: Lago Retrieve customer current usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-customers.findcustomercurrentusage
+      with:
+        external_customer_id: tools.external_customer_id
+        external_subscription_id: tools.external_subscription_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-customer-past-usage
+      description: Lago Retrieve customer past usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-customers.findallcustomerpastusage
+      with:
+        external_customer_id: tools.external_customer_id
+        external_subscription_id: tools.external_subscription_id
+        billable_metric_code: tools.billable_metric_code
+        periods_count: tools.periods_count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-get-customer-portal-url
+      description: Lago Get a customer portal URL
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-customers.getcustomerportalurl
+      with:
+        external_customer_id: tools.external_customer_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-retrieve-customer
+      description: Lago Retrieve a customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: lago-customers.findcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lago-delete-customer
+      description: Lago Delete a customer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: lago-customers.destroycustomer
+      outputParameters:
+      - type: object
+        mapping: $.
