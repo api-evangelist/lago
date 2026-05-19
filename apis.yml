@@ -12,7 +12,7 @@ tags:
   - Usage-Based
 url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml
 created: '2024-07-02'
-modified: '2026-04-28'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
   - aid: lago:lago-api
@@ -40,6 +40,9 @@ common:
     url: https://doc.getlago.com/
   - type: GitHubOrganization
     url: https://github.com/getlago/lago
+  - name: Agent Skills
+    url: https://github.com/getlago/inside-lago-voice-skill
+    type: AgentSkill
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
