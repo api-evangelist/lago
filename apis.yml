@@ -76,6 +76,8 @@ common:
 - name: Agent Skills
   url: https://github.com/getlago/inside-lago-voice-skill
   type: AgentSkill
+- type: LLMsTxt
+  url: https://getlago.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
