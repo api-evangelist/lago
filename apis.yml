@@ -43,8 +43,8 @@ common:
     url: https://github.com/getlago/lago
   - name: Agent Skills
     url: https://github.com/getlago/inside-lago-voice-skill
-    type: AgentSkill
-  - type: LLMsTxt
+    type: AgentSkills
+  - type: LlmsText
     url: https://getlago.com/llms.txt
 maintainers:
   - FN: Kin Lane
