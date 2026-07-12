@@ -33,6 +33,14 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml
 common:
+  - type: TrustCenter
+    url: security/lago-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/lago-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/lago-domain-security.yml
+  - type: Authentication
+    url: authentication/lago-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/getlago
   - type: Website
@@ -46,6 +54,8 @@ common:
     type: AgentSkills
   - type: LlmsText
     url: https://getlago.com/llms.txt
+  - url: https://getlago.com/blog
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
