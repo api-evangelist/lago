@@ -33,6 +33,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/lago-agentic-access.yml
   - type: TrustCenter
     url: security/lago-trust-center.yml
   - type: VulnerabilityDisclosure
