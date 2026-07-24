@@ -1,0 +1,629 @@
+openapi: 3.1.0
+info:
+  title: Lago API documentation Add_ons Billable_metrics API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.15.0
+  license:
+    name: AGPLv3
+    identifier: AGPLv3
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lagos cluster
+security:
+- bearerAuth: []
+tags:
+- name: Billable_metrics
+  description: Everything about Billable metric collection
+  externalDocs:
+    description: Find out more
+    url: https://doc.getlago.com/docs/api/billable_metrics/billable-metric-object
+paths:
+  /billable_metrics:
+    post:
+      tags:
+      - Billable_metrics
+      summary: Lago Create a billable metric
+      description: This endpoint creates a new billable metric representing a pricing component of your application.
+      operationId: createBillableMetric
+      requestBody:
+        description: Billable metric payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillableMetricCreateInput'
+        required: true
+      responses:
+        '200':
+          description: Billable metric created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetric'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Billable_metrics
+      summary: Lago List all billable metrics
+      description: This endpoint retrieves all existing billable metrics that represent pricing components of your application.
+      operationId: findAllBillableMetrics
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of billable metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetricsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /billable_metrics/evaluate_expression:
+    post:
+      tags:
+      - Billable_metrics
+      summary: Lago Evaluate an expression for a billable metric
+      description: Evaluate an expression for a billable metric creation by providing the expression and test data
+      operationId: evaluateBillableMetricExpression
+      requestBody:
+        description: Billable metric expression evaluation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillableMetricEvaluateExpressionInput'
+        required: true
+      responses:
+        '200':
+          description: Billable metric expression evaluation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetricEvaluateExpressionResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /billable_metrics/{code}:
+    parameters:
+    - name: code
+      in: path
+      description: Code of the existing billable metric.
+      required: true
+      schema:
+        type: string
+        example: storage
+    put:
+      tags:
+      - Billable_metrics
+      summary: Lago Update a billable metric
+      description: This endpoint updates an existing billable metric representing a pricing component of your application.
+      operationId: updateBillableMetric
+      requestBody:
+        description: Billable metric payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillableMetricUpdateInput'
+        required: true
+      responses:
+        '200':
+          description: Billable metric updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetric'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      tags:
+      - Billable_metrics
+      summary: Lago Delete a billable metric
+      description: This endpoint deletes an existing billable metric representing a pricing component of your application.
+      operationId: destroyBillableMetric
+      responses:
+        '200':
+          description: Billable metric deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetric'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags:
+      - Billable_metrics
+      summary: Lago Retrieve a billable metric
+      description: This endpoint retrieves an existing billable metric that represents a pricing component of your application. The billable metric is identified by its unique code.
+      operationId: findBillableMetric
+      responses:
+        '200':
+          description: Billable metric
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillableMetric'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    BillableMetricFilterInput:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      required:
+      - key
+      - values
+      properties:
+        key:
+          type: string
+          example: region
+          description: Filter key to add to the event properties payload
+        values:
+          type: array
+          items:
+            type: string
+            example: us-east-1
+          description: List of possible filter values
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    BillableMetricEvaluateExpressionInput:
+      type: object
+      required:
+      - expression
+      - event
+      properties:
+        expression:
+          type: string
+          example: round((ended_at - started_at) * units)
+          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
+
+            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
+
+            Round is accepting an optional second parameter to specify the number of decimal.
+
+            '
+        event:
+          type: object
+          required:
+          - code
+          - properties
+          properties:
+            code:
+              type: string
+              example: storage
+              description: The code that identifies a targeted billable metric.
+            timestamp:
+              anyOf:
+              - type: integer
+              - type: string
+              example: '1651240791'
+              description: 'This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC).
+
+                If this timestamp is not provided, the API will automatically set it to the time of event reception.
+
+                '
+            properties:
+              type: object
+              description: This field represents additional properties associated with the event. They can be used when evaluating the expression.
+              additionalProperties:
+                oneOf:
+                - type: string
+                - type: integer
+                - type: number
+              example:
+                gb: 10
+    BillableMetricBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Storage
+          description: Name of the billable metric.
+        code:
+          type: string
+          example: storage
+          description: Unique code used to identify the billable metric associated with the API request. This code associates each event with the correct metric.
+        description:
+          type: string
+          example: GB of storage used in my application
+          description: Internal description of the billable metric.
+          nullable: true
+        recurring:
+          type: boolean
+          example: false
+          description: 'Defines if the billable metric is persisted billing period over billing period.
+
+
+            - If set to `true`: the accumulated number of units calculated from the previous billing period is persisted to the next billing period.
+
+            - If set to `false`: the accumulated number of units is reset to 0 at the end of the billing period.
+
+            - If not defined in the request, default value is `false`.'
+        expression:
+          type: string
+          example: round((ended_at - started_at) * units)
+          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
+
+            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
+
+            Round is accepting an optional second parameter to specify the number of decimal.
+
+            '
+          nullable: true
+        rounding_function:
+          type: string
+          enum:
+          - ceil
+          - floor
+          - round
+          nullable: true
+          example: round
+          description: Refers to the numeric value or mathematical expression that will be rounded based on the calculated number of billing units. Possible values are `round`, `ceil` and `floor`.
+        rounding_precision:
+          type: integer
+          example: 2
+          nullable: true
+          description: Specifies the number of decimal places to which the `rounding_function` will be rounded. It can be a positive or negative value.
+        field_name:
+          type: string
+          example: gb
+          description: Property of the billable metric used for aggregating usage data. This field is not required for `count_agg`.
+          nullable: true
+        aggregation_type:
+          type: string
+          example: sum_agg
+          description: Aggregation method used to compute usage for this billable metric.
+          enum:
+          - count_agg
+          - sum_agg
+          - max_agg
+          - unique_count_agg
+          - weighted_sum_agg
+          - latest_agg
+        weighted_interval:
+          type: string
+          enum:
+          - seconds
+          nullable: true
+          example: seconds
+          description: Parameter exclusively utilized in conjunction with the `weighted_sum` aggregation type. It serves to adjust the aggregation result by assigning weights and proration to the result based on time intervals. When this field is not provided, the default time interval is assumed to be in `seconds`.
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillableMetricFilterInput'
+    BillableMetricEvaluateExpressionResult:
+      type: object
+      required:
+      - expression_result
+      properties:
+        expression_result:
+          type: object
+          required:
+          - value
+          properties:
+            value:
+              anyOf:
+              - type: string
+              - type: number
+              example: 1
+              description: Result of evaluating the expression
+    BillableMetric:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricObject'
+    BillableMetricsPaginated:
+      type: object
+      required:
+      - billable_metrics
+      - meta
+      properties:
+        billable_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillableMetricObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    BillableMetricCreateInput:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          allOf:
+          - $ref: '#/components/schemas/BillableMetricBaseInput'
+          - required:
+            - name
+            - code
+            - aggregation_type
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    BillableMetricFilterObject:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      required:
+      - key
+      - values
+      properties:
+        key:
+          type: string
+          example: region
+          description: Filter key to add to the event properties payload
+        values:
+          type: array
+          items:
+            type: string
+            example: us-east-1
+          description: List of possible filter values
+    BillableMetricUpdateInput:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricBaseInput'
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    BillableMetricObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - aggregation_type
+      - recurring
+      - created_at
+      - active_subscriptions_count
+      - draft_invoices_count
+      - plans_count
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier of the billable metric created by Lago.
+        name:
+          type: string
+          example: Storage
+          description: Name of the billable metric.
+        code:
+          type: string
+          example: storage
+          description: Unique code used to identify the billable metric associated with the API request. This code associates each event with the correct metric.
+        description:
+          type: string
+          example: GB of storage used in my application
+          description: Internal description of the billable metric.
+          nullable: true
+        recurring:
+          type: boolean
+          example: false
+          description: 'Defines if the billable metric is persisted billing period over billing period.
+
+
+            - If set to `true`: the accumulated number of units calculated from the previous billing period is persisted to the next billing period.
+
+            - If set to `false`: the accumulated number of units is reset to 0 at the end of the billing period.
+
+            - If not defined in the request, default value is `false`.'
+        rounding_function:
+          type: string
+          enum:
+          - ceil
+          - floor
+          - round
+          nullable: true
+          example: round
+          description: Refers to the numeric value or mathematical expression that will be rounded based on the calculated number of billing units. Possible values are `round`, `ceil` and `floor`.
+        rounding_precision:
+          type: integer
+          example: 2
+          nullable: true
+          description: Specifies the number of decimal places to which the `rounding_function` will be rounded. It can be a positive or negative value.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-09-14T16:35:31Z'
+          description: Creation date of the billable metric.
+        expression:
+          type: string
+          example: round((ended_at - started_at) * units)
+          description: Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
+        field_name:
+          type: string
+          example: gb
+          description: Property of the billable metric used for aggregating usage data. This field is not required for `count_agg`.
+          nullable: true
+        aggregation_type:
+          type: string
+          description: Aggregation method used to compute usage for this billable metric.
+          example: sum_agg
+          enum:
+          - count_agg
+          - sum_agg
+          - max_agg
+          - unique_count_agg
+          - weighted_sum_agg
+          - latest_agg
+        weighted_interval:
+          type: string
+          enum:
+          - seconds
+          nullable: true
+          example: seconds
+          description: Parameter exclusively utilized in conjunction with the `weighted_sum` aggregation type. It serves to adjust the aggregation result by assigning weights and proration to the result based on time intervals. When this field is not provided, the default time interval is assumed to be in `seconds`.
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillableMetricFilterObject'
+        active_subscriptions_count:
+          type: integer
+          example: 4
+          description: Number of active subscriptions using this billable metric.
+        draft_invoices_count:
+          type: integer
+          example: 10
+          description: Number of draft invoices for which this billable metric is listed as an invoice item.
+        plans_count:
+          type: integer
+          example: 4
+          description: Number of plans using this billable metric.
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

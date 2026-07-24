@@ -1,0 +1,609 @@
+openapi: 3.1.0
+info:
+  title: Lago API documentation Add_ons API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.15.0
+  license:
+    name: AGPLv3
+    identifier: AGPLv3
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lagos cluster
+security:
+- bearerAuth: []
+tags:
+- name: Add_ons
+  description: Everything about Add-on collection
+  externalDocs:
+    description: Find out more
+    url: https://doc.getlago.com/docs/api/add_ons/add-on-object
+paths:
+  /add_ons:
+    post:
+      tags:
+      - Add_ons
+      summary: Lago Create an add-on
+      description: This endpoint is used to create an add-on that can be then attached to a one-off invoice.
+      operationId: createAddOn
+      requestBody:
+        description: Add-on payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOnCreateInput'
+        required: true
+      responses:
+        '200':
+          description: Add-on created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOn'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Add_ons
+      summary: Lago List all add-ons
+      description: This endpoint is used to list all existing add-ons.
+      operationId: findAllAddOns
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Add-ons
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOnsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /add_ons/{code}:
+    parameters:
+    - name: code
+      in: path
+      description: Unique code used to identify the add-on.
+      required: true
+      schema:
+        type: string
+        example: setup_fee
+    put:
+      tags:
+      - Add_ons
+      summary: Lago Update an add-on
+      description: This endpoint is used to update an existing add-on.
+      operationId: updateAddOn
+      requestBody:
+        description: Add-on payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOnUpdateInput'
+        required: true
+      responses:
+        '200':
+          description: Add-on updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOn'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Add_ons
+      summary: Lago Retrieve an add-on
+      description: This endpoint is used to retrieve a specific add-on.
+      operationId: findAddOn
+      responses:
+        '200':
+          description: Add-on
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOn'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+      - Add_ons
+      summary: Lago Delete an add-on
+      description: This endpoint is used to delete an existing add-on.
+      operationId: destroyAddOn
+      responses:
+        '200':
+          description: Add-on deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOn'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    AddOnObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - amount_cents
+      - amount_currency
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the add-on, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: The name of the add-on.
+          example: Setup Fee
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+          example: Setup Fee (SF1)
+        code:
+          type: string
+          description: Unique code used to identify the add-on.
+          example: setup_fee
+        amount_cents:
+          type: integer
+          description: The cost of the add-on in cents, excluding any applicable taxes, that is billed to a customer. By creating a one-off invoice, you will be able to override this value.
+          example: 50000
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the add-on.
+            example: USD
+        description:
+          type: string
+          nullable: true
+          description: The description of the add-on.
+          example: Implementation fee for new customers.
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the add-on was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the add-on was initially created.
+          example: '2022-04-29T08:59:51Z'
+        taxes:
+          type: array
+          description: All taxes applied to the add-on.
+          items:
+            $ref: '#/components/schemas/TaxObject'
+    AddOnCreateInput:
+      type: object
+      required:
+      - add_on
+      properties:
+        add_on:
+          allOf:
+          - $ref: '#/components/schemas/AddOnBaseInput'
+          - required:
+            - name
+            - code
+            - amount_cents
+            - amount_currency
+    AddOnBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the add-on.
+          example: Setup Fee
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+          example: Setup Fee (SF1)
+        code:
+          type: string
+          description: Unique code used to identify the add-on.
+          example: setup_fee
+        amount_cents:
+          type: integer
+          description: The cost of the add-on in cents, excluding any applicable taxes, that is billed to a customer. By creating a one-off invoice, you will be able to override this value.
+          example: 50000
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the add-on.
+            example: USD
+        description:
+          type: string
+          nullable: true
+          description: The description of the add-on.
+          example: Implementation fee for new customers.
+        tax_codes:
+          type: array
+          items:
+            type: string
+          description: List of unique code used to identify the taxes.
+          example:
+          - french_standard_vat
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    AddOnsPaginated:
+      type: object
+      required:
+      - add_ons
+      - meta
+      properties:
+        add_ons:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOnObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    AddOn:
+      type: object
+      required:
+      - add_on
+      properties:
+        add_on:
+          $ref: '#/components/schemas/AddOnObject'
+    TaxObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - rate
+      - applied_to_organization
+      - customers_count
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+        add_ons_count:
+          type: integer
+          description: Number of add-ons this tax is applied to.
+          example: 0
+        charges_count:
+          type: integer
+          description: Number of charges this tax is applied to.
+          example: 0
+        customers_count:
+          type: integer
+          description: Number of customers this tax is applied to (directly or via the organization's default).
+          example: 0
+        plans_count:
+          type: integer
+          description: Number of plans this tax is applied to.
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    AddOnUpdateInput:
+      type: object
+      required:
+      - add_on
+      properties:
+        add_on:
+          $ref: '#/components/schemas/AddOnBaseInput'
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

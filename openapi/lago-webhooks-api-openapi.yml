@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  title: Lago API documentation Add_ons Webhooks API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.15.0
+  license:
+    name: AGPLv3
+    identifier: AGPLv3
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lagos cluster
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Everything about Webhooks
+  externalDocs:
+    description: Find out more
+    url: https://doc.getlago.com/docs/api/webhooks/message-signature#1-retrieve-the-public-key
+paths:
+  /webhooks/public_key:
+    get:
+      tags:
+      - Webhooks
+      summary: Lago Retrieve webhook public key
+      description: This endpoint is used to retrieve the public key used to verify the webhooks signature
+      operationId: fetchPublicKey
+      responses:
+        '200':
+          description: Public key
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: MEgCQQCo9+BpMRYQ/dL3DS2CyJxRF+j6ctbT3/Qp84+KeFhnii7NT7fELilKUSnxS30WAvQCCo2yU1orfgqr41mM70MBAgMBAAE=
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+  responses:
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

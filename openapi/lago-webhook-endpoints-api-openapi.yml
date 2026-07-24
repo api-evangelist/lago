@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: Lago API documentation Add_ons Webhook_endpoints API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.15.0
+  license:
+    name: AGPLv3
+    identifier: AGPLv3
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lagos cluster
+security:
+- bearerAuth: []
+tags:
+- name: Webhook_endpoints
+  description: Everything about Webhook Endpoints
+  externalDocs:
+    description: Find out more
+    url: https://doc.getlago.com/docs/api/webhook_endpoints/webhook-endpoint-object
+paths:
+  /webhook_endpoints:
+    post:
+      tags:
+      - Webhook_endpoints
+      summary: Lago Create a webhook_endpoint
+      description: This endpoint is used to create a webhook endpoint.
+      operationId: createWebhookEndpoint
+      requestBody:
+        description: Webhook Endpoint payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointCreateInput'
+        required: true
+      responses:
+        '200':
+          description: Webhook Endpoint created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Webhook_endpoints
+      summary: Lago List all webhook endpoints
+      description: This endpoint is used to list all webhook endpoints.
+      operationId: findAllWebhookEndpoints
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: WebhookEndpoints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpointsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhook_endpoints/{lago_id}:
+    parameters:
+    - name: lago_id
+      in: path
+      description: Unique identifier assigned to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    put:
+      tags:
+      - Webhook_endpoints
+      summary: Lago Update a webhook endpoint
+      description: This endpoint is used to update an existing webhook endpoint.
+      operationId: updateWebhookEndpoint
+      requestBody:
+        description: Webhook Endpoint update payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointUpdateInput'
+        required: true
+      responses:
+        '200':
+          description: Webhook Endpoint updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Webhook_endpoints
+      summary: Lago Retrieve a webhook endpoint
+      description: This endpoint is used to retrieve an existing webhook endpoint.
+      operationId: findWebhookEndpoint
+      responses:
+        '200':
+          description: WebhookEndpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+      - Webhook_endpoints
+      summary: Lago Delete a webhook endpoint
+      description: This endpoint is used to delete an existing webhook endpoint.
+      operationId: destroyWebhookEndpoint
+      responses:
+        '200':
+          description: Webhook Endpoint deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/NotAllowed'
+components:
+  schemas:
+    WebhookEndpointsPaginated:
+      type: object
+      required:
+      - webhook_endpoints
+      - meta
+      properties:
+        webhook_endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookEndpointObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    ApiErrorNotAllowed:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 405
+        error:
+          type: string
+          example: Method Not Allowed
+        code:
+          type: string
+          example: not_allowed
+    WebhookEndpointObject:
+      type: object
+      required:
+      - lago_id
+      - lago_organization_id
+      - webhook_url
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_organization_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the organization attached to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the organization's record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        webhook_url:
+          type: string
+          description: The name of the wallet.
+          example: Prepaid
+        signature_algo:
+          type: string
+          description: The signature algo for the webhook.
+          example: hmac
+          enum:
+          - jwt
+          - hmac
+        created_at:
+          type: string
+          format: date-time
+          description: The date of the webhook endpoint creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          example: '2022-04-29T08:59:51Z'
+    WebhookEndpointCreateInput:
+      type: object
+      properties:
+        webhook_endpoint:
+          type: object
+          required:
+          - webhook_url
+          properties:
+            webhook_url:
+              type: string
+              description: The URL of the webhook endpoint.
+              example: https://foo.bar
+            signature_algo:
+              type: string
+              description: The signature used for the webhook. If no value is passed,
+              example: hmac
+              nullable: true
+              enum:
+              - jwt
+              - hmac
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    WebhookEndpointUpdateInput:
+      type: object
+      properties:
+        webhook_endpoint:
+          type: object
+          required:
+          - webhook_url
+          properties:
+            webhook_url:
+              type: string
+              description: The URL of the webhook endpoint.
+              example: https://foo.bar
+            signature_algo:
+              type: string
+              description: The signature used for the webhook. If no value is passed,
+              example: hmac
+              nullable: true
+              enum:
+              - jwt
+              - hmac
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    WebhookEndpoint:
+      type: object
+      required:
+      - webhook_endpoint
+      properties:
+        webhook_endpoint:
+          $ref: '#/components/schemas/WebhookEndpointObject'
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

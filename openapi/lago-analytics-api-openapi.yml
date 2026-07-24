@@ -1,0 +1,533 @@
+openapi: 3.1.0
+info:
+  title: Lago API documentation Add_ons Analytics API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.15.0
+  license:
+    name: AGPLv3
+    identifier: AGPLv3
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lagos cluster
+security:
+- bearerAuth: []
+tags:
+- name: Analytics
+  description: Everything about Analytics
+paths:
+  /analytics/gross_revenue:
+    get:
+      tags:
+      - Analytics
+      summary: Lago List gross revenue
+      description: Gross revenue is the sum of monthly `finalized` invoice payments and fees paid in advance that are not invoiceable. This total is calculated after deducting taxes and discounts.
+      operationId: findAllGrossRevenues
+      parameters:
+      - name: currency
+        in: query
+        description: Currency of revenue analytics. Format must be ISO 4217.
+        required: false
+        explode: true
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - example: USD
+      - name: external_customer_id
+        in: query
+        description: The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+      - $ref: '#/components/parameters/months'
+      responses:
+        '200':
+          description: Gross revenue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrossRevenues'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/invoice_collection:
+    get:
+      tags:
+      - Analytics
+      summary: Lago List of finalized invoices
+      description: Represents a monthly aggregation, detailing both the total count and the cumulative amount of invoices that have been marked as `finalized`. This report sorts invoices categorically based on their `payment_status`.
+      operationId: findAllInvoiceCollections
+      parameters:
+      - name: currency
+        in: query
+        description: The currency of revenue analytics. Format must be ISO 4217.
+        required: false
+        explode: true
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - example: USD
+      - $ref: '#/components/parameters/months'
+      responses:
+        '200':
+          description: Finalized invoice collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceCollections'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/invoiced_usage:
+    get:
+      tags:
+      - Analytics
+      summary: Lago List usage revenue
+      description: Reports a monthly analysis focused on the revenue generated from all usage-based fees. It exclusively accounts for revenue that has been formally invoiced. Importantly, this report does not include revenue related to the usage in the current billing period, limiting its scope to previously invoiced amounts.
+      operationId: findAllInvoicedUsages
+      parameters:
+      - name: currency
+        in: query
+        description: The currency of invoiced usage analytics. Format must be ISO 4217.
+        required: false
+        explode: true
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - example: USD
+      - $ref: '#/components/parameters/months'
+      responses:
+        '200':
+          description: Invoiced usage
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicedUsages'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/mrr:
+    get:
+      tags:
+      - Analytics
+      summary: Lago List MRR
+      description: This endpoint is used to list MRR.
+      operationId: findAllMrrs
+      parameters:
+      - name: currency
+        in: query
+        description: 'Quantifies the revenue generated from `subscription` fees on a monthly basis. This figure is calculated post-application of applicable taxes and deduction of any applicable discounts. The method of calculation varies based on the subscription billing cycle:
+
+
+          - Revenue from `monthly` subscription invoices is included in the MRR for the month in which the invoice is issued.
+
+          - Revenue from `quarterly` subscription invoices is distributed evenly over three months. This distribution applies to fees paid in advance (allocated to the next remaining months depending on calendar or anniversary billing) as well as to fees paid in arrears (allocated to the preceding months depending on calendar or anniversary billing).
+
+          - Revenue from `yearly` subscription invoices is distributed evenly over twelve months. This allocation is applicable for fees paid in advance (spread over the next  remaining months depending on calendar or anniversary billing) and for fees paid in arrears (spread over the previous months depending on calendar or anniversary billing).
+
+          - Revenue from `weekly` subscription invoices, the total revenue from all invoices issued within a month is summed up. This total is then divided by the number of invoices issued during that month, and the result is multiplied by 4.33, representing the average number of weeks in a month.'
+        required: false
+        explode: true
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - example: USD
+      - $ref: '#/components/parameters/months'
+      responses:
+        '200':
+          description: MRR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mrrs'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /analytics/overdue_balance:
+    get:
+      tags:
+      - Analytics
+      summary: Lago List overdue balance
+      description: Overdue balance is the total amount associated with overdue invoices (invoices with pending or failed payments which are past their due dates).
+      operationId: findAllOverdueBalances
+      parameters:
+      - name: currency
+        in: query
+        description: Currency of revenue analytics. Format must be ISO 4217.
+        required: false
+        explode: true
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - example: USD
+      - name: external_customer_id
+        in: query
+        description: The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+      - $ref: '#/components/parameters/months'
+      responses:
+        '200':
+          description: Overdue balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverdueBalances'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    InvoicedUsageObject:
+      type: object
+      required:
+      - month
+      - amount_cents
+      - currency
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze revenue.
+          example: '2023-11-01T00:00:00.000Z'
+        code:
+          type: string
+          description: The code of the usage-based billable metrics.
+          example: code1
+        amount_cents:
+          type: integer
+          description: The total amount of revenue for a period, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of revenue analytics. Format must be ISO 4217.
+            example: USD
+    OverdueBalances:
+      type: object
+      required:
+      - overdue_balances
+      properties:
+        overdue_balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverdueBalanceObject'
+    OverdueBalanceObject:
+      type: object
+      required:
+      - month
+      - amount_cents
+      - currency
+      - lago_invoice_ids
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze revenue.
+          example: '2023-11-01T00:00:00.000Z'
+        amount_cents:
+          type: integer
+          description: The total amount of revenue for a period, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of revenue analytics. Format must be ISO 4217.
+            example: USD
+        lago_invoice_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The Lago invoice IDs associated with the revenue.
+          example:
+          - 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    GrossRevenueObject:
+      type: object
+      required:
+      - month
+      - amount_cents
+      - currency
+      - invoices_count
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze revenue.
+          example: '2023-11-01T00:00:00.000Z'
+        amount_cents:
+          type: integer
+          description: The total amount of revenue for a period, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of revenue analytics. Format must be ISO 4217.
+            example: USD
+        invoices_count:
+          type: integer
+          description: Contains invoices count.
+          example: 10
+    Mrrs:
+      type: object
+      required:
+      - mrrs
+      properties:
+        mrrs:
+          type: array
+          items:
+            $ref: '#/components/schemas/MrrObject'
+    InvoiceCollections:
+      type: object
+      required:
+      - invoice_collections
+      properties:
+        invoice_collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceCollectionObject'
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    InvoicedUsages:
+      type: object
+      required:
+      - invoiced_usages
+      properties:
+        invoiced_usages:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoicedUsageObject'
+    MrrObject:
+      type: object
+      required:
+      - month
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze MRR.
+          example: '2023-11-01T00:00:00.000Z'
+        amount_cents:
+          type: integer
+          description: The total amount of MRR, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of MRR analytics. Format must be ISO 4217.
+            example: USD
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    GrossRevenues:
+      type: object
+      required:
+      - gross_revenues
+      properties:
+        gross_revenues:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrossRevenueObject'
+    InvoiceCollectionObject:
+      type: object
+      required:
+      - month
+      - invoices_count
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze revenue.
+          example: '2023-11-01T00:00:00.000Z'
+        payment_status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+          description: The payment status of the invoices.
+          example: succeeded
+        invoices_count:
+          type: integer
+          description: Contains invoices count.
+          example: 10
+        amount_cents:
+          type: integer
+          description: The total amount of revenue for a period, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of revenue analytics. Format must be ISO 4217.
+            example: USD
+  responses:
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    months:
+      name: months
+      in: query
+      description: Show data only for given number of months.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 12
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago
