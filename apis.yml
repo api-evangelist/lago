@@ -4,7 +4,20 @@ description: >-
   Lago offers a self-hosted and cloud, scalable and modular architecture for metering and usage-based billing, at every
   stage of your company.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lago.png
 tags:
   - Billing
   - Metering
@@ -15,23 +28,227 @@ created: '2024-07-02'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: lago:lago-api
-    name: Lago API
-    description: >-
-      Lago's API for metering and usage-based billing, providing programmatic access to customers, subscriptions,
-      events, and invoices.
-    humanURL: https://getlago.com/
-    tags:
-      - Billing
-      - Metering
-      - Usage-Based
-    properties:
-      - type: Documentation
-        url: https://doc.getlago.com/
-      - type: GettingStarted
-        url: https://doc.getlago.com/docs/introduction
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml
+- aid: lago:lago-add-ons-api
+  name: Lago Add_ons API
+  description: Everything about Add-on collection
+  humanURL: https://getlago.com/
+  tags:
+  - Add_ons
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-add-ons-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-analytics-api
+  name: Lago Analytics API
+  description: Everything about Analytics
+  humanURL: https://getlago.com/
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-billable-metrics-api
+  name: Lago Billable_metrics API
+  description: Everything about Billable metric collection
+  humanURL: https://getlago.com/
+  tags:
+  - Billable_metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-billable-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-coupons-api
+  name: Lago Coupons API
+  description: Everything about Coupon collection
+  humanURL: https://getlago.com/
+  tags:
+  - Coupons
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-coupons-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-credit-notes-api
+  name: Lago Credit_notes API
+  description: Everything about Credit notes collection
+  humanURL: https://getlago.com/
+  tags:
+  - Credit_notes
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-credit-notes-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-customers-api
+  name: Lago Customers API
+  description: Everything about Customer collection
+  humanURL: https://getlago.com/
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-customers-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-events-api
+  name: Lago Events API
+  description: Everything about Event collection
+  humanURL: https://getlago.com/
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-events-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-fees-api
+  name: Lago Fees API
+  description: Everything about Fees
+  humanURL: https://getlago.com/
+  tags:
+  - Fees
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-fees-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-invoices-api
+  name: Lago Invoices API
+  description: Everything about Invoice collection
+  humanURL: https://getlago.com/
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-organizations-api
+  name: Lago Organizations API
+  description: Everything about Organization collection
+  humanURL: https://getlago.com/
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-payment-requests-api
+  name: Lago Payment_requests API
+  description: Everything about PaymentRequests
+  humanURL: https://getlago.com/
+  tags:
+  - Payment_requests
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-payment-requests-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-plans-api
+  name: Lago Plans API
+  description: Everything about Plan collection
+  humanURL: https://getlago.com/
+  tags:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-plans-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-subscriptions-api
+  name: Lago Subscriptions API
+  description: Everything about Subscription collection
+  humanURL: https://getlago.com/
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-taxes-api
+  name: Lago Taxes API
+  description: Everything about Tax collection
+  humanURL: https://getlago.com/
+  tags:
+  - Taxes
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-taxes-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-wallets-api
+  name: Lago Wallets API
+  description: Everything about Wallet collection
+  humanURL: https://getlago.com/
+  tags:
+  - Wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-wallets-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-webhook-endpoints-api
+  name: Lago Webhook_endpoints API
+  description: Everything about Webhook Endpoints
+  humanURL: https://getlago.com/
+  tags:
+  - Webhook_endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-webhook-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-webhooks-api
+  name: Lago Webhooks API
+  description: Everything about Webhooks
+  humanURL: https://getlago.com/
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://doc.getlago.com/
+  - type: GettingStarted
+    url: https://doc.getlago.com/docs/introduction
 common:
   - type: AgenticAccess
     url: agentic-access/lago-agentic-access.yml
