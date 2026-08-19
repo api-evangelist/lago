@@ -1,0 +1,1818 @@
+{
+  "item": [
+    {
+      "id": "6f727f2f-94f2-4aad-90b0-01f775e0ff24",
+      "name": "Wallets",
+      "description": {
+        "content": "Everything about Wallet collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "33b2d874-d216-4003-93ed-ac7d9938abf8",
+          "name": "Lago Create a wallet",
+          "request": {
+            "name": "Lago Create a wallet",
+            "description": {
+              "content": "This endpoint is used to create a wallet with prepaid credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": {\n    \"rate_amount\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"external_customer_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"paid_credits\": \"<string>\",\n    \"granted_credits\": \"<string>\",\n    \"expiration_at\": \"<dateTime>\",\n    \"invoice_requires_successful_payment\": \"<boolean>\",\n    \"transaction_metadata\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"recurring_transaction_rules\": [\n      {\n        \"trigger\": \"<string>\",\n        \"paid_credits\": \"<string>\",\n        \"granted_credits\": \"<string>\",\n        \"method\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"started_at\": \"<dateTime>\",\n        \"threshold_credits\": \"<string>\",\n        \"target_ongoing_balance\": \"<string>\",\n        \"invoice_requires_successful_payment\": \"<boolean>\",\n        \"transaction_metadata\": [\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"trigger\": \"<string>\",\n        \"paid_credits\": \"<string>\",\n        \"granted_credits\": \"<string>\",\n        \"method\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"started_at\": \"<dateTime>\",\n        \"threshold_credits\": \"<string>\",\n        \"target_ongoing_balance\": \"<string>\",\n        \"invoice_requires_successful_payment\": \"<boolean>\",\n        \"transaction_metadata\": [\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d6a7845-238c-4a6f-b9d3-4d25113d4496",
+              "name": "Wallet created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"rate_amount\": \"1.5\",\n    \"currency\": \"USD\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"name\": \"Prepaid\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"transaction_metadata\": [\n      {\n        \"key\": \"example_key\",\n        \"value\": \"example_value\"\n      },\n      {\n        \"key\": \"another_key\",\n        \"value\": \"another_value\"\n      }\n    ],\n    \"recurring_transaction_rules\": [\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallet\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"status\": \"active\",\n    \"currency\": \"USD\",\n    \"rate_amount\": \"1.5\",\n    \"credits_balance\": \"28.0\",\n    \"balance_cents\": 1000,\n    \"consumed_credits\": \"2.0\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"ongoing_balance_cents\": 800,\n    \"ongoing_usage_balance_cents\": 200,\n    \"credits_ongoing_balance\": \"8.0\",\n    \"credits_ongoing_usage_balance\": \"2.0\",\n    \"name\": \"Prepaid\",\n    \"expiration_at\": null,\n    \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n    \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "119a801f-452c-46eb-8562-f3bae4bae5ff",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"rate_amount\": \"1.5\",\n    \"currency\": \"USD\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"name\": \"Prepaid\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"transaction_metadata\": [\n      {\n        \"key\": \"example_key\",\n        \"value\": \"example_value\"\n      },\n      {\n        \"key\": \"another_key\",\n        \"value\": \"another_value\"\n      }\n    ],\n    \"recurring_transaction_rules\": [\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed7649d8-8763-418e-bc25-67c4fbc9a6c7",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"rate_amount\": \"1.5\",\n    \"currency\": \"USD\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"name\": \"Prepaid\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"transaction_metadata\": [\n      {\n        \"key\": \"example_key\",\n        \"value\": \"example_value\"\n      },\n      {\n        \"key\": \"another_key\",\n        \"value\": \"another_value\"\n      }\n    ],\n    \"recurring_transaction_rules\": [\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52b1e544-99e7-47fb-93ff-2cc361f346d7",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"rate_amount\": \"1.5\",\n    \"currency\": \"USD\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"name\": \"Prepaid\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"transaction_metadata\": [\n      {\n        \"key\": \"example_key\",\n        \"value\": \"example_value\"\n      },\n      {\n        \"key\": \"another_key\",\n        \"value\": \"another_value\"\n      }\n    ],\n    \"recurring_transaction_rules\": [\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"trigger\": \"interval\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b0dde15-38a4-4c95-a6d6-d748d016d3f8",
+          "name": "Lago List all wallets",
+          "request": {
+            "name": "Lago List all wallets",
+            "description": {
+              "content": "This endpoint is used to list all wallets with prepaid credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "(Required) The customer external unique identifier (provided by your own application)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28e73758-13a8-441e-93bd-1458ba7188a1",
+              "name": "Wallets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallets\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"hooli_1234\",\n      \"status\": \"active\",\n      \"currency\": \"USD\",\n      \"rate_amount\": \"1.5\",\n      \"credits_balance\": \"28.0\",\n      \"balance_cents\": 1000,\n      \"consumed_credits\": \"2.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"ongoing_balance_cents\": 800,\n      \"ongoing_usage_balance_cents\": 200,\n      \"credits_ongoing_balance\": \"8.0\",\n      \"credits_ongoing_usage_balance\": \"2.0\",\n      \"name\": \"Prepaid\",\n      \"expiration_at\": null,\n      \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n      \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n      \"terminated_at\": \"2022-09-14T16:35:31Z\",\n      \"invoice_requires_successful_payment\": false,\n      \"recurring_transaction_rules\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"interval\": \"monthly\",\n          \"trigger\": \"interval\",\n          \"method\": \"target\",\n          \"paid_credits\": \"20.0\",\n          \"granted_credits\": \"10.0\",\n          \"threshold_credits\": \"20.0\",\n          \"target_ongoing_balance\": \"200.0\",\n          \"created_at\": \"2022-04-29T08:59:51Z\",\n          \"started_at\": \"2022-08-08T00:00:00Z\",\n          \"invoice_requires_successful_payment\": false,\n          \"transaction_metadata\": [\n            {\n              \"key\": \"example_key\",\n              \"value\": \"example_value\"\n            },\n            {\n              \"key\": \"another_key\",\n              \"value\": \"another_value\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"interval\": \"monthly\",\n          \"trigger\": \"interval\",\n          \"method\": \"target\",\n          \"paid_credits\": \"20.0\",\n          \"granted_credits\": \"10.0\",\n          \"threshold_credits\": \"20.0\",\n          \"target_ongoing_balance\": \"200.0\",\n          \"created_at\": \"2022-04-29T08:59:51Z\",\n          \"started_at\": \"2022-08-08T00:00:00Z\",\n          \"invoice_requires_successful_payment\": false,\n          \"transaction_metadata\": [\n            {\n              \"key\": \"example_key\",\n              \"value\": \"example_value\"\n            },\n            {\n              \"key\": \"another_key\",\n              \"value\": \"another_value\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"hooli_1234\",\n      \"status\": \"active\",\n      \"currency\": \"USD\",\n      \"rate_amount\": \"1.5\",\n      \"credits_balance\": \"28.0\",\n      \"balance_cents\": 1000,\n      \"consumed_credits\": \"2.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"ongoing_balance_cents\": 800,\n      \"ongoing_usage_balance_cents\": 200,\n      \"credits_ongoing_balance\": \"8.0\",\n      \"credits_ongoing_usage_balance\": \"2.0\",\n      \"name\": \"Prepaid\",\n      \"expiration_at\": null,\n      \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n      \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n      \"terminated_at\": \"2022-09-14T16:35:31Z\",\n      \"invoice_requires_successful_payment\": false,\n      \"recurring_transaction_rules\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"interval\": \"monthly\",\n          \"trigger\": \"interval\",\n          \"method\": \"target\",\n          \"paid_credits\": \"20.0\",\n          \"granted_credits\": \"10.0\",\n          \"threshold_credits\": \"20.0\",\n          \"target_ongoing_balance\": \"200.0\",\n          \"created_at\": \"2022-04-29T08:59:51Z\",\n          \"started_at\": \"2022-08-08T00:00:00Z\",\n          \"invoice_requires_successful_payment\": false,\n          \"transaction_metadata\": [\n            {\n              \"key\": \"example_key\",\n              \"value\": \"example_value\"\n            },\n            {\n              \"key\": \"another_key\",\n              \"value\": \"another_value\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"interval\": \"monthly\",\n          \"trigger\": \"interval\",\n          \"method\": \"target\",\n          \"paid_credits\": \"20.0\",\n          \"granted_credits\": \"10.0\",\n          \"threshold_credits\": \"20.0\",\n          \"target_ongoing_balance\": \"200.0\",\n          \"created_at\": \"2022-04-29T08:59:51Z\",\n          \"started_at\": \"2022-08-08T00:00:00Z\",\n          \"invoice_requires_successful_payment\": false,\n          \"transaction_metadata\": [\n            {\n              \"key\": \"example_key\",\n              \"value\": \"example_value\"\n            },\n            {\n              \"key\": \"another_key\",\n              \"value\": \"another_value\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "163c911b-9fc8-41c0-907c-17dfd957fb3f",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b67ac75-3a4d-4598-93b3-ee5389fa6c92",
+          "name": "Lago Update a wallet",
+          "request": {
+            "name": "Lago Update a wallet",
+            "description": {
+              "content": "This endpoint is used to update an existing wallet with prepaid credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": {\n    \"name\": \"<string>\",\n    \"expiration_at\": \"<dateTime>\",\n    \"invoice_requires_successful_payment\": \"<boolean>\",\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"<uuid>\",\n        \"trigger\": \"<string>\",\n        \"method\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"threshold_credits\": \"<string>\",\n        \"paid_credits\": \"<string>\",\n        \"granted_credits\": \"<string>\",\n        \"started_at\": \"<dateTime>\",\n        \"target_ongoing_balance\": \"<string>\",\n        \"invoice_requires_successful_payment\": \"<boolean>\",\n        \"transaction_metadata\": [\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"<uuid>\",\n        \"trigger\": \"<string>\",\n        \"method\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"threshold_credits\": \"<string>\",\n        \"paid_credits\": \"<string>\",\n        \"granted_credits\": \"<string>\",\n        \"started_at\": \"<dateTime>\",\n        \"target_ongoing_balance\": \"<string>\",\n        \"invoice_requires_successful_payment\": \"<boolean>\",\n        \"transaction_metadata\": [\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94542d23-8eab-43d6-81c6-e21a171c0194",
+              "name": "Wallet updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"name\": \"new_name\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallet\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"status\": \"active\",\n    \"currency\": \"USD\",\n    \"rate_amount\": \"1.5\",\n    \"credits_balance\": \"28.0\",\n    \"balance_cents\": 1000,\n    \"consumed_credits\": \"2.0\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"ongoing_balance_cents\": 800,\n    \"ongoing_usage_balance_cents\": 200,\n    \"credits_ongoing_balance\": \"8.0\",\n    \"credits_ongoing_usage_balance\": \"2.0\",\n    \"name\": \"Prepaid\",\n    \"expiration_at\": null,\n    \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n    \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b3bfb54-21f5-4ac6-8db5-0aa4f2fa502a",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"name\": \"new_name\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea19341f-47d9-4173-9f05-3b989698f31b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"name\": \"new_name\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6215bf3-0ea6-42be-b8f6-820566556035",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"name\": \"new_name\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8a38646-4731-4906-9c5d-223c11663e25",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": {\n    \"name\": \"new_name\",\n    \"expiration_at\": \"2022-07-07T23:59:59Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"interval\": \"monthly\",\n        \"threshold_credits\": \"20.0\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6f22991-7313-4703-b02c-3fa71a238b64",
+          "name": "Lago Retrieve a wallet",
+          "request": {
+            "name": "Lago Retrieve a wallet",
+            "description": {
+              "content": "This endpoint is used to retrieve an existing wallet with prepaid credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91563a94-a050-487b-bae9-42fc06846ef0",
+              "name": "Wallet",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallet\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"status\": \"active\",\n    \"currency\": \"USD\",\n    \"rate_amount\": \"1.5\",\n    \"credits_balance\": \"28.0\",\n    \"balance_cents\": 1000,\n    \"consumed_credits\": \"2.0\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"ongoing_balance_cents\": 800,\n    \"ongoing_usage_balance_cents\": 200,\n    \"credits_ongoing_balance\": \"8.0\",\n    \"credits_ongoing_usage_balance\": \"2.0\",\n    \"name\": \"Prepaid\",\n    \"expiration_at\": null,\n    \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n    \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3df41077-7024-4167-9108-2c51d99d4d7c",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "184ecbce-0027-4d88-9ea8-e894d023d8a0",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cb72e45-4934-42bf-85e9-855f2f3ce823",
+          "name": "Lago Terminate a wallet",
+          "request": {
+            "name": "Lago Terminate a wallet",
+            "description": {
+              "content": "This endpoint is used to terminate an existing wallet with prepaid credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c6bd707-c1b0-4fa6-89ba-8b01785c6a4b",
+              "name": "Wallet terminated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallet\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"hooli_1234\",\n    \"status\": \"active\",\n    \"currency\": \"USD\",\n    \"rate_amount\": \"1.5\",\n    \"credits_balance\": \"28.0\",\n    \"balance_cents\": 1000,\n    \"consumed_credits\": \"2.0\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"ongoing_balance_cents\": 800,\n    \"ongoing_usage_balance_cents\": 200,\n    \"credits_ongoing_balance\": \"8.0\",\n    \"credits_ongoing_usage_balance\": \"2.0\",\n    \"name\": \"Prepaid\",\n    \"expiration_at\": null,\n    \"last_balance_sync_at\": \"2022-04-29T08:59:51Z\",\n    \"last_consumed_credit_at\": \"2022-04-29T08:59:51Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"invoice_requires_successful_payment\": false,\n    \"recurring_transaction_rules\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"interval\": \"monthly\",\n        \"trigger\": \"interval\",\n        \"method\": \"target\",\n        \"paid_credits\": \"20.0\",\n        \"granted_credits\": \"10.0\",\n        \"threshold_credits\": \"20.0\",\n        \"target_ongoing_balance\": \"200.0\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"started_at\": \"2022-08-08T00:00:00Z\",\n        \"invoice_requires_successful_payment\": false,\n        \"transaction_metadata\": [\n          {\n            \"key\": \"example_key\",\n            \"value\": \"example_value\"\n          },\n          {\n            \"key\": \"another_key\",\n            \"value\": \"another_value\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c400a5a8-b651-48ae-8674-c842efa26840",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e1020aa-51ea-4a72-8abc-9cfb15f00ff3",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b63e0751-19bf-4aa5-acff-4697039666a7",
+              "name": "Not Allowed error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 405,\n  \"error\": \"Method Not Allowed\",\n  \"code\": \"not_allowed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fa03f3d-3f4b-4856-9db9-e94aa492ddbc",
+          "name": "Lago Top up a wallet",
+          "request": {
+            "name": "Lago Top up a wallet",
+            "description": {
+              "content": "This endpoint is used to top-up an active wallet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet_transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet_transaction\": {\n    \"wallet_id\": \"<uuid>\",\n    \"paid_credits\": \"<string>\",\n    \"granted_credits\": \"<string>\",\n    \"voided_credits\": \"<string>\",\n    \"invoice_requires_successful_payment\": \"<boolean>\",\n    \"metadata\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b147e442-8d59-414c-8a23-3d9555bd62b0",
+              "name": "Wallet transaction created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet_transaction\": {\n    \"wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"voided_credits\": \"5.0\",\n    \"invoice_requires_successful_payment\": false,\n    \"metadata\": [\n      {\n        \"key\": \"example key\",\n        \"value\": \"example value\"\n      },\n      {\n        \"key\": \"another key\",\n        \"value\": \"another value\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"wallet_transactions\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"status\": \"settled\",\n      \"transaction_status\": \"purchased\",\n      \"transaction_type\": \"inbound\",\n      \"credit_amount\": \"100.0\",\n      \"amount\": \"10.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"source\": \"manual\",\n      \"invoice_requires_successful_payment\": false,\n      \"metadata\": [\n        {\n          \"key\": \"example key\",\n          \"value\": \"example value\"\n        },\n        {\n          \"key\": \"another key\",\n          \"value\": \"another value\"\n        }\n      ],\n      \"settled_at\": \"2022-04-29T08:59:51Z\"\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"status\": \"settled\",\n      \"transaction_status\": \"purchased\",\n      \"transaction_type\": \"inbound\",\n      \"credit_amount\": \"100.0\",\n      \"amount\": \"10.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"source\": \"manual\",\n      \"invoice_requires_successful_payment\": false,\n      \"metadata\": [\n        {\n          \"key\": \"example key\",\n          \"value\": \"example value\"\n        },\n        {\n          \"key\": \"another key\",\n          \"value\": \"another value\"\n        }\n      ],\n      \"settled_at\": \"2022-04-29T08:59:51Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b3f6ead-d49e-47ab-a0e3-51fcb517818a",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet_transaction\": {\n    \"wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"voided_credits\": \"5.0\",\n    \"invoice_requires_successful_payment\": false,\n    \"metadata\": [\n      {\n        \"key\": \"example key\",\n        \"value\": \"example value\"\n      },\n      {\n        \"key\": \"another key\",\n        \"value\": \"another value\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20ee62da-e2b4-422a-8565-69341f962358",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet_transaction\": {\n    \"wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"voided_credits\": \"5.0\",\n    \"invoice_requires_successful_payment\": false,\n    \"metadata\": [\n      {\n        \"key\": \"example key\",\n        \"value\": \"example value\"\n      },\n      {\n        \"key\": \"another key\",\n        \"value\": \"another value\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdec7462-0c2a-48f5-836f-29f4c8d106e8",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet_transaction\": {\n    \"wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"paid_credits\": \"20.0\",\n    \"granted_credits\": \"10.0\",\n    \"voided_credits\": \"5.0\",\n    \"invoice_requires_successful_payment\": false,\n    \"metadata\": [\n      {\n        \"key\": \"example key\",\n        \"value\": \"example value\"\n      },\n      {\n        \"key\": \"another key\",\n        \"value\": \"another value\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a583e385-9be1-4038-b2f1-6911f4f6e20b",
+          "name": "Lago List all wallet transactions",
+          "request": {
+            "name": "Lago List all wallet transactions",
+            "description": {
+              "content": "This endpoint is used to list all wallet transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":lago_id",
+                "wallet_transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "The status of the wallet transaction. Possible values are `pending` or `settled`."
+                },
+                {
+                  "disabled": false,
+                  "key": "transaction_status",
+                  "value": "<string>",
+                  "description": "The transaction status of the wallet transaction. Possible values are `purchased` (with pending or settled status), `granted` (without invoice_id), `voided` or `invoiced`."
+                },
+                {
+                  "disabled": false,
+                  "key": "transaction_type",
+                  "value": "<string>",
+                  "description": "The transaction type of the wallet transaction. Possible values are `inbound` (increasing the wallet balance) or `outbound` (decreasing the wallet balance)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47e689bf-e797-4f9e-b1e7-69493c322efa",
+              "name": "Wallet transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id",
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "transaction_status",
+                      "value": "purchased"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "inbound"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  },\n  \"wallet_transactions\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"status\": \"settled\",\n      \"transaction_status\": \"purchased\",\n      \"transaction_type\": \"inbound\",\n      \"credit_amount\": \"100.0\",\n      \"amount\": \"10.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"source\": \"manual\",\n      \"invoice_requires_successful_payment\": false,\n      \"metadata\": [\n        {\n          \"key\": \"example key\",\n          \"value\": \"example value\"\n        },\n        {\n          \"key\": \"another key\",\n          \"value\": \"another value\"\n        }\n      ],\n      \"settled_at\": \"2022-04-29T08:59:51Z\"\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_wallet_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"status\": \"settled\",\n      \"transaction_status\": \"purchased\",\n      \"transaction_type\": \"inbound\",\n      \"credit_amount\": \"100.0\",\n      \"amount\": \"10.0\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"source\": \"manual\",\n      \"invoice_requires_successful_payment\": false,\n      \"metadata\": [\n        {\n          \"key\": \"example key\",\n          \"value\": \"example value\"\n        },\n        {\n          \"key\": \"another key\",\n          \"value\": \"another value\"\n        }\n      ],\n      \"settled_at\": \"2022-04-29T08:59:51Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0aa2077d-0c99-4e15-8540-5df2ba21fc97",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id",
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "transaction_status",
+                      "value": "purchased"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "inbound"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d54dd6-c563-42c9-8805-e2302ccf68a5",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":lago_id",
+                    "wallet_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    },
+                    {
+                      "key": "transaction_status",
+                      "value": "purchased"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "inbound"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4db49f3a-8489-4420-ac9e-d1f66cb70bea",
+    "name": "Lago API documentation Add_ons Wallets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

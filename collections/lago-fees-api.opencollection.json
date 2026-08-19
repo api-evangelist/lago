@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Fees API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/fees",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier assigned to the customer in your application."
+              },
+              {
+                "name": "external_subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "External subscription ID"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by fee's currency."
+              },
+              {
+                "name": "fee_type",
+                "value": "",
+                "type": "query",
+                "description": "The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`."
+              },
+              {
+                "name": "billable_metric_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by the `code` of the billable metric attached to the fee. Only applies to `charge` types."
+              },
+              {
+                "name": "payment_status",
+                "value": "",
+                "type": "query",
+                "description": "Indicates the payment status of the fee. It represents the current status of the payment associated with the fee. The possible values for this field are `pending`, `succeeded`, `failed` and refunded`."
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter results created after creation date and time in UTC."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter results created before creation date and time in UTC."
+              },
+              {
+                "name": "succeeded_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment success after creation date and time in UTC."
+              },
+              {
+                "name": "succeeded_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment success after creation date and time in UTC."
+              },
+              {
+                "name": "failed_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment failure after creation date and time in UTC."
+              },
+              {
+                "name": "failed_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment failure after creation date and time in UTC."
+              },
+              {
+                "name": "refunded_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment refund after creation date and time in UTC."
+              },
+              {
+                "name": "refunded_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter results with payment refund after creation date and time in UTC."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving all fees that has been issued."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a specific fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/fees/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving a specific fee that has been issued."
+        },
+        {
+          "info": {
+            "name": "Lago Update a fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/fees/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used for updating a specific fee that has been issued."
+        },
+        {
+          "info": {
+            "name": "Lago Delete a fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/fees/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for deleting a specific fee that has not yet been invoiced"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

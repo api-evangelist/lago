@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Webhooks API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago Retrieve webhook public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/webhooks/public_key"
+          },
+          "docs": "This endpoint is used to retrieve the public key used to verify the webhooks signature"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

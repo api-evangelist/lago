@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Credit_notes API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit_notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all credit notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/credit_notes",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier assigned to the customer in your application."
+              }
+            ]
+          },
+          "docs": "This endpoint list all existing credit notes."
+        },
+        {
+          "info": {
+            "name": "Lago Create a credit note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/credit_notes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new credit note."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a credit note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/credit_notes/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "The credit note unique identifier, created by Lago."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves an existing credit note."
+        },
+        {
+          "info": {
+            "name": "Lago Update a credit note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/credit_notes/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "The credit note unique identifier, created by Lago."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint updates an existing credit note."
+        },
+        {
+          "info": {
+            "name": "Lago Download a credit note PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/credit_notes/:lago_id/download",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "The credit note unique identifier, created by Lago."
+              }
+            ]
+          },
+          "docs": "This endpoint downloads the PDF of an existing credit note."
+        },
+        {
+          "info": {
+            "name": "Lago Estimate amounts for a new credit note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/credit_notes/estimate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to retrieve amounts for a new credit note creation."
+        },
+        {
+          "info": {
+            "name": "Lago Void available credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/credit_notes/:lago_id/void",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "The credit note unique identifier, created by Lago."
+              }
+            ]
+          },
+          "docs": "This endpoint voids the available credit linked to a specific credit note."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

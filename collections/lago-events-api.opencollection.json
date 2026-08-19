@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Events API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/events",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "External subscription ID"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by its code."
+              },
+              {
+                "name": "timestamp_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by timestamp starting from a specific date."
+              },
+              {
+                "name": "timestamp_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by timestamp up to a specific date."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving all events."
+        },
+        {
+          "info": {
+            "name": "Lago Send usage events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used for transmitting usage measurement events to either a designated customer or a specific subscription."
+        },
+        {
+          "info": {
+            "name": "Lago Batch multiple events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/events/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint can be used to send a batch of usage records. Each request may include up to 100 events."
+        },
+        {
+          "info": {
+            "name": "Lago Estimate fees for a pay in advance charge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/events/estimate_fees",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Estimate the fees that would be created after reception of an event for a billable metric attached to one or multiple pay in advance charges"
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a specific event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/events/:transaction_id",
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "This field represents the unique identifier sent for this specific event (must be URL encoded)."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving a specific usage measurement event that has been sent to a customer or a subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

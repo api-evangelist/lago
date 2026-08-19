@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Wallets API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all wallets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/wallets",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "The customer external unique identifier (provided by your own application)."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list all wallets with prepaid credits."
+        },
+        {
+          "info": {
+            "name": "Lago Create a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/wallets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to create a wallet with prepaid credits."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/wallets/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve an existing wallet with prepaid credits."
+        },
+        {
+          "info": {
+            "name": "Lago Update a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/wallets/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to update an existing wallet with prepaid credits."
+        },
+        {
+          "info": {
+            "name": "Lago Terminate a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/wallets/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to terminate an existing wallet with prepaid credits."
+        },
+        {
+          "info": {
+            "name": "Lago Top up a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/wallet_transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to top-up an active wallet."
+        },
+        {
+          "info": {
+            "name": "Lago List all wallet transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/wallets/:lago_id/wallet_transactions",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the wallet's record within the Lago system."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the wallet transaction. Possible values are `pending` or `settled`."
+              },
+              {
+                "name": "transaction_status",
+                "value": "",
+                "type": "query",
+                "description": "The transaction status of the wallet transaction. Possible values are `purchased` (with pending or settled status), `granted` (without invoice_id), `voided` or `invoiced`."
+              },
+              {
+                "name": "transaction_type",
+                "value": "",
+                "type": "query",
+                "description": "The transaction type of the wallet transaction. Possible values are `inbound` (increasing the wallet balance) or `outbound` (decreasing the wallet balance)."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list all wallet transactions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

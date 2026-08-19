@@ -1,0 +1,1202 @@
+{
+  "item": [
+    {
+      "id": "eb4ef1e5-82cf-4804-8c93-f489ee3c5a77",
+      "name": "Taxes",
+      "description": {
+        "content": "Everything about Tax collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fc6cde8-c8a6-470c-a0a6-67f173eb7d10",
+          "name": "Lago Create a tax",
+          "request": {
+            "name": "Lago Create a tax",
+            "description": {
+              "content": "This endpoint creates a new tax representing a customizable tax rate applicable to either the organization or a specific customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tax\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"rate\": \"<string>\",\n    \"description\": \"<string>\",\n    \"applied_to_organization\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bfe5d1a4-8a2a-4688-959d-6199257473c9",
+              "name": "Tax created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tax\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": 20,\n    \"applied_to_organization\": true,\n    \"customers_count\": 0,\n    \"created_at\": \"2023-07-06T14:35:58Z\",\n    \"description\": \"French standard VAT\",\n    \"add_ons_count\": 0,\n    \"charges_count\": 0,\n    \"plans_count\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c39b4d66-c122-4222-b3a2-d3f5e55aaa0d",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f54e2a8-fbba-4c55-881b-6766de2e0677",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f587c7d-c28b-4277-8950-5ad4316df554",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c7d7c5c-a531-42b0-bc82-2fd379d69677",
+          "name": "Lago List all taxes",
+          "request": {
+            "name": "Lago List all taxes",
+            "description": {
+              "content": "This endpoint retrieves all existing taxes representing a customizable tax rate applicable to either the organization or a specific customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7632ed4b-816d-4354-84a7-a47e7e51a664",
+              "name": "Taxes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taxes\": [\n    {\n      \"lago_id\": \"41190609-391a-4368-9549-d4348a85a8cd\",\n      \"name\": \"TVA\",\n      \"code\": \"french_standard_vat\",\n      \"description\": \"French standard VAT\",\n      \"rate\": 20,\n      \"applied_to_organization\": true,\n      \"customers_count\": 0,\n      \"created_at\": \"2023-07-06T14:35:58Z\"\n    },\n    {\n      \"lago_id\": \"2e034a10-6652-4daf-a600-b085184f93ad\",\n      \"name\": \"TVA\",\n      \"code\": \"french_reduced_vat\",\n      \"description\": \"French reduce VAT\",\n      \"rate\": 5,\n      \"applied_to_organization\": false,\n      \"customers_count\": 0,\n      \"created_at\": \"2023-07-06T14:45:23Z\"\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 1,\n    \"next_page\": null,\n    \"prev_page\": null,\n    \"total_pages\": 1,\n    \"total_count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca3307a8-e08d-40a4-abf9-4585ad89a720",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "724b900d-a1c4-45ab-ad61-14049e128974",
+          "name": "Lago Update a tax",
+          "request": {
+            "name": "Lago Update a tax",
+            "description": {
+              "content": "This endpoint updates an existing tax representing a customizable tax rate applicable to either the organization or a specific customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxes",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tax\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"rate\": \"<string>\",\n    \"description\": \"<string>\",\n    \"applied_to_organization\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3355d2fb-3a33-4c9b-a465-4588a431688b",
+              "name": "Tax updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tax\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": 20,\n    \"applied_to_organization\": true,\n    \"customers_count\": 0,\n    \"created_at\": \"2023-07-06T14:35:58Z\",\n    \"description\": \"French standard VAT\",\n    \"add_ons_count\": 0,\n    \"charges_count\": 0,\n    \"plans_count\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec99a2ea-91c1-425d-ba24-ca55a41ff81c",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2257470-ad93-46a9-9d83-52347eb44fc2",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "842bf2ec-760a-4ae3-8403-87b57ea86a03",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a709190-69e0-4283-9a89-8e393a8a343f",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tax\": {\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": \"20.0\",\n    \"description\": \"French standard VAT\",\n    \"applied_to_organization\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "116918cd-d295-4266-8dad-bf016b94eb4f",
+          "name": "Lago Retrieve a Tax",
+          "request": {
+            "name": "Lago Retrieve a Tax",
+            "description": {
+              "content": "This endpoint retrieves an existing tax representing a customizable tax rate applicable to either the organization or a specific customer. The tax is identified by its unique code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxes",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "387a006e-cc7e-4be9-b615-0f13e50923f0",
+              "name": "Tax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tax\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": 20,\n    \"applied_to_organization\": true,\n    \"customers_count\": 0,\n    \"created_at\": \"2023-07-06T14:35:58Z\",\n    \"description\": \"French standard VAT\",\n    \"add_ons_count\": 0,\n    \"charges_count\": 0,\n    \"plans_count\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1270bed6-5839-4ee6-854b-200c9770b0c2",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbb11c7e-e2f3-405d-939d-c5479b016950",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "158b722a-15a6-4b37-bafe-5f7d743564d5",
+          "name": "Lago Delete a tax",
+          "request": {
+            "name": "Lago Delete a tax",
+            "description": {
+              "content": "This endpoint is used to delete a tax.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxes",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf2da936-462d-40ba-9fbd-8e996f9b7d62",
+              "name": "Tax deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tax\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"TVA\",\n    \"code\": \"french_standard_vat\",\n    \"rate\": 20,\n    \"applied_to_organization\": true,\n    \"customers_count\": 0,\n    \"created_at\": \"2023-07-06T14:35:58Z\",\n    \"description\": \"French standard VAT\",\n    \"add_ons_count\": 0,\n    \"charges_count\": 0,\n    \"plans_count\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cada435-ba8c-4797-8da6-731e5e7ca3b3",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaf84cc4-f649-4623-8a26-d3ee595f950c",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxes",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) The code of the tax. It serves as a unique identifier associated with a particular tax. The code is typically used for internal or system-level identification purposes."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "637c893a-6c74-4f3e-89c9-8369259c7a61",
+    "name": "Lago API documentation Add_ons Taxes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

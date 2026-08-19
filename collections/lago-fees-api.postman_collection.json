@@ -1,0 +1,1366 @@
+{
+  "item": [
+    {
+      "id": "e74058ce-6f14-42d6-b61f-99e46f187386",
+      "name": "Fees",
+      "description": {
+        "content": "Everything about Fees",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "418e93a2-d2a3-4638-ac36-256f8ea6cb15",
+          "name": "Lago List all fees",
+          "request": {
+            "name": "Lago List all fees",
+            "description": {
+              "content": "This endpoint is used for retrieving all fees that has been issued.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "Unique identifier assigned to the customer in your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_subscription_id",
+                  "value": "<string>",
+                  "description": "External subscription ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Filter results by fee's currency."
+                },
+                {
+                  "disabled": false,
+                  "key": "fee_type",
+                  "value": "<string>",
+                  "description": "The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`."
+                },
+                {
+                  "disabled": false,
+                  "key": "billable_metric_code",
+                  "value": "<string>",
+                  "description": "Filter results by the `code` of the billable metric attached to the fee. Only applies to `charge` types."
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_status",
+                  "value": "<string>",
+                  "description": "Indicates the payment status of the fee. It represents the current status of the payment associated with the fee. The possible values for this field are `pending`, `succeeded`, `failed` and refunded`."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter results created after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter results created before creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "succeeded_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment success after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "succeeded_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment success after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "failed_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment failure after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "failed_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment failure after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "refunded_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment refund after creation date and time in UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "refunded_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter results with payment refund after creation date and time in UTC."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "861c2120-ef05-4fa5-89dd-6549f8619963",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "fee_type",
+                      "value": "charge"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "bm_code"
+                    },
+                    {
+                      "key": "payment_status",
+                      "value": "succeeded"
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fees\": [\n    {\n      \"item\": {\n        \"type\": \"subscription\",\n        \"code\": \"startup\",\n        \"name\": \"Startup\",\n        \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"item_type\": \"Subscription\",\n        \"invoice_display_name\": \"Setup Fee (SF1)\",\n        \"filter_invoice_display_name\": \"AWS eu-east-1\",\n        \"filters\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"grouped_by\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"total_amount_cents\": 120,\n      \"total_amount_currency\": \"USD\",\n      \"pay_in_advance\": true,\n      \"invoiceable\": true,\n      \"units\": \"0.32\",\n      \"precise_unit_amount\": \"312.5\",\n      \"payment_status\": \"pending\",\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"external_id\",\n      \"external_subscription_id\": \"external_id\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"precise_amount\": \"1.0001\",\n      \"precise_total_amount\": \"1.0212\",\n      \"taxes_precise_amount\": \"0.20123\",\n      \"events_count\": 23,\n      \"from_date\": \"2022-04-29T08:59:51Z\",\n      \"to_date\": \"2022-05-29T08:59:51Z\",\n      \"created_at\": \"2022-08-24T14:58:59Z\",\n      \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n      \"failed_at\": \"2022-08-24T14:58:59Z\",\n      \"refunded_at\": \"2022-08-24T14:58:59Z\",\n      \"event_transaction_id\": \"transaction_1234567890\",\n      \"amount_details\": {\n        \"graduated_ranges\": [\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"graduated_percentage_ranges\": [\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"free_units\": \"10.0\",\n        \"paid_units\": \"40.0\",\n        \"per_package_size\": 1000,\n        \"per_package_unit_amount\": \"0.5\",\n        \"units\": \"20.0\",\n        \"free_events\": 10,\n        \"rate\": \"1.0\",\n        \"per_unit_total_amount\": \"10.0\",\n        \"paid_events\": 20,\n        \"fixed_fee_unit_amount\": \"1.0\",\n        \"fixed_fee_total_amount\": \"20.0\",\n        \"min_max_adjustment_total_amount\": \"20.0\",\n        \"volume_ranges\": [\n          {\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"applied_taxes\": [\n        {\n          \"lago_fee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"lago_fee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"item\": {\n        \"type\": \"subscription\",\n        \"code\": \"startup\",\n        \"name\": \"Startup\",\n        \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"item_type\": \"Subscription\",\n        \"invoice_display_name\": \"Setup Fee (SF1)\",\n        \"filter_invoice_display_name\": \"AWS eu-east-1\",\n        \"filters\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"grouped_by\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      },\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"total_amount_cents\": 120,\n      \"total_amount_currency\": \"USD\",\n      \"pay_in_advance\": true,\n      \"invoiceable\": true,\n      \"units\": \"0.32\",\n      \"precise_unit_amount\": \"312.5\",\n      \"payment_status\": \"pending\",\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"external_id\",\n      \"external_subscription_id\": \"external_id\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"precise_amount\": \"1.0001\",\n      \"precise_total_amount\": \"1.0212\",\n      \"taxes_precise_amount\": \"0.20123\",\n      \"events_count\": 23,\n      \"from_date\": \"2022-04-29T08:59:51Z\",\n      \"to_date\": \"2022-05-29T08:59:51Z\",\n      \"created_at\": \"2022-08-24T14:58:59Z\",\n      \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n      \"failed_at\": \"2022-08-24T14:58:59Z\",\n      \"refunded_at\": \"2022-08-24T14:58:59Z\",\n      \"event_transaction_id\": \"transaction_1234567890\",\n      \"amount_details\": {\n        \"graduated_ranges\": [\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"graduated_percentage_ranges\": [\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_with_flat_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"free_units\": \"10.0\",\n        \"paid_units\": \"40.0\",\n        \"per_package_size\": 1000,\n        \"per_package_unit_amount\": \"0.5\",\n        \"units\": \"20.0\",\n        \"free_events\": 10,\n        \"rate\": \"1.0\",\n        \"per_unit_total_amount\": \"10.0\",\n        \"paid_events\": 20,\n        \"fixed_fee_unit_amount\": \"1.0\",\n        \"fixed_fee_total_amount\": \"20.0\",\n        \"min_max_adjustment_total_amount\": \"20.0\",\n        \"volume_ranges\": [\n          {\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"per_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"per_unit_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"applied_taxes\": [\n        {\n          \"lago_fee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"lago_fee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37c8cc6d-0900-4c83-ade3-a2b763525139",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "fee_type",
+                      "value": "charge"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "bm_code"
+                    },
+                    {
+                      "key": "payment_status",
+                      "value": "succeeded"
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc4fd553-b813-4901-84ed-ae0501112f61",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "fee_type",
+                      "value": "charge"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "bm_code"
+                    },
+                    {
+                      "key": "payment_status",
+                      "value": "succeeded"
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "succeeded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "failed_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_from",
+                      "value": "2023-03-28T12:21:51Z"
+                    },
+                    {
+                      "key": "refunded_at_to",
+                      "value": "2023-03-28T12:21:51Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "467c534b-7101-4c0c-a096-8ad3631d9f79",
+          "name": "Lago Retrieve a specific fee",
+          "request": {
+            "name": "Lago Retrieve a specific fee",
+            "description": {
+              "content": "This endpoint is used for retrieving a specific fee that has been issued.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "732866d4-7741-4e34-a4eb-b9121891b332",
+              "name": "Fee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fee\": {\n    \"item\": {\n      \"type\": \"subscription\",\n      \"code\": \"startup\",\n      \"name\": \"Startup\",\n      \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"item_type\": \"Subscription\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"filter_invoice_display_name\": \"AWS eu-east-1\",\n      \"filters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"grouped_by\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    \"amount_cents\": 100,\n    \"amount_currency\": \"USD\",\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"total_amount_cents\": 120,\n    \"total_amount_currency\": \"USD\",\n    \"pay_in_advance\": true,\n    \"invoiceable\": true,\n    \"units\": \"0.32\",\n    \"precise_unit_amount\": \"312.5\",\n    \"payment_status\": \"pending\",\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"external_id\",\n    \"external_subscription_id\": \"external_id\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"precise_amount\": \"1.0001\",\n    \"precise_total_amount\": \"1.0212\",\n    \"taxes_precise_amount\": \"0.20123\",\n    \"events_count\": 23,\n    \"from_date\": \"2022-04-29T08:59:51Z\",\n    \"to_date\": \"2022-05-29T08:59:51Z\",\n    \"created_at\": \"2022-08-24T14:58:59Z\",\n    \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n    \"failed_at\": \"2022-08-24T14:58:59Z\",\n    \"refunded_at\": \"2022-08-24T14:58:59Z\",\n    \"event_transaction_id\": \"transaction_1234567890\",\n    \"amount_details\": {\n      \"graduated_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"graduated_percentage_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"free_units\": \"10.0\",\n      \"paid_units\": \"40.0\",\n      \"per_package_size\": 1000,\n      \"per_package_unit_amount\": \"0.5\",\n      \"units\": \"20.0\",\n      \"free_events\": 10,\n      \"rate\": \"1.0\",\n      \"per_unit_total_amount\": \"10.0\",\n      \"paid_events\": 20,\n      \"fixed_fee_unit_amount\": \"1.0\",\n      \"fixed_fee_total_amount\": \"20.0\",\n      \"min_max_adjustment_total_amount\": \"20.0\",\n      \"volume_ranges\": [\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        },\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        }\n      ]\n    },\n    \"applied_taxes\": [\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de9564f4-6fed-411e-bb2a-54899f9cc74b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c452300-ff7d-4664-be12-3991ce8ea5cd",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3404f505-b33e-4d3d-b474-18e2b6af1cdc",
+          "name": "Lago Update a fee",
+          "request": {
+            "name": "Lago Update a fee",
+            "description": {
+              "content": "This endpoint is used for updating a specific fee that has been issued.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fee\": {\n    \"payment_status\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0cafe72e-554a-424a-9fc6-0f0514bfdd1f",
+              "name": "Fee updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fee\": {\n    \"item\": {\n      \"type\": \"subscription\",\n      \"code\": \"startup\",\n      \"name\": \"Startup\",\n      \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"item_type\": \"Subscription\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"filter_invoice_display_name\": \"AWS eu-east-1\",\n      \"filters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"grouped_by\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    \"amount_cents\": 100,\n    \"amount_currency\": \"USD\",\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"total_amount_cents\": 120,\n    \"total_amount_currency\": \"USD\",\n    \"pay_in_advance\": true,\n    \"invoiceable\": true,\n    \"units\": \"0.32\",\n    \"precise_unit_amount\": \"312.5\",\n    \"payment_status\": \"pending\",\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"external_id\",\n    \"external_subscription_id\": \"external_id\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"precise_amount\": \"1.0001\",\n    \"precise_total_amount\": \"1.0212\",\n    \"taxes_precise_amount\": \"0.20123\",\n    \"events_count\": 23,\n    \"from_date\": \"2022-04-29T08:59:51Z\",\n    \"to_date\": \"2022-05-29T08:59:51Z\",\n    \"created_at\": \"2022-08-24T14:58:59Z\",\n    \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n    \"failed_at\": \"2022-08-24T14:58:59Z\",\n    \"refunded_at\": \"2022-08-24T14:58:59Z\",\n    \"event_transaction_id\": \"transaction_1234567890\",\n    \"amount_details\": {\n      \"graduated_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"graduated_percentage_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"free_units\": \"10.0\",\n      \"paid_units\": \"40.0\",\n      \"per_package_size\": 1000,\n      \"per_package_unit_amount\": \"0.5\",\n      \"units\": \"20.0\",\n      \"free_events\": 10,\n      \"rate\": \"1.0\",\n      \"per_unit_total_amount\": \"10.0\",\n      \"paid_events\": 20,\n      \"fixed_fee_unit_amount\": \"1.0\",\n      \"fixed_fee_total_amount\": \"20.0\",\n      \"min_max_adjustment_total_amount\": \"20.0\",\n      \"volume_ranges\": [\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        },\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        }\n      ]\n    },\n    \"applied_taxes\": [\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c99958a7-0a9c-4668-9255-cb349dd44b36",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10db1801-f8a6-46be-bed2-7c9a60683af5",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d59122d-f5f1-4bee-a927-3b24760ec9a4",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36cac2fb-572f-4613-8ca3-d023d5b4b6df",
+              "name": "Not Allowed error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 405,\n  \"error\": \"Method Not Allowed\",\n  \"code\": \"not_allowed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60c7ebf1-179f-48df-97a0-ae35ac55ee2e",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fee\": {\n    \"payment_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b54aea7-ebc8-4130-82af-7b30646e3771",
+          "name": "Lago Delete a fee",
+          "request": {
+            "name": "Lago Delete a fee",
+            "description": {
+              "content": "This endpoint is used for deleting a specific fee that has not yet been invoiced",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "362c2fa2-8789-41c4-89d8-102926ec82b2",
+              "name": "Fee deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fee\": {\n    \"item\": {\n      \"type\": \"subscription\",\n      \"code\": \"startup\",\n      \"name\": \"Startup\",\n      \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"item_type\": \"Subscription\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"filter_invoice_display_name\": \"AWS eu-east-1\",\n      \"filters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"grouped_by\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    \"amount_cents\": 100,\n    \"amount_currency\": \"USD\",\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"total_amount_cents\": 120,\n    \"total_amount_currency\": \"USD\",\n    \"pay_in_advance\": true,\n    \"invoiceable\": true,\n    \"units\": \"0.32\",\n    \"precise_unit_amount\": \"312.5\",\n    \"payment_status\": \"pending\",\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"external_id\",\n    \"external_subscription_id\": \"external_id\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"precise_amount\": \"1.0001\",\n    \"precise_total_amount\": \"1.0212\",\n    \"taxes_precise_amount\": \"0.20123\",\n    \"events_count\": 23,\n    \"from_date\": \"2022-04-29T08:59:51Z\",\n    \"to_date\": \"2022-05-29T08:59:51Z\",\n    \"created_at\": \"2022-08-24T14:58:59Z\",\n    \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n    \"failed_at\": \"2022-08-24T14:58:59Z\",\n    \"refunded_at\": \"2022-08-24T14:58:59Z\",\n    \"event_transaction_id\": \"transaction_1234567890\",\n    \"amount_details\": {\n      \"graduated_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"per_unit_amount\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"graduated_percentage_ranges\": [\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        },\n        {\n          \"units\": \"10.0\",\n          \"from_value\": 0,\n          \"to_value\": 10,\n          \"flat_unit_amount\": \"1.0\",\n          \"rate\": \"1.0\",\n          \"per_unit_total_amount\": \"10.0\",\n          \"total_with_flat_amount\": \"11.0\"\n        }\n      ],\n      \"free_units\": \"10.0\",\n      \"paid_units\": \"40.0\",\n      \"per_package_size\": 1000,\n      \"per_package_unit_amount\": \"0.5\",\n      \"units\": \"20.0\",\n      \"free_events\": 10,\n      \"rate\": \"1.0\",\n      \"per_unit_total_amount\": \"10.0\",\n      \"paid_events\": 20,\n      \"fixed_fee_unit_amount\": \"1.0\",\n      \"fixed_fee_total_amount\": \"20.0\",\n      \"min_max_adjustment_total_amount\": \"20.0\",\n      \"volume_ranges\": [\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        },\n        {\n          \"per_unit_amount\": \"0.5\",\n          \"flat_unit_amount\": \"10.0\",\n          \"per_unit_total_amount\": \"10.0\"\n        }\n      ]\n    },\n    \"applied_taxes\": [\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faebc2ef-7e47-4ccd-aae4-960d948f8775",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48204776-1fd1-4fc3-8c2e-ef1bd0d9fd0e",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3a2f4a1-dbbc-4030-954a-ae2598f20c78",
+              "name": "Not Allowed error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 405,\n  \"error\": \"Method Not Allowed\",\n  \"code\": \"not_allowed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "93fc3138-ee22-4ece-b62b-0606e9679004",
+    "name": "Lago API documentation Add_ons Fees API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

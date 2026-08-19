@@ -1,0 +1,1263 @@
+{
+  "item": [
+    {
+      "id": "f3a78ada-bbd2-41fe-883f-5ce872f0bc8c",
+      "name": "Events",
+      "description": {
+        "content": "Everything about Event collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37587aeb-e71e-4520-bacb-14728767ad0f",
+          "name": "Lago Send usage events",
+          "request": {
+            "name": "Lago Send usage events",
+            "description": {
+              "content": "This endpoint is used for transmitting usage measurement events to either a designated customer or a specific subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"transaction_id\": \"<string>\",\n    \"external_subscription_id\": \"<string>\",\n    \"code\": \"<string>\",\n    \"timestamp\": \"<integer>\",\n    \"precise_total_amount_cents\": \"<string>\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3f052d4-0123-4257-aa53-b32c0ab7b801",
+              "name": "Event",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"transaction_id\": \"transaction_1234567890\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"code\": \"storage\",\n    \"timestamp\": \"<integer>\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"transaction_id\": \"transaction_1234567890\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"code\": \"storage\",\n    \"timestamp\": \"2022-04-29T08:59:51.123Z\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"operation_type\": \"remove\",\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1ca41a8-9ae3-43ea-b755-063dc532c6bf",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"transaction_id\": \"transaction_1234567890\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"code\": \"storage\",\n    \"timestamp\": \"<integer>\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfc26018-8c80-494b-ab06-c7737ba2064b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"transaction_id\": \"transaction_1234567890\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"code\": \"storage\",\n    \"timestamp\": \"<integer>\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cadc747-806b-4087-b088-686fb7d90a48",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"transaction_id\": \"transaction_1234567890\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"code\": \"storage\",\n    \"timestamp\": \"<integer>\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e27d6a01-08d9-496d-941f-c011e4121c73",
+          "name": "Lago List all events",
+          "request": {
+            "name": "Lago List all events",
+            "description": {
+              "content": "This endpoint is used for retrieving all events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_subscription_id",
+                  "value": "<string>",
+                  "description": "External subscription ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "Filter events by its code."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp_from",
+                  "value": "<dateTime>",
+                  "description": "Filter events by timestamp starting from a specific date."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp_to",
+                  "value": "<dateTime>",
+                  "description": "Filter events by timestamp up to a specific date."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfd1444b-bfb5-4ccb-8059-2d984119d37e",
+              "name": "Events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "code",
+                      "value": "event-123"
+                    },
+                    {
+                      "key": "timestamp_from",
+                      "value": "2022-08-08T00:00:00Z"
+                    },
+                    {
+                      "key": "timestamp_to",
+                      "value": "2022-08-08T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"transaction_id\": \"transaction_1234567890\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"code\": \"storage\",\n      \"timestamp\": \"2022-04-29T08:59:51.123Z\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"operation_type\": \"add\",\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"transaction_id\": \"transaction_1234567890\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"code\": \"storage\",\n      \"timestamp\": \"2022-04-29T08:59:51.123Z\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"operation_type\": \"add\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd744541-a31e-404e-bf63-c116b0b40ea8",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "code",
+                      "value": "event-123"
+                    },
+                    {
+                      "key": "timestamp_from",
+                      "value": "2022-08-08T00:00:00Z"
+                    },
+                    {
+                      "key": "timestamp_to",
+                      "value": "2022-08-08T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79a13603-b3a2-4e87-b824-7cb163bd49b0",
+          "name": "Lago Batch multiple events",
+          "request": {
+            "name": "Lago Batch multiple events",
+            "description": {
+              "content": "This endpoint can be used to send a batch of usage records. Each request may include up to 100 events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"transaction_id\": \"<string>\",\n      \"external_subscription_id\": \"<string>\",\n      \"code\": \"<string>\",\n      \"timestamp\": \"<integer>\",\n      \"precise_total_amount_cents\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    {\n      \"transaction_id\": \"<string>\",\n      \"external_subscription_id\": \"<string>\",\n      \"code\": \"<string>\",\n      \"timestamp\": \"<integer>\",\n      \"precise_total_amount_cents\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ae537d99-02ad-495d-ad2e-464332154b41",
+              "name": "Event received",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 4975,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 6570,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b21cb20-c246-421a-9acf-958cad10b782",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 4975,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 6570,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a29bd1c8-bd74-4788-aa96-e55687e3422b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 4975,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 6570,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50f664de-fd92-4009-93c8-7961fab6f276",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 4975,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"transaction_id\": \"transaction_1234567890\",\n      \"external_subscription_id\": \"sub_1234567890\",\n      \"code\": \"storage\",\n      \"timestamp\": 6570,\n      \"precise_total_amount_cents\": \"1234.56\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e1d2e1b-b440-45b0-8d6c-08a5e0444024",
+          "name": "Lago Estimate fees for a pay in advance charge",
+          "request": {
+            "name": "Lago Estimate fees for a pay in advance charge",
+            "description": {
+              "content": "Estimate the fees that would be created after reception of an event for a billable metric attached to one or multiple pay in advance charges",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "estimate_fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"code\": \"<string>\",\n    \"external_subscription_id\": \"<string>\",\n    \"properties\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7eb57153-8959-47b1-9033-b0a3484180ae",
+              "name": "Fees estimate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "estimate_fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"code\": \"storage\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"properties\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fees\": [\n    {\n      \"item\": {\n        \"type\": \"subscription\",\n        \"code\": \"startup\",\n        \"name\": \"Startup\",\n        \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"item_type\": \"Subscription\",\n        \"invoice_display_name\": \"Setup Fee (SF1)\",\n        \"filter_invoice_display_name\": \"AWS eu-east-1\",\n        \"filters\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_1\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_2\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_3\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"grouped_by\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"total_amount_cents\": 120,\n      \"total_amount_currency\": \"USD\",\n      \"pay_in_advance\": true,\n      \"invoiceable\": true,\n      \"units\": \"0.32\",\n      \"precise_unit_amount\": \"312.5\",\n      \"payment_status\": \"pending\",\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"external_id\",\n      \"external_subscription_id\": \"external_id\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"precise_amount\": \"1.0001\",\n      \"precise_total_amount\": \"1.0212\",\n      \"taxes_precise_amount\": \"0.20123\",\n      \"events_count\": 23,\n      \"from_date\": \"2022-04-29T08:59:51Z\",\n      \"to_date\": \"2022-05-29T08:59:51Z\",\n      \"created_at\": \"2022-08-24T14:58:59Z\",\n      \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n      \"failed_at\": \"2022-08-24T14:58:59Z\",\n      \"refunded_at\": \"2022-08-24T14:58:59Z\",\n      \"event_transaction_id\": \"transaction_1234567890\",\n      \"amount_details\": {\n        \"graduated_ranges\": [\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"per_unit_amount\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          },\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"per_unit_amount\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          }\n        ],\n        \"graduated_percentage_ranges\": [\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"rate\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          },\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"rate\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          }\n        ],\n        \"free_units\": \"10.0\",\n        \"paid_units\": \"40.0\",\n        \"per_package_size\": 1000,\n        \"per_package_unit_amount\": \"0.5\",\n        \"units\": \"20.0\",\n        \"free_events\": 10,\n        \"rate\": \"1.0\",\n        \"per_unit_total_amount\": \"10.0\",\n        \"paid_events\": 20,\n        \"fixed_fee_unit_amount\": \"1.0\",\n        \"fixed_fee_total_amount\": \"20.0\",\n        \"min_max_adjustment_total_amount\": \"20.0\",\n        \"volume_ranges\": [\n          {\n            \"per_unit_amount\": \"0.5\",\n            \"flat_unit_amount\": \"10.0\",\n            \"per_unit_total_amount\": \"10.0\"\n          },\n          {\n            \"per_unit_amount\": \"0.5\",\n            \"flat_unit_amount\": \"10.0\",\n            \"per_unit_total_amount\": \"10.0\"\n          }\n        ]\n      },\n      \"applied_taxes\": [\n        {\n          \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        },\n        {\n          \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        }\n      ]\n    },\n    {\n      \"item\": {\n        \"type\": \"subscription\",\n        \"code\": \"startup\",\n        \"name\": \"Startup\",\n        \"lago_item_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"item_type\": \"Subscription\",\n        \"invoice_display_name\": \"Setup Fee (SF1)\",\n        \"filter_invoice_display_name\": \"AWS eu-east-1\",\n        \"filters\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"grouped_by\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      },\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"total_amount_cents\": 120,\n      \"total_amount_currency\": \"USD\",\n      \"pay_in_advance\": true,\n      \"invoiceable\": true,\n      \"units\": \"0.32\",\n      \"precise_unit_amount\": \"312.5\",\n      \"payment_status\": \"pending\",\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"external_customer_id\": \"external_id\",\n      \"external_subscription_id\": \"external_id\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"precise_amount\": \"1.0001\",\n      \"precise_total_amount\": \"1.0212\",\n      \"taxes_precise_amount\": \"0.20123\",\n      \"events_count\": 23,\n      \"from_date\": \"2022-04-29T08:59:51Z\",\n      \"to_date\": \"2022-05-29T08:59:51Z\",\n      \"created_at\": \"2022-08-24T14:58:59Z\",\n      \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n      \"failed_at\": \"2022-08-24T14:58:59Z\",\n      \"refunded_at\": \"2022-08-24T14:58:59Z\",\n      \"event_transaction_id\": \"transaction_1234567890\",\n      \"amount_details\": {\n        \"graduated_ranges\": [\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"per_unit_amount\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          },\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"per_unit_amount\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          }\n        ],\n        \"graduated_percentage_ranges\": [\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"rate\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          },\n          {\n            \"units\": \"10.0\",\n            \"from_value\": 0,\n            \"to_value\": 10,\n            \"flat_unit_amount\": \"1.0\",\n            \"rate\": \"1.0\",\n            \"per_unit_total_amount\": \"10.0\",\n            \"total_with_flat_amount\": \"11.0\"\n          }\n        ],\n        \"free_units\": \"10.0\",\n        \"paid_units\": \"40.0\",\n        \"per_package_size\": 1000,\n        \"per_package_unit_amount\": \"0.5\",\n        \"units\": \"20.0\",\n        \"free_events\": 10,\n        \"rate\": \"1.0\",\n        \"per_unit_total_amount\": \"10.0\",\n        \"paid_events\": 20,\n        \"fixed_fee_unit_amount\": \"1.0\",\n        \"fixed_fee_total_amount\": \"20.0\",\n        \"min_max_adjustment_total_amount\": \"20.0\",\n        \"volume_ranges\": [\n          {\n            \"per_unit_amount\": \"0.5\",\n            \"flat_unit_amount\": \"10.0\",\n            \"per_unit_total_amount\": \"10.0\"\n          },\n          {\n            \"per_unit_amount\": \"0.5\",\n            \"flat_unit_amount\": \"10.0\",\n            \"per_unit_total_amount\": \"10.0\"\n          }\n        ]\n      },\n      \"applied_taxes\": [\n        {\n          \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        },\n        {\n          \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56de5c10-c6c1-4635-b0cb-4312cba13171",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "estimate_fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"code\": \"storage\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"properties\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "413c4b67-2bb3-40d7-8655-84f56c0ff3f5",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "estimate_fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"code\": \"storage\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"properties\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c8fc822-45b1-48a1-a2c3-9068c2535d7c",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "estimate_fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"code\": \"storage\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"properties\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d64ba041-d700-463c-bfdb-9ca0ca2dc333",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "estimate_fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"code\": \"storage\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"properties\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff8c8b77-a67b-48f0-8a29-bef2e97881d1",
+          "name": "Lago Retrieve a specific event",
+          "request": {
+            "name": "Lago Retrieve a specific event",
+            "description": {
+              "content": "This endpoint is used for retrieving a specific usage measurement event that has been sent to a customer or a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transaction_id",
+                  "description": "(Required) This field represents the unique identifier sent for this specific event (must be URL encoded)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf036575-6628-43f3-9561-34c74c76a614",
+              "name": "Event",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transaction_id",
+                      "description": "(Required) This field represents the unique identifier sent for this specific event (must be URL encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"transaction_id\": \"transaction_1234567890\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"code\": \"storage\",\n    \"timestamp\": \"2022-04-29T08:59:51.123Z\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_subscription_id\": \"sub_1234567890\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"precise_total_amount_cents\": \"1234.56\",\n    \"properties\": {\n      \"operation_type\": \"remove\",\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec398c12-b48e-4140-a567-4640c8076b37",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transaction_id",
+                      "description": "(Required) This field represents the unique identifier sent for this specific event (must be URL encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fa32838-db87-47e0-8144-438d82279370",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transaction_id",
+                      "description": "(Required) This field represents the unique identifier sent for this specific event (must be URL encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b4580e30-50d4-48b7-80b1-feb4790285f9",
+    "name": "Lago API documentation Add_ons Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

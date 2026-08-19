@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Webhook_endpoints API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook_endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all webhook endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/webhook_endpoints",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list all webhook endpoints."
+        },
+        {
+          "info": {
+            "name": "Lago Create a webhook_endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/webhook_endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to create a webhook endpoint."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/webhook_endpoints/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve an existing webhook endpoint."
+        },
+        {
+          "info": {
+            "name": "Lago Update a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/webhook_endpoints/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to update an existing webhook endpoint."
+        },
+        {
+          "info": {
+            "name": "Lago Delete a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/webhook_endpoints/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to delete an existing webhook endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

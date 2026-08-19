@@ -1,0 +1,293 @@
+{
+  "item": [
+    {
+      "id": "98be1197-7393-4d70-99aa-5d01e65bc9ee",
+      "name": "Organizations",
+      "description": {
+        "content": "Everything about Organization collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "61b9f359-0d3d-4176-b3d1-69faa75acbe4",
+          "name": "Lago Update your organization",
+          "request": {
+            "name": "Lago Update your organization",
+            "description": {
+              "content": "This endpoint is used to update your own organization's settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization\": {\n    \"webhook_url\": \"<string>\",\n    \"country\": \"<string>\",\n    \"default_currency\": \"<string>\",\n    \"address_line1\": \"<string>\",\n    \"address_line2\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"email\": \"<email>\",\n    \"city\": \"<string>\",\n    \"legal_name\": \"<string>\",\n    \"legal_number\": \"<string>\",\n    \"document_numbering\": \"<string>\",\n    \"document_number_prefix\": \"<string>\",\n    \"net_payment_term\": \"<integer>\",\n    \"tax_identification_number\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"email_settings\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"billing_configuration\": {\n      \"invoice_footer\": \"<string>\",\n      \"invoice_grace_period\": \"<integer>\",\n      \"document_locale\": \"<string>\"\n    },\n    \"finalize_zero_amount_invoice\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ea5c2d7-48af-4a43-83a1-e8147b93a6af",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"webhook_url\": \"https://webhook.brex.com\",\n    \"country\": \"US\",\n    \"default_currency\": \"USD\",\n    \"address_line1\": \"100 Brex Street\",\n    \"address_line2\": null,\n    \"state\": \"NYC\",\n    \"zipcode\": \"10000\",\n    \"email\": \"brex@brex.com\",\n    \"city\": \"New York\",\n    \"legal_name\": null,\n    \"legal_number\": null,\n    \"document_numbering\": \"per_customer\",\n    \"document_number_prefix\": \"ORG-1234\",\n    \"net_payment_term\": 30,\n    \"tax_identification_number\": \"US123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"email_settings\": [\n      \"invoice.finalized\",\n      \"credit_note.created\"\n    ],\n    \"billing_configuration\": {\n      \"invoice_footer\": \"This is my customer footer\",\n      \"invoice_grace_period\": 3,\n      \"document_locale\": \"en\"\n    },\n    \"finalize_zero_amount_invoice\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"organization\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Name1\",\n    \"created_at\": \"2022-05-02T13:04:09Z\",\n    \"document_numbering\": \"per_customer\",\n    \"document_number_prefix\": \"ORG-1234\",\n    \"billing_configuration\": {\n      \"invoice_footer\": \"This is my customer footer\",\n      \"invoice_grace_period\": 3,\n      \"document_locale\": \"en\"\n    },\n    \"webhook_url\": \"https://webhook.brex.com\",\n    \"webhook_urls\": [\n      \"https://webhook.brex.com\",\n      \"https://webhook2.brex.com\"\n    ],\n    \"country\": \"US\",\n    \"default_currency\": \"USD\",\n    \"address_line1\": \"100 Brex Street\",\n    \"address_line2\": null,\n    \"state\": \"NYC\",\n    \"zipcode\": \"10000\",\n    \"email\": \"brex@brex.com\",\n    \"city\": \"New York\",\n    \"legal_name\": null,\n    \"legal_number\": null,\n    \"net_payment_term\": 30,\n    \"tax_identification_number\": \"US123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ],\n    \"finalize_zero_amount_invoice\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "998698a2-9bf8-4abe-a4ec-6db9803ac825",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"webhook_url\": \"https://webhook.brex.com\",\n    \"country\": \"US\",\n    \"default_currency\": \"USD\",\n    \"address_line1\": \"100 Brex Street\",\n    \"address_line2\": null,\n    \"state\": \"NYC\",\n    \"zipcode\": \"10000\",\n    \"email\": \"brex@brex.com\",\n    \"city\": \"New York\",\n    \"legal_name\": null,\n    \"legal_number\": null,\n    \"document_numbering\": \"per_customer\",\n    \"document_number_prefix\": \"ORG-1234\",\n    \"net_payment_term\": 30,\n    \"tax_identification_number\": \"US123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"email_settings\": [\n      \"invoice.finalized\",\n      \"credit_note.created\"\n    ],\n    \"billing_configuration\": {\n      \"invoice_footer\": \"This is my customer footer\",\n      \"invoice_grace_period\": 3,\n      \"document_locale\": \"en\"\n    },\n    \"finalize_zero_amount_invoice\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15e0045f-5a8b-40e5-9ca4-e92a3d98fea1",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"webhook_url\": \"https://webhook.brex.com\",\n    \"country\": \"US\",\n    \"default_currency\": \"USD\",\n    \"address_line1\": \"100 Brex Street\",\n    \"address_line2\": null,\n    \"state\": \"NYC\",\n    \"zipcode\": \"10000\",\n    \"email\": \"brex@brex.com\",\n    \"city\": \"New York\",\n    \"legal_name\": null,\n    \"legal_number\": null,\n    \"document_numbering\": \"per_customer\",\n    \"document_number_prefix\": \"ORG-1234\",\n    \"net_payment_term\": 30,\n    \"tax_identification_number\": \"US123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"email_settings\": [\n      \"invoice.finalized\",\n      \"credit_note.created\"\n    ],\n    \"billing_configuration\": {\n      \"invoice_footer\": \"This is my customer footer\",\n      \"invoice_grace_period\": 3,\n      \"document_locale\": \"en\"\n    },\n    \"finalize_zero_amount_invoice\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72728076-cd6a-47b0-8a85-589792c8255f",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization\": {\n    \"webhook_url\": \"https://webhook.brex.com\",\n    \"country\": \"US\",\n    \"default_currency\": \"USD\",\n    \"address_line1\": \"100 Brex Street\",\n    \"address_line2\": null,\n    \"state\": \"NYC\",\n    \"zipcode\": \"10000\",\n    \"email\": \"brex@brex.com\",\n    \"city\": \"New York\",\n    \"legal_name\": null,\n    \"legal_number\": null,\n    \"document_numbering\": \"per_customer\",\n    \"document_number_prefix\": \"ORG-1234\",\n    \"net_payment_term\": 30,\n    \"tax_identification_number\": \"US123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"email_settings\": [\n      \"invoice.finalized\",\n      \"credit_note.created\"\n    ],\n    \"billing_configuration\": {\n      \"invoice_footer\": \"This is my customer footer\",\n      \"invoice_grace_period\": 3,\n      \"document_locale\": \"en\"\n    },\n    \"finalize_zero_amount_invoice\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25c06276-b22e-417b-a07a-f45d7042851a",
+    "name": "Lago API documentation Add_ons Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

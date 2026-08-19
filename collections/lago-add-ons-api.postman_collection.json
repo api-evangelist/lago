@@ -1,0 +1,1202 @@
+{
+  "item": [
+    {
+      "id": "dfaeaf10-0b18-4e21-b905-9b40045b8f3d",
+      "name": "Add_ons",
+      "description": {
+        "content": "Everything about Add-on collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04c5696b-12a0-4fc0-80d3-e46e59421f48",
+          "name": "Lago Create an add-on",
+          "request": {
+            "name": "Lago Create an add-on",
+            "description": {
+              "content": "This endpoint is used to create an add-on that can be then attached to a one-off invoice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"add_on\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"amount_cents\": \"<integer>\",\n    \"amount_currency\": \"<string>\",\n    \"invoice_display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"tax_codes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ab1f638-45f1-4834-9e63-e1f05030b7a0",
+              "name": "Add-on created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_on\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c9b2bf9-c3aa-4b14-b564-52485719cadb",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "009511e8-913a-4902-83d4-dfbe83772687",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15d685d8-59c6-4f61-b5a0-33e2400762bc",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5519e0c-147a-4a91-bd14-e67f89e3b39c",
+          "name": "Lago List all add-ons",
+          "request": {
+            "name": "Lago List all add-ons",
+            "description": {
+              "content": "This endpoint is used to list all existing add-ons.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd3f0692-aacb-4e12-bcd0-595b412e69b5",
+              "name": "Add-ons",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_ons\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Setup Fee\",\n      \"code\": \"setup_fee\",\n      \"amount_cents\": 50000,\n      \"amount_currency\": \"USD\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"description\": \"Implementation fee for new customers.\",\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Setup Fee\",\n      \"code\": \"setup_fee\",\n      \"amount_cents\": 50000,\n      \"amount_currency\": \"USD\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"invoice_display_name\": \"Setup Fee (SF1)\",\n      \"description\": \"Implementation fee for new customers.\",\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "037e5ac5-07bb-467a-afa7-92f65e2980c9",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aee77e98-d418-46c8-81f8-5f5a22d79a09",
+          "name": "Lago Update an add-on",
+          "request": {
+            "name": "Lago Update an add-on",
+            "description": {
+              "content": "This endpoint is used to update an existing add-on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Unique code used to identify the add-on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"add_on\": {\n    \"name\": \"<string>\",\n    \"invoice_display_name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"amount_cents\": \"<integer>\",\n    \"amount_currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"tax_codes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d0f3bc7-4bcd-470a-9295-1ccc9ca86b78",
+              "name": "Add-on updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_on\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a25ee2ea-32a6-410f-9680-ac8ea32f5923",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eeae91eb-380b-4e2d-9fde-6c591c405f9e",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18f916ef-1fb5-4afd-bd24-95a628dd074f",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81fe83df-a7bc-49bc-9a4f-9cc262be6bb2",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"add_on\": {\n    \"name\": \"Setup Fee\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc1c6161-e6fa-4629-980a-076d2b7af705",
+          "name": "Lago Retrieve an add-on",
+          "request": {
+            "name": "Lago Retrieve an add-on",
+            "description": {
+              "content": "This endpoint is used to retrieve a specific add-on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Unique code used to identify the add-on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1727846f-f3f5-4331-bb92-49d81509e5c3",
+              "name": "Add-on",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_on\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b41ac71-9a13-401e-bd8a-f321cc1cfb55",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24b6fa91-a8f6-45c3-bd7f-e3d74af94d59",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83734518-a6c6-4a76-b56e-4cbe770df701",
+          "name": "Lago Delete an add-on",
+          "request": {
+            "name": "Lago Delete an add-on",
+            "description": {
+              "content": "This endpoint is used to delete an existing add-on.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Unique code used to identify the add-on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51d64c1e-2ccf-4e56-9fc9-09c572bc3237",
+              "name": "Add-on deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_on\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Setup Fee\",\n    \"code\": \"setup_fee\",\n    \"amount_cents\": 50000,\n    \"amount_currency\": \"USD\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"invoice_display_name\": \"Setup Fee (SF1)\",\n    \"description\": \"Implementation fee for new customers.\",\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ac6681c-7425-4810-a584-5bbe51693f85",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af4ea97d-80e0-492d-afde-2dbdb3395fa0",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Unique code used to identify the add-on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "556198fd-4ac6-4cdd-9b49-84b942e18023",
+    "name": "Lago API documentation Add_ons API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

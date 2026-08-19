@@ -1,0 +1,459 @@
+{
+  "item": [
+    {
+      "id": "aff253f7-a826-4944-93a4-ad5c7999a8ef",
+      "name": "Payment_requests",
+      "description": {
+        "content": "Everything about PaymentRequests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee3d8044-66a5-4ad6-ba41-e36337eab6cb",
+          "name": "Lago Create a payment request",
+          "request": {
+            "name": "Lago Create a payment request",
+            "description": {
+              "content": "This endpoint is used to create a payment request to collect payments of overdue invoices of a given customer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_request\": {\n    \"email\": \"<email>\",\n    \"lago_invoice_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customer_external_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc8e7a8e-ef1b-4b04-b274-7e8942c5bb64",
+              "name": "PaymentRequest created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_request\": {\n    \"email\": \"dinesh@piedpiper.test\",\n    \"lago_invoice_ids\": [\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n    ],\n    \"customer_external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment_request\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"amount_cents\": 100,\n    \"amount_currency\": \"USD\",\n    \"payment_status\": \"succeeded\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"customer\": {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"sequential_id\": 1,\n      \"slug\": \"LAG-1234-001\",\n      \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"applicable_timezone\": \"America/Los_Angeles\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"currency\": \"USD\",\n      \"email\": \"dinesh@piedpiper.test\",\n      \"legal_name\": \"Coleman-Blair\",\n      \"legal_number\": \"49-008-2965\",\n      \"logo_url\": \"http://hooli.com/logo.png\",\n      \"name\": \"Gavin Belson\",\n      \"firstname\": \"Gavin\",\n      \"lastname\": \"Belson\",\n      \"customer_type\": \"individual\",\n      \"phone\": \"1-171-883-3711 x245\",\n      \"state\": \"CA\",\n      \"tax_identification_number\": \"EU123456789\",\n      \"timezone\": \"America/Los_Angeles\",\n      \"url\": \"http://hooli.com\",\n      \"zipcode\": \"91364\",\n      \"net_payment_term\": 30,\n      \"updated_at\": \"2022-04-29T08:59:51Z\",\n      \"finalize_zero_amount_invoice\": \"inherit\",\n      \"billing_configuration\": {\n        \"invoice_grace_period\": 3,\n        \"payment_provider\": \"stripe\",\n        \"payment_provider_code\": \"stripe-eu-1\",\n        \"provider_customer_id\": \"cus_12345\",\n        \"sync\": true,\n        \"sync_with_provider\": true,\n        \"document_locale\": \"fr\",\n        \"provider_payment_methods\": [\n          \"card\",\n          \"sepa_debit\"\n        ]\n      },\n      \"shipping_address\": {\n        \"address_line1\": \"5230 Penfield Ave\",\n        \"address_line2\": null,\n        \"city\": \"Woodland Hills\",\n        \"country\": \"US\",\n        \"state\": \"CA\",\n        \"zipcode\": \"91364\"\n      },\n      \"metadata\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        }\n      ]\n    },\n    \"invoices\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"number\": \"LAG-1234-001-002\",\n        \"issuing_date\": \"2022-04-30\",\n        \"invoice_type\": \"subscription\",\n        \"status\": \"finalized\",\n        \"payment_status\": \"succeeded\",\n        \"currency\": \"USD\",\n        \"fees_amount_cents\": 100,\n        \"coupons_amount_cents\": 10,\n        \"credit_notes_amount_cents\": 10,\n        \"sub_total_excluding_taxes_amount_cents\": 100,\n        \"taxes_amount_cents\": 20,\n        \"sub_total_including_taxes_amount_cents\": 120,\n        \"prepaid_credit_amount_cents\": 0,\n        \"progressive_billing_credit_amount_cents\": 0,\n        \"total_amount_cents\": 100,\n        \"version_number\": 3,\n        \"sequential_id\": 2,\n        \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n        \"payment_due_date\": \"2022-04-30\",\n        \"payment_overdue\": true,\n        \"net_payment_term\": 30,\n        \"file_url\": \"https://getlago.com/invoice/file\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"number\": \"LAG-1234-001-002\",\n        \"issuing_date\": \"2022-04-30\",\n        \"invoice_type\": \"subscription\",\n        \"status\": \"finalized\",\n        \"payment_status\": \"succeeded\",\n        \"currency\": \"USD\",\n        \"fees_amount_cents\": 100,\n        \"coupons_amount_cents\": 10,\n        \"credit_notes_amount_cents\": 10,\n        \"sub_total_excluding_taxes_amount_cents\": 100,\n        \"taxes_amount_cents\": 20,\n        \"sub_total_including_taxes_amount_cents\": 120,\n        \"prepaid_credit_amount_cents\": 0,\n        \"progressive_billing_credit_amount_cents\": 0,\n        \"total_amount_cents\": 100,\n        \"version_number\": 3,\n        \"sequential_id\": 2,\n        \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n        \"payment_due_date\": \"2022-04-30\",\n        \"payment_overdue\": true,\n        \"net_payment_term\": 30,\n        \"file_url\": \"https://getlago.com/invoice/file\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6917a83f-94f2-46dc-b3e2-6755ff44c270",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_request\": {\n    \"email\": \"dinesh@piedpiper.test\",\n    \"lago_invoice_ids\": [\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n    ],\n    \"customer_external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d56aa3-2c85-433a-bd7e-81db9ebbdb1e",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_request\": {\n    \"email\": \"dinesh@piedpiper.test\",\n    \"lago_invoice_ids\": [\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n    ],\n    \"customer_external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6e10754-5e12-4aad-aacd-060b67461ddf",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_request\": {\n    \"email\": \"dinesh@piedpiper.test\",\n    \"lago_invoice_ids\": [\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n    ],\n    \"customer_external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f56bd31-3394-413b-9ca8-ded3d167081a",
+          "name": "Lago List all payment requests",
+          "request": {
+            "name": "Lago List all payment requests",
+            "description": {
+              "content": "This endpoint is used to list all existing payment requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "Unique identifier assigned to the customer in your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85ad024f-b94d-4174-96ac-bd4631fcfa87",
+              "name": "PaymentRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment_requests\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"email\": \"dinesh@piedpiper.test\",\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"payment_status\": \"succeeded\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"customer\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"sequential_id\": 1,\n        \"slug\": \"LAG-1234-001\",\n        \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n        \"applicable_timezone\": \"America/Los_Angeles\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"address_line1\": \"5230 Penfield Ave\",\n        \"address_line2\": null,\n        \"city\": \"Woodland Hills\",\n        \"country\": \"US\",\n        \"currency\": \"USD\",\n        \"email\": \"dinesh@piedpiper.test\",\n        \"legal_name\": \"Coleman-Blair\",\n        \"legal_number\": \"49-008-2965\",\n        \"logo_url\": \"http://hooli.com/logo.png\",\n        \"name\": \"Gavin Belson\",\n        \"firstname\": \"Gavin\",\n        \"lastname\": \"Belson\",\n        \"customer_type\": \"individual\",\n        \"phone\": \"1-171-883-3711 x245\",\n        \"state\": \"CA\",\n        \"tax_identification_number\": \"EU123456789\",\n        \"timezone\": \"America/Los_Angeles\",\n        \"url\": \"http://hooli.com\",\n        \"zipcode\": \"91364\",\n        \"net_payment_term\": 30,\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"finalize_zero_amount_invoice\": \"inherit\",\n        \"billing_configuration\": {\n          \"invoice_grace_period\": 3,\n          \"payment_provider\": \"stripe\",\n          \"payment_provider_code\": \"stripe-eu-1\",\n          \"provider_customer_id\": \"cus_12345\",\n          \"sync\": true,\n          \"sync_with_provider\": true,\n          \"document_locale\": \"fr\",\n          \"provider_payment_methods\": [\n            \"card\",\n            \"sepa_debit\"\n          ]\n        },\n        \"shipping_address\": {\n          \"address_line1\": \"5230 Penfield Ave\",\n          \"address_line2\": null,\n          \"city\": \"Woodland Hills\",\n          \"country\": \"US\",\n          \"state\": \"CA\",\n          \"zipcode\": \"91364\"\n        },\n        \"metadata\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"key\": \"Purchase Order\",\n            \"value\": \"123456789\",\n            \"display_in_invoice\": true,\n            \"created_at\": \"2022-04-29T08:59:51Z\"\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"key\": \"Purchase Order\",\n            \"value\": \"123456789\",\n            \"display_in_invoice\": true,\n            \"created_at\": \"2022-04-29T08:59:51Z\"\n          }\n        ]\n      },\n      \"invoices\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"number\": \"LAG-1234-001-002\",\n          \"issuing_date\": \"2022-04-30\",\n          \"invoice_type\": \"subscription\",\n          \"status\": \"finalized\",\n          \"payment_status\": \"succeeded\",\n          \"currency\": \"USD\",\n          \"fees_amount_cents\": 100,\n          \"coupons_amount_cents\": 10,\n          \"credit_notes_amount_cents\": 10,\n          \"sub_total_excluding_taxes_amount_cents\": 100,\n          \"taxes_amount_cents\": 20,\n          \"sub_total_including_taxes_amount_cents\": 120,\n          \"prepaid_credit_amount_cents\": 0,\n          \"progressive_billing_credit_amount_cents\": 0,\n          \"total_amount_cents\": 100,\n          \"version_number\": 3,\n          \"sequential_id\": 2,\n          \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n          \"payment_due_date\": \"2022-04-30\",\n          \"payment_overdue\": true,\n          \"net_payment_term\": 30,\n          \"file_url\": \"https://getlago.com/invoice/file\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"number\": \"LAG-1234-001-002\",\n          \"issuing_date\": \"2022-04-30\",\n          \"invoice_type\": \"subscription\",\n          \"status\": \"finalized\",\n          \"payment_status\": \"succeeded\",\n          \"currency\": \"USD\",\n          \"fees_amount_cents\": 100,\n          \"coupons_amount_cents\": 10,\n          \"credit_notes_amount_cents\": 10,\n          \"sub_total_excluding_taxes_amount_cents\": 100,\n          \"taxes_amount_cents\": 20,\n          \"sub_total_including_taxes_amount_cents\": 120,\n          \"prepaid_credit_amount_cents\": 0,\n          \"progressive_billing_credit_amount_cents\": 0,\n          \"total_amount_cents\": 100,\n          \"version_number\": 3,\n          \"sequential_id\": 2,\n          \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n          \"payment_due_date\": \"2022-04-30\",\n          \"payment_overdue\": true,\n          \"net_payment_term\": 30,\n          \"file_url\": \"https://getlago.com/invoice/file\"\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"email\": \"dinesh@piedpiper.test\",\n      \"amount_cents\": 100,\n      \"amount_currency\": \"USD\",\n      \"payment_status\": \"succeeded\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"customer\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"sequential_id\": 1,\n        \"slug\": \"LAG-1234-001\",\n        \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n        \"applicable_timezone\": \"America/Los_Angeles\",\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"address_line1\": \"5230 Penfield Ave\",\n        \"address_line2\": null,\n        \"city\": \"Woodland Hills\",\n        \"country\": \"US\",\n        \"currency\": \"USD\",\n        \"email\": \"dinesh@piedpiper.test\",\n        \"legal_name\": \"Coleman-Blair\",\n        \"legal_number\": \"49-008-2965\",\n        \"logo_url\": \"http://hooli.com/logo.png\",\n        \"name\": \"Gavin Belson\",\n        \"firstname\": \"Gavin\",\n        \"lastname\": \"Belson\",\n        \"customer_type\": \"individual\",\n        \"phone\": \"1-171-883-3711 x245\",\n        \"state\": \"CA\",\n        \"tax_identification_number\": \"EU123456789\",\n        \"timezone\": \"America/Los_Angeles\",\n        \"url\": \"http://hooli.com\",\n        \"zipcode\": \"91364\",\n        \"net_payment_term\": 30,\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"finalize_zero_amount_invoice\": \"inherit\",\n        \"billing_configuration\": {\n          \"invoice_grace_period\": 3,\n          \"payment_provider\": \"stripe\",\n          \"payment_provider_code\": \"stripe-eu-1\",\n          \"provider_customer_id\": \"cus_12345\",\n          \"sync\": true,\n          \"sync_with_provider\": true,\n          \"document_locale\": \"fr\",\n          \"provider_payment_methods\": [\n            \"card\",\n            \"sepa_debit\"\n          ]\n        },\n        \"shipping_address\": {\n          \"address_line1\": \"5230 Penfield Ave\",\n          \"address_line2\": null,\n          \"city\": \"Woodland Hills\",\n          \"country\": \"US\",\n          \"state\": \"CA\",\n          \"zipcode\": \"91364\"\n        },\n        \"metadata\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"key\": \"Purchase Order\",\n            \"value\": \"123456789\",\n            \"display_in_invoice\": true,\n            \"created_at\": \"2022-04-29T08:59:51Z\"\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"key\": \"Purchase Order\",\n            \"value\": \"123456789\",\n            \"display_in_invoice\": true,\n            \"created_at\": \"2022-04-29T08:59:51Z\"\n          }\n        ]\n      },\n      \"invoices\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"number\": \"LAG-1234-001-002\",\n          \"issuing_date\": \"2022-04-30\",\n          \"invoice_type\": \"subscription\",\n          \"status\": \"finalized\",\n          \"payment_status\": \"succeeded\",\n          \"currency\": \"USD\",\n          \"fees_amount_cents\": 100,\n          \"coupons_amount_cents\": 10,\n          \"credit_notes_amount_cents\": 10,\n          \"sub_total_excluding_taxes_amount_cents\": 100,\n          \"taxes_amount_cents\": 20,\n          \"sub_total_including_taxes_amount_cents\": 120,\n          \"prepaid_credit_amount_cents\": 0,\n          \"progressive_billing_credit_amount_cents\": 0,\n          \"total_amount_cents\": 100,\n          \"version_number\": 3,\n          \"sequential_id\": 2,\n          \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n          \"payment_due_date\": \"2022-04-30\",\n          \"payment_overdue\": true,\n          \"net_payment_term\": 30,\n          \"file_url\": \"https://getlago.com/invoice/file\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"number\": \"LAG-1234-001-002\",\n          \"issuing_date\": \"2022-04-30\",\n          \"invoice_type\": \"subscription\",\n          \"status\": \"finalized\",\n          \"payment_status\": \"succeeded\",\n          \"currency\": \"USD\",\n          \"fees_amount_cents\": 100,\n          \"coupons_amount_cents\": 10,\n          \"credit_notes_amount_cents\": 10,\n          \"sub_total_excluding_taxes_amount_cents\": 100,\n          \"taxes_amount_cents\": 20,\n          \"sub_total_including_taxes_amount_cents\": 120,\n          \"prepaid_credit_amount_cents\": 0,\n          \"progressive_billing_credit_amount_cents\": 0,\n          \"total_amount_cents\": 100,\n          \"version_number\": 3,\n          \"sequential_id\": 2,\n          \"payment_dispute_lost_at\": \"2022-09-14T16:35:31Z\",\n          \"payment_due_date\": \"2022-04-30\",\n          \"payment_overdue\": true,\n          \"net_payment_term\": 30,\n          \"file_url\": \"https://getlago.com/invoice/file\"\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "697855c1-7313-43a0-98df-ec97975b6d39",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "04bca4f4-431c-495d-b27b-6d4e56b6bfa2",
+    "name": "Lago API documentation Add_ons Payment_requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

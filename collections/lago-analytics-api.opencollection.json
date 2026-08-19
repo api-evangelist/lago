@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Analytics API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List gross revenue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/analytics/gross_revenue",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency of revenue analytics. Format must be ISO 4217."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level."
+              },
+              {
+                "name": "months",
+                "value": "",
+                "type": "query",
+                "description": "Show data only for given number of months."
+              }
+            ]
+          },
+          "docs": "Gross revenue is the sum of monthly `finalized` invoice payments and fees paid in advance that are not invoiceable. This total is calculated after deducting taxes and discounts."
+        },
+        {
+          "info": {
+            "name": "Lago List of finalized invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/analytics/invoice_collection",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency of revenue analytics. Format must be ISO 4217."
+              },
+              {
+                "name": "months",
+                "value": "",
+                "type": "query",
+                "description": "Show data only for given number of months."
+              }
+            ]
+          },
+          "docs": "Represents a monthly aggregation, detailing both the total count and the cumulative amount of invoices that have been marked as `finalized`. This report sorts invoices categorically based on their `payment_status`."
+        },
+        {
+          "info": {
+            "name": "Lago List usage revenue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/analytics/invoiced_usage",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency of invoiced usage analytics. Format must be ISO 4217."
+              },
+              {
+                "name": "months",
+                "value": "",
+                "type": "query",
+                "description": "Show data only for given number of months."
+              }
+            ]
+          },
+          "docs": "Reports a monthly analysis focused on the revenue generated from all usage-based fees. It exclusively accounts for revenue that has been formally invoiced. Importantly, this report does not include revenue related to the usage in the current billing period, limiting its scope to previously invoiced amounts."
+        },
+        {
+          "info": {
+            "name": "Lago List MRR",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/analytics/mrr",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Quantifies the revenue generated from `subscription` fees on a monthly basis. This figure is calculated post-application of applicable taxes and deduction of any applicable discounts. The method of calculation varies based on the subscription billing cycle:\n\n- Revenue from `monthly` subscription invoices is included in the MRR for the month in which the invoice is issued.\n- Revenue from `quarterly` subscription invoices is distributed evenly over three months. This distribution applies to fees paid in advance (allocated to the next remaining months depending on calendar or anniversary billing) as well as to fees paid in arrears (allocated to the preceding months depending on calendar or anniversary billing).\n- Revenue from `yearly` subscription invoices is distributed evenly over twelve months. This allocation is applicable for fees paid in advance (spread over the next  remaining months depending on calendar or anniversary billing) and for fees paid in arrears (spread over the previous months depending on calendar or anniversary billing).\n- Revenue from `weekly` subscription invoices, the total revenue from all invoices issued within a month is summed up. This total is then divided by the number of invoices issued during that month, and the result is multiplied by 4.33, representing the average number of weeks in a month."
+              },
+              {
+                "name": "months",
+                "value": "",
+                "type": "query",
+                "description": "Show data only for given number of months."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list MRR."
+        },
+        {
+          "info": {
+            "name": "Lago List overdue balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/analytics/overdue_balance",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency of revenue analytics. Format must be ISO 4217."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level."
+              },
+              {
+                "name": "months",
+                "value": "",
+                "type": "query",
+                "description": "Show data only for given number of months."
+              }
+            ]
+          },
+          "docs": "Overdue balance is the total amount associated with overdue invoices (invoices with pending or failed payments which are past their due dates)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

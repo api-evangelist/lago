@@ -1,0 +1,2023 @@
+{
+  "item": [
+    {
+      "id": "6917445b-3690-408c-8341-0f7bc8b03574",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Everything about Subscription collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b7cbf2d-28e4-4306-bba4-cae3d09d86ac",
+          "name": "Lago Assign a plan to a customer",
+          "request": {
+            "name": "Lago Assign a plan to a customer",
+            "description": {
+              "content": "This endpoint assigns a plan to a customer, creating or modifying a subscription. Ideal for initial subscriptions or plan changes (upgrades/downgrades).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"<string>\",\n    \"plan_code\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"billing_time\": \"<string>\",\n    \"ending_at\": \"<dateTime>\",\n    \"subscription_at\": \"<dateTime>\",\n    \"plan_overrides\": {\n      \"amount_cents\": \"<integer>\",\n      \"amount_currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"invoice_display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tax_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trial_period\": \"<number>\",\n      \"minimum_commitment\": {\n        \"lago_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"plan_code\": \"<string>\",\n        \"invoice_display_name\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"updated_at\": \"<dateTime>\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string>\",\n            \"rate\": \"<number>\",\n            \"applied_to_organization\": \"<boolean>\",\n            \"customers_count\": \"<integer>\",\n            \"created_at\": \"<dateTime>\",\n            \"description\": \"<string>\",\n            \"add_ons_count\": \"<integer>\",\n            \"charges_count\": \"<integer>\",\n            \"plans_count\": \"<integer>\"\n          },\n          {\n            \"lago_id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string>\",\n            \"rate\": \"<number>\",\n            \"applied_to_organization\": \"<boolean>\",\n            \"customers_count\": \"<integer>\",\n            \"created_at\": \"<dateTime>\",\n            \"description\": \"<string>\",\n            \"add_ons_count\": \"<integer>\",\n            \"charges_count\": \"<integer>\",\n            \"plans_count\": \"<integer>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"<uuid>\",\n          \"billable_metric_id\": \"<uuid>\",\n          \"invoice_display_name\": \"<string>\",\n          \"min_amount_cents\": \"<integer>\",\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"<string>\",\n            \"free_units\": \"<integer>\",\n            \"package_size\": \"<integer>\",\n            \"rate\": \"<string>\",\n            \"fixed_amount\": \"<string>\",\n            \"free_units_per_events\": \"<integer>\",\n            \"free_units_per_total_aggregation\": \"<string>\",\n            \"per_transaction_max_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"per_transaction_min_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"grouped_by\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"billable_metric_id\": \"<uuid>\",\n          \"invoice_display_name\": \"<string>\",\n          \"min_amount_cents\": \"<integer>\",\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"<string>\",\n            \"free_units\": \"<integer>\",\n            \"package_size\": \"<integer>\",\n            \"rate\": \"<string>\",\n            \"fixed_amount\": \"<string>\",\n            \"free_units_per_events\": \"<integer>\",\n            \"free_units_per_total_aggregation\": \"<string>\",\n            \"per_transaction_max_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"per_transaction_min_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"grouped_by\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"<uuid>\",\n          \"amount_cents\": \"<integer>\",\n          \"recurring\": \"<boolean>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"threshold_display_name\": \"<string>\"\n        },\n        {\n          \"lago_id\": \"<uuid>\",\n          \"amount_cents\": \"<integer>\",\n          \"recurring\": \"<boolean>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"threshold_display_name\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "771902ff-f877-4045-904c-0a24c08bcecd",
+              "name": "Subscription created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"my_sub_1234567890\",\n    \"name\": \"Repository A\",\n    \"billing_time\": \"anniversary\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscription\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"billing_time\": \"anniversary\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"created_at\": \"2022-08-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"status\": \"active\",\n    \"name\": \"Repository A\",\n    \"canceled_at\": \"2022-09-14T16:35:31Z\",\n    \"started_at\": \"2022-08-08T00:00:00Z\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"previous_plan_code\": null,\n    \"next_plan_code\": null,\n    \"downgrade_plan_date\": \"2022-04-30\",\n    \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\",\n    \"plan\": {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Startup\",\n      \"created_at\": \"2023-06-27T19:43:42Z\",\n      \"code\": \"startup\",\n      \"interval\": \"monthly\",\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"active_subscriptions_count\": 0,\n      \"draft_invoices_count\": 0,\n      \"invoice_display_name\": \"Startup plan\",\n      \"description\": \"\",\n      \"trial_period\": 5,\n      \"pay_in_advance\": true,\n      \"bill_charges_monthly\": null,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"percentage\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78ed7b46-e198-4b57-884e-fd034d7aec16",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"my_sub_1234567890\",\n    \"name\": \"Repository A\",\n    \"billing_time\": \"anniversary\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6aa05ff7-2024-4086-92dc-922bb1e8edb6",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"my_sub_1234567890\",\n    \"name\": \"Repository A\",\n    \"billing_time\": \"anniversary\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a54bf4c-e105-414c-bd2e-dc668de8316f",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"my_sub_1234567890\",\n    \"name\": \"Repository A\",\n    \"billing_time\": \"anniversary\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b689281d-4367-46de-b29d-2a7cc6ae4c9a",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"my_sub_1234567890\",\n    \"name\": \"Repository A\",\n    \"billing_time\": \"anniversary\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8061ae02-94ad-4a26-9404-a413edacd440",
+          "name": "Lago List all subscriptions",
+          "request": {
+            "name": "Lago List all subscriptions",
+            "description": {
+              "content": "This endpoint retrieves all active subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "The customer external unique identifier (provided by your own application)"
+                },
+                {
+                  "disabled": false,
+                  "key": "plan_code",
+                  "value": "<string>",
+                  "description": "The unique code representing the plan to be attached to the customer. This code must correspond to the code property of one of the active plans."
+                },
+                {
+                  "disabled": false,
+                  "key": "status[]",
+                  "value": "<string>",
+                  "description": "If the field is not defined, Lago will return only `active` subscriptions. However, if you wish to fetch subscriptions by different status you can define them in a status[] query param. Available filter values: `pending`, `canceled`, `terminated`, `active`."
+                },
+                {
+                  "disabled": false,
+                  "key": "status[]",
+                  "value": "<string>",
+                  "description": "If the field is not defined, Lago will return only `active` subscriptions. However, if you wish to fetch subscriptions by different status you can define them in a status[] query param. Available filter values: `pending`, `canceled`, `terminated`, `active`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41ab5fde-2a3c-4266-9675-121770266931",
+              "name": "List of subscriptions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "plan_code",
+                      "value": "premium"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "active"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscriptions\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"billing_time\": \"anniversary\",\n      \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"created_at\": \"2022-08-08T00:00:00Z\",\n      \"subscription_at\": \"2022-08-08T00:00:00Z\",\n      \"plan_code\": \"premium\",\n      \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"status\": \"active\",\n      \"name\": \"Repository A\",\n      \"canceled_at\": \"2022-09-14T16:35:31Z\",\n      \"started_at\": \"2022-08-08T00:00:00Z\",\n      \"ending_at\": \"2022-10-08T00:00:00Z\",\n      \"terminated_at\": \"2022-09-14T16:35:31Z\",\n      \"previous_plan_code\": null,\n      \"next_plan_code\": null,\n      \"downgrade_plan_date\": \"2022-04-30\",\n      \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n      \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n      \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\"\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"billing_time\": \"anniversary\",\n      \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"created_at\": \"2022-08-08T00:00:00Z\",\n      \"subscription_at\": \"2022-08-08T00:00:00Z\",\n      \"plan_code\": \"premium\",\n      \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"status\": \"active\",\n      \"name\": \"Repository A\",\n      \"canceled_at\": \"2022-09-14T16:35:31Z\",\n      \"started_at\": \"2022-08-08T00:00:00Z\",\n      \"ending_at\": \"2022-10-08T00:00:00Z\",\n      \"terminated_at\": \"2022-09-14T16:35:31Z\",\n      \"previous_plan_code\": null,\n      \"next_plan_code\": null,\n      \"downgrade_plan_date\": \"2022-04-30\",\n      \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n      \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n      \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\"\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf800aac-6557-4067-bc2f-62be3b1b5b95",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "plan_code",
+                      "value": "premium"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "active"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55cd8660-739f-4b3b-8248-7d4eb680b3d0",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "plan_code",
+                      "value": "premium"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "active"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d366577a-f71c-4fc6-b9bd-d330b46bb4d3",
+          "name": "Lago Retrieve a subscription",
+          "request": {
+            "name": "Lago Retrieve a subscription",
+            "description": {
+              "content": "This endpoint retrieves a specific subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f987208d-5934-4841-bc8c-b7a33acd6474",
+              "name": "Subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscription\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"billing_time\": \"anniversary\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"created_at\": \"2022-08-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"status\": \"active\",\n    \"name\": \"Repository A\",\n    \"canceled_at\": \"2022-09-14T16:35:31Z\",\n    \"started_at\": \"2022-08-08T00:00:00Z\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"previous_plan_code\": null,\n    \"next_plan_code\": null,\n    \"downgrade_plan_date\": \"2022-04-30\",\n    \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\",\n    \"plan\": {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Startup\",\n      \"created_at\": \"2023-06-27T19:43:42Z\",\n      \"code\": \"startup\",\n      \"interval\": \"monthly\",\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"active_subscriptions_count\": 0,\n      \"draft_invoices_count\": 0,\n      \"invoice_display_name\": \"Startup plan\",\n      \"description\": \"\",\n      \"trial_period\": 5,\n      \"pay_in_advance\": true,\n      \"bill_charges_monthly\": null,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"percentage\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c7207f9-c16f-4bd2-bdcf-3acfe450e84f",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b8780c6-4a1c-4bf8-a77f-952acbe55e94",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "558d7768-560a-4632-a761-6b484da46ff0",
+          "name": "Lago Update a subscription",
+          "request": {
+            "name": "Lago Update a subscription",
+            "description": {
+              "content": "This endpoint allows you to update a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"subscription_at\": \"<dateTime>\",\n    \"plan_overrides\": {\n      \"amount_cents\": \"<integer>\",\n      \"amount_currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"invoice_display_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tax_codes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trial_period\": \"<number>\",\n      \"minimum_commitment\": {\n        \"lago_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"plan_code\": \"<string>\",\n        \"invoice_display_name\": \"<string>\",\n        \"interval\": \"<string>\",\n        \"updated_at\": \"<dateTime>\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string>\",\n            \"rate\": \"<number>\",\n            \"applied_to_organization\": \"<boolean>\",\n            \"customers_count\": \"<integer>\",\n            \"created_at\": \"<dateTime>\",\n            \"description\": \"<string>\",\n            \"add_ons_count\": \"<integer>\",\n            \"charges_count\": \"<integer>\",\n            \"plans_count\": \"<integer>\"\n          },\n          {\n            \"lago_id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string>\",\n            \"rate\": \"<number>\",\n            \"applied_to_organization\": \"<boolean>\",\n            \"customers_count\": \"<integer>\",\n            \"created_at\": \"<dateTime>\",\n            \"description\": \"<string>\",\n            \"add_ons_count\": \"<integer>\",\n            \"charges_count\": \"<integer>\",\n            \"plans_count\": \"<integer>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"<uuid>\",\n          \"billable_metric_id\": \"<uuid>\",\n          \"invoice_display_name\": \"<string>\",\n          \"min_amount_cents\": \"<integer>\",\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"<string>\",\n            \"free_units\": \"<integer>\",\n            \"package_size\": \"<integer>\",\n            \"rate\": \"<string>\",\n            \"fixed_amount\": \"<string>\",\n            \"free_units_per_events\": \"<integer>\",\n            \"free_units_per_total_aggregation\": \"<string>\",\n            \"per_transaction_max_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"per_transaction_min_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"grouped_by\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"billable_metric_id\": \"<uuid>\",\n          \"invoice_display_name\": \"<string>\",\n          \"min_amount_cents\": \"<integer>\",\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"<string>\",\n            \"free_units\": \"<integer>\",\n            \"package_size\": \"<integer>\",\n            \"rate\": \"<string>\",\n            \"fixed_amount\": \"<string>\",\n            \"free_units_per_events\": \"<integer>\",\n            \"free_units_per_total_aggregation\": \"<string>\",\n            \"per_transaction_max_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"per_transaction_min_amount\": \"<^[0-9]+.?[0-9]*$>\",\n            \"grouped_by\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"invoice_display_name\": \"<string>\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"<uuid>\",\n          \"amount_cents\": \"<integer>\",\n          \"recurring\": \"<boolean>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"threshold_display_name\": \"<string>\"\n        },\n        {\n          \"lago_id\": \"<uuid>\",\n          \"amount_cents\": \"<integer>\",\n          \"recurring\": \"<boolean>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\",\n          \"threshold_display_name\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d10adc7-43a3-4a06-9eb6-e04a8db0c289",
+              "name": "Subscription updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"name\": \"Repository B\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscription\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"billing_time\": \"anniversary\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"created_at\": \"2022-08-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"status\": \"active\",\n    \"name\": \"Repository A\",\n    \"canceled_at\": \"2022-09-14T16:35:31Z\",\n    \"started_at\": \"2022-08-08T00:00:00Z\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"previous_plan_code\": null,\n    \"next_plan_code\": null,\n    \"downgrade_plan_date\": \"2022-04-30\",\n    \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\",\n    \"plan\": {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Startup\",\n      \"created_at\": \"2023-06-27T19:43:42Z\",\n      \"code\": \"startup\",\n      \"interval\": \"monthly\",\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"active_subscriptions_count\": 0,\n      \"draft_invoices_count\": 0,\n      \"invoice_display_name\": \"Startup plan\",\n      \"description\": \"\",\n      \"trial_period\": 5,\n      \"pay_in_advance\": true,\n      \"bill_charges_monthly\": null,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"percentage\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3413d97-04b9-4565-bdd0-6ccd4b9ea888",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"name\": \"Repository B\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b76fe39-fded-49a0-a256-92d1fae1c11d",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"name\": \"Repository B\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0402797-5d48-4a67-98dc-4594a51a22a8",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"name\": \"Repository B\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c8187be-01b2-405d-980b-6f29b22ca3e8",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscription\": {\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"name\": \"Repository B\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_overrides\": {\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"description\": \"Plan for early stage startups.\",\n      \"invoice_display_name\": \"Startup plan\",\n      \"name\": \"Startup\",\n      \"tax_codes\": [\n        \"french_standard_vat\"\n      ],\n      \"trial_period\": 5,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          },\n          {\n            \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n            \"name\": \"TVA\",\n            \"code\": \"french_standard_vat\",\n            \"rate\": 20,\n            \"applied_to_organization\": true,\n            \"customers_count\": 0,\n            \"created_at\": \"2023-07-06T14:35:58Z\",\n            \"description\": \"French standard VAT\",\n            \"add_ons_count\": 0,\n            \"charges_count\": 0,\n            \"plans_count\": 0\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        },\n        {\n          \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"invoice_display_name\": \"Setup\",\n          \"min_amount_cents\": 0,\n          \"properties\": {\n            \"graduated_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"graduated_percentage_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"amount\": \"30\",\n            \"free_units\": 100,\n            \"package_size\": 1000,\n            \"rate\": \"1\",\n            \"fixed_amount\": \"0.5\",\n            \"free_units_per_events\": 5,\n            \"free_units_per_total_aggregation\": \"500\",\n            \"per_transaction_max_amount\": \"3.75\",\n            \"per_transaction_min_amount\": \"1.75\",\n            \"grouped_by\": [\n              \"agent_name\"\n            ],\n            \"volume_ranges\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"filters\": [\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            },\n            {\n              \"invoice_display_name\": \"AWS\",\n              \"properties\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"region\": [\n                  \"us-east-1\"\n                ]\n              }\n            }\n          ],\n          \"tax_codes\": [\n            \"french_standard_vat\"\n          ]\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42bf6cde-7971-4b40-9f73-350c5c034272",
+          "name": "Lago Terminate a subscription",
+          "request": {
+            "name": "Lago Terminate a subscription",
+            "description": {
+              "content": "This endpoint allows you to terminate a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "If the field is not defined, Lago will terminate only `active` subscriptions. However, if you wish to cancel a `pending` subscription, please ensure that you include `status=pending` in your request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b5d9df4-80c7-490c-af8a-10380e166c01",
+              "name": "Subscription terminated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscription\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"billing_time\": \"anniversary\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"created_at\": \"2022-08-08T00:00:00Z\",\n    \"subscription_at\": \"2022-08-08T00:00:00Z\",\n    \"plan_code\": \"premium\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"status\": \"active\",\n    \"name\": \"Repository A\",\n    \"canceled_at\": \"2022-09-14T16:35:31Z\",\n    \"started_at\": \"2022-08-08T00:00:00Z\",\n    \"ending_at\": \"2022-10-08T00:00:00Z\",\n    \"terminated_at\": \"2022-09-14T16:35:31Z\",\n    \"previous_plan_code\": null,\n    \"next_plan_code\": null,\n    \"downgrade_plan_date\": \"2022-04-30\",\n    \"trial_ended_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_started_at\": \"2022-08-08T00:00:00Z\",\n    \"current_billing_period_ending_at\": \"2022-09-08T00:00:00Z\",\n    \"plan\": {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Startup\",\n      \"created_at\": \"2023-06-27T19:43:42Z\",\n      \"code\": \"startup\",\n      \"interval\": \"monthly\",\n      \"amount_cents\": 10000,\n      \"amount_currency\": \"USD\",\n      \"active_subscriptions_count\": 0,\n      \"draft_invoices_count\": 0,\n      \"invoice_display_name\": \"Startup plan\",\n      \"description\": \"\",\n      \"trial_period\": 5,\n      \"pay_in_advance\": true,\n      \"bill_charges_monthly\": null,\n      \"minimum_commitment\": {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100000,\n        \"created_at\": \"2022-04-29T08:59:51Z\",\n        \"plan_code\": \"premium\",\n        \"invoice_display_name\": \"Minimum Commitment (C1)\",\n        \"interval\": \"monthly\",\n        \"updated_at\": \"2022-04-29T08:59:51Z\",\n        \"taxes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"charges\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_billable_metric_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"billable_metric_code\": \"requests\",\n          \"created_at\": \"2022-09-14T16:35:31Z\",\n          \"charge_model\": \"percentage\",\n          \"invoice_display_name\": \"Setup\",\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"regroup_paid_fees\": \"invoice\",\n          \"prorated\": false,\n          \"min_amount_cents\": 1200,\n          \"properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ],\n      \"usage_thresholds\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 10000,\n          \"recurring\": true,\n          \"created_at\": \"2023-06-27T19:43:42Z\",\n          \"updated_at\": \"2023-06-27T19:43:42Z\",\n          \"threshold_display_name\": \"Threshold 1\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eab24703-a11f-4000-908f-c343a4a69519",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e3e0879-9df7-4d58-b78a-8b4bbe5a92e1",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c6aa3ef-876d-400e-b8dc-a20c28d8b581",
+              "name": "Not Allowed error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "pending"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 405,\n  \"error\": \"Method Not Allowed\",\n  \"code\": \"not_allowed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34ec8fc4-d12b-4f9d-91a9-df724aceacbe",
+          "name": "Lago Retrive subscription lifetime usage",
+          "request": {
+            "name": "Lago Retrive subscription lifetime usage",
+            "description": {
+              "content": "This endpoint enables the retrieval of the lifetime usage of a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":external_id",
+                "lifetime_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c9a48f1-5c1c-43d8-beb3-aa8b334c174a",
+              "name": "Subscription lifetime usage",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lifetime_usage\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_subscription_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"external_historical_usage_amount_cents\": 100,\n    \"invoiced_usage_amount_cents\": 100,\n    \"current_usage_amount_cents\": 100,\n    \"from_datetime\": \"2024-01-01T00:00:00Z\",\n    \"to_datetime\": \"2024-12-31T23:59:59Z\",\n    \"usage_thresholds\": [\n      {\n        \"amount_cents\": 100,\n        \"completion_ratio\": 0.5,\n        \"reached_at\": \"2024-01-01T00:00:00Z\"\n      },\n      {\n        \"amount_cents\": 100,\n        \"completion_ratio\": 0.5,\n        \"reached_at\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4483196-40e9-4d12-a94c-201433142741",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc65e38-9fce-4d57-9a9e-e078f55c50e9",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "117e64d3-7d18-48c5-a5cf-53050906570c",
+          "name": "Lago Update a subscription lifetime usage",
+          "request": {
+            "name": "Lago Update a subscription lifetime usage",
+            "description": {
+              "content": "This endpoint allows you to update the lifetime usage of a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":external_id",
+                "lifetime_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f729080-adf1-43fa-97d2-b0be27e3b8e3",
+              "name": "Subscription lifetime usage updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lifetime_usage\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_subscription_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"external_historical_usage_amount_cents\": 100,\n    \"invoiced_usage_amount_cents\": 100,\n    \"current_usage_amount_cents\": 100,\n    \"from_datetime\": \"2024-01-01T00:00:00Z\",\n    \"to_datetime\": \"2024-12-31T23:59:59Z\",\n    \"usage_thresholds\": [\n      {\n        \"amount_cents\": 100,\n        \"completion_ratio\": 0.5,\n        \"reached_at\": \"2024-01-01T00:00:00Z\"\n      },\n      {\n        \"amount_cents\": 100,\n        \"completion_ratio\": 0.5,\n        \"reached_at\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa43f64c-a114-4ef5-851e-4ea15d49abaa",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1beba85-978a-437e-b191-b352639ba9b1",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8746ad67-6555-4f04-8805-aa8beee28b15",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30b145dd-1463-4610-961e-87e1e57536ca",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":external_id",
+                    "lifetime_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lifetime_usage\": {\n    \"external_historical_usage_amount_cents\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "498edaf9-5391-4c2e-9e76-3f32454a1db6",
+    "name": "Lago API documentation Add_ons Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

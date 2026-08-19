@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Billable_metrics API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billable_metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all billable metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/billable_metrics",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all existing billable metrics that represent pricing components of your application."
+        },
+        {
+          "info": {
+            "name": "Lago Create a billable metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/billable_metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new billable metric representing a pricing component of your application."
+        },
+        {
+          "info": {
+            "name": "Lago Evaluate an expression for a billable metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/billable_metrics/evaluate_expression",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluate an expression for a billable metric creation by providing the expression and test data"
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a billable metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/billable_metrics/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the existing billable metric."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves an existing billable metric that represents a pricing component of your application. The billable metric is identified by its unique code."
+        },
+        {
+          "info": {
+            "name": "Lago Update a billable metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/billable_metrics/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the existing billable metric."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint updates an existing billable metric representing a pricing component of your application."
+        },
+        {
+          "info": {
+            "name": "Lago Delete a billable metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/billable_metrics/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the existing billable metric."
+              }
+            ]
+          },
+          "docs": "This endpoint deletes an existing billable metric representing a pricing component of your application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2140 @@
+{
+  "item": [
+    {
+      "id": "8d184af1-dbae-481b-9a3b-3957cd72573b",
+      "name": "Customers",
+      "description": {
+        "content": "Everything about Customer collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "408795f3-876b-42da-a3d8-d9923994cade",
+          "name": "Lago Create a customer",
+          "request": {
+            "name": "Lago Create a customer",
+            "description": {
+              "content": "This endpoint creates a new customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer\": {\n    \"external_id\": \"<string>\",\n    \"address_line1\": \"<string>\",\n    \"address_line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"email\": \"<email>\",\n    \"legal_name\": \"<string>\",\n    \"legal_number\": \"<string>\",\n    \"logo_url\": \"<string>\",\n    \"name\": \"<string>\",\n    \"firstname\": \"<string>\",\n    \"lastname\": \"<string>\",\n    \"customer_type\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"state\": \"<string>\",\n    \"tax_codes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tax_identification_number\": \"<string>\",\n    \"timezone\": \"<string>\",\n    \"url\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"net_payment_term\": \"<integer>\",\n    \"finalize_zero_amount_invoice\": \"<string>\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": \"<integer>\",\n      \"payment_provider\": \"<string>\",\n      \"payment_provider_code\": \"<string>\",\n      \"provider_customer_id\": \"<string>\",\n      \"sync\": \"<boolean>\",\n      \"sync_with_provider\": \"<boolean>\",\n      \"document_locale\": \"<string>\",\n      \"provider_payment_methods\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"<string>\",\n      \"address_line2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipcode\": \"<string>\"\n    },\n    \"integration_customers\": [\n      {\n        \"id\": \"<uuid>\",\n        \"integration_type\": \"<string>\",\n        \"integration_code\": \"<string>\",\n        \"external_customer_id\": \"<string>\",\n        \"sync_with_provider\": \"<boolean>\",\n        \"subsidiary_id\": \"<string>\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"integration_type\": \"<string>\",\n        \"integration_code\": \"<string>\",\n        \"external_customer_id\": \"<string>\",\n        \"sync_with_provider\": \"<boolean>\",\n        \"subsidiary_id\": \"<string>\"\n      }\n    ],\n    \"metadata\": [\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\",\n        \"display_in_invoice\": \"<boolean>\",\n        \"id\": \"<uuid>\"\n      },\n      {\n        \"key\": \"<string>\",\n        \"value\": \"<string>\",\n        \"display_in_invoice\": \"<boolean>\",\n        \"id\": \"<uuid>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82386b91-58f6-4444-86dc-e63efa42aa74",
+              "name": "Customer created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": \"\",\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"<string>\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ],\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"integration_customers\": [\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"metadata\": [\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      },\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 1,\n    \"slug\": \"LAG-1234-001\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"applicable_timezone\": \"America/Los_Angeles\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": null,\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"individual\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"updated_at\": \"2022-04-29T08:59:51Z\",\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"metadata\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      }\n    ],\n    \"integration_customers\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "302f5b2c-7b55-486c-a9c0-3589ef7e996e",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": \"\",\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"<string>\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ],\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"integration_customers\": [\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"metadata\": [\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      },\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fb9ea0f-1664-4d2b-84f8-d79320e8f456",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": \"\",\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"<string>\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ],\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"integration_customers\": [\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"metadata\": [\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      },\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4dce8f9-0312-4ce9-b54b-939caf4634b2",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer\": {\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": \"\",\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"<string>\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_codes\": [\n      \"french_standard_vat\"\n    ],\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"integration_customers\": [\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"integration_type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"metadata\": [\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      },\n      {\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1878bd4-c650-4012-90ca-e1ac47459ef3",
+          "name": "Lago List all customers",
+          "request": {
+            "name": "Lago List all customers",
+            "description": {
+              "content": "This endpoint retrieves all existing customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03d85396-4c71-4fc5-bbce-b4ce095b72c6",
+              "name": "List of customers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customers\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"sequential_id\": 1,\n      \"slug\": \"LAG-1234-001\",\n      \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"applicable_timezone\": \"America/Los_Angeles\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"currency\": \"USD\",\n      \"email\": \"dinesh@piedpiper.test\",\n      \"legal_name\": \"Coleman-Blair\",\n      \"legal_number\": \"49-008-2965\",\n      \"logo_url\": \"http://hooli.com/logo.png\",\n      \"name\": \"Gavin Belson\",\n      \"firstname\": \"Gavin\",\n      \"lastname\": \"Belson\",\n      \"customer_type\": \"company\",\n      \"phone\": \"1-171-883-3711 x245\",\n      \"state\": \"CA\",\n      \"tax_identification_number\": \"EU123456789\",\n      \"timezone\": \"America/Los_Angeles\",\n      \"url\": \"http://hooli.com\",\n      \"zipcode\": \"91364\",\n      \"net_payment_term\": 30,\n      \"updated_at\": \"2022-04-29T08:59:51Z\",\n      \"finalize_zero_amount_invoice\": \"inherit\",\n      \"billing_configuration\": {\n        \"invoice_grace_period\": 3,\n        \"payment_provider\": \"stripe\",\n        \"payment_provider_code\": \"stripe-eu-1\",\n        \"provider_customer_id\": \"cus_12345\",\n        \"sync\": true,\n        \"sync_with_provider\": true,\n        \"document_locale\": \"fr\",\n        \"provider_payment_methods\": [\n          \"card\",\n          \"sepa_debit\"\n        ]\n      },\n      \"shipping_address\": {\n        \"address_line1\": \"5230 Penfield Ave\",\n        \"address_line2\": null,\n        \"city\": \"Woodland Hills\",\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": \"CA\",\n        \"zipcode\": \"91364\"\n      },\n      \"metadata\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        }\n      ],\n      \"integration_customers\": [\n        {\n          \"lago_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"integration_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"external_customer_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sync_with_provider\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"subsidiary_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"lago_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"integration_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"external_customer_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sync_with_provider\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"subsidiary_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"sequential_id\": 1,\n      \"slug\": \"LAG-1234-001\",\n      \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n      \"applicable_timezone\": \"America/Los_Angeles\",\n      \"created_at\": \"2022-04-29T08:59:51Z\",\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"currency\": \"USD\",\n      \"email\": \"dinesh@piedpiper.test\",\n      \"legal_name\": \"Coleman-Blair\",\n      \"legal_number\": \"49-008-2965\",\n      \"logo_url\": \"http://hooli.com/logo.png\",\n      \"name\": \"Gavin Belson\",\n      \"firstname\": \"Gavin\",\n      \"lastname\": \"Belson\",\n      \"customer_type\": \"individual\",\n      \"phone\": \"1-171-883-3711 x245\",\n      \"state\": \"CA\",\n      \"tax_identification_number\": \"EU123456789\",\n      \"timezone\": \"America/Los_Angeles\",\n      \"url\": \"http://hooli.com\",\n      \"zipcode\": \"91364\",\n      \"net_payment_term\": 30,\n      \"updated_at\": \"2022-04-29T08:59:51Z\",\n      \"finalize_zero_amount_invoice\": \"inherit\",\n      \"billing_configuration\": {\n        \"invoice_grace_period\": 3,\n        \"payment_provider\": \"stripe\",\n        \"payment_provider_code\": \"stripe-eu-1\",\n        \"provider_customer_id\": \"cus_12345\",\n        \"sync\": true,\n        \"sync_with_provider\": true,\n        \"document_locale\": \"fr\",\n        \"provider_payment_methods\": [\n          \"card\",\n          \"sepa_debit\"\n        ]\n      },\n      \"shipping_address\": {\n        \"address_line1\": \"5230 Penfield Ave\",\n        \"address_line2\": null,\n        \"city\": \"Woodland Hills\",\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": \"CA\",\n        \"zipcode\": \"91364\"\n      },\n      \"metadata\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"key\": \"Purchase Order\",\n          \"value\": \"123456789\",\n          \"display_in_invoice\": true,\n          \"created_at\": \"2022-04-29T08:59:51Z\"\n        }\n      ],\n      \"integration_customers\": [\n        {\n          \"lago_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"integration_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"external_customer_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sync_with_provider\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"subsidiary_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"lago_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"integration_code\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"external_customer_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"sync_with_provider\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"subsidiary_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"taxes\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"TVA\",\n          \"code\": \"french_standard_vat\",\n          \"rate\": 20,\n          \"applied_to_organization\": true,\n          \"customers_count\": 0,\n          \"created_at\": \"2023-07-06T14:35:58Z\",\n          \"description\": \"French standard VAT\",\n          \"add_ons_count\": 0,\n          \"charges_count\": 0,\n          \"plans_count\": 0\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccc6b9b7-d774-45f5-8f86-82b58dfa04a9",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c552348d-275a-4c61-907a-3c5cc103a899",
+          "name": "Lago Retrieve a customer",
+          "request": {
+            "name": "Lago Retrieve a customer",
+            "description": {
+              "content": "This endpoint retrieves an existing customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing customer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5b18e32-387c-4fc3-b235-e7c646ddf794",
+              "name": "Customer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 1,\n    \"slug\": \"LAG-1234-001\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"applicable_timezone\": \"America/Los_Angeles\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": null,\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"individual\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"updated_at\": \"2022-04-29T08:59:51Z\",\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"metadata\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      }\n    ],\n    \"integration_customers\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9108ddc-21a5-4495-9be2-51031bf6136b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9907f68-733d-4d48-8db5-7e48145cf281",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "767974ba-b421-4ea5-98b0-76d8f01b4312",
+          "name": "Lago Delete a customer",
+          "request": {
+            "name": "Lago Delete a customer",
+            "description": {
+              "content": "This endpoint deletes an existing customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) External ID of the existing customer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80b476af-d999-45f6-8084-a14ea84737a4",
+              "name": "Customer deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 1,\n    \"slug\": \"LAG-1234-001\",\n    \"external_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"applicable_timezone\": \"America/Los_Angeles\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"address_line1\": \"5230 Penfield Ave\",\n    \"address_line2\": null,\n    \"city\": \"Woodland Hills\",\n    \"country\": \"US\",\n    \"currency\": \"USD\",\n    \"email\": \"dinesh@piedpiper.test\",\n    \"legal_name\": \"Coleman-Blair\",\n    \"legal_number\": \"49-008-2965\",\n    \"logo_url\": \"http://hooli.com/logo.png\",\n    \"name\": \"Gavin Belson\",\n    \"firstname\": \"Gavin\",\n    \"lastname\": \"Belson\",\n    \"customer_type\": \"individual\",\n    \"phone\": \"1-171-883-3711 x245\",\n    \"state\": \"CA\",\n    \"tax_identification_number\": \"EU123456789\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"url\": \"http://hooli.com\",\n    \"zipcode\": \"91364\",\n    \"net_payment_term\": 30,\n    \"updated_at\": \"2022-04-29T08:59:51Z\",\n    \"finalize_zero_amount_invoice\": \"inherit\",\n    \"billing_configuration\": {\n      \"invoice_grace_period\": 3,\n      \"payment_provider\": \"stripe\",\n      \"payment_provider_code\": \"stripe-eu-1\",\n      \"provider_customer_id\": \"cus_12345\",\n      \"sync\": true,\n      \"sync_with_provider\": true,\n      \"document_locale\": \"fr\",\n      \"provider_payment_methods\": [\n        \"card\",\n        \"sepa_debit\"\n      ]\n    },\n    \"shipping_address\": {\n      \"address_line1\": \"5230 Penfield Ave\",\n      \"address_line2\": null,\n      \"city\": \"Woodland Hills\",\n      \"country\": \"US\",\n      \"state\": \"CA\",\n      \"zipcode\": \"91364\"\n    },\n    \"metadata\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"key\": \"Purchase Order\",\n        \"value\": \"123456789\",\n        \"display_in_invoice\": true,\n        \"created_at\": \"2022-04-29T08:59:51Z\"\n      }\n    ],\n    \"integration_customers\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"type\": \"netsuite\",\n        \"integration_code\": \"netsuite-eu-1\",\n        \"external_customer_id\": \"cus_12345\",\n        \"sync_with_provider\": true,\n        \"subsidiary_id\": \"2\"\n      }\n    ],\n    \"taxes\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"name\": \"TVA\",\n        \"code\": \"french_standard_vat\",\n        \"rate\": 20,\n        \"applied_to_organization\": true,\n        \"customers_count\": 0,\n        \"created_at\": \"2023-07-06T14:35:58Z\",\n        \"description\": \"French standard VAT\",\n        \"add_ons_count\": 0,\n        \"charges_count\": 0,\n        \"plans_count\": 0\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88951a9f-9634-49b7-a5d6-daee7d24521e",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc2f6a00-e53b-4dae-8e3a-51dc9d1c7260",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2f26d3c-7a1e-4bd8-bffe-1a9a3ce6a04b",
+          "name": "Lago Delete an applied coupon",
+          "request": {
+            "name": "Lago Delete an applied coupon",
+            "description": {
+              "content": "This endpoint is used to delete a specific coupon that has been applied to a customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_customer_id",
+                "applied_coupons",
+                ":applied_coupon_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_customer_id",
+                  "description": "(Required) The customer external unique identifier (provided by your own application)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applied_coupon_id",
+                  "description": "(Required) Unique identifier of the applied coupon, created by Lago."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27da2ec0-1a2c-4b25-b216-68a336218c67",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "applied_coupons",
+                    ":applied_coupon_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applied_coupon_id",
+                      "description": "(Required) Unique identifier of the applied coupon, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applied_coupon\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"lago_coupon_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"coupon_code\": \"startup_deal\",\n    \"coupon_name\": \"Startup Deal\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"status\": \"active\",\n    \"frequency\": \"recurring\",\n    \"created_at\": \"2022-04-29T08:59:51Z\",\n    \"amount_cents\": 2000,\n    \"amount_cents_remaining\": 50,\n    \"amount_currency\": \"USD\",\n    \"percentage_rate\": null,\n    \"frequency_duration\": 3,\n    \"frequency_duration_remaining\": 1,\n    \"expiration_at\": \"2022-04-29T08:59:51Z\",\n    \"terminated_at\": \"2022-04-29T08:59:51Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e1f0cbe-b60d-4135-b367-f0b8df5b48e2",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "applied_coupons",
+                    ":applied_coupon_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applied_coupon_id",
+                      "description": "(Required) Unique identifier of the applied coupon, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cecc4836-ceee-4a47-996f-950a8bb7dbe1",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "applied_coupons",
+                    ":applied_coupon_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applied_coupon_id",
+                      "description": "(Required) Unique identifier of the applied coupon, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8175247c-020b-40ca-8d6f-9da6ce45ef09",
+          "name": "Lago Get a customer portal URL",
+          "request": {
+            "name": "Lago Get a customer portal URL",
+            "description": {
+              "content": "Retrieves an embeddable link for displaying a customer portal.\n\nThis endpoint allows you to fetch the URL that can be embedded to provide customers access to a dedicated portal",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_customer_id",
+                "portal_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_customer_id",
+                  "description": "(Required) External ID of the existing customer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73638e94-5e07-4b7b-bed2-68d21ee3dcff",
+              "name": "Portal URL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "portal_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"portal_url\": \"https://app.lago.com/customer-portal/1234567890\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f0718ec-3630-49f3-9056-1388a9536563",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "portal_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d44a08cc-033b-4bfb-bda3-ffc1ef40a85e",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "portal_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) External ID of the existing customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae360972-4e6e-4515-b6e4-4622bd361001",
+          "name": "Lago Retrieve customer current usage",
+          "request": {
+            "name": "Lago Retrieve customer current usage",
+            "description": {
+              "content": "This endpoint enables the retrieval of the usage-based billing data for a customer within the current period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_customer_id",
+                "current_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "external_subscription_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique identifier of the subscription within your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_customer_id",
+                  "description": "(Required) The customer external unique identifier (provided by your own application)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29bd36b7-b285-44a4-a373-f998a40e49ce",
+              "name": "Customer usage",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "current_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer_usage\": {\n    \"from_datetime\": \"2022-07-01T00:00:00Z\",\n    \"to_datetime\": \"2022-07-31T23:59:59Z\",\n    \"issuing_date\": \"2022-08-01\",\n    \"amount_cents\": 123,\n    \"taxes_amount_cents\": 200,\n    \"total_amount_cents\": 123,\n    \"charges_usage\": [\n      {\n        \"units\": \"1.0\",\n        \"events_count\": 10,\n        \"amount_cents\": 123,\n        \"amount_currency\": \"USD\",\n        \"charge\": {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\"\n        },\n        \"billable_metric\": {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"Storage\",\n          \"code\": \"storage\",\n          \"aggregation_type\": \"sum_agg\"\n        },\n        \"filters\": [\n          {\n            \"units\": \"0.9\",\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"invoice_display_name\": \"AWS eu-east-1\",\n            \"values\": {\n              \"region\": \"us-east-1\"\n            }\n          },\n          {\n            \"units\": \"0.9\",\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"invoice_display_name\": \"AWS eu-east-1\",\n            \"values\": {\n              \"region\": \"us-east-1\"\n            }\n          }\n        ],\n        \"grouped_usage\": [\n          {\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"units\": \"0.9\",\n            \"grouped_by\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"units\": \"0.9\",\n            \"grouped_by\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"units\": \"1.0\",\n        \"events_count\": 10,\n        \"amount_cents\": 123,\n        \"amount_currency\": \"USD\",\n        \"charge\": {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"charge_model\": \"graduated\",\n          \"invoice_display_name\": \"Setup\"\n        },\n        \"billable_metric\": {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"name\": \"Storage\",\n          \"code\": \"storage\",\n          \"aggregation_type\": \"sum_agg\"\n        },\n        \"filters\": [\n          {\n            \"units\": \"0.9\",\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"invoice_display_name\": \"AWS eu-east-1\",\n            \"values\": {\n              \"region\": \"us-east-1\"\n            }\n          },\n          {\n            \"units\": \"0.9\",\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"invoice_display_name\": \"AWS eu-east-1\",\n            \"values\": {\n              \"region\": \"us-east-1\"\n            }\n          }\n        ],\n        \"grouped_usage\": [\n          {\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"units\": \"0.9\",\n            \"grouped_by\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"amount_cents\": 1000,\n            \"events_count\": 10,\n            \"units\": \"0.9\",\n            \"grouped_by\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"currency\": \"USD\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf4e2615-d0f2-4295-8183-a197fbda7c15",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "current_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "077f6f6e-8392-4ac7-84b2-ea1ebe78d2f0",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "current_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "540f440e-767f-4793-a38f-2daff538fe5e",
+          "name": "Lago Retrieve customer past usage",
+          "request": {
+            "name": "Lago Retrieve customer past usage",
+            "description": {
+              "content": "This endpoint enables the retrieval of the usage-based billing data for a customer within past periods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_customer_id",
+                "past_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_subscription_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique identifier of the subscription within your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "billable_metric_code",
+                  "value": "<string>",
+                  "description": "Billable metric code filter to apply to the charge usage"
+                },
+                {
+                  "disabled": false,
+                  "key": "periods_count",
+                  "value": "<integer>",
+                  "description": "Number of past billing period to returns in the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_customer_id",
+                  "description": "(Required) The customer external unique identifier (provided by your own application)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef897ad1-4729-416e-935f-31e0c3ee684c",
+              "name": "Customer past usage",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "past_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "cpu"
+                    },
+                    {
+                      "key": "periods_count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"usage_periods\": [\n    {\n      \"customer_usage\": {\n        \"from_datetime\": \"2022-07-01T00:00:00Z\",\n        \"to_datetime\": \"2022-07-31T23:59:59Z\",\n        \"issuing_date\": \"2022-08-01\",\n        \"amount_cents\": 123,\n        \"taxes_amount_cents\": 200,\n        \"total_amount_cents\": 123,\n        \"charges_usage\": [\n          {\n            \"units\": \"1.0\",\n            \"events_count\": 10,\n            \"amount_cents\": 123,\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"charge\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"charge_model\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"invoice_display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"billable_metric\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"aggregation_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_usage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": \"1.0\",\n            \"events_count\": 10,\n            \"amount_cents\": 123,\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"charge\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"charge_model\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"invoice_display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"billable_metric\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"aggregation_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_usage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"currency\": \"USD\"\n      }\n    },\n    {\n      \"customer_usage\": {\n        \"from_datetime\": \"2022-07-01T00:00:00Z\",\n        \"to_datetime\": \"2022-07-31T23:59:59Z\",\n        \"issuing_date\": \"2022-08-01\",\n        \"amount_cents\": 123,\n        \"taxes_amount_cents\": 200,\n        \"total_amount_cents\": 123,\n        \"charges_usage\": [\n          {\n            \"units\": \"1.0\",\n            \"events_count\": 10,\n            \"amount_cents\": 123,\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"charge\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"charge_model\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"invoice_display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"billable_metric\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"aggregation_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_usage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"units\": \"1.0\",\n            \"events_count\": 10,\n            \"amount_cents\": 123,\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"charge\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"charge_model\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"invoice_display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"billable_metric\": {\n              \"lago_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"aggregation_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_usage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"currency\": \"USD\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33cc0b7e-6421-4f6f-a3a3-e0886ace91f7",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "past_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "cpu"
+                    },
+                    {
+                      "key": "periods_count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e604a31-be48-445a-a168-b6a8ef44063c",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "past_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "cpu"
+                    },
+                    {
+                      "key": "periods_count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8449af93-dc62-47ba-ace5-ac8c3df039f2",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "past_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_subscription_id",
+                      "value": "sub_1234567890"
+                    },
+                    {
+                      "key": "billable_metric_code",
+                      "value": "cpu"
+                    },
+                    {
+                      "key": "periods_count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "633d9070-7c7e-4f43-82cb-c4e8f241ce68",
+          "name": "Lago Generate a Customer Payment Provider Checkout URL",
+          "request": {
+            "name": "Lago Generate a Customer Payment Provider Checkout URL",
+            "description": {
+              "content": "This endpoint regenerates the Payment Provider Checkout URL of a Customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":external_customer_id",
+                "checkout_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_customer_id",
+                  "description": "(Required) The customer external unique identifier (provided by your own application)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e3b40f7-3248-40b2-8e25-41ce1edd6c08",
+              "name": "Customer Checkout URL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "checkout_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"customer\": {\n    \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"external_customer_id\": \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\",\n    \"payment_provider\": \"stripe\",\n    \"checkout_url\": \"https://foo.bar\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96a38c3b-adc9-4552-8973-333cbd3de605",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "checkout_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bca8dbdf-f92c-4ed9-9d61-fc21fc8877cc",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "checkout_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4527f542-abdd-4c00-8f7a-5a75386d1694",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":external_customer_id",
+                    "checkout_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_customer_id",
+                      "description": "(Required) The customer external unique identifier (provided by your own application)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "806f6d30-e626-40dc-9181-e310433e8f2b",
+    "name": "Lago API documentation Add_ons Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

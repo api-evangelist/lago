@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Coupons API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Coupons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all applied coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/applied_coupons",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the coupon. Can be either `active` or `terminated`."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "The customer external unique identifier (provided by your own application)"
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list all applied coupons. You can filter by coupon status and by customer."
+        },
+        {
+          "info": {
+            "name": "Lago Apply a coupon to a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/applied_coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to apply a specific coupon to a customer, before or during a subscription."
+        },
+        {
+          "info": {
+            "name": "Lago List all coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/coupons",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to list all existing coupons."
+        },
+        {
+          "info": {
+            "name": "Lago Create a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to create a coupon that can be then attached to a customer to create a discount."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/coupons/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Unique code used to identify the coupon."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve a specific coupon."
+        },
+        {
+          "info": {
+            "name": "Lago Update a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/coupons/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Unique code used to identify the coupon."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to update a coupon that can be then attached to a customer to create a discount."
+        },
+        {
+          "info": {
+            "name": "Lago Delete a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/coupons/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Unique code used to identify the coupon."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to delete a coupon."
+        },
+        {
+          "info": {
+            "name": "Lago Delete an applied coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/applied_coupons/:applied_coupon_id",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The customer external unique identifier (provided by your own application)"
+              },
+              {
+                "name": "applied_coupon_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the applied coupon, created by Lago."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to delete a specific coupon that has been applied to a customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

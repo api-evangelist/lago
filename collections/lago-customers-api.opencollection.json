@@ -1,0 +1,239 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Customers API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/customers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all existing customers."
+        },
+        {
+          "info": {
+            "name": "Lago Create a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new customer."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/customers/:external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing customer"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves an existing customer."
+        },
+        {
+          "info": {
+            "name": "Lago Delete a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/customers/:external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing customer"
+              }
+            ]
+          },
+          "docs": "This endpoint deletes an existing customer."
+        },
+        {
+          "info": {
+            "name": "Lago Delete an applied coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/applied_coupons/:applied_coupon_id",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The customer external unique identifier (provided by your own application)"
+              },
+              {
+                "name": "applied_coupon_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the applied coupon, created by Lago."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to delete a specific coupon that has been applied to a customer."
+        },
+        {
+          "info": {
+            "name": "Lago Get a customer portal URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/portal_url",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing customer"
+              }
+            ]
+          },
+          "docs": "Retrieves an embeddable link for displaying a customer portal.\n\nThis endpoint allows you to fetch the URL that can be embedded to provide customers access to a dedicated portal"
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve customer current usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/current_usage",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The customer external unique identifier (provided by your own application)."
+              },
+              {
+                "name": "external_subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the subscription within your application."
+              }
+            ]
+          },
+          "docs": "This endpoint enables the retrieval of the usage-based billing data for a customer within the current period."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve customer past usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/past_usage",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The customer external unique identifier (provided by your own application)."
+              },
+              {
+                "name": "external_subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the subscription within your application."
+              },
+              {
+                "name": "billable_metric_code",
+                "value": "",
+                "type": "query",
+                "description": "Billable metric code filter to apply to the charge usage"
+              },
+              {
+                "name": "periods_count",
+                "value": "",
+                "type": "query",
+                "description": "Number of past billing period to returns in the result"
+              }
+            ]
+          },
+          "docs": "This endpoint enables the retrieval of the usage-based billing data for a customer within past periods."
+        },
+        {
+          "info": {
+            "name": "Lago Generate a Customer Payment Provider Checkout URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/customers/:external_customer_id/checkout_url",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The customer external unique identifier (provided by your own application)."
+              }
+            ]
+          },
+          "docs": "This endpoint regenerates the Payment Provider Checkout URL of a Customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

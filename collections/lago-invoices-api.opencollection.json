@@ -1,0 +1,318 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Invoices API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/invoices",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier assigned to the customer in your application."
+              },
+              {
+                "name": "issuing_date_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices starting from a specific date."
+              },
+              {
+                "name": "issuing_date_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices up to a specific date."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by status. Possible values are `draft` or `finalized`."
+              },
+              {
+                "name": "payment_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by payment status. Possible values are `pending`, `failed` or `succeeded`."
+              },
+              {
+                "name": "payment_overdue",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by payment_overdue. Possible values are `true` or `false`."
+              },
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query",
+                "description": "Search invoices by id, number, customer name, customer external_id or customer email."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by currency in. Possible values ISO 4217 currency codes."
+              },
+              {
+                "name": "payment_dispute_lost",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices with a payment dispute lost. Possible values are `true` or `false`."
+              },
+              {
+                "name": "invoice_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter invoices by invoice type. Possible values are `subscription`, `add_on`, `credit`, `one_off` or `advance_charges`"
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving all invoices."
+        },
+        {
+          "info": {
+            "name": "Lago Create a one-off invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used for issuing a one-off invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrieving a specific invoice that has been issued."
+        },
+        {
+          "info": {
+            "name": "Lago Update an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used for updating an existing invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Download an invoice PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/download",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for downloading a specific invoice PDF document."
+        },
+        {
+          "info": {
+            "name": "Lago Finalize a draft invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/finalize",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for finalizing a draft invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Mark an invoice payment dispute as lost",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/lose_dispute",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for setting invoice's payment dispute as lost."
+        },
+        {
+          "info": {
+            "name": "Lago Refresh a draft invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/refresh",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for refreshing a draft invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Retry generation of a failed invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/retry",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for retrying to generate a failed invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Generate a payment URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/payment_url",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint generates a checkout link for a specific invoice."
+        },
+        {
+          "info": {
+            "name": "Lago Retry an invoice payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/retry_payment",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint resends an invoice for collection and retry a payment."
+        },
+        {
+          "info": {
+            "name": "Lago Void an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/invoices/:lago_id/void",
+            "params": [
+              {
+                "name": "lago_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system."
+              }
+            ]
+          },
+          "docs": "This endpoint is used for voiding an invoice. You can void an invoice only when it's in a `finalized` status, and the payment status is not `succeeded`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

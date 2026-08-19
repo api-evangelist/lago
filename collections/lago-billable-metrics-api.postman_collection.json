@@ -1,0 +1,1459 @@
+{
+  "item": [
+    {
+      "id": "545a5766-0a0b-4c7d-bdf3-e9e8c6ffa248",
+      "name": "Billable_metrics",
+      "description": {
+        "content": "Everything about Billable metric collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be984022-3aa6-42aa-91a3-7c2a204d0124",
+          "name": "Lago Create a billable metric",
+          "request": {
+            "name": "Lago Create a billable metric",
+            "description": {
+              "content": "This endpoint creates a new billable metric representing a pricing component of your application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billable_metric\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"aggregation_type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"recurring\": \"<boolean>\",\n    \"expression\": \"<string>\",\n    \"rounding_function\": \"<string>\",\n    \"rounding_precision\": \"<integer>\",\n    \"field_name\": \"<string>\",\n    \"weighted_interval\": \"<string>\",\n    \"filters\": [\n      {\n        \"key\": \"<string>\",\n        \"values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"key\": \"<string>\",\n        \"values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f308798f-b735-40d5-8641-57fb3d4c8e94",
+              "name": "Billable metric created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billable_metric\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"recurring\": false,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"active_subscriptions_count\": 4,\n    \"draft_invoices_count\": 10,\n    \"plans_count\": 4,\n    \"description\": \"GB of storage used in my application\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba960c29-b2b4-4b4b-9a4a-78d40dd1fa17",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c22e0f4-8c0f-427a-a53f-b58807bb0f6e",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c6b9f8a-41ee-462b-9148-491292a57e66",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1284795f-7ee2-48df-96e3-fcc5eebcbab5",
+          "name": "Lago List all billable metrics",
+          "request": {
+            "name": "Lago List all billable metrics",
+            "description": {
+              "content": "This endpoint retrieves all existing billable metrics that represent pricing components of your application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dd86803-b507-4a37-af46-893ebc9458d9",
+              "name": "List of billable metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billable_metrics\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Storage\",\n      \"code\": \"storage\",\n      \"aggregation_type\": \"sum_agg\",\n      \"recurring\": false,\n      \"created_at\": \"2022-09-14T16:35:31Z\",\n      \"active_subscriptions_count\": 4,\n      \"draft_invoices_count\": 10,\n      \"plans_count\": 4,\n      \"description\": \"GB of storage used in my application\",\n      \"rounding_function\": \"round\",\n      \"rounding_precision\": 2,\n      \"expression\": \"round((ended_at - started_at) * units)\",\n      \"field_name\": \"gb\",\n      \"weighted_interval\": \"seconds\",\n      \"filters\": [\n        {\n          \"key\": \"region\",\n          \"values\": [\n            \"us-east-1\",\n            \"us-east-1\"\n          ]\n        },\n        {\n          \"key\": \"region\",\n          \"values\": [\n            \"us-east-1\",\n            \"us-east-1\"\n          ]\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"name\": \"Storage\",\n      \"code\": \"storage\",\n      \"aggregation_type\": \"sum_agg\",\n      \"recurring\": false,\n      \"created_at\": \"2022-09-14T16:35:31Z\",\n      \"active_subscriptions_count\": 4,\n      \"draft_invoices_count\": 10,\n      \"plans_count\": 4,\n      \"description\": \"GB of storage used in my application\",\n      \"rounding_function\": \"round\",\n      \"rounding_precision\": 2,\n      \"expression\": \"round((ended_at - started_at) * units)\",\n      \"field_name\": \"gb\",\n      \"weighted_interval\": \"seconds\",\n      \"filters\": [\n        {\n          \"key\": \"region\",\n          \"values\": [\n            \"us-east-1\",\n            \"us-east-1\"\n          ]\n        },\n        {\n          \"key\": \"region\",\n          \"values\": [\n            \"us-east-1\",\n            \"us-east-1\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2,\n    \"total_pages\": 4,\n    \"total_count\": 70,\n    \"next_page\": 3,\n    \"prev_page\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c803189d-da4b-4352-a45f-f922fdab55a9",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdc8163a-2cb3-4f1d-aed5-097b2839af84",
+          "name": "Lago Evaluate an expression for a billable metric",
+          "request": {
+            "name": "Lago Evaluate an expression for a billable metric",
+            "description": {
+              "content": "Evaluate an expression for a billable metric creation by providing the expression and test data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics",
+                "evaluate_expression"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expression\": \"<string>\",\n  \"event\": {\n    \"code\": \"<string>\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    },\n    \"timestamp\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da190e2c-d4e2-4bf0-94d6-9eae33d461da",
+              "name": "Billable metric expression evaluation result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    "evaluate_expression"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expression\": \"round((ended_at - started_at) * units)\",\n  \"event\": {\n    \"code\": \"storage\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    },\n    \"timestamp\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expression_result\": {\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab75a9aa-7535-4cd2-937d-2a98da5cfef2",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    "evaluate_expression"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expression\": \"round((ended_at - started_at) * units)\",\n  \"event\": {\n    \"code\": \"storage\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    },\n    \"timestamp\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18bddadc-ef70-4d34-b225-2f530750828c",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    "evaluate_expression"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expression\": \"round((ended_at - started_at) * units)\",\n  \"event\": {\n    \"code\": \"storage\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    },\n    \"timestamp\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4940244-6cba-4a96-92ed-6d74d7e40f3e",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    "evaluate_expression"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expression\": \"round((ended_at - started_at) * units)\",\n  \"event\": {\n    \"code\": \"storage\",\n    \"properties\": {\n      \"key_0\": \"<string>\"\n    },\n    \"timestamp\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e96543c-f15a-40de-bc49-d80a6a84f6a4",
+          "name": "Lago Update a billable metric",
+          "request": {
+            "name": "Lago Update a billable metric",
+            "description": {
+              "content": "This endpoint updates an existing billable metric representing a pricing component of your application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the existing billable metric."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billable_metric\": {\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"description\": \"<string>\",\n    \"recurring\": \"<boolean>\",\n    \"expression\": \"<string>\",\n    \"rounding_function\": \"<string>\",\n    \"rounding_precision\": \"<integer>\",\n    \"field_name\": \"<string>\",\n    \"aggregation_type\": \"<string>\",\n    \"weighted_interval\": \"<string>\",\n    \"filters\": [\n      {\n        \"key\": \"<string>\",\n        \"values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"key\": \"<string>\",\n        \"values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db9a79e4-60bc-4394-949a-77849f955f14",
+              "name": "Billable metric updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"aggregation_type\": \"sum_agg\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billable_metric\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"recurring\": false,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"active_subscriptions_count\": 4,\n    \"draft_invoices_count\": 10,\n    \"plans_count\": 4,\n    \"description\": \"GB of storage used in my application\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79a99a37-906d-46de-a34e-fca91d68b7dd",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"aggregation_type\": \"sum_agg\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efbd0aa1-571c-4aa0-8137-0f65504533f7",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"aggregation_type\": \"sum_agg\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4532ff21-c96c-45b8-8be7-eabef4094476",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"aggregation_type\": \"sum_agg\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1af7006-d2f4-4930-ba7d-39cb1e76d3e1",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billable_metric\": {\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"description\": \"GB of storage used in my application\",\n    \"recurring\": false,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"field_name\": \"gb\",\n    \"aggregation_type\": \"sum_agg\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2c9cae3-2da0-49b7-9dc0-f7013beccfcc",
+          "name": "Lago Delete a billable metric",
+          "request": {
+            "name": "Lago Delete a billable metric",
+            "description": {
+              "content": "This endpoint deletes an existing billable metric representing a pricing component of your application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the existing billable metric."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec05af2d-1f02-463c-bfce-b77440cf8a55",
+              "name": "Billable metric deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billable_metric\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"recurring\": false,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"active_subscriptions_count\": 4,\n    \"draft_invoices_count\": 10,\n    \"plans_count\": 4,\n    \"description\": \"GB of storage used in my application\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bc0ef09-496b-411e-a353-aad75d87c312",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da580bd7-ab1d-4772-bcd5-f8ec99193951",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0478ba5b-9f4a-4ccd-923c-8a8489de4f8f",
+          "name": "Lago Retrieve a billable metric",
+          "request": {
+            "name": "Lago Retrieve a billable metric",
+            "description": {
+              "content": "This endpoint retrieves an existing billable metric that represents a pricing component of your application. The billable metric is identified by its unique code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billable_metrics",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the existing billable metric."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "988f7c82-032d-4b75-b3c2-f2fcf6122fef",
+              "name": "Billable metric",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billable_metric\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"name\": \"Storage\",\n    \"code\": \"storage\",\n    \"aggregation_type\": \"sum_agg\",\n    \"recurring\": false,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"active_subscriptions_count\": 4,\n    \"draft_invoices_count\": 10,\n    \"plans_count\": 4,\n    \"description\": \"GB of storage used in my application\",\n    \"rounding_function\": \"round\",\n    \"rounding_precision\": 2,\n    \"expression\": \"round((ended_at - started_at) * units)\",\n    \"field_name\": \"gb\",\n    \"weighted_interval\": \"seconds\",\n    \"filters\": [\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      },\n      {\n        \"key\": \"region\",\n        \"values\": [\n          \"us-east-1\",\n          \"us-east-1\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ea9e911-a24c-45a3-9d0f-096f1366754b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fe16d70-d6c4-44e9-abc5-6ad88bcf8510",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billable_metrics",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the existing billable metric."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f913a532-66cd-4630-8386-52ed2743fabe",
+    "name": "Lago API documentation Add_ons Billable_metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1734 @@
+{
+  "item": [
+    {
+      "id": "7fd6039f-99e9-4c24-90d3-0bf2c02936f6",
+      "name": "Credit_notes",
+      "description": {
+        "content": "Everything about Credit notes collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b2489c88-8426-4fed-8a3a-84eaf0c9fbca",
+          "name": "Lago Create a credit note",
+          "request": {
+            "name": "Lago Create a credit note",
+            "description": {
+              "content": "This endpoint creates a new credit note.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"<uuid>\",\n    \"items\": [\n      {\n        \"fee_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\"\n      },\n      {\n        \"fee_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\"\n      }\n    ],\n    \"reason\": \"<string>\",\n    \"description\": \"<string>\",\n    \"credit_amount_cents\": \"<integer>\",\n    \"refund_amount_cents\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "554812da-724f-4c58-a150-13639cb246fc",
+              "name": "Credit note created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ],\n    \"reason\": \"duplicated_charge\",\n    \"description\": \"description\",\n    \"credit_amount_cents\": 10,\n    \"refund_amount_cents\": 5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_note\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 2,\n    \"number\": \"LAG-1234-CN2\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"issuing_date\": \"2022-12-06\",\n    \"reason\": \"other\",\n    \"currency\": \"USD\",\n    \"total_amount_cents\": 120,\n    \"credit_amount_cents\": 100,\n    \"refund_amount_cents\": 0,\n    \"balance_amount_cents\": 100,\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"updated_at\": \"2022-09-14T16:35:31Z\",\n    \"credit_status\": \"available\",\n    \"refund_status\": \"pending\",\n    \"description\": \"Free text\",\n    \"file_url\": \"https://getlago.com/credit_note/file\",\n    \"items\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "152600f9-ab28-4feb-8f73-ea558c0ade0c",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ],\n    \"reason\": \"duplicated_charge\",\n    \"description\": \"description\",\n    \"credit_amount_cents\": 10,\n    \"refund_amount_cents\": 5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09d9825a-49a1-4fee-802f-cefd4bd5bb09",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ],\n    \"reason\": \"duplicated_charge\",\n    \"description\": \"description\",\n    \"credit_amount_cents\": 10,\n    \"refund_amount_cents\": 5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a52f1dab-e5f9-4fb9-a826-8b2def00a2a9",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ],\n    \"reason\": \"duplicated_charge\",\n    \"description\": \"description\",\n    \"credit_amount_cents\": 10,\n    \"refund_amount_cents\": 5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7248e121-4fd0-436f-9dc5-a701df850c20",
+          "name": "Lago List all credit notes",
+          "request": {
+            "name": "Lago List all credit notes",
+            "description": {
+              "content": "This endpoint list all existing credit notes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "Unique identifier assigned to the customer in your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab123de7-3bd0-45a1-8d82-d279920de362",
+              "name": "Credit notes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_notes\": [\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"sequential_id\": 2,\n      \"number\": \"LAG-1234-CN2\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"invoice_number\": \"LAG-1234\",\n      \"issuing_date\": \"2022-12-06\",\n      \"reason\": \"other\",\n      \"currency\": \"USD\",\n      \"total_amount_cents\": 120,\n      \"credit_amount_cents\": 100,\n      \"refund_amount_cents\": 0,\n      \"balance_amount_cents\": 100,\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"sub_total_excluding_taxes_amount_cents\": 100,\n      \"coupons_adjustment_amount_cents\": 20,\n      \"created_at\": \"2022-09-14T16:35:31Z\",\n      \"updated_at\": \"2022-09-14T16:35:31Z\",\n      \"credit_status\": \"available\",\n      \"refund_status\": \"pending\",\n      \"description\": \"Free text\",\n      \"file_url\": \"https://getlago.com/credit_note/file\",\n      \"items\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 100,\n          \"amount_currency\": \"USD\",\n          \"fee\": {\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pay_in_advance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoiceable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"payment_status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_filter_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_invoice_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_parent_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"events_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"succeeded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"failed_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"event_transaction_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_details\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"applied_taxes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 100,\n          \"amount_currency\": \"USD\",\n          \"fee\": {\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pay_in_advance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoiceable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"payment_status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_filter_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_invoice_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_parent_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"events_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"succeeded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"failed_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"event_transaction_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_details\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"applied_taxes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"applied_taxes\": [\n        {\n          \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"base_amount_cents\": 100,\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        },\n        {\n          \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"base_amount_cents\": 100,\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        }\n      ]\n    },\n    {\n      \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"sequential_id\": 2,\n      \"number\": \"LAG-1234-CN2\",\n      \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n      \"invoice_number\": \"LAG-1234\",\n      \"issuing_date\": \"2022-12-06\",\n      \"reason\": \"other\",\n      \"currency\": \"USD\",\n      \"total_amount_cents\": 120,\n      \"credit_amount_cents\": 100,\n      \"refund_amount_cents\": 0,\n      \"balance_amount_cents\": 100,\n      \"taxes_amount_cents\": 20,\n      \"taxes_rate\": 20,\n      \"sub_total_excluding_taxes_amount_cents\": 100,\n      \"coupons_adjustment_amount_cents\": 20,\n      \"created_at\": \"2022-09-14T16:35:31Z\",\n      \"updated_at\": \"2022-09-14T16:35:31Z\",\n      \"credit_status\": \"available\",\n      \"refund_status\": \"pending\",\n      \"description\": \"Free text\",\n      \"file_url\": \"https://getlago.com/credit_note/file\",\n      \"items\": [\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 100,\n          \"amount_currency\": \"USD\",\n          \"fee\": {\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pay_in_advance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoiceable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"payment_status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_filter_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_invoice_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_parent_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"events_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"succeeded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"failed_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"event_transaction_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_details\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"applied_taxes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"amount_cents\": 100,\n          \"amount_currency\": \"USD\",\n          \"fee\": {\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_cents\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_amount_currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pay_in_advance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoiceable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_unit_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"payment_status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_charge_filter_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_invoice_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_true_up_parent_fee_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_customer_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"external_subscription_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"precise_total_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxes_precise_amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"events_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"to_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"succeeded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"failed_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunded_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"event_transaction_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount_details\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"applied_taxes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"applied_taxes\": [\n        {\n          \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"base_amount_cents\": 100,\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        },\n        {\n          \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"base_amount_cents\": 100,\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"tax_name\": \"TVA\",\n          \"tax_code\": \"french_standard_vat\",\n          \"tax_rate\": 20,\n          \"tax_description\": \"French standard VAT\",\n          \"amount_cents\": 2000,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"created_at\": \"2022-09-14T16:35:31Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a11d6f51-c7db-4b27-bc26-74419276ee2d",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee0f9021-ee21-418c-a471-3162da85da56",
+          "name": "Lago Update a credit note",
+          "request": {
+            "name": "Lago Update a credit note",
+            "description": {
+              "content": "This endpoint updates an existing credit note.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lago_id",
+                  "description": "(Required) The credit note unique identifier, created by Lago."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22567600-6d61-46fc-92f6-6ef60cd275f2",
+              "name": "Credit note updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_note\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 2,\n    \"number\": \"LAG-1234-CN2\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"issuing_date\": \"2022-12-06\",\n    \"reason\": \"other\",\n    \"currency\": \"USD\",\n    \"total_amount_cents\": 120,\n    \"credit_amount_cents\": 100,\n    \"refund_amount_cents\": 0,\n    \"balance_amount_cents\": 100,\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"updated_at\": \"2022-09-14T16:35:31Z\",\n    \"credit_status\": \"available\",\n    \"refund_status\": \"pending\",\n    \"description\": \"Free text\",\n    \"file_url\": \"https://getlago.com/credit_note/file\",\n    \"items\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21137b79-4f5b-48ed-9ab4-9ba4242168b1",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ab8263d-9b7d-4ab8-be5d-ed31c4493ffa",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfe3bab3-4eb8-4454-a139-bf7493fec766",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c14dc644-9b12-4ad8-a782-2a013fda14f6",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"refund_status\": \"succeeded\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bbb6cd1-7d5f-4855-9a36-cdc34330f57f",
+          "name": "Lago Retrieve a credit note",
+          "request": {
+            "name": "Lago Retrieve a credit note",
+            "description": {
+              "content": "This endpoint retrieves an existing credit note.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes",
+                ":lago_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lago_id",
+                  "description": "(Required) The credit note unique identifier, created by Lago."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a0decd4-c242-427d-964a-2d0250262318",
+              "name": "Credit note",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_note\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 2,\n    \"number\": \"LAG-1234-CN2\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"issuing_date\": \"2022-12-06\",\n    \"reason\": \"other\",\n    \"currency\": \"USD\",\n    \"total_amount_cents\": 120,\n    \"credit_amount_cents\": 100,\n    \"refund_amount_cents\": 0,\n    \"balance_amount_cents\": 100,\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"updated_at\": \"2022-09-14T16:35:31Z\",\n    \"credit_status\": \"available\",\n    \"refund_status\": \"pending\",\n    \"description\": \"Free text\",\n    \"file_url\": \"https://getlago.com/credit_note/file\",\n    \"items\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ddd0590-6c36-4231-b246-64f3f48f50ee",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb8bc86a-b552-4ec7-b945-07a4ccbc4ed3",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b213586f-25f2-47fa-9301-99ee9d9a596e",
+          "name": "Lago Download a credit note PDF",
+          "request": {
+            "name": "Lago Download a credit note PDF",
+            "description": {
+              "content": "This endpoint downloads the PDF of an existing credit note.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes",
+                ":lago_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) The credit note unique identifier, created by Lago."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb930058-af18-44bd-b7a1-2c2ea3b1863e",
+              "name": "Credit note PDF",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_note\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 2,\n    \"number\": \"LAG-1234-CN2\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"issuing_date\": \"2022-12-06\",\n    \"reason\": \"other\",\n    \"currency\": \"USD\",\n    \"total_amount_cents\": 120,\n    \"credit_amount_cents\": 100,\n    \"refund_amount_cents\": 0,\n    \"balance_amount_cents\": 100,\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"updated_at\": \"2022-09-14T16:35:31Z\",\n    \"credit_status\": \"available\",\n    \"refund_status\": \"pending\",\n    \"description\": \"Free text\",\n    \"file_url\": \"https://getlago.com/credit_note/file\",\n    \"items\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1eb4244-05ba-46a4-b7b2-10956468af19",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d70a5d73-e164-4d27-aad7-31c13a1d02e3",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59958d6d-898f-42f3-b6cd-10af859c7a4e",
+          "name": "Lago Estimate amounts for a new credit note",
+          "request": {
+            "name": "Lago Estimate amounts for a new credit note",
+            "description": {
+              "content": "This endpoint allows you to retrieve amounts for a new credit note creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes",
+                "estimate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"<uuid>\",\n    \"items\": [\n      {\n        \"fee_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\"\n      },\n      {\n        \"fee_id\": \"<uuid>\",\n        \"amount_cents\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2d893be-6f84-4e3f-87e7-1196abffab2f",
+              "name": "Credit note amounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"estimated_credit_note\": {\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"currency\": \"USD\",\n    \"taxes_amount_cents\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"max_creditable_amount_cents\": 100,\n    \"max_refundable_amount_cents\": 0,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"items\": [\n      {\n        \"amount_cents\": 100,\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      },\n      {\n        \"amount_cents\": 100,\n        \"lago_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\"\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"base_amount_cents\": 100,\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\"\n      },\n      {\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"base_amount_cents\": 100,\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cbc106e-a4b7-4ceb-853b-fd856186bbf5",
+              "name": "Bad Request error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88f4a9cc-95ef-4c97-83b6-10bf1ec47ca8",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b1ef81b-bdb8-4f64-9ddb-0bfbe03c1252",
+              "name": "Unprocessable entity error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credit_note\": {\n    \"invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"items\": [\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 10\n      },\n      {\n        \"fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a91\",\n        \"amount_cents\": 5\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 422,\n  \"error\": \"Unprocessable entity\",\n  \"code\": \"validation_errors\",\n  \"error_details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09d20be9-b30e-4434-819f-347e925c4841",
+          "name": "Lago Void available credit",
+          "request": {
+            "name": "Lago Void available credit",
+            "description": {
+              "content": "This endpoint voids the available credit linked to a specific credit note.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credit_notes",
+                ":lago_id",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "lago_id",
+                  "description": "(Required) The credit note unique identifier, created by Lago."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb59d625-73a5-4943-85fc-f9de47fd60f9",
+              "name": "Credit note voided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credit_note\": {\n    \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"sequential_id\": 2,\n    \"number\": \"LAG-1234-CN2\",\n    \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n    \"invoice_number\": \"LAG-1234\",\n    \"issuing_date\": \"2022-12-06\",\n    \"reason\": \"other\",\n    \"currency\": \"USD\",\n    \"total_amount_cents\": 120,\n    \"credit_amount_cents\": 100,\n    \"refund_amount_cents\": 0,\n    \"balance_amount_cents\": 100,\n    \"taxes_amount_cents\": 20,\n    \"taxes_rate\": 20,\n    \"sub_total_excluding_taxes_amount_cents\": 100,\n    \"coupons_adjustment_amount_cents\": 20,\n    \"created_at\": \"2022-09-14T16:35:31Z\",\n    \"updated_at\": \"2022-09-14T16:35:31Z\",\n    \"credit_status\": \"available\",\n    \"refund_status\": \"pending\",\n    \"description\": \"Free text\",\n    \"file_url\": \"https://getlago.com/credit_note/file\",\n    \"items\": [\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      {\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"amount_cents\": 100,\n        \"amount_currency\": \"USD\",\n        \"fee\": {\n          \"item\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lago_item_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"item_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filter_invoice_display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"grouped_by\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"amount_cents\": 100,\n          \"amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"taxes_amount_cents\": 20,\n          \"taxes_rate\": 20,\n          \"total_amount_cents\": 120,\n          \"total_amount_currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pay_in_advance\": true,\n          \"invoiceable\": true,\n          \"units\": \"0.32\",\n          \"precise_unit_amount\": \"312.5\",\n          \"payment_status\": \"pending\",\n          \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_charge_filter_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_invoice_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_true_up_parent_fee_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_subscription_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"lago_customer_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n          \"external_customer_id\": \"external_id\",\n          \"external_subscription_id\": \"external_id\",\n          \"invoice_display_name\": \"Setup Fee (SF1)\",\n          \"precise_amount\": \"1.0001\",\n          \"precise_total_amount\": \"1.0212\",\n          \"taxes_precise_amount\": \"0.20123\",\n          \"events_count\": 23,\n          \"from_date\": \"2022-04-29T08:59:51Z\",\n          \"to_date\": \"2022-05-29T08:59:51Z\",\n          \"created_at\": \"2022-08-24T14:58:59Z\",\n          \"succeeded_at\": \"2022-08-24T14:58:59Z\",\n          \"failed_at\": \"2022-08-24T14:58:59Z\",\n          \"refunded_at\": \"2022-08-24T14:58:59Z\",\n          \"event_transaction_id\": \"transaction_1234567890\",\n          \"amount_details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"applied_taxes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    ],\n    \"applied_taxes\": [\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      },\n      {\n        \"lago_credit_note_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"base_amount_cents\": 100,\n        \"lago_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"lago_tax_id\": \"1a901a90-1a90-1a90-1a90-1a901a901a90\",\n        \"tax_name\": \"TVA\",\n        \"tax_code\": \"french_standard_vat\",\n        \"tax_rate\": 20,\n        \"tax_description\": \"French standard VAT\",\n        \"amount_cents\": 2000,\n        \"amount_currency\": \"USD\",\n        \"created_at\": \"2022-09-14T16:35:31Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a32b93ae-43c6-4a25-9268-17df2a9eb20b",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b5464ba-50ba-4f74-ace9-7da7f9fcca3f",
+              "name": "Not Found error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"code\": \"object_not_found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c58beda-d84f-482b-87fa-de2a5d019914",
+              "name": "Not Allowed error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit_notes",
+                    ":lago_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "lago_id",
+                      "description": "(Required) The credit note unique identifier, created by Lago."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 405,\n  \"error\": \"Method Not Allowed\",\n  \"code\": \"not_allowed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "abb575cf-8066-4254-9cc0-c5fbe3fbb7f8",
+    "name": "Lago API documentation Add_ons Credit_notes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,844 @@
+{
+  "item": [
+    {
+      "id": "04478dba-292d-4784-92ee-eaa95b71b2dd",
+      "name": "Analytics",
+      "description": {
+        "content": "Everything about Analytics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99978ead-61a6-40ae-a82d-a3efc20d8976",
+          "name": "Lago List gross revenue",
+          "request": {
+            "name": "Lago List gross revenue",
+            "description": {
+              "content": "Gross revenue is the sum of monthly `finalized` invoice payments and fees paid in advance that are not invoiceable. This total is calculated after deducting taxes and discounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "gross_revenue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Currency of revenue analytics. Format must be ISO 4217."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level."
+                },
+                {
+                  "disabled": false,
+                  "key": "months",
+                  "value": "<integer>",
+                  "description": "Show data only for given number of months."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c17b90a0-2cbf-49e9-8b7b-9879c666f93f",
+              "name": "Gross revenue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "gross_revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"gross_revenues\": [\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"invoices_count\": 10\n    },\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"invoices_count\": 10\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6bf9890-4def-4433-9696-c6324794d9cf",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "gross_revenue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6be474e8-90f3-4a69-831d-e627571f6172",
+          "name": "Lago List of finalized invoices",
+          "request": {
+            "name": "Lago List of finalized invoices",
+            "description": {
+              "content": "Represents a monthly aggregation, detailing both the total count and the cumulative amount of invoices that have been marked as `finalized`. This report sorts invoices categorically based on their `payment_status`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "invoice_collection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "The currency of revenue analytics. Format must be ISO 4217."
+                },
+                {
+                  "disabled": false,
+                  "key": "months",
+                  "value": "<integer>",
+                  "description": "Show data only for given number of months."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de08bded-d5bd-49f7-9c87-1bcd394cbaf3",
+              "name": "Finalized invoice collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "invoice_collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoice_collections\": [\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"invoices_count\": 10,\n      \"payment_status\": \"succeeded\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\"\n    },\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"invoices_count\": 10,\n      \"payment_status\": \"succeeded\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7ab931a-c1ad-452f-95a6-7f1bd9a17121",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "invoice_collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c457452-6389-4671-ac45-c4029995e14e",
+          "name": "Lago List usage revenue",
+          "request": {
+            "name": "Lago List usage revenue",
+            "description": {
+              "content": "Reports a monthly analysis focused on the revenue generated from all usage-based fees. It exclusively accounts for revenue that has been formally invoiced. Importantly, this report does not include revenue related to the usage in the current billing period, limiting its scope to previously invoiced amounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "invoiced_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "The currency of invoiced usage analytics. Format must be ISO 4217."
+                },
+                {
+                  "disabled": false,
+                  "key": "months",
+                  "value": "<integer>",
+                  "description": "Show data only for given number of months."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a1e3cbd-b337-4ee4-817f-04d3fb7ab7aa",
+              "name": "Invoiced usage",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "invoiced_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoiced_usages\": [\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"code\": \"code1\"\n    },\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"code\": \"code1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8754a5f2-c72b-49f9-9396-a0407fb5b4e9",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "invoiced_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f75b67a6-fe8f-45bc-ba3d-33e62b7e2d9f",
+          "name": "Lago List MRR",
+          "request": {
+            "name": "Lago List MRR",
+            "description": {
+              "content": "This endpoint is used to list MRR.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "mrr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Quantifies the revenue generated from `subscription` fees on a monthly basis. This figure is calculated post-application of applicable taxes and deduction of any applicable discounts. The method of calculation varies based on the subscription billing cycle:\n\n- Revenue from `monthly` subscription invoices is included in the MRR for the month in which the invoice is issued.\n- Revenue from `quarterly` subscription invoices is distributed evenly over three months. This distribution applies to fees paid in advance (allocated to the next remaining months depending on calendar or anniversary billing) as well as to fees paid in arrears (allocated to the preceding months depending on calendar or anniversary billing).\n- Revenue from `yearly` subscription invoices is distributed evenly over twelve months. This allocation is applicable for fees paid in advance (spread over the next  remaining months depending on calendar or anniversary billing) and for fees paid in arrears (spread over the previous months depending on calendar or anniversary billing).\n- Revenue from `weekly` subscription invoices, the total revenue from all invoices issued within a month is summed up. This total is then divided by the number of invoices issued during that month, and the result is multiplied by 4.33, representing the average number of weeks in a month."
+                },
+                {
+                  "disabled": false,
+                  "key": "months",
+                  "value": "<integer>",
+                  "description": "Show data only for given number of months."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76572908-b89c-406b-8214-f9f5f360d1bc",
+              "name": "MRR",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "mrr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mrrs\": [\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\"\n    },\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a07a117-1fc1-45e6-8699-d11ce635871f",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "mrr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e1b51b9-1d9b-425c-9293-407e46ddcde8",
+          "name": "Lago List overdue balance",
+          "request": {
+            "name": "Lago List overdue balance",
+            "description": {
+              "content": "Overdue balance is the total amount associated with overdue invoices (invoices with pending or failed payments which are past their due dates).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "overdue_balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "Currency of revenue analytics. Format must be ISO 4217."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>",
+                  "description": "The customer external unique identifier (provided by your own application). Use it to filter revenue analytics at the customer level."
+                },
+                {
+                  "disabled": false,
+                  "key": "months",
+                  "value": "<integer>",
+                  "description": "Show data only for given number of months."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ab38b0d-1d2c-4b4c-8293-694643563951",
+              "name": "Overdue balance",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "overdue_balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"overdue_balances\": [\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"lago_invoice_ids\": [\n        \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n      ]\n    },\n    {\n      \"month\": \"2023-11-01T00:00:00.000Z\",\n      \"amount_cents\": 50000,\n      \"currency\": \"USD\",\n      \"lago_invoice_ids\": [\n        \"5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09840762-48ef-4c45-9dbd-9f18860fd771",
+              "name": "Unauthorized error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "overdue_balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba"
+                    },
+                    {
+                      "key": "months",
+                      "value": "12"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getlago.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "959bcd64-3529-460d-bcf1-068d5d2e6b09",
+    "name": "Lago API documentation Add_ons Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Lago API allows your application to push customer information and metrics (events) from your application to the billing application.\n\nContact Support:\n Email: tech@getlago.com",
+      "type": "text/plain"
+    }
+  }
+}

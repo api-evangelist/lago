@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lago API documentation Add_ons Subscriptions API",
+    "version": "1.15.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lago List all subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/subscriptions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "query",
+                "description": "The customer external unique identifier (provided by your own application)"
+              },
+              {
+                "name": "plan_code",
+                "value": "",
+                "type": "query",
+                "description": "The unique code representing the plan to be attached to the customer. This code must correspond to the code property of one of the active plans."
+              },
+              {
+                "name": "status[]",
+                "value": "",
+                "type": "query",
+                "description": "If the field is not defined, Lago will return only `active` subscriptions. However, if you wish to fetch subscriptions by different status you can define them in a status[] query param. Available filter values: `pending`, `canceled`, `terminated`, `active`."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all active subscriptions."
+        },
+        {
+          "info": {
+            "name": "Lago Assign a plan to a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getlago.com/api/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint assigns a plan to a customer, creating or modifying a subscription. Ideal for initial subscriptions or plan changes (upgrades/downgrades)."
+        },
+        {
+          "info": {
+            "name": "Lago Retrieve a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/subscriptions/:external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing subscription"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a specific subscription."
+        },
+        {
+          "info": {
+            "name": "Lago Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/subscriptions/:external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing subscription"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update a subscription."
+        },
+        {
+          "info": {
+            "name": "Lago Terminate a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getlago.com/api/v1/subscriptions/:external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing subscription"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "If the field is not defined, Lago will terminate only `active` subscriptions. However, if you wish to cancel a `pending` subscription, please ensure that you include `status=pending` in your request."
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to terminate a subscription."
+        },
+        {
+          "info": {
+            "name": "Lago Retrive subscription lifetime usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getlago.com/api/v1/subscriptions/:external_id/lifetime_usage",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing subscription"
+              }
+            ]
+          },
+          "docs": "This endpoint enables the retrieval of the lifetime usage of a subscription."
+        },
+        {
+          "info": {
+            "name": "Lago Update a subscription lifetime usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getlago.com/api/v1/subscriptions/:external_id/lifetime_usage",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the existing subscription"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update the lifetime usage of a subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
