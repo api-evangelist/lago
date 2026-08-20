@@ -21,6 +21,11 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lago.png
 tags:
   - Billing
   - Metering
+  - Open-Source
+  - Usage-Based
+tags_raw:
+  - Billing
+  - Metering
   - Open Source
   - Usage-Based
 url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml
@@ -33,6 +38,8 @@ apis:
   description: Everything about Add-on collection
   humanURL: https://getlago.com/
   tags:
+  - Addons
+  tags_raw:
   - Add_ons
   properties:
   - type: OpenAPI
@@ -59,6 +66,8 @@ apis:
   description: Everything about Billable metric collection
   humanURL: https://getlago.com/
   tags:
+  - Billable Metrics
+  tags_raw:
   - Billable_metrics
   properties:
   - type: OpenAPI
@@ -85,6 +94,8 @@ apis:
   description: Everything about Credit notes collection
   humanURL: https://getlago.com/
   tags:
+  - Credit Notes
+  tags_raw:
   - Credit_notes
   properties:
   - type: OpenAPI
@@ -111,6 +122,8 @@ apis:
   description: Everything about Event collection
   humanURL: https://getlago.com/
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -150,6 +163,8 @@ apis:
   description: Everything about Organization collection
   humanURL: https://getlago.com/
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -163,6 +178,8 @@ apis:
   description: Everything about PaymentRequests
   humanURL: https://getlago.com/
   tags:
+  - Payment Requests
+  tags_raw:
   - Payment_requests
   properties:
   - type: OpenAPI
@@ -189,6 +206,8 @@ apis:
   description: Everything about Subscription collection
   humanURL: https://getlago.com/
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -228,6 +247,8 @@ apis:
   description: Everything about Webhook Endpoints
   humanURL: https://getlago.com/
   tags:
+  - Webhook Endpoints
+  tags_raw:
   - Webhook_endpoints
   properties:
   - type: OpenAPI
@@ -241,6 +262,8 @@ apis:
   description: Everything about Webhooks
   humanURL: https://getlago.com/
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
