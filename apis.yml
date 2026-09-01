@@ -49,7 +49,7 @@ apis:
   description: Everything about Add-on collection
   humanURL: https://getlago.com/
   tags:
-  - Add_ons
+  - Addons
   tags_raw:
   - Add_ons
   properties:
@@ -77,7 +77,7 @@ apis:
   description: Everything about Billable metric collection
   humanURL: https://getlago.com/
   tags:
-  - Billable_metrics
+  - Billable Metrics
   tags_raw:
   - Billable_metrics
   properties:
@@ -105,7 +105,7 @@ apis:
   description: Everything about Credit notes collection
   humanURL: https://getlago.com/
   tags:
-  - Credit_notes
+  - Credit Notes
   tags_raw:
   - Credit_notes
   properties:
@@ -189,7 +189,7 @@ apis:
   description: Everything about PaymentRequests
   humanURL: https://getlago.com/
   tags:
-  - Payment_requests
+  - Payment Requests
   tags_raw:
   - Payment_requests
   properties:
@@ -258,7 +258,7 @@ apis:
   description: Everything about Webhook Endpoints
   humanURL: https://getlago.com/
   tags:
-  - Webhook_endpoints
+  - Webhook Endpoints
   tags_raw:
   - Webhook_endpoints
   properties:
