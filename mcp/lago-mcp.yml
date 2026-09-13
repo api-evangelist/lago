@@ -1,0 +1,23 @@
+generated: '2026-09-11'
+method: probed
+source: https://getlago.com/mcp
+status: published
+server:
+  name: lago
+  transport: http
+  url: https://getlago.com/mcp
+deployment:
+  mode: remote
+  endpoint: https://getlago.com/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
+tools_count: 2
+tools:
+- name: find_lago_resource
+  description: ''
+- name: get_lago_capabilities
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
