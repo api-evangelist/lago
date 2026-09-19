@@ -233,6 +233,8 @@ apis:
   description: Everything about Tax collection
   humanURL: https://getlago.com/
   tags:
+  - Tax
+  tags_raw:
   - Taxes
   properties:
   - type: OpenAPI
