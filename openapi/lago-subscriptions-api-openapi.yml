@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lago API documentation Add_ons Subscriptions API
+  title: Lago API documentation Subscriptions API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
   version: 1.15.0
   license:
@@ -242,229 +242,6 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
-    ChargeFilterObject:
-      type: object
-      description: Values used to apply differentiated pricing based on additional event properties.
-      required:
-      - invoice_display_name
-      - properties
-      - values
-      properties:
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
-          example: AWS
-          nullable: true
-        properties:
-          allOf:
-          - $ref: '#/components/schemas/ChargeProperties'
-          - description: List of all thresholds utilized for calculating the charge.
-        values:
-          type: object
-          description: List of possible filter values. The key and values must match one of the billable metric filters.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          example:
-            region:
-            - us-east-1
-    LifetimeUsageInput:
-      type: object
-      required:
-      - lifetime_usage
-      properties:
-        lifetime_usage:
-          type: object
-          required:
-          - external_historical_usage_amount_cents
-          properties:
-            external_historical_usage_amount_cents:
-              type: integer
-              example: 100
-              description: The historical usage amount in cents for the subscription (provided by your own application).
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    UsageThresholdObject:
-      type: object
-      required:
-      - lago_id
-      - amount_cents
-      - recurring
-      - created_at
-      - updated_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the usage threshold created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        threshold_display_name:
-          type: string
-          nullable: true
-          description: The display name of the usage threshold.
-          example: Threshold 1
-        amount_cents:
-          type: integer
-          description: The amount to reach to trigger a `progressive_billing` invoice.
-          example: 10000
-        recurring:
-          type: boolean
-          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
-          example: true
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
-    MinimumCommitmentObject:
-      type: object
-      nullable: true
-      required:
-      - lago_id
-      - amount_cents
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the minimum commitment, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        plan_code:
-          type: string
-          example: premium
-          description: The unique code representing the plan to be attached to the customer.
-        amount_cents:
-          type: integer
-          description: The amount of the minimum commitment in cents.
-          example: 100000
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
-          example: Minimum Commitment (C1)
-        interval:
-          type: string
-          description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly` or `weekly`.'
-          enum:
-          - weekly
-          - monthly
-          - quarterly
-          - yearly
-          example: monthly
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the minimum commitment was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
-          example: '2022-04-29T08:59:51Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time when the minimum commitment was updated. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
-          example: '2022-04-29T08:59:51Z'
-        taxes:
-          type: array
-          description: All taxes applied to the minimum commitment.
-          items:
-            $ref: '#/components/schemas/TaxObject'
-    LifetimeUsage:
-      type: object
-      required:
-      - lifetime_usage
-      properties:
-        lifetime_usage:
-          $ref: '#/components/schemas/LifetimeUsageObject'
-    LifetimeUsageObject:
-      type: object
-      required:
-      - lago_id
-      - lago_subscription_id
-      - external_subscription_id
-      - external_historical_usage_amount_cents
-      - invoiced_usage_amount_cents
-      - current_usage_amount_cents
-      - from_datetime
-      - to_datetime
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the lifetime usage record within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the lifetime usage record within the Lago system
-        lago_subscription_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the subscription record within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription record within the Lago system
-        external_subscription_id:
-          type: string
-          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-          description: The subscription external unique identifier (provided by your own application).
-        external_historical_usage_amount_cents:
-          type: integer
-          example: 100
-          description: The historical usage amount in cents for the subscription (provided by your own application).
-        invoiced_usage_amount_cents:
-          type: integer
-          example: 100
-          description: The total invoiced usage amount in cents for the subscription.
-        current_usage_amount_cents:
-          type: integer
-          example: 100
-          description: The current usage amount in cents for the subscription on the current billing period.
-        from_datetime:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-          description: The recording start date and time of the subscription lifetime usage. The date and time must be in ISO 8601 format.
-        to_datetime:
-          type: string
-          format: date-time
-          example: '2024-12-31T23:59:59Z'
-          description: The recording end date and time of the subscription lifetime usage. The date and time must be in ISO 8601 format.
-        usage_thresholds:
-          type: array
-          description: Array of usage thresholds attached to the subscription's plan.
-          items:
-            $ref: '#/components/schemas/LifetimeUsageThresholdObject'
-    Subscription:
-      type: object
-      required:
-      - subscription
-      properties:
-        subscription:
-          $ref: '#/components/schemas/SubscriptionObjectExtended'
     ApiErrorNotAllowed:
       type: object
       required:
@@ -482,6 +259,67 @@ components:
         code:
           type: string
           example: not_allowed
+    LifetimeUsageInput:
+      type: object
+      required:
+      - lifetime_usage
+      properties:
+        lifetime_usage:
+          type: object
+          required:
+          - external_historical_usage_amount_cents
+          properties:
+            external_historical_usage_amount_cents:
+              type: integer
+              example: 100
+              description: The historical usage amount in cents for the subscription (provided by your own application).
+    SubscriptionCreateInput:
+      type: object
+      required:
+      - subscription
+      properties:
+        subscription:
+          type: object
+          required:
+          - external_customer_id
+          - plan_code
+          - external_id
+          properties:
+            external_customer_id:
+              type: string
+              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+              description: The customer external unique identifier (provided by your own application)
+            plan_code:
+              type: string
+              example: premium
+              description: The unique code representing the plan to be attached to the customer. This code must correspond to the `code` property of one of the active plans.
+            name:
+              type: string
+              example: Repository A
+              description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
+            external_id:
+              type: string
+              example: my_sub_1234567890
+              description: The unique external identifier for the subscription. This identifier serves as an idempotency key, ensuring that each subscription is unique.
+            billing_time:
+              type: string
+              description: The billing time for the subscription, which can be set as either `anniversary` or `calendar`. If not explicitly provided, it will default to `calendar`. The billing time determines the timing of recurring billing cycles for the subscription. By specifying `anniversary`, the billing cycle will be based on the specific date the subscription started (billed fully), while `calendar` sets the billing cycle at the first day of the week/month/year (billed with proration).
+              example: anniversary
+              enum:
+              - calendar
+              - anniversary
+            ending_at:
+              type: string
+              format: date-time
+              example: '2022-10-08T00:00:00Z'
+              description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
+            subscription_at:
+              type: string
+              format: date-time
+              example: '2022-08-08T00:00:00Z'
+              description: The start date for the subscription, allowing for the creation of subscriptions that can begin in the past or future. Please note that it cannot be used to update the start date of a pending subscription or schedule an upgrade/downgrade. The start_date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+            plan_overrides:
+              $ref: '#/components/schemas/PlanOverridesObject'
     ApiErrorNotFound:
       type: object
       required:
@@ -659,137 +497,231 @@ components:
                 pattern: ^[0-9]+.?[0-9]*$
                 description: The flat amount for a whole tier, excluding tax, for a `volume` charge model. It is expressed as a decimal value.
                 example: '0.5'
-    SubscriptionObject:
+    TaxObject:
       type: object
       required:
       - lago_id
-      - lago_customer_id
-      - billing_time
-      - external_customer_id
+      - name
+      - code
+      - rate
+      - applied_to_organization
+      - customers_count
       - created_at
-      - subscription_at
-      - plan_code
-      - external_id
-      - status
       properties:
         lago_id:
           type: string
           format: uuid
+          description: Unique identifier of the tax, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the subscription within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription's record within the Lago system
-        external_id:
-          type: string
-          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-          description: The subscription external unique identifier (provided by your own application).
-        lago_customer_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the customer within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the customer's record within the Lago system
-        external_customer_id:
-          type: string
-          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-          description: The customer external unique identifier (provided by your own application).
-        billing_time:
-          type: string
-          description: The billing time for the subscription, which can be set as either `anniversary` or `calendar`. If not explicitly provided, it will default to `calendar`. The billing time determines the timing of recurring billing cycles for the subscription. By specifying `anniversary`, the billing cycle will be based on the specific date the subscription started (billed fully), while `calendar` sets the billing cycle at the first day of the week/month/year (billed with proration).
-          example: anniversary
-          enum:
-          - calendar
-          - anniversary
         name:
           type: string
-          example: Repository A
-          description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
-          nullable: true
-        plan_code:
+          description: Name of the tax.
+          example: TVA
+        code:
           type: string
-          example: premium
-          description: The unique code representing the plan to be attached to the customer. This code must correspond to the `code` property of one of the active plans.
-        status:
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
           type: string
-          description: 'The status of the subscription, which can have the following values:
-
-            - `pending`: a previous subscription has been downgraded, and the current one is awaiting automatic activation at the end of the billing period.
-
-            - `active`: the subscription is currently active and applied to the customer.
-
-            - `terminated`: the subscription is no longer active.
-
-            - `canceled`: the subscription has been stopped before its activation. This can occur when two consecutive downgrades have been applied to a customer or when a subscription with a pending status is terminated.'
-          example: active
-          enum:
-          - active
-          - pending
-          - terminated
-          - canceled
+          description: Internal description of the taxe
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+        add_ons_count:
+          type: integer
+          description: Number of add-ons this tax is applied to.
+          example: 0
+        charges_count:
+          type: integer
+          description: Number of charges this tax is applied to.
+          example: 0
+        customers_count:
+          type: integer
+          description: Number of customers this tax is applied to (directly or via the organization's default).
+          example: 0
+        plans_count:
+          type: integer
+          description: Number of plans this tax is applied to.
+          example: 0
         created_at:
           type: string
           format: date-time
-          example: '2022-08-08T00:00:00Z'
-          description: The creation date of the subscription, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). This date provides a timestamp indicating when the subscription was initially created.
-        canceled_at:
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    ChargeFilterObject:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      required:
+      - invoice_display_name
+      - properties
+      - values
+      properties:
+        invoice_display_name:
           type: string
-          format: date-time
-          example: '2022-09-14T16:35:31Z'
-          description: The cancellation date of the subscription. This field is not null when the subscription is `canceled`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
+          example: AWS
           nullable: true
-        started_at:
-          type: string
-          format: date-time
-          example: '2022-08-08T00:00:00Z'
-          description: The effective start date of the subscription. This field can be null if the subscription is `pending` or `canceled`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-          nullable: true
-        ending_at:
-          type: string
-          format: date-time
-          example: '2022-10-08T00:00:00Z'
-          description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
-        subscription_at:
-          type: string
-          format: date-time
-          example: '2022-08-08T00:00:00Z'
-          description: The anniversary date and time of the initial subscription. This date serves as the basis for billing subscriptions with `anniversary` billing time. The `anniversary_date` should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-        terminated_at:
-          type: string
-          format: date-time
-          example: '2022-09-14T16:35:31Z'
-          description: The termination date of the subscription. This field is not null when the subscription is `terminated`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC)
-          nullable: true
-        previous_plan_code:
-          type: string
-          example: null
-          description: The code identifying the previous plan associated with this subscription.
-          nullable: true
-        next_plan_code:
-          type: string
-          example: null
-          description: The code identifying the next plan in the case of a downgrade.
-          nullable: true
-        downgrade_plan_date:
-          type: string
-          format: date
-          example: '2022-04-30'
-          description: The date when the plan will be downgraded, represented in ISO 8601 date format.
-          nullable: true
-        trial_ended_at:
-          type: string
-          format: date-time
-          example: '2022-08-08T00:00:00Z'
-          description: The date when the free trial is ended, represented in ISO 8601 date format.
-          nullable: true
-        current_billing_period_started_at:
-          type: string
-          format: date-time
-          example: '2022-08-08T00:00:00Z'
-          description: The date and time when the current billing period started, represented in ISO 8601 date format.
-          nullable: true
-        current_billing_period_ending_at:
-          type: string
-          format: date-time
-          example: '2022-09-08T00:00:00Z'
-          description: The date and time when the current billing period ends, represented in ISO 8601 date format.
-          nullable: true
+        properties:
+          allOf:
+          - $ref: '#/components/schemas/ChargeProperties'
+          - description: List of all thresholds utilized for calculating the charge.
+        values:
+          type: object
+          description: List of possible filter values. The key and values must match one of the billable metric filters.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            region:
+            - us-east-1
     PlanObject:
       type: object
       required:
@@ -991,284 +923,6 @@ components:
           description: List of usage thresholds applied to the plan.
           items:
             $ref: '#/components/schemas/UsageThresholdObject'
-    SubscriptionsPaginated:
-      type: object
-      required:
-      - subscriptions
-      - meta
-      properties:
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    ChargeFilterInput:
-      type: object
-      description: Values used to apply differentiated pricing based on additional event properties.
-      properties:
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
-          example: AWS
-          nullable: true
-        properties:
-          allOf:
-          - $ref: '#/components/schemas/ChargeProperties'
-          - description: List of all thresholds utilized for calculating the charge.
-        values:
-          type: object
-          description: List of possible filter values. The key and values must match one of the billable metric filters.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          example:
-            region:
-            - us-east-1
-    LifetimeUsageThresholdObject:
-      type: object
-      required:
-      - amount_cents
-      - completion_ratio
-      - reached_at
-      properties:
-        amount_cents:
-          type: integer
-          description: The usage threshold amount in cents.
-          example: 100
-        completion_ratio:
-          type: number
-          description: The completion ratio of the usage threshold.
-          example: 0.5
-        reached_at:
-          type: string
-          format: date-time
-          description: The date and time when the usage threshold was reached. The date and time must be in ISO 8601 format.
-          example: '2024-01-01T00:00:00Z'
-          nullable: true
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    SubscriptionUpdateInput:
-      type: object
-      required:
-      - subscription
-      properties:
-        status:
-          type: string
-          enum:
-          - active
-          - pending
-          example: active
-          description: If the field is not defined and multiple `active` and `pending` subscriptions exists, Lago will update the `active` subscription. However, if you wish to update a `pending` subscription, please ensure that you include the `status` attribute with the `pending` value in your request body.
-        subscription:
-          type: object
-          required:
-          - ending_at
-          properties:
-            name:
-              type: string
-              example: Repository B
-              nullable: true
-              description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
-            ending_at:
-              type: string
-              format: date-time
-              example: '2022-10-08T00:00:00Z'
-              nullable: true
-              description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
-            subscription_at:
-              type: string
-              format: date-time
-              example: '2022-08-08T00:00:00Z'
-              description: The start date and time of the subscription. This field can only be modified for pending subscriptions that have not yet started. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-            plan_overrides:
-              $ref: '#/components/schemas/PlanOverridesObject'
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
     ChargeObject:
       type: object
       required:
@@ -1365,60 +1019,6 @@ components:
           description: All taxes applied to the charge.
           items:
             $ref: '#/components/schemas/TaxObject'
-    SubscriptionCreateInput:
-      type: object
-      required:
-      - subscription
-      properties:
-        subscription:
-          type: object
-          required:
-          - external_customer_id
-          - plan_code
-          - external_id
-          properties:
-            external_customer_id:
-              type: string
-              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-              description: The customer external unique identifier (provided by your own application)
-            plan_code:
-              type: string
-              example: premium
-              description: The unique code representing the plan to be attached to the customer. This code must correspond to the `code` property of one of the active plans.
-            name:
-              type: string
-              example: Repository A
-              description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
-            external_id:
-              type: string
-              example: my_sub_1234567890
-              description: The unique external identifier for the subscription. This identifier serves as an idempotency key, ensuring that each subscription is unique.
-            billing_time:
-              type: string
-              description: The billing time for the subscription, which can be set as either `anniversary` or `calendar`. If not explicitly provided, it will default to `calendar`. The billing time determines the timing of recurring billing cycles for the subscription. By specifying `anniversary`, the billing cycle will be based on the specific date the subscription started (billed fully), while `calendar` sets the billing cycle at the first day of the week/month/year (billed with proration).
-              example: anniversary
-              enum:
-              - calendar
-              - anniversary
-            ending_at:
-              type: string
-              format: date-time
-              example: '2022-10-08T00:00:00Z'
-              description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
-            subscription_at:
-              type: string
-              format: date-time
-              example: '2022-08-08T00:00:00Z'
-              description: The start date for the subscription, allowing for the creation of subscriptions that can begin in the past or future. Please note that it cannot be used to update the start date of a pending subscription or schedule an upgrade/downgrade. The start_date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-            plan_overrides:
-              $ref: '#/components/schemas/PlanOverridesObject'
-    SubscriptionObjectExtended:
-      allOf:
-      - $ref: '#/components/schemas/SubscriptionObject'
-      - type: object
-        properties:
-          plan:
-            $ref: '#/components/schemas/PlanObject'
     PlanOverridesObject:
       type: object
       description: Based plan overrides.
@@ -1502,63 +1102,463 @@ components:
           description: List of usage thresholds applied to the subscription.
           items:
             $ref: '#/components/schemas/UsageThresholdObject'
-    TaxObject:
+    LifetimeUsageThresholdObject:
+      type: object
+      required:
+      - amount_cents
+      - completion_ratio
+      - reached_at
+      properties:
+        amount_cents:
+          type: integer
+          description: The usage threshold amount in cents.
+          example: 100
+        completion_ratio:
+          type: number
+          description: The completion ratio of the usage threshold.
+          example: 0.5
+        reached_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was reached. The date and time must be in ISO 8601 format.
+          example: '2024-01-01T00:00:00Z'
+          nullable: true
+    SubscriptionsPaginated:
+      type: object
+      required:
+      - subscriptions
+      - meta
+      properties:
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    LifetimeUsageObject:
       type: object
       required:
       - lago_id
-      - name
-      - code
-      - rate
-      - applied_to_organization
-      - customers_count
+      - lago_subscription_id
+      - external_subscription_id
+      - external_historical_usage_amount_cents
+      - invoiced_usage_amount_cents
+      - current_usage_amount_cents
+      - from_datetime
+      - to_datetime
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the lifetime usage record within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the lifetime usage record within the Lago system
+        lago_subscription_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the subscription record within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription record within the Lago system
+        external_subscription_id:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+          description: The subscription external unique identifier (provided by your own application).
+        external_historical_usage_amount_cents:
+          type: integer
+          example: 100
+          description: The historical usage amount in cents for the subscription (provided by your own application).
+        invoiced_usage_amount_cents:
+          type: integer
+          example: 100
+          description: The total invoiced usage amount in cents for the subscription.
+        current_usage_amount_cents:
+          type: integer
+          example: 100
+          description: The current usage amount in cents for the subscription on the current billing period.
+        from_datetime:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+          description: The recording start date and time of the subscription lifetime usage. The date and time must be in ISO 8601 format.
+        to_datetime:
+          type: string
+          format: date-time
+          example: '2024-12-31T23:59:59Z'
+          description: The recording end date and time of the subscription lifetime usage. The date and time must be in ISO 8601 format.
+        usage_thresholds:
+          type: array
+          description: Array of usage thresholds attached to the subscription's plan.
+          items:
+            $ref: '#/components/schemas/LifetimeUsageThresholdObject'
+    LifetimeUsage:
+      type: object
+      required:
+      - lifetime_usage
+      properties:
+        lifetime_usage:
+          $ref: '#/components/schemas/LifetimeUsageObject'
+    MinimumCommitmentObject:
+      type: object
+      nullable: true
+      required:
+      - lago_id
+      - amount_cents
       - created_at
       properties:
         lago_id:
           type: string
           format: uuid
-          description: Unique identifier of the tax, created by Lago.
+          description: Unique identifier of the minimum commitment, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        name:
+        plan_code:
           type: string
-          description: Name of the tax.
-          example: TVA
-        code:
+          example: premium
+          description: The unique code representing the plan to be attached to the customer.
+        amount_cents:
+          type: integer
+          description: The amount of the minimum commitment in cents.
+          example: 100000
+        invoice_display_name:
           type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        description:
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
+          example: Minimum Commitment (C1)
+        interval:
           type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
-        add_ons_count:
-          type: integer
-          description: Number of add-ons this tax is applied to.
-          example: 0
-        charges_count:
-          type: integer
-          description: Number of charges this tax is applied to.
-          example: 0
-        customers_count:
-          type: integer
-          description: Number of customers this tax is applied to (directly or via the organization's default).
-          example: 0
-        plans_count:
-          type: integer
-          description: Number of plans this tax is applied to.
-          example: 0
+          description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly` or `weekly`.'
+          enum:
+          - weekly
+          - monthly
+          - quarterly
+          - yearly
+          example: monthly
         created_at:
           type: string
           format: date-time
-          description: Creation date of the tax.
-          example: '2023-07-06T14:35:58Z'
+          description: The date and time when the minimum commitment was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
+          example: '2022-04-29T08:59:51Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the minimum commitment was updated. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
+          example: '2022-04-29T08:59:51Z'
+        taxes:
+          type: array
+          description: All taxes applied to the minimum commitment.
+          items:
+            $ref: '#/components/schemas/TaxObject'
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    UsageThresholdObject:
+      type: object
+      required:
+      - lago_id
+      - amount_cents
+      - recurring
+      - created_at
+      - updated_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the usage threshold created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        threshold_display_name:
+          type: string
+          nullable: true
+          description: The display name of the usage threshold.
+          example: Threshold 1
+        amount_cents:
+          type: integer
+          description: The amount to reach to trigger a `progressive_billing` invoice.
+          example: 10000
+        recurring:
+          type: boolean
+          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
+    Subscription:
+      type: object
+      required:
+      - subscription
+      properties:
+        subscription:
+          $ref: '#/components/schemas/SubscriptionObjectExtended'
+    SubscriptionObject:
+      type: object
+      required:
+      - lago_id
+      - lago_customer_id
+      - billing_time
+      - external_customer_id
+      - created_at
+      - subscription_at
+      - plan_code
+      - external_id
+      - status
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the subscription within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription's record within the Lago system
+        external_id:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+          description: The subscription external unique identifier (provided by your own application).
+        lago_customer_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the customer within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the customer's record within the Lago system
+        external_customer_id:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+          description: The customer external unique identifier (provided by your own application).
+        billing_time:
+          type: string
+          description: The billing time for the subscription, which can be set as either `anniversary` or `calendar`. If not explicitly provided, it will default to `calendar`. The billing time determines the timing of recurring billing cycles for the subscription. By specifying `anniversary`, the billing cycle will be based on the specific date the subscription started (billed fully), while `calendar` sets the billing cycle at the first day of the week/month/year (billed with proration).
+          example: anniversary
+          enum:
+          - calendar
+          - anniversary
+        name:
+          type: string
+          example: Repository A
+          description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
+          nullable: true
+        plan_code:
+          type: string
+          example: premium
+          description: The unique code representing the plan to be attached to the customer. This code must correspond to the `code` property of one of the active plans.
+        status:
+          type: string
+          description: 'The status of the subscription, which can have the following values:
+
+            - `pending`: a previous subscription has been downgraded, and the current one is awaiting automatic activation at the end of the billing period.
+
+            - `active`: the subscription is currently active and applied to the customer.
+
+            - `terminated`: the subscription is no longer active.
+
+            - `canceled`: the subscription has been stopped before its activation. This can occur when two consecutive downgrades have been applied to a customer or when a subscription with a pending status is terminated.'
+          example: active
+          enum:
+          - active
+          - pending
+          - terminated
+          - canceled
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-08-08T00:00:00Z'
+          description: The creation date of the subscription, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). This date provides a timestamp indicating when the subscription was initially created.
+        canceled_at:
+          type: string
+          format: date-time
+          example: '2022-09-14T16:35:31Z'
+          description: The cancellation date of the subscription. This field is not null when the subscription is `canceled`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          nullable: true
+        started_at:
+          type: string
+          format: date-time
+          example: '2022-08-08T00:00:00Z'
+          description: The effective start date of the subscription. This field can be null if the subscription is `pending` or `canceled`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          nullable: true
+        ending_at:
+          type: string
+          format: date-time
+          example: '2022-10-08T00:00:00Z'
+          description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
+        subscription_at:
+          type: string
+          format: date-time
+          example: '2022-08-08T00:00:00Z'
+          description: The anniversary date and time of the initial subscription. This date serves as the basis for billing subscriptions with `anniversary` billing time. The `anniversary_date` should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+        terminated_at:
+          type: string
+          format: date-time
+          example: '2022-09-14T16:35:31Z'
+          description: The termination date of the subscription. This field is not null when the subscription is `terminated`. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC)
+          nullable: true
+        previous_plan_code:
+          type: string
+          example: null
+          description: The code identifying the previous plan associated with this subscription.
+          nullable: true
+        next_plan_code:
+          type: string
+          example: null
+          description: The code identifying the next plan in the case of a downgrade.
+          nullable: true
+        downgrade_plan_date:
+          type: string
+          format: date
+          example: '2022-04-30'
+          description: The date when the plan will be downgraded, represented in ISO 8601 date format.
+          nullable: true
+        trial_ended_at:
+          type: string
+          format: date-time
+          example: '2022-08-08T00:00:00Z'
+          description: The date when the free trial is ended, represented in ISO 8601 date format.
+          nullable: true
+        current_billing_period_started_at:
+          type: string
+          format: date-time
+          example: '2022-08-08T00:00:00Z'
+          description: The date and time when the current billing period started, represented in ISO 8601 date format.
+          nullable: true
+        current_billing_period_ending_at:
+          type: string
+          format: date-time
+          example: '2022-09-08T00:00:00Z'
+          description: The date and time when the current billing period ends, represented in ISO 8601 date format.
+          nullable: true
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    SubscriptionObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionObject'
+      - type: object
+        properties:
+          plan:
+            $ref: '#/components/schemas/PlanObject'
+    SubscriptionUpdateInput:
+      type: object
+      required:
+      - subscription
+      properties:
+        status:
+          type: string
+          enum:
+          - active
+          - pending
+          example: active
+          description: If the field is not defined and multiple `active` and `pending` subscriptions exists, Lago will update the `active` subscription. However, if you wish to update a `pending` subscription, please ensure that you include the `status` attribute with the `pending` value in your request body.
+        subscription:
+          type: object
+          required:
+          - ending_at
+          properties:
+            name:
+              type: string
+              example: Repository B
+              nullable: true
+              description: The display name of the subscription on an invoice. This field allows for customization of the subscription's name for billing purposes, especially useful when a single customer has multiple subscriptions using the same plan.
+            ending_at:
+              type: string
+              format: date-time
+              example: '2022-10-08T00:00:00Z'
+              nullable: true
+              description: The effective end date of the subscription. If this field is set to null, the subscription will automatically renew. This date should be provided in ISO 8601 datetime format, and use Coordinated Universal Time (UTC).
+            subscription_at:
+              type: string
+              format: date-time
+              example: '2022-08-08T00:00:00Z'
+              description: The start date and time of the subscription. This field can only be modified for pending subscriptions that have not yet started. This date should be provided in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+            plan_overrides:
+              $ref: '#/components/schemas/PlanOverridesObject'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ChargeFilterInput:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      properties:
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
+          example: AWS
+          nullable: true
+        properties:
+          allOf:
+          - $ref: '#/components/schemas/ChargeProperties'
+          - description: List of all thresholds utilized for calculating the charge.
+        values:
+          type: object
+          description: List of possible filter values. The key and values must match one of the billable metric filters.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            region:
+            - us-east-1
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
   responses:
     BadRequest:
       description: Bad Request error
@@ -1566,24 +1566,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorBadRequest'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     NotAllowed:
       description: Not Allowed error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotAllowed'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
     Unauthorized:
       description: Unauthorized error
       content:
@@ -1591,15 +1591,6 @@ components:
           schema:
             $ref: '#/components/schemas/ApiErrorUnauthorized'
   parameters:
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -1609,6 +1600,15 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     bearerAuth:
       type: http

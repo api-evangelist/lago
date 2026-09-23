@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lago API documentation Add_ons Organizations API
+  title: Lago API documentation Organizations API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
   version: 1.15.0
   license:
@@ -50,143 +50,66 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   schemas:
-    OrganizationObject:
+    ApiErrorUnauthorized:
       type: object
       required:
-      - lago_id
-      - name
-      - created_at
-      - document_numbering
-      - document_number_prefix
-      - email_settings
-      - billing_configuration
+      - status
+      - error
       properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the organization within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the organization's record within the Lago system
-        name:
-          type: string
-          example: Name1
-          description: The name of your organization.
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-05-02T13:04:09Z'
-          description: The date of creation of your organization, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-          nullable: true
-        webhook_url:
-          type: string
-          example: https://webhook.brex.com
-          description: The URL of your newest updated webhook endpoint. This URL allows your organization to receive important messages, notifications, or data from the Lago system. By configuring your webhook endpoint to this URL, you can ensure that your organization stays informed and receives relevant information in a timely manner.
-          nullable: true
-        webhook_urls:
-          type: array
-          items:
-            type: string
-          example:
-          - https://webhook.brex.com
-          - https://webhook2.brex.com
-          description: The array containing your webhooks URLs.
-          nullable: true
-        country:
-          allOf:
-          - $ref: '#/components/schemas/Country'
-          - nullable: true
-            description: The country of your organization.
-            example: US
-        default_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The default currency of an organization.
-            example: USD
-        address_line1:
-          type: string
-          example: 100 Brex Street
-          description: The first line of your organization's billing address.
-          nullable: true
-        address_line2:
-          type: string
-          example: null
-          description: The second line of your organization's billing address.
-          nullable: true
-        state:
-          type: string
-          example: NYC
-          description: The state of your organization's billing address.
-          nullable: true
-        zipcode:
-          type: string
-          example: '10000'
-          description: The zipcode of your organization's billing address.
-          nullable: true
-        email:
-          type: string
-          format: email
-          example: brex@brex.com
-          description: The email address of your organization used to bill your customers.
-          nullable: true
-        city:
-          type: string
-          example: New York
-          description: The city of your organization's billing address.
-          nullable: true
-        legal_name:
-          type: string
-          example: null
-          description: The legal name of your organization.
-          nullable: true
-        legal_number:
-          type: string
-          example: null
-          description: The legal number of your organization.
-          nullable: true
-        document_numbering:
-          type: string
-          enum:
-          - per_customer
-          - per_organization
-          example: per_customer
-          description: 'This parameter configures the method of incrementing invoice numbers for your customers.
-
-
-            - `per_customer`: Invoice numbers are incremented individually for each customer. This means every customer will have their own unique sequence of invoice numbers, separate from other customers. It ensures that each customer''s invoice numbers follow a distinct and isolated numbering pattern.
-
-            - `per_organization`: Invoice number incrementation is made across your entire organization. Rather than individual sequences for each customer, all invoices within the organization follow a single, unified numbering system. This creates a continuous and organization-wide sequence for all invoice numbers. Invoices are incremented per month (dynamic value used is YYYYMM), and invoice numbers are reset at the end of each month.
-
-
-            The default value for `document_numbering` is set to `per_customer`, meaning that, unless changed, invoice numbers will increment uniquely for each customer.'
-        document_number_prefix:
-          type: string
-          example: ORG-1234
-          description: Sets the prefix for invoices and credit notes. Default is the first three letters of your organization name plus the last four digits of your organization ID. Customizable within 1-10 characters, and automatically capitalized by Lago.
-        net_payment_term:
+        status:
           type: integer
-          example: 30
-          description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
-        tax_identification_number:
+          format: int32
+          example: 401
+        error:
           type: string
-          example: US123456789
-          description: The tax identification number of your organization.
-          nullable: true
-        timezone:
-          allOf:
-          - $ref: '#/components/schemas/Timezone'
-          - description: Your organization's timezone, used for billing purposes in your own local time. Can be overwritten by the customer's timezone.
-            example: America/New_York
-        billing_configuration:
-          $ref: '#/components/schemas/OrganizationBillingConfiguration'
-        taxes:
-          type: array
-          description: List of default organization taxes
-          items:
-            $ref: '#/components/schemas/TaxObject'
-        finalize_zero_amount_invoice:
-          type: boolean
-          example: false
-          description: Indicates whether invoices with a zero total amount should be finalized. If set to true, zero amount invoices will be finalized. If set to false, zero amount invoices will not be finalized.
+          example: Unauthorized
+    Organization:
+      type: object
+      required:
+      - organization
+      properties:
+        organization:
+          $ref: '#/components/schemas/OrganizationObject'
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
     Timezone:
       type: string
       example: America/Los_Angeles
@@ -326,26 +249,6 @@ components:
       - Pacific/Pago_Pago
       - Pacific/Port_Moresby
       - Pacific/Tongatapu
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
     OrganizationBillingConfiguration:
       type: object
       description: The custom billing settings for your organization.
@@ -363,6 +266,455 @@ components:
           type: string
           example: en
           description: The locale of the billing documents, expressed in the ISO 639-1 format. This field indicates the language or regional variant used for the documents content issued or the embeddable customer portal.
+    OrganizationObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - created_at
+      - document_numbering
+      - document_number_prefix
+      - email_settings
+      - billing_configuration
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the organization within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the organization's record within the Lago system
+        name:
+          type: string
+          example: Name1
+          description: The name of your organization.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-05-02T13:04:09Z'
+          description: The date of creation of your organization, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          nullable: true
+        webhook_url:
+          type: string
+          example: https://webhook.brex.com
+          description: The URL of your newest updated webhook endpoint. This URL allows your organization to receive important messages, notifications, or data from the Lago system. By configuring your webhook endpoint to this URL, you can ensure that your organization stays informed and receives relevant information in a timely manner.
+          nullable: true
+        webhook_urls:
+          type: array
+          items:
+            type: string
+          example:
+          - https://webhook.brex.com
+          - https://webhook2.brex.com
+          description: The array containing your webhooks URLs.
+          nullable: true
+        country:
+          allOf:
+          - $ref: '#/components/schemas/Country'
+          - nullable: true
+            description: The country of your organization.
+            example: US
+        default_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The default currency of an organization.
+            example: USD
+        address_line1:
+          type: string
+          example: 100 Brex Street
+          description: The first line of your organization's billing address.
+          nullable: true
+        address_line2:
+          type: string
+          example: null
+          description: The second line of your organization's billing address.
+          nullable: true
+        state:
+          type: string
+          example: NYC
+          description: The state of your organization's billing address.
+          nullable: true
+        zipcode:
+          type: string
+          example: '10000'
+          description: The zipcode of your organization's billing address.
+          nullable: true
+        email:
+          type: string
+          format: email
+          example: brex@brex.com
+          description: The email address of your organization used to bill your customers.
+          nullable: true
+        city:
+          type: string
+          example: New York
+          description: The city of your organization's billing address.
+          nullable: true
+        legal_name:
+          type: string
+          example: null
+          description: The legal name of your organization.
+          nullable: true
+        legal_number:
+          type: string
+          example: null
+          description: The legal number of your organization.
+          nullable: true
+        document_numbering:
+          type: string
+          enum:
+          - per_customer
+          - per_organization
+          example: per_customer
+          description: 'This parameter configures the method of incrementing invoice numbers for your customers.
+
+
+            - `per_customer`: Invoice numbers are incremented individually for each customer. This means every customer will have their own unique sequence of invoice numbers, separate from other customers. It ensures that each customer''s invoice numbers follow a distinct and isolated numbering pattern.
+
+            - `per_organization`: Invoice number incrementation is made across your entire organization. Rather than individual sequences for each customer, all invoices within the organization follow a single, unified numbering system. This creates a continuous and organization-wide sequence for all invoice numbers. Invoices are incremented per month (dynamic value used is YYYYMM), and invoice numbers are reset at the end of each month.
+
+
+            The default value for `document_numbering` is set to `per_customer`, meaning that, unless changed, invoice numbers will increment uniquely for each customer.'
+        document_number_prefix:
+          type: string
+          example: ORG-1234
+          description: Sets the prefix for invoices and credit notes. Default is the first three letters of your organization name plus the last four digits of your organization ID. Customizable within 1-10 characters, and automatically capitalized by Lago.
+        net_payment_term:
+          type: integer
+          example: 30
+          description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
+        tax_identification_number:
+          type: string
+          example: US123456789
+          description: The tax identification number of your organization.
+          nullable: true
+        timezone:
+          allOf:
+          - $ref: '#/components/schemas/Timezone'
+          - description: Your organization's timezone, used for billing purposes in your own local time. Can be overwritten by the customer's timezone.
+            example: America/New_York
+        billing_configuration:
+          $ref: '#/components/schemas/OrganizationBillingConfiguration'
+        taxes:
+          type: array
+          description: List of default organization taxes
+          items:
+            $ref: '#/components/schemas/TaxObject'
+        finalize_zero_amount_invoice:
+          type: boolean
+          example: false
+          description: Indicates whether invoices with a zero total amount should be finalized. If set to true, zero amount invoices will be finalized. If set to false, zero amount invoices will not be finalized.
+    OrganizationUpdateInput:
+      type: object
+      required:
+      - organization
+      properties:
+        organization:
+          type: object
+          properties:
+            webhook_url:
+              type: string
+              example: https://webhook.brex.com
+              description: The URL of your newest updated webhook endpoint. This URL allows your organization to receive important messages, notifications, or data from the Lago system. By configuring your webhook endpoint to this URL, you can ensure that your organization stays informed and receives relevant information in a timely manner.
+              nullable: true
+            country:
+              allOf:
+              - $ref: '#/components/schemas/Country'
+              - nullable: true
+                description: The country of your organization.
+                example: US
+            default_currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - description: The default currency of an organization.
+                example: USD
+            address_line1:
+              type: string
+              example: 100 Brex Street
+              description: The first line of your organization's billing address.
+              nullable: true
+            address_line2:
+              type: string
+              example: null
+              description: The second line of your organization's billing address.
+              nullable: true
+            state:
+              type: string
+              example: NYC
+              description: The state of your organization's billing address.
+              nullable: true
+            zipcode:
+              type: string
+              example: '10000'
+              description: The zipcode of your organization's billing address.
+              nullable: true
+            email:
+              type: string
+              format: email
+              example: brex@brex.com
+              description: The email address of your organization used to bill your customers.
+              nullable: true
+            city:
+              type: string
+              example: New York
+              description: The city of your organization's billing address.
+              nullable: true
+            legal_name:
+              type: string
+              example: null
+              description: The legal name of your organization.
+              nullable: true
+            legal_number:
+              type: string
+              example: null
+              description: The legal number of your organization.
+              nullable: true
+            document_numbering:
+              type: string
+              enum:
+              - per_customer
+              - per_organization
+              example: per_customer
+              description: 'This parameter configures the method of incrementing invoice numbers for your customers.
+
+
+                - `per_customer`: Invoice numbers are incremented individually for each customer. This means every customer will have their own unique sequence of invoice numbers, separate from other customers. It ensures that each customer''s invoice numbers follow a distinct and isolated numbering pattern.
+
+                - `per_organization`: Invoice number incrementation is made across your entire organization. Rather than individual sequences for each customer, all invoices within the organization follow a single, unified numbering system. This creates a continuous and organization-wide sequence for all invoice numbers. Invoices are incremented per month (dynamic value used is YYYYMM), and invoice numbers are reset at the end of each month.
+
+
+                The default value for `document_numbering` is set to `per_customer`, meaning that, unless changed, invoice numbers will increment uniquely for each customer.'
+            document_number_prefix:
+              type: string
+              example: ORG-1234
+              description: Sets the prefix for invoices and credit notes. Default is the first three letters of your organization name plus the last four digits of your organization ID. Customizable within 1-10 characters, and automatically capitalized by Lago.
+            net_payment_term:
+              type: integer
+              example: 30
+              description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
+            tax_identification_number:
+              type: string
+              example: US123456789
+              description: The tax identification number of your organization.
+              nullable: true
+            timezone:
+              allOf:
+              - $ref: '#/components/schemas/Timezone'
+              - description: Your organization's timezone, used for billing purposes in your own local time. Can be overwritten by the customer's timezone.
+                example: America/New_York
+            email_settings:
+              type: array
+              description: Represents the email settings of the organization. It allows you to define which documents are sent by email. The field value determines the types of documents that trigger email notifications. Possible values for are `invoice.finalized` and `credit_note.created`. By configuring this field, you can specify whether invoices, credit notes, or both should be sent to recipients via email.
+              example:
+              - invoice.finalized
+              - credit_note.created
+              items:
+                type: string
+                enum:
+                - invoice.finalized
+                - credit_note.created
+            billing_configuration:
+              $ref: '#/components/schemas/OrganizationBillingConfiguration'
+            finalize_zero_amount_invoice:
+              type: boolean
+              example: false
+              description: Determines whether invoices with a zero total amount should be finalized. If set to true, zero amount invoices will be finalized. If set to false, zero amount invoices will not be finalized.
+    TaxObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - rate
+      - applied_to_organization
+      - customers_count
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+        add_ons_count:
+          type: integer
+          description: Number of add-ons this tax is applied to.
+          example: 0
+        charges_count:
+          type: integer
+          description: Number of charges this tax is applied to.
+          example: 0
+        customers_count:
+          type: integer
+          description: Number of customers this tax is applied to (directly or via the organization's default).
+          example: 0
+        plans_count:
+          type: integer
+          description: Number of plans this tax is applied to.
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     Country:
       type: string
       example: US
@@ -616,141 +968,6 @@ components:
       - ZA
       - ZM
       - ZW
-    Organization:
-      type: object
-      required:
-      - organization
-      properties:
-        organization:
-          $ref: '#/components/schemas/OrganizationObject'
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    OrganizationUpdateInput:
-      type: object
-      required:
-      - organization
-      properties:
-        organization:
-          type: object
-          properties:
-            webhook_url:
-              type: string
-              example: https://webhook.brex.com
-              description: The URL of your newest updated webhook endpoint. This URL allows your organization to receive important messages, notifications, or data from the Lago system. By configuring your webhook endpoint to this URL, you can ensure that your organization stays informed and receives relevant information in a timely manner.
-              nullable: true
-            country:
-              allOf:
-              - $ref: '#/components/schemas/Country'
-              - nullable: true
-                description: The country of your organization.
-                example: US
-            default_currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - description: The default currency of an organization.
-                example: USD
-            address_line1:
-              type: string
-              example: 100 Brex Street
-              description: The first line of your organization's billing address.
-              nullable: true
-            address_line2:
-              type: string
-              example: null
-              description: The second line of your organization's billing address.
-              nullable: true
-            state:
-              type: string
-              example: NYC
-              description: The state of your organization's billing address.
-              nullable: true
-            zipcode:
-              type: string
-              example: '10000'
-              description: The zipcode of your organization's billing address.
-              nullable: true
-            email:
-              type: string
-              format: email
-              example: brex@brex.com
-              description: The email address of your organization used to bill your customers.
-              nullable: true
-            city:
-              type: string
-              example: New York
-              description: The city of your organization's billing address.
-              nullable: true
-            legal_name:
-              type: string
-              example: null
-              description: The legal name of your organization.
-              nullable: true
-            legal_number:
-              type: string
-              example: null
-              description: The legal number of your organization.
-              nullable: true
-            document_numbering:
-              type: string
-              enum:
-              - per_customer
-              - per_organization
-              example: per_customer
-              description: 'This parameter configures the method of incrementing invoice numbers for your customers.
-
-
-                - `per_customer`: Invoice numbers are incremented individually for each customer. This means every customer will have their own unique sequence of invoice numbers, separate from other customers. It ensures that each customer''s invoice numbers follow a distinct and isolated numbering pattern.
-
-                - `per_organization`: Invoice number incrementation is made across your entire organization. Rather than individual sequences for each customer, all invoices within the organization follow a single, unified numbering system. This creates a continuous and organization-wide sequence for all invoice numbers. Invoices are incremented per month (dynamic value used is YYYYMM), and invoice numbers are reset at the end of each month.
-
-
-                The default value for `document_numbering` is set to `per_customer`, meaning that, unless changed, invoice numbers will increment uniquely for each customer.'
-            document_number_prefix:
-              type: string
-              example: ORG-1234
-              description: Sets the prefix for invoices and credit notes. Default is the first three letters of your organization name plus the last four digits of your organization ID. Customizable within 1-10 characters, and automatically capitalized by Lago.
-            net_payment_term:
-              type: integer
-              example: 30
-              description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
-            tax_identification_number:
-              type: string
-              example: US123456789
-              description: The tax identification number of your organization.
-              nullable: true
-            timezone:
-              allOf:
-              - $ref: '#/components/schemas/Timezone'
-              - description: Your organization's timezone, used for billing purposes in your own local time. Can be overwritten by the customer's timezone.
-                example: America/New_York
-            email_settings:
-              type: array
-              description: Represents the email settings of the organization. It allows you to define which documents are sent by email. The field value determines the types of documents that trigger email notifications. Possible values for are `invoice.finalized` and `credit_note.created`. By configuring this field, you can specify whether invoices, credit notes, or both should be sent to recipients via email.
-              example:
-              - invoice.finalized
-              - credit_note.created
-              items:
-                type: string
-                enum:
-                - invoice.finalized
-                - credit_note.created
-            billing_configuration:
-              $ref: '#/components/schemas/OrganizationBillingConfiguration'
-            finalize_zero_amount_invoice:
-              type: boolean
-              example: false
-              description: Determines whether invoices with a zero total amount should be finalized. If set to true, zero amount invoices will be finalized. If set to false, zero amount invoices will not be finalized.
     ApiErrorBadRequest:
       type: object
       required:
@@ -764,223 +981,6 @@ components:
         error:
           type: string
           example: Bad request
-    TaxObject:
-      type: object
-      required:
-      - lago_id
-      - name
-      - code
-      - rate
-      - applied_to_organization
-      - customers_count
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
-        add_ons_count:
-          type: integer
-          description: Number of add-ons this tax is applied to.
-          example: 0
-        charges_count:
-          type: integer
-          description: Number of charges this tax is applied to.
-          example: 0
-        customers_count:
-          type: integer
-          description: Number of customers this tax is applied to (directly or via the organization's default).
-          example: 0
-        plans_count:
-          type: integer
-          description: Number of plans this tax is applied to.
-          example: 0
-        created_at:
-          type: string
-          format: date-time
-          description: Creation date of the tax.
-          example: '2023-07-06T14:35:58Z'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
   securitySchemes:
     bearerAuth:
       type: http

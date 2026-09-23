@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lago API documentation Add_ons Taxes API
+  title: Lago API documentation Taxes API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
   version: 1.15.0
   license:
@@ -163,36 +163,64 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   schemas:
-    PaginationMeta:
+    Tax:
       type: object
       required:
-      - current_page
-      - total_pages
-      - total_count
+      - tax
       properties:
-        current_page:
+        tax:
+          $ref: '#/components/schemas/TaxObject'
+    TaxesPaginated:
+      type: object
+      required:
+      - taxes
+      - meta
+      properties:
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
           type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     ApiErrorUnprocessableEntity:
       type: object
       required:
@@ -213,51 +241,6 @@ components:
           example: validation_errors
         error_details:
           type: object
-    TaxUpdateInput:
-      type: object
-      required:
-      - tax
-      properties:
-        tax:
-          allOf:
-          - $ref: '#/components/schemas/TaxBaseInput'
-    TaxCreateInput:
-      type: object
-      required:
-      - tax
-      properties:
-        tax:
-          allOf:
-          - $ref: '#/components/schemas/TaxBaseInput'
-          - required:
-            - name
-            - code
-            - rate
-    TaxBaseInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        rate:
-          type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          description: The percentage rate of the tax
-          example: '20.0'
-        description:
-          type: string
-          nullable: true
-          description: Internal description of the taxe
-          example: French standard VAT
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
     ApiErrorNotFound:
       type: object
       required:
@@ -275,44 +258,18 @@ components:
         code:
           type: string
           example: object_not_found
-    ApiErrorUnauthorized:
+    TaxCreateInput:
       type: object
       required:
-      - status
-      - error
+      - tax
       properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
-    TaxesPaginated:
-      type: object
-      required:
-      - taxes
-      - meta
-      properties:
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
+        tax:
+          allOf:
+          - $ref: '#/components/schemas/TaxBaseInput'
+          - required:
+            - name
+            - code
+            - rate
     TaxObject:
       type: object
       required:
@@ -370,38 +327,81 @@ components:
           format: date-time
           description: Creation date of the tax.
           example: '2023-07-06T14:35:58Z'
-    Tax:
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    TaxBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        rate:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: The percentage rate of the tax
+          example: '20.0'
+        description:
+          type: string
+          nullable: true
+          description: Internal description of the taxe
+          example: French standard VAT
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+    TaxUpdateInput:
       type: object
       required:
       - tax
       properties:
         tax:
-          $ref: '#/components/schemas/TaxObject'
-  responses:
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
+          allOf:
+          - $ref: '#/components/schemas/TaxBaseInput'
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
   parameters:
     page:
       name: page

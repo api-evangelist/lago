@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lago API documentation Add_ons Coupons API
+  title: Lago API documentation Coupons API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
   version: 1.15.0
   license:
@@ -240,111 +240,32 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   schemas:
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    CreditObject:
-      type: object
-      required:
-      - lago_id
-      - item
-      - amount_cents
-      - amount_currency
-      - invoice
-      - before_taxes
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        amount_cents:
-          type: integer
-          description: The amount of credit associated with the invoice, expressed in cents.
-          example: 1200
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the credit.
-            example: EUR
-        before_taxes:
-          type: boolean
-          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
-          example: false
-        item:
-          type: object
-          description: The item attached to the credit.
-          required:
-          - lago_item_id
-          - type
-          - code
-          - name
-          properties:
-            lago_item_id:
-              type: string
-              format: uuid
-              description: Unique identifier assigned to the credit item within the Lago application.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            type:
-              type: string
-              enum:
-              - coupon
-              - credit_note
-              - invoice
-              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
-              example: coupon
-            code:
-              type: string
-              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
-              example: startup_deal
-            name:
-              type: string
-              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
-              example: Startup Deal
-        invoice:
-          type: object
-          required:
-          - lago_id
-          - payment_status
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            payment_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              example: succeeded
     AppliedCouponObject:
       type: object
       required:
@@ -456,127 +377,81 @@ components:
           nullable: true
           description: This field indicates the specific moment when the coupon amount is fully utilized or when the coupon is removed from the customer's coupon list. It is expressed in UTC format according to the ISO 8601 datetime standard.
           example: '2022-04-29T08:59:51Z'
-    CouponCreateInput:
+    CreditObject:
       type: object
       required:
-      - coupon
+      - lago_id
+      - item
+      - amount_cents
+      - amount_currency
+      - invoice
+      - before_taxes
       properties:
-        coupon:
-          allOf:
-          - $ref: '#/components/schemas/CouponBaseInput'
-          - required:
-            - name
-            - code
-            - coupon_type
-            - frequency
-            - expiration
-    CouponBaseInput:
-      type: object
-      properties:
-        name:
+        lago_id:
           type: string
-          description: The name of the coupon.
-          example: Startup Deal
-        code:
-          type: string
-          description: Unique code used to identify the coupon.
-          example: startup_deal
-        description:
-          type: string
-          nullable: true
-          description: Description of the coupon.
-          example: I am a coupon description
-        coupon_type:
-          type: string
-          enum:
-          - fixed_amount
-          - percentage
-          description: 'The type of the coupon. It can have two possible values: `fixed_amount` or `percentage`.
-
-
-            - If set to `fixed_amount`, the coupon represents a fixed amount discount.
-
-            - If set to `percentage`, the coupon represents a percentage-based discount.'
-          example: fixed_amount
+          format: uuid
+          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
         amount_cents:
           type: integer
-          nullable: true
-          description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
-          example: 5000
+          description: The amount of credit associated with the invoice, expressed in cents.
+          example: 1200
         amount_currency:
           allOf:
           - $ref: '#/components/schemas/Currency'
-          - description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
-            nullable: true
-            example: USD
-        reusable:
+          - description: The currency of the credit.
+            example: EUR
+        before_taxes:
           type: boolean
-          description: Indicates whether the coupon can be reused or not. If set to `true`, the coupon is reusable, meaning it can be applied multiple times to the same customer. If set to `false`, the coupon can only be used once and is not reusable. If not specified, this field is set to `true` by default.
+          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
           example: false
-        percentage_rate:
-          type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          nullable: true
-          description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
-          example: null
-        frequency:
-          type: string
-          enum:
-          - once
-          - recurring
-          - forever
-          description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
-
-
-            - If set to `once`, the coupon is applicable only for a single use.
-
-            - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
-
-            - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
-          example: recurring
-        frequency_duration:
-          type: integer
-          nullable: true
-          description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
-          example: 6
-        expiration:
-          type: string
-          enum:
-          - no_expiration
-          - time_limit
-          description: 'Specifies the type of expiration for the coupon. It can have two possible values: `time_limit` or `no_expiration`.
-
-
-            - If set to `time_limit`, the coupon has an expiration based on a specified time limit.
-
-            - If set to `no_expiration`, the coupon does not have an expiration date and remains valid indefinitely.'
-          example: time_limit
-        expiration_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The expiration date and time of the coupon. This field is required only for coupons with `expiration` set to `time_limit`. The expiration date and time should be specified in UTC format according to the ISO 8601 datetime standard. It indicates the exact moment when the coupon will expire and is no longer valid.
-          example: '2022-08-08T23:59:59Z'
-        applies_to:
+        item:
           type: object
-          description: Set coupon limitations to plans or specific metrics.
-          nullable: true
+          description: The item attached to the credit.
+          required:
+          - lago_item_id
+          - type
+          - code
+          - name
           properties:
-            plan_codes:
-              type: array
-              nullable: true
-              items:
-                type: string
-              description: An array of plan codes to which the coupon is applicable. By specifying the plan codes in this field, you can restrict the coupon's usage to specific plans only.
-              example:
-              - startup_plan
-            billable_metric_codes:
-              type: array
-              nullable: true
-              items:
-                type: string
-              description: An array of billable metric codes to which the coupon is applicable. By specifying the billable metric codes in this field, you can restrict the coupon's usage to specific metrics only.
-              example: []
+            lago_item_id:
+              type: string
+              format: uuid
+              description: Unique identifier assigned to the credit item within the Lago application.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            type:
+              type: string
+              enum:
+              - coupon
+              - credit_note
+              - invoice
+              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
+              example: coupon
+            code:
+              type: string
+              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
+              example: startup_deal
+            name:
+              type: string
+              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
+              example: Startup Deal
+        invoice:
+          type: object
+          required:
+          - lago_id
+          - payment_status
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            payment_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              example: succeeded
     ApiErrorNotFound:
       type: object
       required:
@@ -594,128 +469,13 @@ components:
         code:
           type: string
           example: object_not_found
-    Coupon:
-      type: object
-      required:
-      - coupon
-      properties:
-        coupon:
-          $ref: '#/components/schemas/CouponObject'
-    CouponsPaginated:
-      type: object
-      required:
-      - coupons
-      - meta
-      properties:
-        coupons:
-          type: array
-          items:
-            $ref: '#/components/schemas/CouponObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    AppliedCouponInput:
+    AppliedCoupon:
       type: object
       required:
       - applied_coupon
       properties:
         applied_coupon:
-          type: object
-          required:
-          - external_customer_id
-          - coupon_code
-          properties:
-            external_customer_id:
-              type: string
-              description: The customer external unique identifier (provided by your own application)
-              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-            coupon_code:
-              type: string
-              description: Unique code used to identify the coupon.
-              example: startup_deal
-            frequency:
-              type: string
-              enum:
-              - once
-              - recurring
-              - forever
-              nullable: true
-              description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
-
-
-                - If set to `once`, the coupon is applicable only for a single use.
-
-                - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
-
-                - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
-              example: recurring
-            frequency_duration:
-              type: integer
-              nullable: true
-              description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
-              example: 3
-            amount_cents:
-              type: integer
-              nullable: true
-              description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
-              example: 2000
-            amount_currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - nullable: true
-                description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
-                example: EUR
-            percentage_rate:
-              type: string
-              pattern: ^[0-9]+.?[0-9]*$
-              nullable: true
-              description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
-              example: null
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
+          $ref: '#/components/schemas/AppliedCouponObject'
     Currency:
       type: string
       example: USD
@@ -857,6 +617,113 @@ components:
       - YER
       - ZAR
       - ZMW
+    CouponBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the coupon.
+          example: Startup Deal
+        code:
+          type: string
+          description: Unique code used to identify the coupon.
+          example: startup_deal
+        description:
+          type: string
+          nullable: true
+          description: Description of the coupon.
+          example: I am a coupon description
+        coupon_type:
+          type: string
+          enum:
+          - fixed_amount
+          - percentage
+          description: 'The type of the coupon. It can have two possible values: `fixed_amount` or `percentage`.
+
+
+            - If set to `fixed_amount`, the coupon represents a fixed amount discount.
+
+            - If set to `percentage`, the coupon represents a percentage-based discount.'
+          example: fixed_amount
+        amount_cents:
+          type: integer
+          nullable: true
+          description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
+          example: 5000
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
+            nullable: true
+            example: USD
+        reusable:
+          type: boolean
+          description: Indicates whether the coupon can be reused or not. If set to `true`, the coupon is reusable, meaning it can be applied multiple times to the same customer. If set to `false`, the coupon can only be used once and is not reusable. If not specified, this field is set to `true` by default.
+          example: false
+        percentage_rate:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          nullable: true
+          description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
+          example: null
+        frequency:
+          type: string
+          enum:
+          - once
+          - recurring
+          - forever
+          description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
+
+
+            - If set to `once`, the coupon is applicable only for a single use.
+
+            - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
+
+            - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
+          example: recurring
+        frequency_duration:
+          type: integer
+          nullable: true
+          description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
+          example: 6
+        expiration:
+          type: string
+          enum:
+          - no_expiration
+          - time_limit
+          description: 'Specifies the type of expiration for the coupon. It can have two possible values: `time_limit` or `no_expiration`.
+
+
+            - If set to `time_limit`, the coupon has an expiration based on a specified time limit.
+
+            - If set to `no_expiration`, the coupon does not have an expiration date and remains valid indefinitely.'
+          example: time_limit
+        expiration_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The expiration date and time of the coupon. This field is required only for coupons with `expiration` set to `time_limit`. The expiration date and time should be specified in UTC format according to the ISO 8601 datetime standard. It indicates the exact moment when the coupon will expire and is no longer valid.
+          example: '2022-08-08T23:59:59Z'
+        applies_to:
+          type: object
+          description: Set coupon limitations to plans or specific metrics.
+          nullable: true
+          properties:
+            plan_codes:
+              type: array
+              nullable: true
+              items:
+                type: string
+              description: An array of plan codes to which the coupon is applicable. By specifying the plan codes in this field, you can restrict the coupon's usage to specific plans only.
+              example:
+              - startup_plan
+            billable_metric_codes:
+              type: array
+              nullable: true
+              items:
+                type: string
+              description: An array of billable metric codes to which the coupon is applicable. By specifying the billable metric codes in this field, you can restrict the coupon's usage to specific metrics only.
+              example: []
     CouponUpdateInput:
       type: object
       required:
@@ -865,6 +732,115 @@ components:
         coupon:
           allOf:
           - $ref: '#/components/schemas/CouponBaseInput'
+    AppliedCouponInput:
+      type: object
+      required:
+      - applied_coupon
+      properties:
+        applied_coupon:
+          type: object
+          required:
+          - external_customer_id
+          - coupon_code
+          properties:
+            external_customer_id:
+              type: string
+              description: The customer external unique identifier (provided by your own application)
+              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+            coupon_code:
+              type: string
+              description: Unique code used to identify the coupon.
+              example: startup_deal
+            frequency:
+              type: string
+              enum:
+              - once
+              - recurring
+              - forever
+              nullable: true
+              description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
+
+
+                - If set to `once`, the coupon is applicable only for a single use.
+
+                - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
+
+                - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
+              example: recurring
+            frequency_duration:
+              type: integer
+              nullable: true
+              description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
+              example: 3
+            amount_cents:
+              type: integer
+              nullable: true
+              description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
+              example: 2000
+            amount_currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - nullable: true
+                description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
+                example: EUR
+            percentage_rate:
+              type: string
+              pattern: ^[0-9]+.?[0-9]*$
+              nullable: true
+              description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
+              example: null
+    Coupon:
+      type: object
+      required:
+      - coupon
+      properties:
+        coupon:
+          $ref: '#/components/schemas/CouponObject'
+    CouponCreateInput:
+      type: object
+      required:
+      - coupon
+      properties:
+        coupon:
+          allOf:
+          - $ref: '#/components/schemas/CouponBaseInput'
+          - required:
+            - name
+            - code
+            - coupon_type
+            - frequency
+            - expiration
+    AppliedCouponObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/AppliedCouponObject'
+      - type: object
+        required:
+        - credits
+        properties:
+          credits:
+            type: array
+            items:
+              $ref: '#/components/schemas/CreditObject'
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
     AppliedCouponsPaginated:
       type: object
       required:
@@ -1011,59 +987,74 @@ components:
           format: date-time
           description: This field indicates if the coupon has been terminated and is no longer usable. If it's not null, it won't be removed for existing customers using it, but it prevents the coupon from being applied in the future.
           example: '2022-08-08T23:59:59Z'
-    AppliedCoupon:
+    ApiErrorUnauthorized:
       type: object
       required:
-      - applied_coupon
+      - status
+      - error
       properties:
-        applied_coupon:
-          $ref: '#/components/schemas/AppliedCouponObject'
-    AppliedCouponObjectExtended:
-      allOf:
-      - $ref: '#/components/schemas/AppliedCouponObject'
-      - type: object
-        required:
-        - credits
-        properties:
-          credits:
-            type: array
-            items:
-              $ref: '#/components/schemas/CreditObject'
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    CouponsPaginated:
+      type: object
+      required:
+      - coupons
+      - meta
+      properties:
+        coupons:
+          type: array
+          items:
+            $ref: '#/components/schemas/CouponObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
   parameters:
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -1073,6 +1064,15 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     bearerAuth:
       type: http
