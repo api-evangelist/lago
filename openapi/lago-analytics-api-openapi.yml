@@ -181,30 +181,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    InvoicedUsageObject:
+    InvoicedUsages:
       type: object
       required:
-      - month
-      - amount_cents
-      - currency
+      - invoiced_usages
       properties:
-        month:
-          type: string
-          description: Identifies the month to analyze revenue.
-          example: '2023-11-01T00:00:00.000Z'
-        code:
-          type: string
-          description: The code of the usage-based billable metrics.
-          example: code1
-        amount_cents:
+        invoiced_usages:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoicedUsageObject'
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
           type: integer
-          description: The total amount of revenue for a period, expressed in cents.
-          example: 50000
-        currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of revenue analytics. Format must be ISO 4217.
-            example: USD
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     InvoiceCollectionObject:
       type: object
       required:
@@ -236,19 +234,6 @@ components:
           - $ref: '#/components/schemas/Currency'
           - description: The currency of revenue analytics. Format must be ISO 4217.
             example: USD
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
     OverdueBalances:
       type: object
       required:
@@ -258,27 +243,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OverdueBalanceObject'
-    InvoiceCollections:
+    Mrrs:
       type: object
       required:
-      - invoice_collections
+      - mrrs
       properties:
-        invoice_collections:
+        mrrs:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceCollectionObject'
-    GrossRevenueObject:
+            $ref: '#/components/schemas/MrrObject'
+    InvoicedUsageObject:
       type: object
       required:
       - month
       - amount_cents
       - currency
-      - invoices_count
       properties:
         month:
           type: string
           description: Identifies the month to analyze revenue.
           example: '2023-11-01T00:00:00.000Z'
+        code:
+          type: string
+          description: The code of the usage-based billable metrics.
+          example: code1
         amount_cents:
           type: integer
           description: The total amount of revenue for a period, expressed in cents.
@@ -287,28 +275,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/Currency'
           - description: The currency of revenue analytics. Format must be ISO 4217.
-            example: USD
-        invoices_count:
-          type: integer
-          description: Contains invoices count.
-          example: 10
-    MrrObject:
-      type: object
-      required:
-      - month
-      properties:
-        month:
-          type: string
-          description: Identifies the month to analyze MRR.
-          example: '2023-11-01T00:00:00.000Z'
-        amount_cents:
-          type: integer
-          description: The total amount of MRR, expressed in cents.
-          example: 50000
-        currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of MRR analytics. Format must be ISO 4217.
             example: USD
     Currency:
       type: string
@@ -451,24 +417,6 @@ components:
       - YER
       - ZAR
       - ZMW
-    Mrrs:
-      type: object
-      required:
-      - mrrs
-      properties:
-        mrrs:
-          type: array
-          items:
-            $ref: '#/components/schemas/MrrObject'
-    InvoicedUsages:
-      type: object
-      required:
-      - invoiced_usages
-      properties:
-        invoiced_usages:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoicedUsageObject'
     GrossRevenues:
       type: object
       required:
@@ -478,6 +426,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GrossRevenueObject'
+    InvoiceCollections:
+      type: object
+      required:
+      - invoice_collections
+      properties:
+        invoice_collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceCollectionObject'
     OverdueBalanceObject:
       type: object
       required:
@@ -507,6 +464,49 @@ components:
           description: The Lago invoice IDs associated with the revenue.
           example:
           - 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    MrrObject:
+      type: object
+      required:
+      - month
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze MRR.
+          example: '2023-11-01T00:00:00.000Z'
+        amount_cents:
+          type: integer
+          description: The total amount of MRR, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of MRR analytics. Format must be ISO 4217.
+            example: USD
+    GrossRevenueObject:
+      type: object
+      required:
+      - month
+      - amount_cents
+      - currency
+      - invoices_count
+      properties:
+        month:
+          type: string
+          description: Identifies the month to analyze revenue.
+          example: '2023-11-01T00:00:00.000Z'
+        amount_cents:
+          type: integer
+          description: The total amount of revenue for a period, expressed in cents.
+          example: 50000
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of revenue analytics. Format must be ISO 4217.
+            example: USD
+        invoices_count:
+          type: integer
+          description: Contains invoices count.
+          example: 10
   responses:
     Unauthorized:
       description: Unauthorized error

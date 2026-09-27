@@ -166,135 +166,46 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
   schemas:
-    BillableMetricEvaluateExpressionInput:
-      type: object
-      required:
-      - expression
-      - event
-      properties:
-        expression:
-          type: string
-          example: round((ended_at - started_at) * units)
-          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
-
-            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
-
-            Round is accepting an optional second parameter to specify the number of decimal.
-
-            '
-        event:
-          type: object
-          required:
-          - code
-          - properties
-          properties:
-            code:
-              type: string
-              example: storage
-              description: The code that identifies a targeted billable metric.
-            timestamp:
-              anyOf:
-              - type: integer
-              - type: string
-              example: '1651240791'
-              description: 'This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC).
-
-                If this timestamp is not provided, the API will automatically set it to the time of event reception.
-
-                '
-            properties:
-              type: object
-              description: This field represents additional properties associated with the event. They can be used when evaluating the expression.
-              additionalProperties:
-                oneOf:
-                - type: string
-                - type: integer
-                - type: number
-              example:
-                gb: 10
-    BillableMetricCreateInput:
-      type: object
-      required:
-      - billable_metric
-      properties:
-        billable_metric:
-          allOf:
-          - $ref: '#/components/schemas/BillableMetricBaseInput'
-          - required:
-            - name
-            - code
-            - aggregation_type
-    ApiErrorNotFound:
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
       - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 404
+          example: 422
         error:
           type: string
-          example: Not Found
+          example: Unprocessable entity
         code:
           type: string
-          example: object_not_found
-    BillableMetricUpdateInput:
-      type: object
-      required:
-      - billable_metric
-      properties:
-        billable_metric:
-          $ref: '#/components/schemas/BillableMetricBaseInput'
-    BillableMetricEvaluateExpressionResult:
-      type: object
-      required:
-      - expression_result
-      properties:
-        expression_result:
+          example: validation_errors
+        error_details:
           type: object
-          required:
-          - value
-          properties:
-            value:
-              anyOf:
-              - type: string
-              - type: number
-              example: 1
-              description: Result of evaluating the expression
-    BillableMetricFilterInput:
-      type: object
-      description: Values used to apply differentiated pricing based on additional event properties.
-      required:
-      - key
-      - values
-      properties:
-        key:
-          type: string
-          example: region
-          description: Filter key to add to the event properties payload
-        values:
-          type: array
-          items:
-            type: string
-            example: us-east-1
-          description: List of possible filter values
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
     BillableMetricObject:
       type: object
       required:
@@ -399,6 +310,116 @@ components:
           type: integer
           example: 4
           description: Number of plans using this billable metric.
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    BillableMetricFilterObject:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      required:
+      - key
+      - values
+      properties:
+        key:
+          type: string
+          example: region
+          description: Filter key to add to the event properties payload
+        values:
+          type: array
+          items:
+            type: string
+            example: us-east-1
+          description: List of possible filter values
+    BillableMetricCreateInput:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          allOf:
+          - $ref: '#/components/schemas/BillableMetricBaseInput'
+          - required:
+            - name
+            - code
+            - aggregation_type
+    BillableMetricsPaginated:
+      type: object
+      required:
+      - billable_metrics
+      - meta
+      properties:
+        billable_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillableMetricObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    BillableMetric:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricObject'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    BillableMetricEvaluateExpressionResult:
+      type: object
+      required:
+      - expression_result
+      properties:
+        expression_result:
+          type: object
+          required:
+          - value
+          properties:
+            value:
+              anyOf:
+              - type: string
+              - type: number
+              example: 1
+              description: Result of evaluating the expression
     BillableMetricBaseInput:
       type: object
       properties:
@@ -478,7 +499,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillableMetricFilterInput'
-    BillableMetricFilterObject:
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    BillableMetricUpdateInput:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricBaseInput'
+    BillableMetricFilterInput:
       type: object
       description: Values used to apply differentiated pricing based on additional event properties.
       required:
@@ -495,34 +536,53 @@ components:
             type: string
             example: us-east-1
           description: List of possible filter values
-    ApiErrorUnprocessableEntity:
+    BillableMetricEvaluateExpressionInput:
       type: object
       required:
-      - status
-      - error
-      - code
-      - error_details
+      - expression
+      - event
       properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
+        expression:
           type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
+          example: round((ended_at - started_at) * units)
+          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
+
+            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
+
+            Round is accepting an optional second parameter to specify the number of decimal.
+
+            '
+        event:
           type: object
-    BillableMetric:
-      type: object
-      required:
-      - billable_metric
-      properties:
-        billable_metric:
-          $ref: '#/components/schemas/BillableMetricObject'
-    ApiErrorUnauthorized:
+          required:
+          - code
+          - properties
+          properties:
+            code:
+              type: string
+              example: storage
+              description: The code that identifies a targeted billable metric.
+            timestamp:
+              anyOf:
+              - type: integer
+              - type: string
+              example: '1651240791'
+              description: 'This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC).
+
+                If this timestamp is not provided, the API will automatically set it to the time of event reception.
+
+                '
+            properties:
+              type: object
+              description: This field represents additional properties associated with the event. They can be used when evaluating the expression.
+              additionalProperties:
+                oneOf:
+                - type: string
+                - type: integer
+                - type: number
+              example:
+                gb: 10
+    ApiErrorBadRequest:
       type: object
       required:
       - status
@@ -531,51 +591,10 @@ components:
         status:
           type: integer
           format: int32
-          example: 401
+          example: 400
         error:
           type: string
-          example: Unauthorized
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    BillableMetricsPaginated:
-      type: object
-      required:
-      - billable_metrics
-      - meta
-      properties:
-        billable_metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillableMetricObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
+          example: Bad request
   responses:
     BadRequest:
       description: Bad Request error
@@ -583,43 +602,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     NotFound:
       description: Not Found error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     Unauthorized:
       description: Unauthorized error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorUnauthorized'
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
   securitySchemes:
     bearerAuth:
       type: http

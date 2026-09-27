@@ -33,13 +33,14 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lago.png
 tags:
   - Billing
   - Metering
-  - Open-Source
+  - Open Source
   - Usage-Based
 tags_raw:
   - Billing
   - Metering
   - Open Source
   - Usage-Based
+  - Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml
 created: '2024-07-02'
 modified: '2026-05-19'

@@ -238,40 +238,13 @@ paths:
           $ref: '#/components/responses/NotAllowed'
 components:
   schemas:
-    ApiErrorNotAllowed:
+    Fee:
       type: object
       required:
-      - status
-      - error
-      - code
+      - fee
       properties:
-        status:
-          type: integer
-          format: int32
-          example: 405
-        error:
-          type: string
-          example: Method Not Allowed
-        code:
-          type: string
-          example: not_allowed
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
+        fee:
+          $ref: '#/components/schemas/FeeObject'
     FeeUpdateInput:
       type: object
       required:
@@ -291,157 +264,26 @@ components:
               - refunded
               description: The payment status of the fee. Possible values are `pending`, `succeeded`, `failed` or `refunded`.
               example: succeeded
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
+    ApiErrorUnprocessableEntity:
       type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
       properties:
-        lago_fee_id:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
           type: string
-          format: uuid
-          description: Unique identifier of the fee, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
     FeesPaginated:
       allOf:
       - $ref: '#/components/schemas/Fees'
@@ -494,6 +336,69 @@ components:
           format: date-time
           description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
           example: '2022-09-14T16:35:31Z'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorNotAllowed:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 405
+        error:
+          type: string
+          example: Method Not Allowed
+        code:
+          type: string
+          example: not_allowed
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     FeeObject:
       type: object
       required:
@@ -926,33 +831,6 @@ components:
           description: List of fee applied taxes
           items:
             $ref: '#/components/schemas/FeeAppliedTaxObject'
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    Fee:
-      type: object
-      required:
-      - fee
-      properties:
-        fee:
-          $ref: '#/components/schemas/FeeObject'
     Fees:
       type: object
       required:
@@ -975,35 +853,157 @@ components:
         error:
           type: string
           example: Unauthorized
-    PaginationMeta:
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
       type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
       properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     ApiErrorBadRequest:
       type: object
       required:
@@ -1017,38 +1017,16 @@ components:
         error:
           type: string
           example: Bad request
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
   parameters:
+    external_subscription_id:
+      name: external_subscription_id
+      in: query
+      description: External subscription ID
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     per_page:
       name: per_page
       in: query
@@ -1067,15 +1045,6 @@ components:
       schema:
         type: string
         example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-    external_subscription_id:
-      name: external_subscription_id
-      in: query
-      description: External subscription ID
-      required: false
-      explode: true
-      schema:
-        type: string
-        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     page:
       name: page
       in: query
@@ -1085,6 +1054,37 @@ components:
       schema:
         type: integer
         example: 1
+  responses:
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   securitySchemes:
     bearerAuth:
       type: http

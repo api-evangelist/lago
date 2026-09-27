@@ -183,200 +183,86 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    external_subscription_id:
+      name: external_subscription_id
+      in: query
+      description: External subscription ID
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
   schemas:
-    ApiErrorNotFound:
+    EventBatchInput:
+      type: object
+      required:
+      - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventInput/properties/event'
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
       - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 404
+          example: 422
         error:
           type: string
-          example: Not Found
+          example: Unprocessable entity
         code:
           type: string
-          example: object_not_found
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
+          example: validation_errors
+        error_details:
+          type: object
+    EventEstimateFeesInput:
       type: object
+      required:
+      - event
       properties:
-        lago_fee_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the fee, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        event:
+          type: object
+          required:
+          - code
+          - external_subscription_id
+          properties:
+            code:
+              type: string
+              example: storage
+              description: The code that identifies a targeted billable metric. It is essential that this code matches the `code` property of one of your active billable metrics. If the provided code does not correspond to any active billable metric, it will be ignored during the process.
+            external_subscription_id:
+              type: string
+              example: sub_1234567890
+              description: The unique identifier of the subscription within your application.
+            properties:
+              type: object
+              description: This field represents additional properties associated with the event, which are utilized in the calculation of the final fee. This object becomes mandatory when the targeted billable metric employs a `sum_agg`, `max_agg`, or `unique_count_agg` aggregation method. However, when using a simple `count_agg`, this object is not required.
     EventInput:
       type: object
       required:
@@ -428,28 +314,79 @@ components:
                 - type: number
               example:
                 gb: 10
-    EventEstimateFeesInput:
+    EventObject:
       type: object
       required:
-      - event
+      - lago_id
+      - transaction_id
+      - lago_customer_id
+      - code
+      - timestamp
+      - lago_subscription_id
+      - external_subscription_id
+      - created_at
       properties:
-        event:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the event within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the event's record within the Lago system
+        transaction_id:
+          type: string
+          example: transaction_1234567890
+          description: This field represents a unique identifier for the event. It is crucial for ensuring idempotency, meaning that each event can be uniquely identified and processed without causing any unintended side effects.
+        lago_customer_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the customer within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the customer's record within the Lago system
+        code:
+          type: string
+          example: storage
+          description: The code that identifies a targeted billable metric. It is essential that this code matches the `code` property of one of your active billable metrics. If the provided code does not correspond to any active billable metric, it will be ignored during the process.
+        timestamp:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51.123Z'
+          description: This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC). If this timestamp is not provided, the API will automatically set it to the time of event reception.
+        precise_total_amount_cents:
+          type: string
+          nullable: true
+          example: '1234.56'
+          description: The precise total amount that was sent in the event payload. This filed is used by the `dynamic` pricing model.
+        properties:
           type: object
-          required:
-          - code
-          - external_subscription_id
+          description: This field represents additional properties associated with the event, which are utilized in the calculation of the final fee. This object becomes mandatory when the targeted billable metric employs a `sum_agg`, `max_agg`, or `unique_count_agg` aggregation method. However, when using a simple `count_agg`, this object is not required.
           properties:
-            code:
+            operation_type:
               type: string
-              example: storage
-              description: The code that identifies a targeted billable metric. It is essential that this code matches the `code` property of one of your active billable metrics. If the provided code does not correspond to any active billable metric, it will be ignored during the process.
-            external_subscription_id:
-              type: string
-              example: sub_1234567890
-              description: The unique identifier of the subscription within your application.
-            properties:
-              type: object
-              description: This field represents additional properties associated with the event, which are utilized in the calculation of the final fee. This object becomes mandatory when the targeted billable metric employs a `sum_agg`, `max_agg`, or `unique_count_agg` aggregation method. However, when using a simple `count_agg`, this object is not required.
+              description: The `operation_type` field is only necessary when adding or removing a specific unit when the targeted billable metric adopts a `unique_count_agg` aggregation method. In other cases, the `operation_type` field is not required. The valid values for the `operation_type` field are `add` or `remove`, which indicate whether the unit is being added or removed from the unique count aggregation, respectively.
+              enum:
+              - add
+              - remove
+          additionalProperties:
+            oneOf:
+            - type: string
+            - type: integer
+            - type: number
+          example:
+            gb: 10
+        lago_subscription_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the subscription within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription's record within the Lago system
+        external_subscription_id:
+          type: string
+          example: sub_1234567890
+          description: The unique identifier of the subscription within your application. It is a mandatory field when the customer possesses multiple subscriptions or when the `external_customer_id` is not provided.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The creation date of the event's record in the Lago application, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC). It provides the precise timestamp of when the event's record was created within the Lago application
     BaseAppliedTax:
       type: object
       properties:
@@ -493,15 +430,52 @@ components:
           format: date-time
           description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
           example: '2022-09-14T16:35:31Z'
-    EventBatchInput:
+    PaginationMeta:
       type: object
       required:
-      - events
+      - current_page
+      - total_pages
+      - total_count
       properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventInput/properties/event'
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     FeeObject:
       type: object
       required:
@@ -934,106 +908,6 @@ components:
           description: List of fee applied taxes
           items:
             $ref: '#/components/schemas/FeeAppliedTaxObject'
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    EventObject:
-      type: object
-      required:
-      - lago_id
-      - transaction_id
-      - lago_customer_id
-      - code
-      - timestamp
-      - lago_subscription_id
-      - external_subscription_id
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the event within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the event's record within the Lago system
-        transaction_id:
-          type: string
-          example: transaction_1234567890
-          description: This field represents a unique identifier for the event. It is crucial for ensuring idempotency, meaning that each event can be uniquely identified and processed without causing any unintended side effects.
-        lago_customer_id:
-          type: string
-          format: uuid
-          nullable: true
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the customer within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the customer's record within the Lago system
-        code:
-          type: string
-          example: storage
-          description: The code that identifies a targeted billable metric. It is essential that this code matches the `code` property of one of your active billable metrics. If the provided code does not correspond to any active billable metric, it will be ignored during the process.
-        timestamp:
-          type: string
-          format: date-time
-          example: '2022-04-29T08:59:51.123Z'
-          description: This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC). If this timestamp is not provided, the API will automatically set it to the time of event reception.
-        precise_total_amount_cents:
-          type: string
-          nullable: true
-          example: '1234.56'
-          description: The precise total amount that was sent in the event payload. This filed is used by the `dynamic` pricing model.
-        properties:
-          type: object
-          description: This field represents additional properties associated with the event, which are utilized in the calculation of the final fee. This object becomes mandatory when the targeted billable metric employs a `sum_agg`, `max_agg`, or `unique_count_agg` aggregation method. However, when using a simple `count_agg`, this object is not required.
-          properties:
-            operation_type:
-              type: string
-              description: The `operation_type` field is only necessary when adding or removing a specific unit when the targeted billable metric adopts a `unique_count_agg` aggregation method. In other cases, the `operation_type` field is not required. The valid values for the `operation_type` field are `add` or `remove`, which indicate whether the unit is being added or removed from the unique count aggregation, respectively.
-              enum:
-              - add
-              - remove
-          additionalProperties:
-            oneOf:
-            - type: string
-            - type: integer
-            - type: number
-          example:
-            gb: 10
-        lago_subscription_id:
-          type: string
-          format: uuid
-          nullable: true
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: Unique identifier assigned to the subscription within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the subscription's record within the Lago system
-        external_subscription_id:
-          type: string
-          example: sub_1234567890
-          description: The unique identifier of the subscription within your application. It is a mandatory field when the customer possesses multiple subscriptions or when the `external_customer_id` is not provided.
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-04-29T08:59:51Z'
-          description: The creation date of the event's record in the Lago application, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC). It provides the precise timestamp of when the event's record was created within the Lago application
-    Event:
-      type: object
-      required:
-      - event
-      properties:
-        event:
-          $ref: '#/components/schemas/EventObject'
     Fees:
       type: object
       required:
@@ -1056,35 +930,164 @@ components:
         error:
           type: string
           example: Unauthorized
-    PaginationMeta:
+    Event:
       type: object
       required:
-      - current_page
-      - total_pages
-      - total_count
+      - event
       properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
+        event:
+          $ref: '#/components/schemas/EventObject'
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     ApiErrorBadRequest:
       type: object
       required:
@@ -1098,34 +1101,31 @@ components:
         error:
           type: string
           example: Bad request
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
-    external_subscription_id:
-      name: external_subscription_id
-      in: query
-      description: External subscription ID
-      required: false
-      explode: true
-      schema:
-        type: string
-        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   securitySchemes:
     bearerAuth:
       type: http

@@ -240,32 +240,98 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
   schemas:
+    CouponCreateInput:
+      type: object
+      required:
+      - coupon
+      properties:
+        coupon:
+          allOf:
+          - $ref: '#/components/schemas/CouponBaseInput'
+          - required:
+            - name
+            - code
+            - coupon_type
+            - frequency
+            - expiration
+    AppliedCouponInput:
+      type: object
+      required:
+      - applied_coupon
+      properties:
+        applied_coupon:
+          type: object
+          required:
+          - external_customer_id
+          - coupon_code
+          properties:
+            external_customer_id:
+              type: string
+              description: The customer external unique identifier (provided by your own application)
+              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+            coupon_code:
+              type: string
+              description: Unique code used to identify the coupon.
+              example: startup_deal
+            frequency:
+              type: string
+              enum:
+              - once
+              - recurring
+              - forever
+              nullable: true
+              description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
+
+
+                - If set to `once`, the coupon is applicable only for a single use.
+
+                - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
+
+                - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
+              example: recurring
+            frequency_duration:
+              type: integer
+              nullable: true
+              description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
+              example: 3
+            amount_cents:
+              type: integer
+              nullable: true
+              description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
+              example: 2000
+            amount_currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - nullable: true
+                description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
+                example: EUR
+            percentage_rate:
+              type: string
+              pattern: ^[0-9]+.?[0-9]*$
+              nullable: true
+              description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
+              example: null
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
     AppliedCouponObject:
       type: object
       required:
@@ -377,246 +443,58 @@ components:
           nullable: true
           description: This field indicates the specific moment when the coupon amount is fully utilized or when the coupon is removed from the customer's coupon list. It is expressed in UTC format according to the ISO 8601 datetime standard.
           example: '2022-04-29T08:59:51Z'
-    CreditObject:
+    AppliedCouponObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/AppliedCouponObject'
+      - type: object
+        required:
+        - credits
+        properties:
+          credits:
+            type: array
+            items:
+              $ref: '#/components/schemas/CreditObject'
+    CouponsPaginated:
       type: object
       required:
-      - lago_id
-      - item
-      - amount_cents
-      - amount_currency
-      - invoice
-      - before_taxes
+      - coupons
+      - meta
       properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        amount_cents:
+        coupons:
+          type: array
+          items:
+            $ref: '#/components/schemas/CouponObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
           type: integer
-          description: The amount of credit associated with the invoice, expressed in cents.
-          example: 1200
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the credit.
-            example: EUR
-        before_taxes:
-          type: boolean
-          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
-          example: false
-        item:
-          type: object
-          description: The item attached to the credit.
-          required:
-          - lago_item_id
-          - type
-          - code
-          - name
-          properties:
-            lago_item_id:
-              type: string
-              format: uuid
-              description: Unique identifier assigned to the credit item within the Lago application.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            type:
-              type: string
-              enum:
-              - coupon
-              - credit_note
-              - invoice
-              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
-              example: coupon
-            code:
-              type: string
-              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
-              example: startup_deal
-            name:
-              type: string
-              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
-              example: Startup Deal
-        invoice:
-          type: object
-          required:
-          - lago_id
-          - payment_status
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            payment_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              example: succeeded
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
+          description: Current page.
+          example: 2
+        next_page:
           type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
-    AppliedCoupon:
-      type: object
-      required:
-      - applied_coupon
-      properties:
-        applied_coupon:
-          $ref: '#/components/schemas/AppliedCouponObject'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
     CouponBaseInput:
       type: object
       properties:
@@ -724,71 +602,6 @@ components:
                 type: string
               description: An array of billable metric codes to which the coupon is applicable. By specifying the billable metric codes in this field, you can restrict the coupon's usage to specific metrics only.
               example: []
-    CouponUpdateInput:
-      type: object
-      required:
-      - coupon
-      properties:
-        coupon:
-          allOf:
-          - $ref: '#/components/schemas/CouponBaseInput'
-    AppliedCouponInput:
-      type: object
-      required:
-      - applied_coupon
-      properties:
-        applied_coupon:
-          type: object
-          required:
-          - external_customer_id
-          - coupon_code
-          properties:
-            external_customer_id:
-              type: string
-              description: The customer external unique identifier (provided by your own application)
-              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-            coupon_code:
-              type: string
-              description: Unique code used to identify the coupon.
-              example: startup_deal
-            frequency:
-              type: string
-              enum:
-              - once
-              - recurring
-              - forever
-              nullable: true
-              description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
-
-
-                - If set to `once`, the coupon is applicable only for a single use.
-
-                - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
-
-                - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
-              example: recurring
-            frequency_duration:
-              type: integer
-              nullable: true
-              description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
-              example: 3
-            amount_cents:
-              type: integer
-              nullable: true
-              description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
-              example: 2000
-            amount_currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - nullable: true
-                description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
-                example: EUR
-            percentage_rate:
-              type: string
-              pattern: ^[0-9]+.?[0-9]*$
-              nullable: true
-              description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
-              example: null
     Coupon:
       type: object
       required:
@@ -796,51 +609,6 @@ components:
       properties:
         coupon:
           $ref: '#/components/schemas/CouponObject'
-    CouponCreateInput:
-      type: object
-      required:
-      - coupon
-      properties:
-        coupon:
-          allOf:
-          - $ref: '#/components/schemas/CouponBaseInput'
-          - required:
-            - name
-            - code
-            - coupon_type
-            - frequency
-            - expiration
-    AppliedCouponObjectExtended:
-      allOf:
-      - $ref: '#/components/schemas/AppliedCouponObject'
-      - type: object
-        required:
-        - credits
-        properties:
-          credits:
-            type: array
-            items:
-              $ref: '#/components/schemas/CreditObject'
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
     AppliedCouponsPaginated:
       type: object
       required:
@@ -853,6 +621,23 @@ components:
             $ref: '#/components/schemas/AppliedCouponObjectExtended'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     CouponObject:
       type: object
       required:
@@ -1000,47 +785,237 @@ components:
         error:
           type: string
           example: Unauthorized
-    CouponsPaginated:
+    CouponUpdateInput:
       type: object
       required:
-      - coupons
-      - meta
+      - coupon
       properties:
-        coupons:
-          type: array
-          items:
-            $ref: '#/components/schemas/CouponObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    PaginationMeta:
+        coupon:
+          allOf:
+          - $ref: '#/components/schemas/CouponBaseInput'
+    AppliedCoupon:
       type: object
       required:
-      - current_page
-      - total_pages
-      - total_count
+      - applied_coupon
       properties:
-        current_page:
+        applied_coupon:
+          $ref: '#/components/schemas/AppliedCouponObject'
+    CreditObject:
+      type: object
+      required:
+      - lago_id
+      - item
+      - amount_cents
+      - amount_currency
+      - invoice
+      - before_taxes
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        amount_cents:
           type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
+          description: The amount of credit associated with the invoice, expressed in cents.
+          example: 1200
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the credit.
+            example: EUR
+        before_taxes:
+          type: boolean
+          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
+          example: false
+        item:
+          type: object
+          description: The item attached to the credit.
+          required:
+          - lago_item_id
+          - type
+          - code
+          - name
+          properties:
+            lago_item_id:
+              type: string
+              format: uuid
+              description: Unique identifier assigned to the credit item within the Lago application.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            type:
+              type: string
+              enum:
+              - coupon
+              - credit_note
+              - invoice
+              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
+              example: coupon
+            code:
+              type: string
+              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
+              example: startup_deal
+            name:
+              type: string
+              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
+              example: Startup Deal
+        invoice:
+          type: object
+          required:
+          - lago_id
+          - payment_status
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            payment_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              example: succeeded
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     ApiErrorBadRequest:
       type: object
       required:
@@ -1073,6 +1048,31 @@ components:
       schema:
         type: integer
         example: 1
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   securitySchemes:
     bearerAuth:
       type: http
