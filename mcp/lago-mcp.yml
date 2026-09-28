@@ -16,8 +16,12 @@ deployment:
 tools_count: 2
 tools:
 - name: find_lago_resource
-  description: ''
+  description: Find public Lago API, authentication, webhook, OpenAPI, SDK, or MCP resources for a technical
+    topic.
 - name: get_lago_capabilities
-  description: ''
+  description: Return a concise overview of Lago billing capabilities and the canonical developer entry
+    points.
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
