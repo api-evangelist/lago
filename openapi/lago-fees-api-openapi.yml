@@ -238,32 +238,6 @@ paths:
           $ref: '#/components/responses/NotAllowed'
 components:
   schemas:
-    Fee:
-      type: object
-      required:
-      - fee
-      properties:
-        fee:
-          $ref: '#/components/schemas/FeeObject'
-    FeeUpdateInput:
-      type: object
-      required:
-      - fee
-      properties:
-        fee:
-          type: object
-          required:
-          - payment_status
-          properties:
-            payment_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              - refunded
-              description: The payment status of the fee. Possible values are `pending`, `succeeded`, `failed` or `refunded`.
-              example: succeeded
     ApiErrorUnprocessableEntity:
       type: object
       required:
@@ -284,121 +258,15 @@ components:
           example: validation_errors
         error_details:
           type: object
-    FeesPaginated:
-      allOf:
-      - $ref: '#/components/schemas/Fees'
-      - type: object
-        required:
-        - meta
-        properties:
-          meta:
-            $ref: '#/components/schemas/PaginationMeta'
-    BaseAppliedTax:
-      type: object
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the applied tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_tax_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        tax_name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        tax_code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        tax_rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        tax_description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        amount_cents:
-          type: integer
-          description: Amount of the tax
-          example: 2000
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: Currency of the tax
-            example: USD
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
-          example: '2022-09-14T16:35:31Z'
-    PaginationMeta:
+    Fees:
       type: object
       required:
-      - current_page
-      - total_pages
-      - total_count
+      - fees
       properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    ApiErrorNotAllowed:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 405
-        error:
-          type: string
-          example: Method Not Allowed
-        code:
-          type: string
-          example: not_allowed
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
+        fees:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeObject'
     FeeObject:
       type: object
       required:
@@ -831,38 +699,73 @@ components:
           description: List of fee applied taxes
           items:
             $ref: '#/components/schemas/FeeAppliedTaxObject'
-    Fees:
+    Fee:
       type: object
       required:
-      - fees
+      - fee
       properties:
-        fees:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeeObject'
-    ApiErrorUnauthorized:
+        fee:
+          $ref: '#/components/schemas/FeeObject'
+    ApiErrorNotFound:
       type: object
       required:
       - status
       - error
+      - code
       properties:
         status:
           type: integer
           format: int32
-          example: 401
+          example: 404
         error:
           type: string
-          example: Unauthorized
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    BaseAppliedTax:
       type: object
       properties:
-        lago_fee_id:
+        lago_id:
           type: string
           format: uuid
-          description: Unique identifier of the fee, created by Lago.
+          description: Unique identifier of the applied tax, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_tax_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        tax_name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        tax_code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        tax_rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        tax_description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        amount_cents:
+          type: integer
+          description: Amount of the tax
+          example: 2000
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: Currency of the tax
+            example: USD
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
+          example: '2022-09-14T16:35:31Z'
     Currency:
       type: string
       example: USD
@@ -1017,16 +920,135 @@ components:
         error:
           type: string
           example: Bad request
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    FeesPaginated:
+      allOf:
+      - $ref: '#/components/schemas/Fees'
+      - type: object
+        required:
+        - meta
+        properties:
+          meta:
+            $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorNotAllowed:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 405
+        error:
+          type: string
+          example: Method Not Allowed
+        code:
+          type: string
+          example: not_allowed
+    FeeUpdateInput:
+      type: object
+      required:
+      - fee
+      properties:
+        fee:
+          type: object
+          required:
+          - payment_status
+          properties:
+            payment_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              - refunded
+              description: The payment status of the fee. Possible values are `pending`, `succeeded`, `failed` or `refunded`.
+              example: succeeded
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
   parameters:
-    external_subscription_id:
-      name: external_subscription_id
-      in: query
-      description: External subscription ID
-      required: false
-      explode: true
-      schema:
-        type: string
-        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     per_page:
       name: per_page
       in: query
@@ -1036,15 +1058,6 @@ components:
       schema:
         type: integer
         example: 20
-    external_customer_id:
-      name: external_customer_id
-      in: query
-      description: Unique identifier assigned to the customer in your application.
-      required: false
-      explode: true
-      schema:
-        type: string
-        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     page:
       name: page
       in: query
@@ -1054,37 +1067,24 @@ components:
       schema:
         type: integer
         example: 1
-  responses:
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    external_subscription_id:
+      name: external_subscription_id
+      in: query
+      description: External subscription ID
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    external_customer_id:
+      name: external_customer_id
+      in: query
+      description: Unique identifier assigned to the customer in your application.
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
   securitySchemes:
     bearerAuth:
       type: http

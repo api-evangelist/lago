@@ -164,26 +164,34 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Tax:
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    TaxUpdateInput:
       type: object
       required:
       - tax
       properties:
         tax:
-          $ref: '#/components/schemas/TaxObject'
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
+          allOf:
+          - $ref: '#/components/schemas/TaxBaseInput'
     TaxesPaginated:
       type: object
       required:
@@ -196,35 +204,13 @@ components:
             $ref: '#/components/schemas/TaxObject'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-    TaxCreateInput:
+    Tax:
       type: object
       required:
       - tax
       properties:
         tax:
-          allOf:
-          - $ref: '#/components/schemas/TaxBaseInput'
-          - required:
-            - name
-            - code
-            - rate
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
+          $ref: '#/components/schemas/TaxObject'
     TaxBaseInput:
       type: object
       properties:
@@ -250,7 +236,7 @@ components:
           type: boolean
           description: Set to `true` if the tax is used as one of the organization's default
           example: true
-    TaxUpdateInput:
+    TaxCreateInput:
       type: object
       required:
       - tax
@@ -258,6 +244,10 @@ components:
         tax:
           allOf:
           - $ref: '#/components/schemas/TaxBaseInput'
+          - required:
+            - name
+            - code
+            - rate
     TaxObject:
       type: object
       required:
@@ -315,6 +305,49 @@ components:
           format: date-time
           description: Creation date of the tax.
           example: '2023-07-06T14:35:58Z'
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
     PaginationMeta:
       type: object
       required:
@@ -344,64 +377,31 @@ components:
           type: integer
           description: Total number of records.
           example: 70
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
   responses:
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
     Unauthorized:
       description: Unauthorized error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorUnauthorized'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
     NotFound:
       description: Not Found error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
     per_page:
       name: per_page
