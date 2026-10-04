@@ -167,6 +167,108 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    BillableMetricUpdateInput:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricBaseInput'
+    BillableMetricFilterObject:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      required:
+      - key
+      - values
+      properties:
+        key:
+          type: string
+          example: region
+          description: Filter key to add to the event properties payload
+        values:
+          type: array
+          items:
+            type: string
+            example: us-east-1
+          description: List of possible filter values
+    BillableMetricsPaginated:
+      type: object
+      required:
+      - billable_metrics
+      - meta
+      properties:
+        billable_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillableMetricObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    BillableMetric:
+      type: object
+      required:
+      - billable_metric
+      properties:
+        billable_metric:
+          $ref: '#/components/schemas/BillableMetricObject'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     ApiErrorUnprocessableEntity:
       type: object
       required:
@@ -187,6 +289,19 @@ components:
           example: validation_errors
         error_details:
           type: object
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     BillableMetricEvaluateExpressionResult:
       type: object
       required:
@@ -203,23 +318,52 @@ components:
               - type: number
               example: 1
               description: Result of evaluating the expression
-    ApiErrorNotFound:
+    BillableMetricEvaluateExpressionInput:
       type: object
       required:
-      - status
-      - error
-      - code
+      - expression
+      - event
       properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
+        expression:
           type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
+          example: round((ended_at - started_at) * units)
+          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
+
+            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
+
+            Round is accepting an optional second parameter to specify the number of decimal.
+
+            '
+        event:
+          type: object
+          required:
+          - code
+          - properties
+          properties:
+            code:
+              type: string
+              example: storage
+              description: The code that identifies a targeted billable metric.
+            timestamp:
+              anyOf:
+              - type: integer
+              - type: string
+              example: '1651240791'
+              description: 'This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC).
+
+                If this timestamp is not provided, the API will automatically set it to the time of event reception.
+
+                '
+            properties:
+              type: object
+              description: This field represents additional properties associated with the event. They can be used when evaluating the expression.
+              additionalProperties:
+                oneOf:
+                - type: string
+                - type: integer
+                - type: number
+              example:
+                gb: 10
     BillableMetricObject:
       type: object
       required:
@@ -324,52 +468,6 @@ components:
           type: integer
           example: 4
           description: Number of plans using this billable metric.
-    BillableMetricEvaluateExpressionInput:
-      type: object
-      required:
-      - expression
-      - event
-      properties:
-        expression:
-          type: string
-          example: round((ended_at - started_at) * units)
-          description: 'Expression used to calculate the event units. The expression is evalutated for each event and the result is then used to calculate the total aggregated units.
-
-            Accepted function are `ceil`, `concat` and `round` as well as `+`, `-`, `\` and `*` operations.
-
-            Round is accepting an optional second parameter to specify the number of decimal.
-
-            '
-        event:
-          type: object
-          required:
-          - code
-          - properties
-          properties:
-            code:
-              type: string
-              example: storage
-              description: The code that identifies a targeted billable metric.
-            timestamp:
-              anyOf:
-              - type: integer
-              - type: string
-              example: '1651240791'
-              description: 'This field captures the Unix timestamp in seconds indicating the occurrence of the event in Coordinated Universal Time (UTC).
-
-                If this timestamp is not provided, the API will automatically set it to the time of event reception.
-
-                '
-            properties:
-              type: object
-              description: This field represents additional properties associated with the event. They can be used when evaluating the expression.
-              additionalProperties:
-                oneOf:
-                - type: string
-                - type: integer
-                - type: number
-              example:
-                gb: 10
     BillableMetricBaseInput:
       type: object
       properties:
@@ -449,13 +547,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BillableMetricFilterInput'
-    BillableMetricUpdateInput:
-      type: object
-      required:
-      - billable_metric
-      properties:
-        billable_metric:
-          $ref: '#/components/schemas/BillableMetricBaseInput'
     BillableMetricCreateInput:
       type: object
       required:
@@ -468,98 +559,7 @@ components:
             - name
             - code
             - aggregation_type
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    BillableMetric:
-      type: object
-      required:
-      - billable_metric
-      properties:
-        billable_metric:
-          $ref: '#/components/schemas/BillableMetricObject'
     BillableMetricFilterInput:
-      type: object
-      description: Values used to apply differentiated pricing based on additional event properties.
-      required:
-      - key
-      - values
-      properties:
-        key:
-          type: string
-          example: region
-          description: Filter key to add to the event properties payload
-        values:
-          type: array
-          items:
-            type: string
-            example: us-east-1
-          description: List of possible filter values
-    BillableMetricsPaginated:
-      type: object
-      required:
-      - billable_metrics
-      - meta
-      properties:
-        billable_metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillableMetricObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    BillableMetricFilterObject:
       type: object
       description: Values used to apply differentiated pricing based on additional event properties.
       required:
@@ -589,28 +589,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorUnauthorized'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     NotFound:
       description: Not Found error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -620,6 +611,15 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     bearerAuth:
       type: http

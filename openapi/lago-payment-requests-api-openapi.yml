@@ -101,222 +101,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    PaymentRequestObject:
-      type: object
-      required:
-      - lago_id
-      - email
-      - amount_cents
-      - amount_currency
-      - payment_status
-      - created_at
-      - customer
-      - invoices
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the payment request, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        email:
-          type: string
-          format: email
-          example: dinesh@piedpiper.test
-          description: The customer's email address used for sending dunning notifications
-        amount_cents:
-          type: integer
-          description: The sum of the total amounts of all the invoices included in the payment request, expressed in cents.
-          example: 100
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the payment request.
-            example: EUR
-        payment_status:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-          description: 'The status of the payment associated with the payment request. It can have one of the following values:
-
-            - `pending`: the payment is pending, waiting for payment processing in the payment provider or when the invoice is emitted but users have not updated the payment status through the endpoint.
-
-            - `succeeded`: the payment of the payment request has been successfully processed.
-
-            - `failed`: the payment of the payment request has failed or encountered an error during processing.'
-          example: succeeded
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the payment request was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the payment request was initially created.
-          example: '2022-04-29T08:59:51Z'
-        customer:
-          $ref: '#/components/schemas/CustomerObject/allOf/0'
-          description: The customer on which the payment request applies. It refers to the customer account or entity associated with the payment request.
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceObject/allOf/0'
-    Timezone:
-      type: string
-      example: America/Los_Angeles
-      enum:
-      - UTC
-      - Africa/Algiers
-      - Africa/Cairo
-      - Africa/Casablanca
-      - Africa/Harare
-      - Africa/Johannesburg
-      - Africa/Monrovia
-      - Africa/Nairobi
-      - America/Argentina/Buenos_Aires
-      - America/Bogota
-      - America/Caracas
-      - America/Chicago
-      - America/Chihuahua
-      - America/Denver
-      - America/Godthab
-      - America/Guatemala
-      - America/Guyana
-      - America/Halifax
-      - America/Indiana/Indianapolis
-      - America/Juneau
-      - America/La_Paz
-      - America/Lima
-      - America/Los_Angeles
-      - America/Mazatlan
-      - America/Mexico_City
-      - America/Monterrey
-      - America/Montevideo
-      - America/New_York
-      - America/Phoenix
-      - America/Puerto_Rico
-      - America/Regina
-      - America/Santiago
-      - America/Sao_Paulo
-      - America/St_Johns
-      - America/Tijuana
-      - Asia/Almaty
-      - Asia/Baghdad
-      - Asia/Baku
-      - Asia/Bangkok
-      - Asia/Chongqing
-      - Asia/Colombo
-      - Asia/Dhaka
-      - Asia/Hong_Kong
-      - Asia/Irkutsk
-      - Asia/Jakarta
-      - Asia/Jerusalem
-      - Asia/Kabul
-      - Asia/Kamchatka
-      - Asia/Karachi
-      - Asia/Kathmandu
-      - Asia/Kolkata
-      - Asia/Krasnoyarsk
-      - Asia/Kuala_Lumpur
-      - Asia/Kuwait
-      - Asia/Magadan
-      - Asia/Muscat
-      - Asia/Novosibirsk
-      - Asia/Rangoon
-      - Asia/Riyadh
-      - Asia/Seoul
-      - Asia/Shanghai
-      - Asia/Singapore
-      - Asia/Srednekolymsk
-      - Asia/Taipei
-      - Asia/Tashkent
-      - Asia/Tbilisi
-      - Asia/Tehran
-      - Asia/Tokyo
-      - Asia/Ulaanbaatar
-      - Asia/Urumqi
-      - Asia/Vladivostok
-      - Asia/Yakutsk
-      - Asia/Yekaterinburg
-      - Asia/Yerevan
-      - Atlantic/Azores
-      - Atlantic/Cape_Verde
-      - Atlantic/South_Georgia
-      - Australia/Adelaide
-      - Australia/Brisbane
-      - Australia/Darwin
-      - Australia/Hobart
-      - Australia/Melbourne
-      - Australia/Perth
-      - Australia/Sydney
-      - Europe/Amsterdam
-      - Europe/Athens
-      - Europe/Belgrade
-      - Europe/Berlin
-      - Europe/Bratislava
-      - Europe/Brussels
-      - Europe/Bucharest
-      - Europe/Budapest
-      - Europe/Copenhagen
-      - Europe/Dublin
-      - Europe/Helsinki
-      - Europe/Istanbul
-      - Europe/Kaliningrad
-      - Europe/Kiev
-      - Europe/Lisbon
-      - Europe/Ljubljana
-      - Europe/London
-      - Europe/Madrid
-      - Europe/Minsk
-      - Europe/Moscow
-      - Europe/Paris
-      - Europe/Prague
-      - Europe/Riga
-      - Europe/Rome
-      - Europe/Samara
-      - Europe/Sarajevo
-      - Europe/Skopje
-      - Europe/Sofia
-      - Europe/Stockholm
-      - Europe/Tallinn
-      - Europe/Vienna
-      - Europe/Vilnius
-      - Europe/Volgograd
-      - Europe/Warsaw
-      - Europe/Zagreb
-      - Europe/Zurich
-      - GMT+12
-      - Pacific/Apia
-      - Pacific/Auckland
-      - Pacific/Chatham
-      - Pacific/Fakaofo
-      - Pacific/Fiji
-      - Pacific/Guadalcanal
-      - Pacific/Guam
-      - Pacific/Honolulu
-      - Pacific/Majuro
-      - Pacific/Midway
-      - Pacific/Noumea
-      - Pacific/Pago_Pago
-      - Pacific/Port_Moresby
-      - Pacific/Tongatapu
     Country:
       type: string
       example: US
@@ -570,6 +354,313 @@ components:
       - ZA
       - ZM
       - ZW
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    Address:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        address_line1:
+          type: string
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+          nullable: true
+        address_line2:
+          type: string
+          example: null
+          description: The second line of the billing address
+          nullable: true
+        city:
+          type: string
+          example: Woodland Hills
+          description: The city of the customer's billing address
+          nullable: true
+        country:
+          allOf:
+          - $ref: '#/components/schemas/Country'
+          - nullable: true
+            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+            example: US
+        state:
+          type: string
+          example: CA
+          description: The state of the customer's billing address
+          nullable: true
+        zipcode:
+          type: string
+          example: '91364'
+          description: The zipcode of the customer's billing address
+          nullable: true
+    PaymentRequestObject:
+      type: object
+      required:
+      - lago_id
+      - email
+      - amount_cents
+      - amount_currency
+      - payment_status
+      - created_at
+      - customer
+      - invoices
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the payment request, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        email:
+          type: string
+          format: email
+          example: dinesh@piedpiper.test
+          description: The customer's email address used for sending dunning notifications
+        amount_cents:
+          type: integer
+          description: The sum of the total amounts of all the invoices included in the payment request, expressed in cents.
+          example: 100
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the payment request.
+            example: EUR
+        payment_status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+          description: 'The status of the payment associated with the payment request. It can have one of the following values:
+
+            - `pending`: the payment is pending, waiting for payment processing in the payment provider or when the invoice is emitted but users have not updated the payment status through the endpoint.
+
+            - `succeeded`: the payment of the payment request has been successfully processed.
+
+            - `failed`: the payment of the payment request has failed or encountered an error during processing.'
+          example: succeeded
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the payment request was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the payment request was initially created.
+          example: '2022-04-29T08:59:51Z'
+        customer:
+          $ref: '#/components/schemas/CustomerObject/allOf/0'
+          description: The customer on which the payment request applies. It refers to the customer account or entity associated with the payment request.
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceObject/allOf/0'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    PaymentRequestsPaginated:
+      type: object
+      required:
+      - payment_requests
+      - meta
+      properties:
+        payment_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
     CustomerObject:
       allOf:
       - type: object
@@ -749,236 +840,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/IntegrationCustomer'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    CustomerBillingConfiguration:
-      type: object
-      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
-      properties:
-        invoice_grace_period:
-          type: integer
-          example: 3
-          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
-        payment_provider:
-          type: string
-          example: stripe
-          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
-
-            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
-          enum:
-          - stripe
-          - adyen
-          - gocardless
-        payment_provider_code:
-          type: string
-          example: stripe-eu-1
-          description: Unique code used to identify a payment provider connection.
-        provider_customer_id:
-          type: string
-          example: cus_12345
-          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
-        sync:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
-        sync_with_provider:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-        document_locale:
-          type: string
-          example: fr
-          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
-        provider_payment_methods:
-          type: array
-          nullable: true
-          items:
-            type: string
-          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
-          example:
-          - card
-          - sepa_debit
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
     InvoiceObject:
       allOf:
       - type: object
@@ -1194,18 +1055,6 @@ components:
           format: date-time
           example: '2022-04-29T08:59:51Z'
           description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
-    PaymentRequestsPaginated:
-      type: object
-      required:
-      - payment_requests
-      - meta
-      properties:
-        payment_requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
     ApiErrorUnauthorized:
       type: object
       required:
@@ -1219,41 +1068,192 @@ components:
         error:
           type: string
           example: Unauthorized
-    Address:
+    CustomerBillingConfiguration:
       type: object
       description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
       properties:
-        address_line1:
+        invoice_grace_period:
+          type: integer
+          example: 3
+          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
+        payment_provider:
           type: string
-          example: 5230 Penfield Ave
-          description: The first line of the billing address
-          nullable: true
-        address_line2:
+          example: stripe
+          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
+
+            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
+          enum:
+          - stripe
+          - adyen
+          - gocardless
+        payment_provider_code:
           type: string
-          example: null
-          description: The second line of the billing address
-          nullable: true
-        city:
+          example: stripe-eu-1
+          description: Unique code used to identify a payment provider connection.
+        provider_customer_id:
           type: string
-          example: Woodland Hills
-          description: The city of the customer's billing address
-          nullable: true
-        country:
-          allOf:
-          - $ref: '#/components/schemas/Country'
-          - nullable: true
-            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
-            example: US
-        state:
+          example: cus_12345
+          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
+        sync:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
+        sync_with_provider:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        document_locale:
           type: string
-          example: CA
-          description: The state of the customer's billing address
+          example: fr
+          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
+        provider_payment_methods:
+          type: array
           nullable: true
-        zipcode:
-          type: string
-          example: '91364'
-          description: The zipcode of the customer's billing address
-          nullable: true
+          items:
+            type: string
+          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
+          example:
+          - card
+          - sepa_debit
+    Timezone:
+      type: string
+      example: America/Los_Angeles
+      enum:
+      - UTC
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Casablanca
+      - Africa/Harare
+      - Africa/Johannesburg
+      - Africa/Monrovia
+      - Africa/Nairobi
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Caracas
+      - America/Chicago
+      - America/Chihuahua
+      - America/Denver
+      - America/Godthab
+      - America/Guatemala
+      - America/Guyana
+      - America/Halifax
+      - America/Indiana/Indianapolis
+      - America/Juneau
+      - America/La_Paz
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mazatlan
+      - America/Mexico_City
+      - America/Monterrey
+      - America/Montevideo
+      - America/New_York
+      - America/Phoenix
+      - America/Puerto_Rico
+      - America/Regina
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/St_Johns
+      - America/Tijuana
+      - Asia/Almaty
+      - Asia/Baghdad
+      - Asia/Baku
+      - Asia/Bangkok
+      - Asia/Chongqing
+      - Asia/Colombo
+      - Asia/Dhaka
+      - Asia/Hong_Kong
+      - Asia/Irkutsk
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Kabul
+      - Asia/Kamchatka
+      - Asia/Karachi
+      - Asia/Kathmandu
+      - Asia/Kolkata
+      - Asia/Krasnoyarsk
+      - Asia/Kuala_Lumpur
+      - Asia/Kuwait
+      - Asia/Magadan
+      - Asia/Muscat
+      - Asia/Novosibirsk
+      - Asia/Rangoon
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Srednekolymsk
+      - Asia/Taipei
+      - Asia/Tashkent
+      - Asia/Tbilisi
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Ulaanbaatar
+      - Asia/Urumqi
+      - Asia/Vladivostok
+      - Asia/Yakutsk
+      - Asia/Yekaterinburg
+      - Asia/Yerevan
+      - Atlantic/Azores
+      - Atlantic/Cape_Verde
+      - Atlantic/South_Georgia
+      - Australia/Adelaide
+      - Australia/Brisbane
+      - Australia/Darwin
+      - Australia/Hobart
+      - Australia/Melbourne
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Amsterdam
+      - Europe/Athens
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Bratislava
+      - Europe/Brussels
+      - Europe/Bucharest
+      - Europe/Budapest
+      - Europe/Copenhagen
+      - Europe/Dublin
+      - Europe/Helsinki
+      - Europe/Istanbul
+      - Europe/Kaliningrad
+      - Europe/Kiev
+      - Europe/Lisbon
+      - Europe/Ljubljana
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Minsk
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Prague
+      - Europe/Riga
+      - Europe/Rome
+      - Europe/Samara
+      - Europe/Sarajevo
+      - Europe/Skopje
+      - Europe/Sofia
+      - Europe/Stockholm
+      - Europe/Tallinn
+      - Europe/Vienna
+      - Europe/Vilnius
+      - Europe/Volgograd
+      - Europe/Warsaw
+      - Europe/Zagreb
+      - Europe/Zurich
+      - GMT+12
+      - Pacific/Apia
+      - Pacific/Auckland
+      - Pacific/Chatham
+      - Pacific/Fakaofo
+      - Pacific/Fiji
+      - Pacific/Guadalcanal
+      - Pacific/Guam
+      - Pacific/Honolulu
+      - Pacific/Majuro
+      - Pacific/Midway
+      - Pacific/Noumea
+      - Pacific/Pago_Pago
+      - Pacific/Port_Moresby
+      - Pacific/Tongatapu
   responses:
     BadRequest:
       description: Bad Request error
@@ -1274,15 +1274,6 @@ components:
           schema:
             $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1292,6 +1283,15 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
     external_customer_id:
       name: external_customer_id
       in: query

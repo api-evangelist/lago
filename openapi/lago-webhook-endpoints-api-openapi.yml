@@ -142,7 +142,58 @@ paths:
         '405':
           $ref: '#/components/responses/NotAllowed'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
   schemas:
+    WebhookEndpointUpdateInput:
+      type: object
+      properties:
+        webhook_endpoint:
+          type: object
+          required:
+          - webhook_url
+          properties:
+            webhook_url:
+              type: string
+              description: The URL of the webhook endpoint.
+              example: https://foo.bar
+            signature_algo:
+              type: string
+              description: The signature used for the webhook. If no value is passed,
+              example: hmac
+              nullable: true
+              enum:
+              - jwt
+              - hmac
     ApiErrorBadRequest:
       type: object
       required:
@@ -176,6 +227,65 @@ components:
           example: validation_errors
         error_details:
           type: object
+    ApiErrorNotAllowed:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 405
+        error:
+          type: string
+          example: Method Not Allowed
+        code:
+          type: string
+          example: not_allowed
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
     ApiErrorNotFound:
       type: object
       required:
@@ -227,6 +337,25 @@ components:
           format: date-time
           description: The date of the webhook endpoint creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
           example: '2022-04-29T08:59:51Z'
+    WebhookEndpoint:
+      type: object
+      required:
+      - webhook_endpoint
+      properties:
+        webhook_endpoint:
+          $ref: '#/components/schemas/WebhookEndpointObject'
+    WebhookEndpointsPaginated:
+      type: object
+      required:
+      - webhook_endpoints
+      - meta
+      properties:
+        webhook_endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookEndpointObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
     WebhookEndpointCreateInput:
       type: object
       properties:
@@ -247,145 +376,7 @@ components:
               enum:
               - jwt
               - hmac
-    WebhookEndpointsPaginated:
-      type: object
-      required:
-      - webhook_endpoints
-      - meta
-      properties:
-        webhook_endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookEndpointObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorNotAllowed:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 405
-        error:
-          type: string
-          example: Method Not Allowed
-        code:
-          type: string
-          example: not_allowed
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    WebhookEndpoint:
-      type: object
-      required:
-      - webhook_endpoint
-      properties:
-        webhook_endpoint:
-          $ref: '#/components/schemas/WebhookEndpointObject'
-    WebhookEndpointUpdateInput:
-      type: object
-      properties:
-        webhook_endpoint:
-          type: object
-          required:
-          - webhook_url
-          properties:
-            webhook_url:
-              type: string
-              description: The URL of the webhook endpoint.
-              example: https://foo.bar
-            signature_algo:
-              type: string
-              description: The signature used for the webhook. If no value is passed,
-              example: hmac
-              nullable: true
-              enum:
-              - jwt
-              - hmac
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-  responses:
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -395,6 +386,15 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     bearerAuth:
       type: http

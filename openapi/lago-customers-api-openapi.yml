@@ -325,403 +325,6 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    AppliedCoupon:
-      type: object
-      required:
-      - applied_coupon
-      properties:
-        applied_coupon:
-          $ref: '#/components/schemas/AppliedCouponObject'
-    CustomerCreateInput:
-      type: object
-      required:
-      - customer
-      properties:
-        customer:
-          type: object
-          required:
-          - external_id
-          properties:
-            external_id:
-              type: string
-              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
-              description: The customer external unique identifier (provided by your own application)
-            address_line1:
-              type: string
-              example: 5230 Penfield Ave
-              description: The first line of the billing address
-              nullable: true
-            address_line2:
-              type: string
-              example: ''
-              description: The second line of the billing address
-              nullable: true
-            city:
-              type: string
-              example: Woodland Hills
-              description: The city of the customer's billing address
-              nullable: true
-            country:
-              allOf:
-              - $ref: '#/components/schemas/Country'
-              - nullable: true
-                description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
-                example: US
-            currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - description: Currency of the customer. Format must be ISO 4217
-                nullable: true
-            email:
-              type: string
-              format: email
-              example: dinesh@piedpiper.test
-              description: The email of the customer
-              nullable: true
-            legal_name:
-              type: string
-              example: Coleman-Blair
-              description: The legal company name of the customer
-              nullable: true
-            legal_number:
-              type: string
-              example: 49-008-2965
-              description: The legal company number of the customer
-              nullable: true
-            logo_url:
-              type: string
-              example: http://hooli.com/logo.png
-              description: The logo URL of the customer
-              nullable: true
-            name:
-              type: string
-              example: Gavin Belson
-              description: The full name of the customer
-              nullable: true
-            firstname:
-              type: string
-              example: Gavin
-              description: First name of the customer
-              nullable: true
-            lastname:
-              type: string
-              example: Belson
-              description: Last name of the customer
-              nullable: true
-            customer_type:
-              type: string
-              enum:
-              - company
-              - individual
-              nullable: true
-              description: 'The type of the customer. It can have one of the following values:
-
-                - `company`: the customer is a company.
-
-                - `individual`: the customer is an individual.'
-            phone:
-              type: string
-              example: 1-171-883-3711 x245
-              description: The phone number of the customer
-              nullable: true
-            state:
-              type: string
-              example: CA
-              description: The state of the customer's billing address
-              nullable: true
-            tax_codes:
-              type: array
-              items:
-                type: string
-              description: List of unique code used to identify the taxes.
-              example:
-              - french_standard_vat
-            tax_identification_number:
-              type: string
-              example: EU123456789
-              description: The tax identification number of the customer
-              nullable: true
-            timezone:
-              allOf:
-              - $ref: '#/components/schemas/Timezone'
-              - description: The customer's timezone, used for billing purposes in their local time. Overrides the organization's timezone
-                nullable: true
-            url:
-              type: string
-              example: http://hooli.com
-              description: The custom website URL of the customer
-              nullable: true
-            zipcode:
-              type: string
-              example: '91364'
-              description: The zipcode of the customer's billing address
-              nullable: true
-            net_payment_term:
-              type: integer
-              example: 30
-              description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
-              nullable: true
-            finalize_zero_amount_invoice:
-              type: string
-              enum:
-              - inherit
-              - skip
-              - finalize
-              example: inherit
-              description: 'Specifies how invoices with a zero total amount should be handled:
-
-                - `inherit`: (Default) Follows the organization-level configuration.
-
-                - `finalize`: Invoices are issued and finalized even if the total amount is zero.
-
-                - `skip`: Invoices with a total amount of zero are not finalized.'
-            billing_configuration:
-              $ref: '#/components/schemas/CustomerBillingConfiguration'
-            shipping_address:
-              $ref: '#/components/schemas/Address'
-            integration_customers:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                    description: A unique identifier for the integration customer object in the Lago application.
-                  integration_type:
-                    type: string
-                    example: netsuite
-                    description: 'The integration type used for accounting and tax syncs.
-
-                      Accepted values: `netsuite, anrok, xero`.'
-                    enum:
-                    - netsuite
-                    - anrok
-                    - xero
-                  integration_code:
-                    type: string
-                    example: netsuite-eu-1
-                    description: Unique code used to identify an integration connection.
-                  external_customer_id:
-                    type: string
-                    example: cus_12345
-                    description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
-                  sync_with_provider:
-                    type: boolean
-                    example: true
-                    description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-                  subsidiary_id:
-                    type: string
-                    example: '2'
-                    description: This optional field is needed only when working with `netsuite` connection.
-            metadata:
-              type: array
-              description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
-              items:
-                type: object
-                required:
-                - key
-                - value
-                - display_in_invoice
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                    description: Identifier for the metadata object, only required when updating a key-value pair
-                  key:
-                    type: string
-                    example: Purchase Order
-                    description: The metadata object key
-                  value:
-                    type: string
-                    example: '123456789'
-                    description: The metadata object value
-                  display_in_invoice:
-                    type: boolean
-                    example: true
-                    description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
-    CustomerObjectExtended:
-      allOf:
-      - $ref: '#/components/schemas/CustomerObject'
-      - type: object
-        properties:
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/CustomerMetadata'
-          taxes:
-            description: List of customer taxes
-            type: array
-            items:
-              $ref: '#/components/schemas/TaxObject'
-    Timezone:
-      type: string
-      example: America/Los_Angeles
-      enum:
-      - UTC
-      - Africa/Algiers
-      - Africa/Cairo
-      - Africa/Casablanca
-      - Africa/Harare
-      - Africa/Johannesburg
-      - Africa/Monrovia
-      - Africa/Nairobi
-      - America/Argentina/Buenos_Aires
-      - America/Bogota
-      - America/Caracas
-      - America/Chicago
-      - America/Chihuahua
-      - America/Denver
-      - America/Godthab
-      - America/Guatemala
-      - America/Guyana
-      - America/Halifax
-      - America/Indiana/Indianapolis
-      - America/Juneau
-      - America/La_Paz
-      - America/Lima
-      - America/Los_Angeles
-      - America/Mazatlan
-      - America/Mexico_City
-      - America/Monterrey
-      - America/Montevideo
-      - America/New_York
-      - America/Phoenix
-      - America/Puerto_Rico
-      - America/Regina
-      - America/Santiago
-      - America/Sao_Paulo
-      - America/St_Johns
-      - America/Tijuana
-      - Asia/Almaty
-      - Asia/Baghdad
-      - Asia/Baku
-      - Asia/Bangkok
-      - Asia/Chongqing
-      - Asia/Colombo
-      - Asia/Dhaka
-      - Asia/Hong_Kong
-      - Asia/Irkutsk
-      - Asia/Jakarta
-      - Asia/Jerusalem
-      - Asia/Kabul
-      - Asia/Kamchatka
-      - Asia/Karachi
-      - Asia/Kathmandu
-      - Asia/Kolkata
-      - Asia/Krasnoyarsk
-      - Asia/Kuala_Lumpur
-      - Asia/Kuwait
-      - Asia/Magadan
-      - Asia/Muscat
-      - Asia/Novosibirsk
-      - Asia/Rangoon
-      - Asia/Riyadh
-      - Asia/Seoul
-      - Asia/Shanghai
-      - Asia/Singapore
-      - Asia/Srednekolymsk
-      - Asia/Taipei
-      - Asia/Tashkent
-      - Asia/Tbilisi
-      - Asia/Tehran
-      - Asia/Tokyo
-      - Asia/Ulaanbaatar
-      - Asia/Urumqi
-      - Asia/Vladivostok
-      - Asia/Yakutsk
-      - Asia/Yekaterinburg
-      - Asia/Yerevan
-      - Atlantic/Azores
-      - Atlantic/Cape_Verde
-      - Atlantic/South_Georgia
-      - Australia/Adelaide
-      - Australia/Brisbane
-      - Australia/Darwin
-      - Australia/Hobart
-      - Australia/Melbourne
-      - Australia/Perth
-      - Australia/Sydney
-      - Europe/Amsterdam
-      - Europe/Athens
-      - Europe/Belgrade
-      - Europe/Berlin
-      - Europe/Bratislava
-      - Europe/Brussels
-      - Europe/Bucharest
-      - Europe/Budapest
-      - Europe/Copenhagen
-      - Europe/Dublin
-      - Europe/Helsinki
-      - Europe/Istanbul
-      - Europe/Kaliningrad
-      - Europe/Kiev
-      - Europe/Lisbon
-      - Europe/Ljubljana
-      - Europe/London
-      - Europe/Madrid
-      - Europe/Minsk
-      - Europe/Moscow
-      - Europe/Paris
-      - Europe/Prague
-      - Europe/Riga
-      - Europe/Rome
-      - Europe/Samara
-      - Europe/Sarajevo
-      - Europe/Skopje
-      - Europe/Sofia
-      - Europe/Stockholm
-      - Europe/Tallinn
-      - Europe/Vienna
-      - Europe/Vilnius
-      - Europe/Volgograd
-      - Europe/Warsaw
-      - Europe/Zagreb
-      - Europe/Zurich
-      - GMT+12
-      - Pacific/Apia
-      - Pacific/Auckland
-      - Pacific/Chatham
-      - Pacific/Fakaofo
-      - Pacific/Fiji
-      - Pacific/Guadalcanal
-      - Pacific/Guam
-      - Pacific/Honolulu
-      - Pacific/Majuro
-      - Pacific/Midway
-      - Pacific/Noumea
-      - Pacific/Pago_Pago
-      - Pacific/Port_Moresby
-      - Pacific/Tongatapu
-    Customer:
-      type: object
-      required:
-      - customer
-      properties:
-        customer:
-          $ref: '#/components/schemas/CustomerObjectExtended'
     Country:
       type: string
       example: US
@@ -975,23 +578,276 @@ components:
       - ZA
       - ZM
       - ZW
-    ApiErrorNotFound:
+    ApiErrorBadRequest:
       type: object
       required:
       - status
       - error
-      - code
       properties:
         status:
           type: integer
           format: int32
-          example: 404
+          example: 400
         error:
           type: string
-          example: Not Found
-        code:
+          example: Bad request
+    CustomerPastUsage:
+      type: object
+      required:
+      - usage_periods
+      - meta
+      properties:
+        usage_periods:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerUsage'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    Address:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        address_line1:
           type: string
-          example: object_not_found
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+          nullable: true
+        address_line2:
+          type: string
+          example: null
+          description: The second line of the billing address
+          nullable: true
+        city:
+          type: string
+          example: Woodland Hills
+          description: The city of the customer's billing address
+          nullable: true
+        country:
+          allOf:
+          - $ref: '#/components/schemas/Country'
+          - nullable: true
+            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+            example: US
+        state:
+          type: string
+          example: CA
+          description: The state of the customer's billing address
+          nullable: true
+        zipcode:
+          type: string
+          example: '91364'
+          description: The zipcode of the customer's billing address
+          nullable: true
+    CustomerCreateInput:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          type: object
+          required:
+          - external_id
+          properties:
+            external_id:
+              type: string
+              example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+              description: The customer external unique identifier (provided by your own application)
+            address_line1:
+              type: string
+              example: 5230 Penfield Ave
+              description: The first line of the billing address
+              nullable: true
+            address_line2:
+              type: string
+              example: ''
+              description: The second line of the billing address
+              nullable: true
+            city:
+              type: string
+              example: Woodland Hills
+              description: The city of the customer's billing address
+              nullable: true
+            country:
+              allOf:
+              - $ref: '#/components/schemas/Country'
+              - nullable: true
+                description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+                example: US
+            currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - description: Currency of the customer. Format must be ISO 4217
+                nullable: true
+            email:
+              type: string
+              format: email
+              example: dinesh@piedpiper.test
+              description: The email of the customer
+              nullable: true
+            legal_name:
+              type: string
+              example: Coleman-Blair
+              description: The legal company name of the customer
+              nullable: true
+            legal_number:
+              type: string
+              example: 49-008-2965
+              description: The legal company number of the customer
+              nullable: true
+            logo_url:
+              type: string
+              example: http://hooli.com/logo.png
+              description: The logo URL of the customer
+              nullable: true
+            name:
+              type: string
+              example: Gavin Belson
+              description: The full name of the customer
+              nullable: true
+            firstname:
+              type: string
+              example: Gavin
+              description: First name of the customer
+              nullable: true
+            lastname:
+              type: string
+              example: Belson
+              description: Last name of the customer
+              nullable: true
+            customer_type:
+              type: string
+              enum:
+              - company
+              - individual
+              nullable: true
+              description: 'The type of the customer. It can have one of the following values:
+
+                - `company`: the customer is a company.
+
+                - `individual`: the customer is an individual.'
+            phone:
+              type: string
+              example: 1-171-883-3711 x245
+              description: The phone number of the customer
+              nullable: true
+            state:
+              type: string
+              example: CA
+              description: The state of the customer's billing address
+              nullable: true
+            tax_codes:
+              type: array
+              items:
+                type: string
+              description: List of unique code used to identify the taxes.
+              example:
+              - french_standard_vat
+            tax_identification_number:
+              type: string
+              example: EU123456789
+              description: The tax identification number of the customer
+              nullable: true
+            timezone:
+              allOf:
+              - $ref: '#/components/schemas/Timezone'
+              - description: The customer's timezone, used for billing purposes in their local time. Overrides the organization's timezone
+                nullable: true
+            url:
+              type: string
+              example: http://hooli.com
+              description: The custom website URL of the customer
+              nullable: true
+            zipcode:
+              type: string
+              example: '91364'
+              description: The zipcode of the customer's billing address
+              nullable: true
+            net_payment_term:
+              type: integer
+              example: 30
+              description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
+              nullable: true
+            finalize_zero_amount_invoice:
+              type: string
+              enum:
+              - inherit
+              - skip
+              - finalize
+              example: inherit
+              description: 'Specifies how invoices with a zero total amount should be handled:
+
+                - `inherit`: (Default) Follows the organization-level configuration.
+
+                - `finalize`: Invoices are issued and finalized even if the total amount is zero.
+
+                - `skip`: Invoices with a total amount of zero are not finalized.'
+            billing_configuration:
+              $ref: '#/components/schemas/CustomerBillingConfiguration'
+            shipping_address:
+              $ref: '#/components/schemas/Address'
+            integration_customers:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                    description: A unique identifier for the integration customer object in the Lago application.
+                  integration_type:
+                    type: string
+                    example: netsuite
+                    description: 'The integration type used for accounting and tax syncs.
+
+                      Accepted values: `netsuite, anrok, xero`.'
+                    enum:
+                    - netsuite
+                    - anrok
+                    - xero
+                  integration_code:
+                    type: string
+                    example: netsuite-eu-1
+                    description: Unique code used to identify an integration connection.
+                  external_customer_id:
+                    type: string
+                    example: cus_12345
+                    description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
+                  sync_with_provider:
+                    type: boolean
+                    example: true
+                    description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+                  subsidiary_id:
+                    type: string
+                    example: '2'
+                    description: This optional field is needed only when working with `netsuite` connection.
+            metadata:
+              type: array
+              description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
+              items:
+                type: object
+                required:
+                - key
+                - value
+                - display_in_invoice
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                    description: Identifier for the metadata object, only required when updating a key-value pair
+                  key:
+                    type: string
+                    example: Purchase Order
+                    description: The metadata object key
+                  value:
+                    type: string
+                    example: '123456789'
+                    description: The metadata object value
+                  display_in_invoice:
+                    type: boolean
+                    example: true
+                    description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
     AppliedCouponObject:
       type: object
       required:
@@ -1103,6 +959,13 @@ components:
           nullable: true
           description: This field indicates the specific moment when the coupon amount is fully utilized or when the coupon is removed from the customer's coupon list. It is expressed in UTC format according to the ISO 8601 datetime standard.
           example: '2022-04-29T08:59:51Z'
+    Customer:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          $ref: '#/components/schemas/CustomerObjectExtended'
     CustomerUsageObject:
       type: object
       required:
@@ -1157,6 +1020,59 @@ components:
           description: Array of charges that comprise the current usage. It contains detailed information about individual charge items associated with the usage.
           items:
             $ref: '#/components/schemas/CustomerChargeUsageObject'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    AppliedCoupon:
+      type: object
+      required:
+      - applied_coupon
+      properties:
+        applied_coupon:
+          $ref: '#/components/schemas/AppliedCouponObject'
     Currency:
       type: string
       example: USD
@@ -1298,98 +1214,198 @@ components:
       - YER
       - ZAR
       - ZMW
-    CustomerChargeUsageObject:
-      type: object
+    CustomerChargeFiltersUsageObject:
+      type: array
+      description: Array of filter object, representing multiple dimensions for a charge item.
       required:
+      - values
       - units
       - events_count
       - amount_cents
-      - amount_currency
-      - charge
-      - billable_metric
-      - groups
+      items:
+        type: object
+        properties:
+          units:
+            type: string
+            pattern: ^[0-9]+.?[0-9]*$
+            example: '0.9'
+            description: The number of units consumed for a specific charge filter related to a charge item.
+          amount_cents:
+            type: integer
+            example: 1000
+            description: The amount in cents, tax excluded, consumed for a specific charge filter related to a charge item.
+          events_count:
+            type: integer
+            example: 10
+            description: The quantity of usage events that have been recorded for a particular charge filter during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+          invoice_display_name:
+            type: string
+            description: Specifies the name that will be displayed on an invoice.
+            example: AWS eu-east-1
+          values:
+            type: object
+            description: List of filter values applied to the usage.
+            additionalProperties:
+              type: string
+            example:
+              region: us-east-1
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
       properties:
-        units:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
           type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          example: '1.0'
-          description: The number of units consumed by the customer for a specific charge item.
-        events_count:
-          type: integer
-          example: 10
-          description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-        amount_cents:
-          type: integer
-          example: 123
-          description: The amount in cents, tax excluded, consumed by the customer for a specific charge item.
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of a usage item consumed by the customer.
-            example: EUR
-        charge:
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
           type: object
-          description: Object listing all the properties for a specific charge item.
-          required:
-          - lago_id
-          - charge_model
-          properties:
-            lago_id:
+    CustomerMetadata:
+      type: object
+      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
+      required:
+      - lago_id
+      - key
+      - value
+      - display_in_invoice
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
+        key:
+          type: string
+          example: Purchase Order
+          description: The metadata object key
+        value:
+          type: string
+          example: '123456789'
+          description: The metadata object value
+        display_in_invoice:
+          type: boolean
+          example: true
+          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    CustomersPaginated:
+      type: object
+      required:
+      - customers
+      - meta
+      properties:
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerObjectExtended'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    CustomerChargeGroupedUsageObject:
+      type: array
+      description: Array of aggregated fees, grouped by the event properties defined in a `standard` charge model.
+      required:
+      - amount_cents
+      - events_count
+      - units
+      - grouped_by
+      - groups
+      items:
+        type: object
+        properties:
+          amount_cents:
+            type: integer
+            example: 1000
+            description: The amount in cents, tax excluded, consumed for a specific group related to a charge item.
+          events_count:
+            type: integer
+            example: 10
+            description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+          units:
+            type: string
+            pattern: ^[0-9]+.?[0-9]*$
+            example: '0.9'
+            description: The number of units consumed for a specific group related to a charge item.
+          grouped_by:
+            type: object
+            description: Key value list of event properties aggregated by the charge model
+            additionalProperties:
               type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Unique identifier assigned to the charge within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the charge's record within the Lago system.
-            charge_model:
-              type: string
-              description: The pricing model applied to this charge. Possible values are standard, `graduated`, `percentage`, `package` or `volume`.
-              enum:
-              - standard
-              - graduated
-              - package
-              - percentage
-              - volume
-              example: graduated
-            invoice_display_name:
-              type: string
-              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-              example: Setup
-        billable_metric:
-          type: object
-          description: The related billable metric object.
-          required:
-          - lago_id
-          - name
-          - code
-          - aggregation_type
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Unique identifier assigned to the billable metric within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the billable metric's record within the Lago system.
-            name:
-              type: string
-              example: Storage
-              description: The name of the billable metric used for this charge.
-            code:
-              type: string
-              example: storage
-              description: The code of the billable metric used for this charge.
-            aggregation_type:
-              type: string
-              description: The aggregation type of the billable metric used for this charge. Possible values are `count_agg`, `sum_agg`, `max_agg` or `unique_count_agg`.
-              enum:
-              - count_agg
-              - sum_agg
-              - max_agg
-              - unique_count_agg
-              - weighted_sum_agg
-              - latest_agg
-              example: sum_agg
-        filters:
-          $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
-        grouped_usage:
-          $ref: '#/components/schemas/CustomerChargeGroupedUsageObject'
+          filters:
+            $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
+    CustomerObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/CustomerObject'
+      - type: object
+        properties:
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomerMetadata'
+          taxes:
+            description: List of customer taxes
+            type: array
+            items:
+              $ref: '#/components/schemas/TaxObject'
+    IntegrationCustomer:
+      type: object
+      description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the integration customer object in the Lago application.
+        type:
+          type: string
+          example: netsuite
+          description: 'The integration type used for accounting and tax syncs.
+
+            Accepted values: `netsuite, anrok`.'
+          enum:
+          - netsuite
+          - anrok
+        integration_code:
+          type: string
+          example: netsuite-eu-1
+          description: Unique code used to identify an integration connection.
+        external_customer_id:
+          type: string
+          example: cus_12345
+          description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
+        sync_with_provider:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        subsidiary_id:
+          type: string
+          example: '2'
+          description: This optional field is needed only when working with `netsuite` connection.
     CustomerBillingConfiguration:
       type: object
       description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
@@ -1437,26 +1453,6 @@ components:
           example:
           - card
           - sepa_debit
-    CustomerUsage:
-      type: object
-      required:
-      - customer_usage
-      properties:
-        customer_usage:
-          $ref: '#/components/schemas/CustomerUsageObject'
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
     CustomerObject:
       allOf:
       - type: object
@@ -1636,67 +1632,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/IntegrationCustomer'
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
-    CustomerMetadata:
-      type: object
-      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
-      required:
-      - lago_id
-      - key
-      - value
-      - display_in_invoice
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
-        key:
-          type: string
-          example: Purchase Order
-          description: The metadata object key
-        value:
-          type: string
-          example: '123456789'
-          description: The metadata object value
-        display_in_invoice:
-          type: boolean
-          example: true
-          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-04-29T08:59:51Z'
-          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
     TaxObject:
       type: object
       required:
@@ -1754,179 +1689,244 @@ components:
           format: date-time
           description: Creation date of the tax.
           example: '2023-07-06T14:35:58Z'
-    CustomerChargeFiltersUsageObject:
-      type: array
-      description: Array of filter object, representing multiple dimensions for a charge item.
+    CustomerUsage:
+      type: object
       required:
-      - values
+      - customer_usage
+      properties:
+        customer_usage:
+          $ref: '#/components/schemas/CustomerUsageObject'
+    Timezone:
+      type: string
+      example: America/Los_Angeles
+      enum:
+      - UTC
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Casablanca
+      - Africa/Harare
+      - Africa/Johannesburg
+      - Africa/Monrovia
+      - Africa/Nairobi
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Caracas
+      - America/Chicago
+      - America/Chihuahua
+      - America/Denver
+      - America/Godthab
+      - America/Guatemala
+      - America/Guyana
+      - America/Halifax
+      - America/Indiana/Indianapolis
+      - America/Juneau
+      - America/La_Paz
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mazatlan
+      - America/Mexico_City
+      - America/Monterrey
+      - America/Montevideo
+      - America/New_York
+      - America/Phoenix
+      - America/Puerto_Rico
+      - America/Regina
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/St_Johns
+      - America/Tijuana
+      - Asia/Almaty
+      - Asia/Baghdad
+      - Asia/Baku
+      - Asia/Bangkok
+      - Asia/Chongqing
+      - Asia/Colombo
+      - Asia/Dhaka
+      - Asia/Hong_Kong
+      - Asia/Irkutsk
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Kabul
+      - Asia/Kamchatka
+      - Asia/Karachi
+      - Asia/Kathmandu
+      - Asia/Kolkata
+      - Asia/Krasnoyarsk
+      - Asia/Kuala_Lumpur
+      - Asia/Kuwait
+      - Asia/Magadan
+      - Asia/Muscat
+      - Asia/Novosibirsk
+      - Asia/Rangoon
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Srednekolymsk
+      - Asia/Taipei
+      - Asia/Tashkent
+      - Asia/Tbilisi
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Ulaanbaatar
+      - Asia/Urumqi
+      - Asia/Vladivostok
+      - Asia/Yakutsk
+      - Asia/Yekaterinburg
+      - Asia/Yerevan
+      - Atlantic/Azores
+      - Atlantic/Cape_Verde
+      - Atlantic/South_Georgia
+      - Australia/Adelaide
+      - Australia/Brisbane
+      - Australia/Darwin
+      - Australia/Hobart
+      - Australia/Melbourne
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Amsterdam
+      - Europe/Athens
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Bratislava
+      - Europe/Brussels
+      - Europe/Bucharest
+      - Europe/Budapest
+      - Europe/Copenhagen
+      - Europe/Dublin
+      - Europe/Helsinki
+      - Europe/Istanbul
+      - Europe/Kaliningrad
+      - Europe/Kiev
+      - Europe/Lisbon
+      - Europe/Ljubljana
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Minsk
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Prague
+      - Europe/Riga
+      - Europe/Rome
+      - Europe/Samara
+      - Europe/Sarajevo
+      - Europe/Skopje
+      - Europe/Sofia
+      - Europe/Stockholm
+      - Europe/Tallinn
+      - Europe/Vienna
+      - Europe/Vilnius
+      - Europe/Volgograd
+      - Europe/Warsaw
+      - Europe/Zagreb
+      - Europe/Zurich
+      - GMT+12
+      - Pacific/Apia
+      - Pacific/Auckland
+      - Pacific/Chatham
+      - Pacific/Fakaofo
+      - Pacific/Fiji
+      - Pacific/Guadalcanal
+      - Pacific/Guam
+      - Pacific/Honolulu
+      - Pacific/Majuro
+      - Pacific/Midway
+      - Pacific/Noumea
+      - Pacific/Pago_Pago
+      - Pacific/Port_Moresby
+      - Pacific/Tongatapu
+    CustomerChargeUsageObject:
+      type: object
+      required:
       - units
       - events_count
       - amount_cents
-      items:
-        type: object
-        properties:
-          units:
-            type: string
-            pattern: ^[0-9]+.?[0-9]*$
-            example: '0.9'
-            description: The number of units consumed for a specific charge filter related to a charge item.
-          amount_cents:
-            type: integer
-            example: 1000
-            description: The amount in cents, tax excluded, consumed for a specific charge filter related to a charge item.
-          events_count:
-            type: integer
-            example: 10
-            description: The quantity of usage events that have been recorded for a particular charge filter during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-          invoice_display_name:
-            type: string
-            description: Specifies the name that will be displayed on an invoice.
-            example: AWS eu-east-1
-          values:
-            type: object
-            description: List of filter values applied to the usage.
-            additionalProperties:
-              type: string
-            example:
-              region: us-east-1
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    CustomerPastUsage:
-      type: object
-      required:
-      - usage_periods
-      - meta
-      properties:
-        usage_periods:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerUsage'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    IntegrationCustomer:
-      type: object
-      description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier for the integration customer object in the Lago application.
-        type:
-          type: string
-          example: netsuite
-          description: 'The integration type used for accounting and tax syncs.
-
-            Accepted values: `netsuite, anrok`.'
-          enum:
-          - netsuite
-          - anrok
-        integration_code:
-          type: string
-          example: netsuite-eu-1
-          description: Unique code used to identify an integration connection.
-        external_customer_id:
-          type: string
-          example: cus_12345
-          description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
-        sync_with_provider:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-        subsidiary_id:
-          type: string
-          example: '2'
-          description: This optional field is needed only when working with `netsuite` connection.
-    Address:
-      type: object
-      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
-      properties:
-        address_line1:
-          type: string
-          example: 5230 Penfield Ave
-          description: The first line of the billing address
-          nullable: true
-        address_line2:
-          type: string
-          example: null
-          description: The second line of the billing address
-          nullable: true
-        city:
-          type: string
-          example: Woodland Hills
-          description: The city of the customer's billing address
-          nullable: true
-        country:
-          allOf:
-          - $ref: '#/components/schemas/Country'
-          - nullable: true
-            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
-            example: US
-        state:
-          type: string
-          example: CA
-          description: The state of the customer's billing address
-          nullable: true
-        zipcode:
-          type: string
-          example: '91364'
-          description: The zipcode of the customer's billing address
-          nullable: true
-    CustomerChargeGroupedUsageObject:
-      type: array
-      description: Array of aggregated fees, grouped by the event properties defined in a `standard` charge model.
-      required:
-      - amount_cents
-      - events_count
-      - units
-      - grouped_by
+      - amount_currency
+      - charge
+      - billable_metric
       - groups
-      items:
-        type: object
-        properties:
-          amount_cents:
-            type: integer
-            example: 1000
-            description: The amount in cents, tax excluded, consumed for a specific group related to a charge item.
-          events_count:
-            type: integer
-            example: 10
-            description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-          units:
-            type: string
-            pattern: ^[0-9]+.?[0-9]*$
-            example: '0.9'
-            description: The number of units consumed for a specific group related to a charge item.
-          grouped_by:
-            type: object
-            description: Key value list of event properties aggregated by the charge model
-            additionalProperties:
-              type: string
-          filters:
-            $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
-    CustomersPaginated:
-      type: object
-      required:
-      - customers
-      - meta
       properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerObjectExtended'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
+        units:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          example: '1.0'
+          description: The number of units consumed by the customer for a specific charge item.
+        events_count:
+          type: integer
+          example: 10
+          description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+        amount_cents:
+          type: integer
+          example: 123
+          description: The amount in cents, tax excluded, consumed by the customer for a specific charge item.
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of a usage item consumed by the customer.
+            example: EUR
+        charge:
+          type: object
+          description: Object listing all the properties for a specific charge item.
+          required:
+          - lago_id
+          - charge_model
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Unique identifier assigned to the charge within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the charge's record within the Lago system.
+            charge_model:
+              type: string
+              description: The pricing model applied to this charge. Possible values are standard, `graduated`, `percentage`, `package` or `volume`.
+              enum:
+              - standard
+              - graduated
+              - package
+              - percentage
+              - volume
+              example: graduated
+            invoice_display_name:
+              type: string
+              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+              example: Setup
+        billable_metric:
+          type: object
+          description: The related billable metric object.
+          required:
+          - lago_id
+          - name
+          - code
+          - aggregation_type
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Unique identifier assigned to the billable metric within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the billable metric's record within the Lago system.
+            name:
+              type: string
+              example: Storage
+              description: The name of the billable metric used for this charge.
+            code:
+              type: string
+              example: storage
+              description: The code of the billable metric used for this charge.
+            aggregation_type:
+              type: string
+              description: The aggregation type of the billable metric used for this charge. Possible values are `count_agg`, `sum_agg`, `max_agg` or `unique_count_agg`.
+              enum:
+              - count_agg
+              - sum_agg
+              - max_agg
+              - unique_count_agg
+              - weighted_sum_agg
+              - latest_agg
+              example: sum_agg
+        filters:
+          $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
+        grouped_usage:
+          $ref: '#/components/schemas/CustomerChargeGroupedUsageObject'
   responses:
     BadRequest:
       description: Bad Request error
@@ -1940,28 +1940,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorUnauthorized'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     NotFound:
       description: Not Found error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1971,6 +1962,15 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     bearerAuth:
       type: http
