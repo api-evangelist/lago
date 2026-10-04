@@ -30,6 +30,10 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lago.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: aws-cloudfront
 tags:
   - Billing
   - Metering
@@ -288,6 +292,9 @@ apis:
   - type: GettingStarted
     url: https://doc.getlago.com/docs/introduction
 common:
+  - type: CapabilityMap
+    url: capabilities/lago-capability-edges.yml
+    name: Lago Business Capability Map
   - type: AgenticAccess
     url: agentic-access/lago-agentic-access.yml
   - type: TrustCenter
