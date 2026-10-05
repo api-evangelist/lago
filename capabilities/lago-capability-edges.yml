@@ -1,0 +1,127 @@
+slug: lago
+provider: Lago
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: Events
+  spec_file: lago-events-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.9
+  evidence: POST /events createEvent "Send usage events"; POST /events/batch "Batch multiple events"
+  reason: Ingestion and aggregation of usage events feeding rating and analytics — the definition of usage
+    metering.
+- tag: Analytics
+  spec_file: lago-analytics-api-openapi.yml
+  capability_id: BC-4250.70
+  capability_id_l1: BC-4250
+  capability_name: Subscription Revenue Analytics
+  confidence: 0.88
+  evidence: GET /analytics/mrr findAllMrrs "List MRR"; GET /analytics/gross_revenue "List gross revenue";
+    GET /analytics/overdue_balance
+  reason: Read-only analytics endpoints returning recurring-revenue health metrics (MRR, gross revenue,
+    invoiced usage, overdue balance) — squarely subscription revenue analytics for a usage-based billing
+    vendor.
+- tag: Invoices
+  spec_file: lago-invoices-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.88
+  evidence: POST /invoices "Create a one-off invoice"; PUT /invoices/{lago_id}/finalize "Finalize a draft
+    invoice"; POST /invoices/{lago_id}/download "Download an invoice PDF"
+  reason: Generation, finalisation, delivery, voiding and dispute marking of customer invoices — invoicing
+    and statement management in subscription billing.
+- tag: Subscriptions
+  spec_file: lago-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.85
+  evidence: POST /subscriptions createSubscription "Assign a plan to a customer"; DELETE /subscriptions/{external_id}
+    "Terminate a subscription"
+  reason: Full subscription lifecycle — assignment of a plan, in-life update, termination and lifetime
+    usage tracking. Spans provisioning, modification and termination, so only the L1 is asserted.
+- tag: Credit Notes
+  spec_file: lago-credit-notes-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.82
+  evidence: POST /credit_notes createCreditNote; POST /credit_notes/{lago_id}/download "Download a credit
+    note PDF"; PUT /credit_notes/{lago_id}/void
+  reason: Credit notes are invoice adjustments issued and delivered to customers — invoicing and statement
+    management within subscription billing.
+- tag: Add Ons
+  spec_file: lago-add-ons-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.8
+  evidence: POST /add_ons  createAddOn  Lago Create an add-on; schemas AddOnCreateInput, Currency, TaxObject;
+    'metering and usage-based billing'
+  reason: CRUD over billable add-on definitions with currency and tax attributes in a subscription billing
+    platform — definition of chargeable plan/add-on catalogue items, i.e. Plan & Entitlement Design. Could
+    also be read as rating catalogue, hence 0.8.
+- tag: Taxes
+  spec_file: lago-taxes-api-openapi.yml
+  capability_id: BC-4250.60
+  capability_id_l1: BC-4250
+  capability_name: Subscription Tax Management
+  confidence: 0.8
+  evidence: POST /taxes createTax 'Lago Create a tax'; schemas TaxCreateInput, TaxObject — within a usage-based
+    billing platform
+  reason: Lago is a metering and usage-based billing platform; the Taxes tag manages tax rates applied
+    to subscription and usage charges, which is Subscription Tax Management rather than corporate tax
+    compliance.
+- tag: Payment Requests
+  spec_file: lago-payment-requests-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.76
+  evidence: POST /payment_requests createPaymentRequest; PaymentRequestObject referencing InvoiceObject
+    and CustomerObject
+  reason: Creating payment requests against outstanding customer invoices is collection activity (dunning/payment
+    chase) in the subscription billing flow.
+- tag: Billable Metrics
+  spec_file: lago-billable-metrics-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.72
+  evidence: POST /billable_metrics createBillableMetric; POST /billable_metrics/evaluate_expression "Evaluate
+    an expression for a billable metric"
+  reason: Billable metrics define how usage events are aggregated for billing, i.e. the metering configuration
+    layer of the usage-metering capability. Some chance a grader would place metric definition under rating,
+    hence moderate confidence.
+- tag: Plans
+  spec_file: lago-plans-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.7
+  evidence: POST /plans createPlan; schemas ChargeObject, MinimumCommitmentInput, UsageThresholdInput
+  reason: Defines subscription plans with their charges, commitments and usage thresholds — plan design
+    for the SaaS commercial model; the pricing emphasis means price-list management is a competing reading.
+- tag: Webhook Endpoints
+  spec_file: lago-webhook-endpoints-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /webhook_endpoints createWebhookEndpoint; GET /webhook_endpoints findAllWebhookEndpoints
+    'List all webhook endpoints'
+  reason: CRUD over outbound webhook endpoint registrations matches Webhook & Event Subscription Management
+    in the developer-platform capability; it is integration plumbing but the frame names it explicitly.
