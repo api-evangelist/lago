@@ -292,6 +292,12 @@ apis:
   - type: GettingStarted
     url: https://doc.getlago.com/docs/introduction
 common:
+  - type: Plans
+    url: plans/lago-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/lago-rate-limits.yml
+  - type: FinOps
+    url: finops/lago-finops.yml
   - type: CapabilityMap
     url: capabilities/lago-capability-edges.yml
     name: Lago Business Capability Map
