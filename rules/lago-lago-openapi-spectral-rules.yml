@@ -1,0 +1,49 @@
+# harvested from https://github.com/getlago/lago-openapi/blob/0607afeb3ab69b138485b64d96fc43cdce000d15/.spectral.yml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (getlago/lago-openapi); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/getlago/lago-openapi/blob/0607afeb3ab69b138485b64d96fc43cdce000d15/.spectral.yml
+extends: ["spectral:oas"]
+functions: [plural]
+rules:
+  array-params-brackets:
+    message: "Array parameter {{value}} should end with square brackets: {{value}}[]"
+    description: Array parameters should end with square brackets.
+    severity: error
+    given: "$.paths.*.*.parameters[?(@.in == 'query' && @.schema.type == 'array')]"
+    then:
+      - field: name
+        function: pattern
+        functionOptions:
+          match: "^[a-z][a-z_]+\\[\\]$"
+  array-params-plural:
+    message: "Array parameter {{value}} should be plural"
+    description: Array parameters should be plural.
+    severity: warn
+    given: "$.paths.*.*.parameters[?(@.in == 'query' && @.schema.type == 'array')]"
+    then:
+      - field: name
+        function: plural
+  deprecated-parameter-must-mention-in-description:
+    message: "Deprecated parameter at {{path}} must start with '**Deprecated**.' in its description."
+    description: Deprecated parameters must mention the deprecation in their description.
+    severity: error
+    given: "$.paths.*.*.parameters[?(@ && @.deprecated == true)]"
+    then:
+      - field: description
+        function: truthy
+      - field: description
+        function: pattern
+        functionOptions:
+          match: "/^\\*\\*Deprecated\\.\\*\\*/"
+  deprecated-schema-property-must-mention-in-description:
+    message: "Deprecated schema property at {{path}} must start with '**Deprecated**.' in its description."
+    description: Deprecated schema properties must mention the deprecation in their description.
+    severity: error
+    given: "$..properties[?(@ && @.deprecated == true)]"
+    then:
+      - field: description
+        function: truthy
+      - field: description
+        function: pattern
+        functionOptions:
+          match: "/^\\*\\*Deprecated\\.\\*\\*/"

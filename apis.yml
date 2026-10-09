@@ -326,6 +326,8 @@ common:
     url: https://getlago.com/llms.txt
   - url: https://getlago.com/blog
     type: Blog
+  - type: SpectralRules
+    url: https://github.com/getlago/lago-openapi/blob/0607afeb3ab69b138485b64d96fc43cdce000d15/.spectral.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
