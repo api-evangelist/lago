@@ -1,37 +1,35 @@
-# Kin Score artifact — lago — 2026-09-05T055819
+# Kin Score artifact — lago — 2026-10-11T110117
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: lago
-  schema_version: 0.18.3
-  scored_at: '2026-09-05'
-  run_ts: 2026-09-05T055819
-  composite: 32.8
+  schema_version: 0.23.0
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
+  composite: 34.5
   band: thin
   facets:
-    discoverability: 48.1
-    contract_quality: 62.8
-    governance: 0.0
-    operational_transparency: 10.5
-    developer_ergonomics: 31.0
-    commercial_clarity: 23.7
+    discoverability: 50.0
+    contract_quality: 56.8
     contract_governance: 0.0
+    operational_transparency: 10.5
+    developer_ergonomics: 30.2
     access_clarity: 23.7
   agent_readiness:
-    score: 30.2
+    score: 38.5
     band: agent-ready
     dimensions:
       spec_presence: true
       agentic_access: derived
       reversibility_documented: verified
-      mcp_server: false
+      mcp_server: verified
       auth_clarity: bearer
       idempotency: false
       error_semantics: false
       openapi_examples: partial
       rate_limit_signal: documented
       event_surface_described: false
-      agent_skills: true
+      agent_skills: unknown
       well_known_catalog: false
       consent_identity: false
       agent_card: false
@@ -40,7 +38,14 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 22.5
+    matched_via: fallback
   provenance:
+    mcp: first-party
     agentic_access: derived
     contracts:
       total: 17
