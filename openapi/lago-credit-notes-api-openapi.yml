@@ -206,151 +206,167 @@ paths:
           $ref: '#/components/responses/NotAllowed'
 components:
   schemas:
-    BaseAppliedTax:
-      type: object
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the applied tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_tax_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        tax_name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        tax_code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        tax_rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        tax_description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        amount_cents:
-          type: integer
-          description: Amount of the tax
-          example: 2000
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: Currency of the tax
-            example: USD
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
-          example: '2022-09-14T16:35:31Z'
-    CreditNotes:
-      type: object
-      required:
-      - credit_notes
-      properties:
-        credit_notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteObject'
-    CreditNoteCreateInput:
-      type: object
-      required:
-      - credit_note
-      properties:
-        credit_note:
-          type: object
-          required:
-          - invoice_id
-          - items
-          properties:
-            invoice_id:
-              type: string
-              format: uuid
-              description: The invoice unique identifier, created by Lago.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            reason:
-              type: string
-              enum:
-              - duplicated_charge
-              - product_unsatisfactory
-              - order_change
-              - order_cancellation
-              - fraudulent_charge
-              - other
-              nullable: true
-              description: 'The reason of the credit note creation.
-
-                Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
-              example: duplicated_charge
-            description:
-              type: string
-              description: The description of the credit note.
-              example: description
-            credit_amount_cents:
-              type: integer
-              nullable: true
-              description: The total amount to be credited on the customer balance.
-              example: 10
-            refund_amount_cents:
-              type: integer
-              nullable: true
-              description: The total amount to be refunded to the customer.
-              example: 5
-            items:
-              type: array
-              items:
-                type: object
-                required:
-                - fee_id
-                - amount_cents
-                properties:
-                  fee_id:
-                    type: string
-                    format: uuid
-                    description: The fee unique identifier, created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  amount_cents:
-                    type: integer
-                    description: The amount of the credit note item, expressed in cents.
-                    example: 10
-              description: The list of credit note's items.
-              example:
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                amount_cents: 10
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
-                amount_cents: 5
-    CreditNoteAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
-      type: object
-      properties:
-        lago_credit_note_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the credit note, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        base_amount_cents:
-          type: integer
-          example: 100
-    ApiErrorBadRequest:
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
+      - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 400
+          example: 422
         error:
           type: string
-          example: Bad request
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     CreditNoteEstimateInput:
       type: object
       required:
@@ -390,6 +406,166 @@ components:
                 amount_cents: 10
               - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
                 amount_cents: 5
+    CreditNoteObject:
+      type: object
+      required:
+      - lago_id
+      - sequential_id
+      - number
+      - lago_invoice_id
+      - invoice_number
+      - issuing_date
+      - reason
+      - currency
+      - total_amount_cents
+      - credit_amount_cents
+      - refund_amount_cents
+      - balance_amount_cents
+      - taxes_amount_cents
+      - taxes_rate
+      - sub_total_excluding_taxes_amount_cents
+      - coupons_adjustment_amount_cents
+      - created_at
+      - updated_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The credit note unique identifier, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        sequential_id:
+          type: integer
+          description: The sequential identifier of the credit note, specifically scoped on the associated invoice. It provides a unique numerical identifier for the credit note within the context of the invoice.
+          example: 2
+        number:
+          type: string
+          description: The credit note unique number.
+          example: LAG-1234-CN2
+        lago_invoice_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the invoice that the credit note belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        invoice_number:
+          type: string
+          description: The invoice unique number, related to the credit note.
+          example: LAG-1234
+        issuing_date:
+          type: string
+          format: date
+          description: The date of creation of the credit note. It follows the ISO 8601 date format and provides the specific date when the credit note was created.
+          example: '2022-12-06'
+        credit_status:
+          type: string
+          enum:
+          - available
+          - consumed
+          - voided
+          nullable: true
+          description: 'The status of the credit portion of the credit note. It indicates the current state or condition of the credit amount associated with the credit note. The possible values for this field are:
+
+
+            - `available`: this status indicates that an amount remains available for future usage. The credit can be applied towards future transactions or invoices.
+
+            - `consumed`: this status indicates that the credit amount has been fully consumed. The remaining amount is 0, indicating that the credit has been utilized in its entirety.
+
+            - `voided`: this status indicates that the remaining amount of the credit cannot be used any further. The credit has been voided and is no longer available for application or redemption.'
+          example: available
+        refund_status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+          nullable: true
+          description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
+
+
+            - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
+
+            - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
+
+            - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
+          example: pending
+        reason:
+          type: string
+          enum:
+          - duplicated_charge
+          - product_unsatisfactory
+          - order_change
+          - order_cancellation
+          - fraudulent_charge
+          - other
+          description: 'The reason of the credit note creation.
+
+            Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
+          example: other
+        description:
+          type: string
+          nullable: true
+          description: The description of the credit note.
+          example: Free text
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the credit note.
+            example: EUR
+        total_amount_cents:
+          type: integer
+          description: The total amount of the credit note, expressed in cents.
+          example: 120
+        taxes_amount_cents:
+          type: integer
+          description: The tax amount of the credit note, expressed in cents.
+          example: 20
+        taxes_rate:
+          type: number
+          description: The tax rate associated with this specific credit note.
+          example: 20
+        sub_total_excluding_taxes_amount_cents:
+          type: integer
+          description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
+          example: 100
+        balance_amount_cents:
+          type: integer
+          description: The remaining credit note amount, expressed in cents.
+          example: 100
+        credit_amount_cents:
+          type: integer
+          description: The credited amount of the credit note, expressed in cents.
+          example: 100
+        refund_amount_cents:
+          type: integer
+          description: The refunded amount of the credit note, expressed in cents.
+          example: 0
+        coupons_adjustment_amount_cents:
+          type: integer
+          description: The pro-rated amount of the coupons applied to the source invoice.
+          example: 20
+        created_at:
+          type: string
+          format: date-time
+          description: The date when the credit note was created. It is expressed in Coordinated Universal Time (UTC).
+          example: '2022-09-14T16:35:31Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date when the credit note was last updated. It is expressed in Coordinated Universal Time (UTC).
+          example: '2022-09-14T16:35:31Z'
+        file_url:
+          type: string
+          nullable: true
+          description: The PDF file of the credit note.
+          example: https://getlago.com/credit_note/file
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteItemObject'
+          description: Array of credit note's items.
+        applied_taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteAppliedTaxObject'
     ApiErrorNotFound:
       type: object
       required:
@@ -407,31 +583,178 @@ components:
         code:
           type: string
           example: object_not_found
-    CreditNoteUpdateInput:
+    CreditNotes:
       type: object
       required:
-      - credit_note
+      - credit_notes
       properties:
-        credit_note:
+        credit_notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteObject'
+    CreditNoteEstimated:
+      type: object
+      required:
+      - estimated_credit_note
+      properties:
+        estimated_credit_note:
           type: object
           required:
-          - refund_status
+          - lago_invoice_id
+          - invoice_number
+          - currency
+          - taxes_amount_cents
+          - sub_total_excluding_taxes_amount_cents
+          - max_creditable_amount_cents
+          - max_refundable_amount_cents
+          - coupons_adjustment_amount_cents
+          - taxes_rate
+          - items
           properties:
-            refund_status:
+            lago_invoice_id:
               type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
-
-
-                - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
-
-                - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
-
-                - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
-              example: succeeded
+              format: uuid
+              description: Unique identifier assigned to the invoice that the credit note belongs to
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            invoice_number:
+              type: string
+              description: The invoice unique number, related to the credit note.
+              example: LAG-1234
+            currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - description: The currency of the credit note.
+                example: EUR
+            taxes_amount_cents:
+              type: integer
+              description: The tax amount of the credit note, expressed in cents.
+              example: 20
+            taxes_rate:
+              type: number
+              description: The tax rate associated with this specific credit note.
+              example: 20
+            sub_total_excluding_taxes_amount_cents:
+              type: integer
+              description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
+              example: 100
+            max_creditable_amount_cents:
+              type: integer
+              description: The credited amount of the credit note, expressed in cents.
+              example: 100
+            max_refundable_amount_cents:
+              type: integer
+              description: The refunded amount of the credit note, expressed in cents.
+              example: 0
+            coupons_adjustment_amount_cents:
+              type: integer
+              description: The pro-rated amount of the coupons applied to the source invoice.
+              example: 20
+            items:
+              type: array
+              items:
+                type: object
+                required:
+                - amount_cents
+                - lago_fee_id
+                properties:
+                  amount_cents:
+                    type: integer
+                    description: The credit note's item amount, expressed in cents.
+                    example: 100
+                  lago_fee_id:
+                    type: string
+                    format: uuid
+                    nullable: true
+                    description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Array of credit note's items.
+            applied_taxes:
+              type: array
+              items:
+                type: object
+                properties:
+                  lago_tax_id:
+                    type: string
+                    format: uuid
+                    description: Unique identifier of the tax, created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  tax_name:
+                    type: string
+                    description: Name of the tax.
+                    example: TVA
+                  tax_code:
+                    type: string
+                    description: Unique code used to identify the tax associated with the API request.
+                    example: french_standard_vat
+                  tax_rate:
+                    type: number
+                    description: The percentage rate of the tax
+                    example: 20
+                  tax_description:
+                    type: string
+                    description: Internal description of the taxe
+                    example: French standard VAT
+                  base_amount_cents:
+                    type: integer
+                    example: 100
+                  amount_cents:
+                    type: integer
+                    description: Amount of the tax
+                    example: 2000
+                  amount_currency:
+                    allOf:
+                    - $ref: '#/components/schemas/Currency'
+                    - description: Currency of the tax
+                      example: USD
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    CreditNoteItemObject:
+      type: object
+      required:
+      - lago_id
+      - amount_cents
+      - amount_currency
+      - fee
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The credit note's item unique identifier, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        amount_cents:
+          type: integer
+          description: The credit note's item amount, expressed in cents.
+          example: 100
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The credit note's item currency.
+            example: EUR
+        fee:
+          allOf:
+          - $ref: '#/components/schemas/FeeObject'
+          - description: The fee object related to the credit note item.
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     FeeObject:
       type: object
       required:
@@ -864,167 +1187,86 @@ components:
           description: List of fee applied taxes
           items:
             $ref: '#/components/schemas/FeeAppliedTaxObject'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    ApiErrorUnprocessableEntity:
+    CreditNoteAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_credit_note_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the credit note, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        base_amount_cents:
+          type: integer
+          example: 100
+    CreditNoteCreateInput:
       type: object
       required:
-      - status
-      - error
-      - code
-      - error_details
+      - credit_note
       properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
+        credit_note:
           type: object
+          required:
+          - invoice_id
+          - items
+          properties:
+            invoice_id:
+              type: string
+              format: uuid
+              description: The invoice unique identifier, created by Lago.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            reason:
+              type: string
+              enum:
+              - duplicated_charge
+              - product_unsatisfactory
+              - order_change
+              - order_cancellation
+              - fraudulent_charge
+              - other
+              nullable: true
+              description: 'The reason of the credit note creation.
+
+                Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
+              example: duplicated_charge
+            description:
+              type: string
+              description: The description of the credit note.
+              example: description
+            credit_amount_cents:
+              type: integer
+              nullable: true
+              description: The total amount to be credited on the customer balance.
+              example: 10
+            refund_amount_cents:
+              type: integer
+              nullable: true
+              description: The total amount to be refunded to the customer.
+              example: 5
+            items:
+              type: array
+              items:
+                type: object
+                required:
+                - fee_id
+                - amount_cents
+                properties:
+                  fee_id:
+                    type: string
+                    format: uuid
+                    description: The fee unique identifier, created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  amount_cents:
+                    type: integer
+                    description: The amount of the credit note item, expressed in cents.
+                    example: 10
+              description: The list of credit note's items.
+              example:
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                amount_cents: 10
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
+                amount_cents: 5
     ApiErrorNotAllowed:
       type: object
       required:
@@ -1042,17 +1284,32 @@ components:
         code:
           type: string
           example: not_allowed
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
+    CreditNoteUpdateInput:
       type: object
+      required:
+      - credit_note
       properties:
-        lago_fee_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the fee, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-    ApiErrorUnauthorized:
+        credit_note:
+          type: object
+          required:
+          - refund_status
+          properties:
+            refund_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
+
+
+                - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
+
+                - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
+
+                - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
+              example: succeeded
+    ApiErrorBadRequest:
       type: object
       required:
       - status
@@ -1061,150 +1318,10 @@ components:
         status:
           type: integer
           format: int32
-          example: 401
+          example: 400
         error:
           type: string
-          example: Unauthorized
-    CreditNoteItemObject:
-      type: object
-      required:
-      - lago_id
-      - amount_cents
-      - amount_currency
-      - fee
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: The credit note's item unique identifier, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        amount_cents:
-          type: integer
-          description: The credit note's item amount, expressed in cents.
-          example: 100
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The credit note's item currency.
-            example: EUR
-        fee:
-          allOf:
-          - $ref: '#/components/schemas/FeeObject'
-          - description: The fee object related to the credit note item.
-    CreditNoteEstimated:
-      type: object
-      required:
-      - estimated_credit_note
-      properties:
-        estimated_credit_note:
-          type: object
-          required:
-          - lago_invoice_id
-          - invoice_number
-          - currency
-          - taxes_amount_cents
-          - sub_total_excluding_taxes_amount_cents
-          - max_creditable_amount_cents
-          - max_refundable_amount_cents
-          - coupons_adjustment_amount_cents
-          - taxes_rate
-          - items
-          properties:
-            lago_invoice_id:
-              type: string
-              format: uuid
-              description: Unique identifier assigned to the invoice that the credit note belongs to
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            invoice_number:
-              type: string
-              description: The invoice unique number, related to the credit note.
-              example: LAG-1234
-            currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - description: The currency of the credit note.
-                example: EUR
-            taxes_amount_cents:
-              type: integer
-              description: The tax amount of the credit note, expressed in cents.
-              example: 20
-            taxes_rate:
-              type: number
-              description: The tax rate associated with this specific credit note.
-              example: 20
-            sub_total_excluding_taxes_amount_cents:
-              type: integer
-              description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
-              example: 100
-            max_creditable_amount_cents:
-              type: integer
-              description: The credited amount of the credit note, expressed in cents.
-              example: 100
-            max_refundable_amount_cents:
-              type: integer
-              description: The refunded amount of the credit note, expressed in cents.
-              example: 0
-            coupons_adjustment_amount_cents:
-              type: integer
-              description: The pro-rated amount of the coupons applied to the source invoice.
-              example: 20
-            items:
-              type: array
-              items:
-                type: object
-                required:
-                - amount_cents
-                - lago_fee_id
-                properties:
-                  amount_cents:
-                    type: integer
-                    description: The credit note's item amount, expressed in cents.
-                    example: 100
-                  lago_fee_id:
-                    type: string
-                    format: uuid
-                    nullable: true
-                    description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Array of credit note's items.
-            applied_taxes:
-              type: array
-              items:
-                type: object
-                properties:
-                  lago_tax_id:
-                    type: string
-                    format: uuid
-                    description: Unique identifier of the tax, created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  tax_name:
-                    type: string
-                    description: Name of the tax.
-                    example: TVA
-                  tax_code:
-                    type: string
-                    description: Unique code used to identify the tax associated with the API request.
-                    example: french_standard_vat
-                  tax_rate:
-                    type: number
-                    description: The percentage rate of the tax
-                    example: 20
-                  tax_description:
-                    type: string
-                    description: Internal description of the taxe
-                    example: French standard VAT
-                  base_amount_cents:
-                    type: integer
-                    example: 100
-                  amount_cents:
-                    type: integer
-                    description: Amount of the tax
-                    example: 2000
-                  amount_currency:
-                    allOf:
-                    - $ref: '#/components/schemas/Currency'
-                    - description: Currency of the tax
-                      example: USD
+          example: Bad request
     CreditNote:
       type: object
       required:
@@ -1212,198 +1329,59 @@ components:
       properties:
         credit_note:
           $ref: '#/components/schemas/CreditNoteObject'
-    CreditNoteObject:
+    BaseAppliedTax:
       type: object
-      required:
-      - lago_id
-      - sequential_id
-      - number
-      - lago_invoice_id
-      - invoice_number
-      - issuing_date
-      - reason
-      - currency
-      - total_amount_cents
-      - credit_amount_cents
-      - refund_amount_cents
-      - balance_amount_cents
-      - taxes_amount_cents
-      - taxes_rate
-      - sub_total_excluding_taxes_amount_cents
-      - coupons_adjustment_amount_cents
-      - created_at
-      - updated_at
       properties:
         lago_id:
           type: string
           format: uuid
-          description: The credit note unique identifier, created by Lago.
+          description: Unique identifier of the applied tax, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        sequential_id:
-          type: integer
-          description: The sequential identifier of the credit note, specifically scoped on the associated invoice. It provides a unique numerical identifier for the credit note within the context of the invoice.
-          example: 2
-        number:
-          type: string
-          description: The credit note unique number.
-          example: LAG-1234-CN2
-        lago_invoice_id:
+        lago_tax_id:
           type: string
           format: uuid
-          description: Unique identifier assigned to the invoice that the credit note belongs to
+          description: Unique identifier of the tax, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        invoice_number:
+        tax_name:
           type: string
-          description: The invoice unique number, related to the credit note.
-          example: LAG-1234
-        issuing_date:
+          description: Name of the tax.
+          example: TVA
+        tax_code:
           type: string
-          format: date
-          description: The date of creation of the credit note. It follows the ISO 8601 date format and provides the specific date when the credit note was created.
-          example: '2022-12-06'
-        credit_status:
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        tax_rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        tax_description:
           type: string
-          enum:
-          - available
-          - consumed
-          - voided
-          nullable: true
-          description: 'The status of the credit portion of the credit note. It indicates the current state or condition of the credit amount associated with the credit note. The possible values for this field are:
-
-
-            - `available`: this status indicates that an amount remains available for future usage. The credit can be applied towards future transactions or invoices.
-
-            - `consumed`: this status indicates that the credit amount has been fully consumed. The remaining amount is 0, indicating that the credit has been utilized in its entirety.
-
-            - `voided`: this status indicates that the remaining amount of the credit cannot be used any further. The credit has been voided and is no longer available for application or redemption.'
-          example: available
-        refund_status:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-          nullable: true
-          description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
-
-
-            - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
-
-            - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
-
-            - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
-          example: pending
-        reason:
-          type: string
-          enum:
-          - duplicated_charge
-          - product_unsatisfactory
-          - order_change
-          - order_cancellation
-          - fraudulent_charge
-          - other
-          description: 'The reason of the credit note creation.
-
-            Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
-          example: other
-        description:
-          type: string
-          nullable: true
-          description: The description of the credit note.
-          example: Free text
-        currency:
+          description: Internal description of the taxe
+          example: French standard VAT
+        amount_cents:
+          type: integer
+          description: Amount of the tax
+          example: 2000
+        amount_currency:
           allOf:
           - $ref: '#/components/schemas/Currency'
-          - description: The currency of the credit note.
-            example: EUR
-        total_amount_cents:
-          type: integer
-          description: The total amount of the credit note, expressed in cents.
-          example: 120
-        taxes_amount_cents:
-          type: integer
-          description: The tax amount of the credit note, expressed in cents.
-          example: 20
-        taxes_rate:
-          type: number
-          description: The tax rate associated with this specific credit note.
-          example: 20
-        sub_total_excluding_taxes_amount_cents:
-          type: integer
-          description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
-          example: 100
-        balance_amount_cents:
-          type: integer
-          description: The remaining credit note amount, expressed in cents.
-          example: 100
-        credit_amount_cents:
-          type: integer
-          description: The credited amount of the credit note, expressed in cents.
-          example: 100
-        refund_amount_cents:
-          type: integer
-          description: The refunded amount of the credit note, expressed in cents.
-          example: 0
-        coupons_adjustment_amount_cents:
-          type: integer
-          description: The pro-rated amount of the coupons applied to the source invoice.
-          example: 20
+          - description: Currency of the tax
+            example: USD
         created_at:
           type: string
           format: date-time
-          description: The date when the credit note was created. It is expressed in Coordinated Universal Time (UTC).
+          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
           example: '2022-09-14T16:35:31Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date when the credit note was last updated. It is expressed in Coordinated Universal Time (UTC).
-          example: '2022-09-14T16:35:31Z'
-        file_url:
-          type: string
-          nullable: true
-          description: The PDF file of the credit note.
-          example: https://getlago.com/credit_note/file
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteItemObject'
-          description: Array of credit note's items.
-        applied_taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteAppliedTaxObject'
-  responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
   parameters:
+    external_customer_id:
+      name: external_customer_id
+      in: query
+      description: Unique identifier assigned to the customer in your application.
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
     page:
       name: page
       in: query
@@ -1422,15 +1400,37 @@ components:
       schema:
         type: integer
         example: 20
-    external_customer_id:
-      name: external_customer_id
-      in: query
-      description: Unique identifier assigned to the customer in your application.
-      required: false
-      explode: true
-      schema:
-        type: string
-        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+  responses:
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
   securitySchemes:
     bearerAuth:
       type: http

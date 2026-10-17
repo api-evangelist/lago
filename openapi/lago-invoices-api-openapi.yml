@@ -389,232 +389,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    BaseAppliedTax:
-      type: object
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the applied tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_tax_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        tax_name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        tax_code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        tax_rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        tax_description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        amount_cents:
-          type: integer
-          description: Amount of the tax
-          example: 2000
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: Currency of the tax
-            example: USD
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
-          example: '2022-09-14T16:35:31Z'
-    InvoiceObject:
-      allOf:
-      - type: object
-        required:
-        - lago_id
-        - number
-        - issuing_date
-        - invoice_type
-        - status
-        - payment_status
-        - currency
-        - fees_amount_cents
-        - coupons_amount_cents
-        - credit_notes_amount_cents
-        - sub_total_excluding_taxes_amount_cents
-        - taxes_amount_cents
-        - sub_total_including_taxes_amount_cents
-        - prepaid_credit_amount_cents
-        - progressive_billing_credit_amount_cents
-        - total_amount_cents
-        - version_number
-        properties:
-          lago_id:
-            type: string
-            format: uuid
-            description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
-            example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          sequential_id:
-            type: integer
-            description: This ID helps in uniquely identifying and organizing the invoices associated with a specific customer. It provides a sequential numbering system specific to the customer, allowing for easy tracking and management of invoices within the customer's context.
-            example: 2
-          number:
-            type: string
-            description: The unique number assigned to the invoice. This number serves as a distinct identifier for the invoice and helps in differentiating it from other invoices in the system.
-            example: LAG-1234-001-002
-          issuing_date:
-            type: string
-            format: date
-            description: The date when the invoice was issued. It is provided in the ISO 8601 date format.
-            example: '2022-04-30'
-          payment_dispute_lost_at:
-            type: string
-            format: date-time
-            description: The date when the payment dispute was lost. It is expressed in Coordinated Universal Time (UTC).
-            example: '2022-09-14T16:35:31Z'
-          payment_due_date:
-            type: string
-            format: date
-            description: The payment due date for the invoice, specified in the ISO 8601 date format.
-            example: '2022-04-30'
-          payment_overdue:
-            type: boolean
-            description: Specifies if the payment is considered as overdue.
-            example: true
-          net_payment_term:
-            type: integer
-            example: 30
-            description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
-          invoice_type:
-            type: string
-            enum:
-            - subscription
-            - add_on
-            - credit
-            - one_off
-            - progressive_billing
-            description: The type of invoice issued. Possible values are `subscription`, `one-off`, `credit` or `progressive_billing`.
-            example: subscription
-          status:
-            type: string
-            enum:
-            - draft
-            - finalized
-            - voided
-            - failed
-            description: 'The status of the invoice. It indicates the current state of the invoice and can have two possible values:
-
-              - `draft`: the invoice is in the draft state, waiting for the end of the grace period to be finalized. During this period, events can still be ingested and added to the invoice.
-
-              - `finalized`: the invoice has been issued and finalized. In this state, events cannot be ingested or added to the invoice anymore.
-
-              - `voided`: the invoice has been issued and subsequently voided. In this state, events cannot be ingested or added to the invoice anymore.
-
-              - `failed`: during an attempt of finalization of the invoice, an error happened. This invoice will have an array of error_details, explaining, in which part of the system an error happened and how it''s possible to fix it. This invoice can''t be edited or updated, only retried. This action will discard current error_details and will create new ones if the finalization failed again.'
-            example: finalized
-          payment_status:
-            type: string
-            enum:
-            - pending
-            - succeeded
-            - failed
-            description: 'The status of the payment associated with the invoice. It can have one of the following values:
-
-              - `pending`: the payment is pending, waiting for payment processing in Stripe or when the invoice is emitted but users have not updated the payment status through the endpoint.
-
-              - `succeeded`: the payment of the invoice has been successfully processed.
-
-              - `failed`: the payment of the invoice has failed or encountered an error during processing.'
-            example: succeeded
-          currency:
-            allOf:
-            - $ref: '#/components/schemas/Currency'
-            - description: The currency of the invoice issued.
-              example: EUR
-          fees_amount_cents:
-            type: integer
-            description: The total sum of fees amount in cents. It calculates the cumulative amount of all the fees associated with the invoice, providing a consolidated value.
-            example: 100
-          coupons_amount_cents:
-            type: integer
-            description: The total sum of all coupons discounted on the invoice. It calculates the cumulative discount amount applied by coupons, expressed in cents.
-            example: 10
-          credit_notes_amount_cents:
-            type: integer
-            description: The total sum of all credit notes discounted on the invoice. It calculates the cumulative discount amount applied by credit notes, expressed in cents.
-            example: 10
-          sub_total_excluding_taxes_amount_cents:
-            type: integer
-            description: 'Subtotal amount, excluding taxes, expressed in cents.
-
-              This field depends on the version number. Here are the definitions based on the version:
-
-              - Version 1: is equal to the sum of `fees_amount_cents`, minus `coupons_amount_cents`, and minus `prepaid_credit_amount_cents`.
-
-              - Version 2: is equal to the `fees_amount_cents`.
-
-              - Version 3 & 4: is equal to the `fees_amount_cents`, minus `coupons_amount_cents`'
-            example: 100
-          taxes_amount_cents:
-            type: integer
-            description: The sum of tax amount associated with the invoice, expressed in cents.
-            example: 20
-          sub_total_including_taxes_amount_cents:
-            type: integer
-            description: 'Subtotal amount, including taxes, expressed in cents.
-
-              This field depends on the version number. Here are the definitions based on the version:
-
-              - Version 1: is equal to the `total_amount_cents`.
-
-              - Version 2: is equal to the sum of `fees_amount_cents` and `taxes_amount_cents`.
-
-              - Version 3 & 4: is equal to the sum `sub_total_excluding_taxes_amount_cents` and `taxes_amount_cents`'
-            example: 120
-          prepaid_credit_amount_cents:
-            type: integer
-            description: The total sum of all prepaid credits discounted on the invoice. It calculates the cumulative discount amount applied by prepaid credits, expressed in cents.
-            example: 0
-          progressive_billing_credit_amount_cents:
-            type: integer
-            description: The usage already billed in previous invoices. Only apply to `progressive_billing` and `subscription` invoices.
-            example: 0
-          total_amount_cents:
-            type: integer
-            description: The sum of the amount and taxes amount on the invoice, expressed in cents. It calculates the total financial value of the invoice, including both the original amount and any applicable taxes.
-            example: 100
-          version_number:
-            type: integer
-            example: 3
-          file_url:
-            type: string
-            format: uri
-            description: Contains the URL that provides direct access to the invoice PDF file. You can use this URL to download or view the PDF document of the invoice
-            example: https://getlago.com/invoice/file
-      - type: object
-        properties:
-          customer:
-            allOf:
-            - $ref: '#/components/schemas/CustomerObject'
-            - description: The customer on which the invoice applies. It refers to the customer account or entity associated with the invoice.
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/InvoiceMetadataObject'
-          applied_taxes:
-            type: array
-            items:
-              $ref: '#/components/schemas/InvoiceAppliedTaxObject'
-          applied_usage_thresholds:
-            type: array
-            nullable: true
-            items:
-              $ref: '#/components/schemas/AppliedUsageThresholdObject'
     Country:
       type: string
       example: US
@@ -868,83 +642,304 @@ components:
       - ZA
       - ZM
       - ZW
-    ApiErrorBadRequest:
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
+      - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 400
+          example: 422
         error:
           type: string
-          example: Bad request
-    Address:
-      type: object
-      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
-      properties:
-        address_line1:
+          example: Unprocessable entity
+        code:
           type: string
-          example: 5230 Penfield Ave
-          description: The first line of the billing address
-          nullable: true
-        address_line2:
-          type: string
-          example: null
-          description: The second line of the billing address
-          nullable: true
-        city:
-          type: string
-          example: Woodland Hills
-          description: The city of the customer's billing address
-          nullable: true
-        country:
-          allOf:
-          - $ref: '#/components/schemas/Country'
-          - nullable: true
-            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
-            example: US
-        state:
-          type: string
-          example: CA
-          description: The state of the customer's billing address
-          nullable: true
-        zipcode:
-          type: string
-          example: '91364'
-          description: The zipcode of the customer's billing address
-          nullable: true
-    PaginationMeta:
+          example: validation_errors
+        error_details:
+          type: object
+    InvoiceObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/InvoiceObject'
+      - type: object
+        properties:
+          credits:
+            type: array
+            items:
+              $ref: '#/components/schemas/CreditObject'
+          fees:
+            type: array
+            items:
+              $ref: '#/components/schemas/FeeObject'
+          subscriptions:
+            type: array
+            items:
+              $ref: '#/components/schemas/SubscriptionObject'
+          error_details:
+            type: array
+            items:
+              type: object
+              required:
+              - lago_id
+              - error_code
+              - details
+              properties:
+                lago_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Unique identifier assigned to the error_detail within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the error's record within the Lago system.
+                  example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                error_code:
+                  type: string
+                  description: Code that specifies part of the application / connection, where the error originally happened
+                  example: tax_error
+                details:
+                  type: object
+                  description: Key value list of more elaborated error detail, where by the key of error_code an external service error details are stored
+                  example:
+                    tax_error: taxDateTooFarInFuture
+    CreditObject:
       type: object
       required:
-      - current_page
-      - total_pages
-      - total_count
+      - lago_id
+      - item
+      - amount_cents
+      - amount_currency
+      - invoice
+      - before_taxes
       properties:
-        current_page:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        amount_cents:
           type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
+          description: The amount of credit associated with the invoice, expressed in cents.
+          example: 1200
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the credit.
+            example: EUR
+        before_taxes:
+          type: boolean
+          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
+          example: false
+        item:
+          type: object
+          description: The item attached to the credit.
+          required:
+          - lago_item_id
+          - type
+          - code
+          - name
+          properties:
+            lago_item_id:
+              type: string
+              format: uuid
+              description: Unique identifier assigned to the credit item within the Lago application.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            type:
+              type: string
+              enum:
+              - coupon
+              - credit_note
+              - invoice
+              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
+              example: coupon
+            code:
+              type: string
+              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
+              example: startup_deal
+            name:
+              type: string
+              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
+              example: Startup Deal
+        invoice:
+          type: object
+          required:
+          - lago_id
+          - payment_status
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            payment_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              example: succeeded
+    InvoiceMetadataObject:
+      type: object
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the invoice metadata within the Lago application.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        key:
+          type: string
+          description: Represents the key of the metadata's key-value pair.
+          example: digital_ref_id
+        value:
+          type: string
+          description: Represents the value of the metadata's key-value pair.
+          example: INV-0123456-98765
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the metadata object was created. It follows the ISO 8601 datetime format and is expressed in Coordinated Universal Time (UTC).
+          example: '2022-04-29T08:59:51Z'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
     ApiErrorNotFound:
       type: object
       required:
@@ -962,6 +957,349 @@ components:
         code:
           type: string
           example: object_not_found
+    AppliedUsageThresholdObject:
+      type: object
+      required:
+      - lifetime_usage_amount_cents
+      - created_at
+      - usage_threshold
+      properties:
+        lifetime_usage_amount_cents:
+          type: integer
+          description: The amount of usage in cents that has been accumulated over the lifetime of the subscription.
+          example: 2000
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the lifetime usage was computed. It is expressed in UTC format according to the ISO 8601 datetime standard.
+        usage_threshold:
+          $ref: '#/components/schemas/UsageThresholdObject'
+    InvoiceObject:
+      allOf:
+      - type: object
+        required:
+        - lago_id
+        - number
+        - issuing_date
+        - invoice_type
+        - status
+        - payment_status
+        - currency
+        - fees_amount_cents
+        - coupons_amount_cents
+        - credit_notes_amount_cents
+        - sub_total_excluding_taxes_amount_cents
+        - taxes_amount_cents
+        - sub_total_including_taxes_amount_cents
+        - prepaid_credit_amount_cents
+        - progressive_billing_credit_amount_cents
+        - total_amount_cents
+        - version_number
+        properties:
+          lago_id:
+            type: string
+            format: uuid
+            description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
+            example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          sequential_id:
+            type: integer
+            description: This ID helps in uniquely identifying and organizing the invoices associated with a specific customer. It provides a sequential numbering system specific to the customer, allowing for easy tracking and management of invoices within the customer's context.
+            example: 2
+          number:
+            type: string
+            description: The unique number assigned to the invoice. This number serves as a distinct identifier for the invoice and helps in differentiating it from other invoices in the system.
+            example: LAG-1234-001-002
+          issuing_date:
+            type: string
+            format: date
+            description: The date when the invoice was issued. It is provided in the ISO 8601 date format.
+            example: '2022-04-30'
+          payment_dispute_lost_at:
+            type: string
+            format: date-time
+            description: The date when the payment dispute was lost. It is expressed in Coordinated Universal Time (UTC).
+            example: '2022-09-14T16:35:31Z'
+          payment_due_date:
+            type: string
+            format: date
+            description: The payment due date for the invoice, specified in the ISO 8601 date format.
+            example: '2022-04-30'
+          payment_overdue:
+            type: boolean
+            description: Specifies if the payment is considered as overdue.
+            example: true
+          net_payment_term:
+            type: integer
+            example: 30
+            description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
+          invoice_type:
+            type: string
+            enum:
+            - subscription
+            - add_on
+            - credit
+            - one_off
+            - progressive_billing
+            description: The type of invoice issued. Possible values are `subscription`, `one-off`, `credit` or `progressive_billing`.
+            example: subscription
+          status:
+            type: string
+            enum:
+            - draft
+            - finalized
+            - voided
+            - failed
+            description: 'The status of the invoice. It indicates the current state of the invoice and can have two possible values:
+
+              - `draft`: the invoice is in the draft state, waiting for the end of the grace period to be finalized. During this period, events can still be ingested and added to the invoice.
+
+              - `finalized`: the invoice has been issued and finalized. In this state, events cannot be ingested or added to the invoice anymore.
+
+              - `voided`: the invoice has been issued and subsequently voided. In this state, events cannot be ingested or added to the invoice anymore.
+
+              - `failed`: during an attempt of finalization of the invoice, an error happened. This invoice will have an array of error_details, explaining, in which part of the system an error happened and how it''s possible to fix it. This invoice can''t be edited or updated, only retried. This action will discard current error_details and will create new ones if the finalization failed again.'
+            example: finalized
+          payment_status:
+            type: string
+            enum:
+            - pending
+            - succeeded
+            - failed
+            description: 'The status of the payment associated with the invoice. It can have one of the following values:
+
+              - `pending`: the payment is pending, waiting for payment processing in Stripe or when the invoice is emitted but users have not updated the payment status through the endpoint.
+
+              - `succeeded`: the payment of the invoice has been successfully processed.
+
+              - `failed`: the payment of the invoice has failed or encountered an error during processing.'
+            example: succeeded
+          currency:
+            allOf:
+            - $ref: '#/components/schemas/Currency'
+            - description: The currency of the invoice issued.
+              example: EUR
+          fees_amount_cents:
+            type: integer
+            description: The total sum of fees amount in cents. It calculates the cumulative amount of all the fees associated with the invoice, providing a consolidated value.
+            example: 100
+          coupons_amount_cents:
+            type: integer
+            description: The total sum of all coupons discounted on the invoice. It calculates the cumulative discount amount applied by coupons, expressed in cents.
+            example: 10
+          credit_notes_amount_cents:
+            type: integer
+            description: The total sum of all credit notes discounted on the invoice. It calculates the cumulative discount amount applied by credit notes, expressed in cents.
+            example: 10
+          sub_total_excluding_taxes_amount_cents:
+            type: integer
+            description: 'Subtotal amount, excluding taxes, expressed in cents.
+
+              This field depends on the version number. Here are the definitions based on the version:
+
+              - Version 1: is equal to the sum of `fees_amount_cents`, minus `coupons_amount_cents`, and minus `prepaid_credit_amount_cents`.
+
+              - Version 2: is equal to the `fees_amount_cents`.
+
+              - Version 3 & 4: is equal to the `fees_amount_cents`, minus `coupons_amount_cents`'
+            example: 100
+          taxes_amount_cents:
+            type: integer
+            description: The sum of tax amount associated with the invoice, expressed in cents.
+            example: 20
+          sub_total_including_taxes_amount_cents:
+            type: integer
+            description: 'Subtotal amount, including taxes, expressed in cents.
+
+              This field depends on the version number. Here are the definitions based on the version:
+
+              - Version 1: is equal to the `total_amount_cents`.
+
+              - Version 2: is equal to the sum of `fees_amount_cents` and `taxes_amount_cents`.
+
+              - Version 3 & 4: is equal to the sum `sub_total_excluding_taxes_amount_cents` and `taxes_amount_cents`'
+            example: 120
+          prepaid_credit_amount_cents:
+            type: integer
+            description: The total sum of all prepaid credits discounted on the invoice. It calculates the cumulative discount amount applied by prepaid credits, expressed in cents.
+            example: 0
+          progressive_billing_credit_amount_cents:
+            type: integer
+            description: The usage already billed in previous invoices. Only apply to `progressive_billing` and `subscription` invoices.
+            example: 0
+          total_amount_cents:
+            type: integer
+            description: The sum of the amount and taxes amount on the invoice, expressed in cents. It calculates the total financial value of the invoice, including both the original amount and any applicable taxes.
+            example: 100
+          version_number:
+            type: integer
+            example: 3
+          file_url:
+            type: string
+            format: uri
+            description: Contains the URL that provides direct access to the invoice PDF file. You can use this URL to download or view the PDF document of the invoice
+            example: https://getlago.com/invoice/file
+      - type: object
+        properties:
+          customer:
+            allOf:
+            - $ref: '#/components/schemas/CustomerObject'
+            - description: The customer on which the invoice applies. It refers to the customer account or entity associated with the invoice.
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/InvoiceMetadataObject'
+          applied_taxes:
+            type: array
+            items:
+              $ref: '#/components/schemas/InvoiceAppliedTaxObject'
+          applied_usage_thresholds:
+            type: array
+            nullable: true
+            items:
+              $ref: '#/components/schemas/AppliedUsageThresholdObject'
+    Invoice:
+      type: object
+      required:
+      - invoice
+      properties:
+        invoice:
+          $ref: '#/components/schemas/InvoiceObjectExtended'
+    CustomerBillingConfiguration:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        invoice_grace_period:
+          type: integer
+          example: 3
+          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
+        payment_provider:
+          type: string
+          example: stripe
+          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
+
+            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
+          enum:
+          - stripe
+          - adyen
+          - gocardless
+        payment_provider_code:
+          type: string
+          example: stripe-eu-1
+          description: Unique code used to identify a payment provider connection.
+        provider_customer_id:
+          type: string
+          example: cus_12345
+          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
+        sync:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
+        sync_with_provider:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        document_locale:
+          type: string
+          example: fr
+          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
+        provider_payment_methods:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
+          example:
+          - card
+          - sepa_debit
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    CustomerMetadata:
+      type: object
+      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
+      required:
+      - lago_id
+      - key
+      - value
+      - display_in_invoice
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
+        key:
+          type: string
+          example: Purchase Order
+          description: The metadata object key
+        value:
+          type: string
+          example: '123456789'
+          description: The metadata object value
+        display_in_invoice:
+          type: boolean
+          example: true
+          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
+    InvoiceUpdateInput:
+      type: object
+      required:
+      - invoice
+      properties:
+        invoice:
+          type: object
+          properties:
+            payment_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              description: The payment status of the invoice. Possible values are `pending`, `failed` or `succeeded`.
+              example: succeeded
+            metadata:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: The metadata object identifier. Only required when updating existing metadata.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  key:
+                    type: string
+                    description: The key in the key-value pair of the metadata.
+                    example: digital_ref_id
+                  value:
+                    type: string
+                    description: The value in the key-value pair of the metadata.
+                    example: INV-0123456-98765
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     InvoiceOneOffCreateInput:
       type: object
       required:
@@ -1020,64 +1358,6 @@ components:
                     description: List of unique code used to identify the taxes.
                     example:
                     - french_standard_vat
-    InvoiceObjectExtended:
-      allOf:
-      - $ref: '#/components/schemas/InvoiceObject'
-      - type: object
-        properties:
-          credits:
-            type: array
-            items:
-              $ref: '#/components/schemas/CreditObject'
-          fees:
-            type: array
-            items:
-              $ref: '#/components/schemas/FeeObject'
-          subscriptions:
-            type: array
-            items:
-              $ref: '#/components/schemas/SubscriptionObject'
-          error_details:
-            type: array
-            items:
-              type: object
-              required:
-              - lago_id
-              - error_code
-              - details
-              properties:
-                lago_id:
-                  type: string
-                  format: uuid
-                  nullable: true
-                  description: Unique identifier assigned to the error_detail within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the error's record within the Lago system.
-                  example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                error_code:
-                  type: string
-                  description: Code that specifies part of the application / connection, where the error originally happened
-                  example: tax_error
-                details:
-                  type: object
-                  description: Key value list of more elaborated error detail, where by the key of error_code an external service error details are stored
-                  example:
-                    tax_error: taxDateTooFarInFuture
-    AppliedUsageThresholdObject:
-      type: object
-      required:
-      - lifetime_usage_amount_cents
-      - created_at
-      - usage_threshold
-      properties:
-        lifetime_usage_amount_cents:
-          type: integer
-          description: The amount of usage in cents that has been accumulated over the lifetime of the subscription.
-          example: 2000
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the lifetime usage was computed. It is expressed in UTC format according to the ISO 8601 datetime standard.
-        usage_threshold:
-          $ref: '#/components/schemas/UsageThresholdObject'
     FeeObject:
       type: object
       required:
@@ -1510,386 +1790,116 @@ components:
           description: List of fee applied taxes
           items:
             $ref: '#/components/schemas/FeeAppliedTaxObject'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    InvoiceAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
+    PaginationMeta:
       type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
       properties:
-        lago_invoice_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the invoice, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        fees_amount_cents:
+        current_page:
           type: integer
-          description: Fees total amount on which the tax is applied
-          example: 20000
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
+          description: Current page.
+          example: 2
+        next_page:
           type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    ApiErrorNotAllowed:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 405
-        error:
-          type: string
-          example: Method Not Allowed
-        code:
-          type: string
-          example: not_allowed
-    CustomerMetadata:
-      type: object
-      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
-      required:
-      - lago_id
-      - key
-      - value
-      - display_in_invoice
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
-        key:
-          type: string
-          example: Purchase Order
-          description: The metadata object key
-        value:
-          type: string
-          example: '123456789'
-          description: The metadata object value
-        display_in_invoice:
-          type: boolean
-          example: true
-          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-04-29T08:59:51Z'
-          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
-    InvoiceMetadataObject:
-      type: object
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the invoice metadata within the Lago application.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        key:
-          type: string
-          description: Represents the key of the metadata's key-value pair.
-          example: digital_ref_id
-        value:
-          type: string
-          description: Represents the value of the metadata's key-value pair.
-          example: INV-0123456-98765
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the metadata object was created. It follows the ISO 8601 datetime format and is expressed in Coordinated Universal Time (UTC).
-          example: '2022-04-29T08:59:51Z'
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
-      type: object
-      properties:
-        lago_fee_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the fee, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    CreditObject:
-      type: object
-      required:
-      - lago_id
-      - item
-      - amount_cents
-      - amount_currency
-      - invoice
-      - before_taxes
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the credit within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the credit's item record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        amount_cents:
-          type: integer
-          description: The amount of credit associated with the invoice, expressed in cents.
-          example: 1200
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the credit.
-            example: EUR
-        before_taxes:
-          type: boolean
-          description: Indicates whether the credit is applied on the amount before taxes (coupons) or after taxes (credit notes). This flag helps determine the order in which credits are applied to the invoice calculation
-          example: false
-        item:
-          type: object
-          description: The item attached to the credit.
-          required:
-          - lago_item_id
-          - type
-          - code
-          - name
-          properties:
-            lago_item_id:
-              type: string
-              format: uuid
-              description: Unique identifier assigned to the credit item within the Lago application.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            type:
-              type: string
-              enum:
-              - coupon
-              - credit_note
-              - invoice
-              description: The type of credit applied. Possible values are `coupon`, `credit_note` or `invoice` (for `progressive_billing` invoice).
-              example: coupon
-            code:
-              type: string
-              description: The code of the credit applied. It can be the code of the coupon attached to the credit, the credit note's number or the `progressive_billing` invoice number.
-              example: startup_deal
-            name:
-              type: string
-              description: The name of the credit applied. It can be the name of the coupon attached to the credit, the initial invoice's number linked to the credit note or the `progressive_billing` invoice number.
-              example: Startup Deal
-        invoice:
-          type: object
-          required:
-          - lago_id
-          - payment_status
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            payment_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              example: succeeded
-    UsageThresholdObject:
-      type: object
-      required:
-      - lago_id
-      - amount_cents
-      - recurring
-      - created_at
-      - updated_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the usage threshold created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        threshold_display_name:
-          type: string
+          description: Next page.
+          example: 3
           nullable: true
-          description: The display name of the usage threshold.
-          example: Threshold 1
-        amount_cents:
+        prev_page:
           type: integer
-          description: The amount to reach to trigger a `progressive_billing` invoice.
-          example: 10000
-        recurring:
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    Address:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        address_line1:
+          type: string
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+          nullable: true
+        address_line2:
+          type: string
+          example: null
+          description: The second line of the billing address
+          nullable: true
+        city:
+          type: string
+          example: Woodland Hills
+          description: The city of the customer's billing address
+          nullable: true
+        country:
+          allOf:
+          - $ref: '#/components/schemas/Country'
+          - nullable: true
+            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+            example: US
+        state:
+          type: string
+          example: CA
+          description: The state of the customer's billing address
+          nullable: true
+        zipcode:
+          type: string
+          example: '91364'
+          description: The zipcode of the customer's billing address
+          nullable: true
+    IntegrationCustomer:
+      type: object
+      description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the integration customer object in the Lago application.
+        type:
+          type: string
+          example: netsuite
+          description: 'The integration type used for accounting and tax syncs.
+
+            Accepted values: `netsuite, anrok`.'
+          enum:
+          - netsuite
+          - anrok
+        integration_code:
+          type: string
+          example: netsuite-eu-1
+          description: Unique code used to identify an integration connection.
+        external_customer_id:
+          type: string
+          example: cus_12345
+          description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
+        sync_with_provider:
           type: boolean
-          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
           example: true
-        created_at:
+          description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        subsidiary_id:
           type: string
-          format: date-time
-          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
+          example: '2'
+          description: This optional field is needed only when working with `netsuite` connection.
+    InvoicesPaginated:
+      type: object
+      required:
+      - invoices
+      - meta
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
     SubscriptionObject:
       type: object
       required:
@@ -2021,128 +2031,23 @@ components:
           example: '2022-09-08T00:00:00Z'
           description: The date and time when the current billing period ends, represented in ISO 8601 date format.
           nullable: true
-    InvoiceUpdateInput:
+    ApiErrorNotAllowed:
       type: object
       required:
-      - invoice
+      - status
+      - error
+      - code
       properties:
-        invoice:
-          type: object
-          properties:
-            payment_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              description: The payment status of the invoice. Possible values are `pending`, `failed` or `succeeded`.
-              example: succeeded
-            metadata:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    description: The metadata object identifier. Only required when updating existing metadata.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  key:
-                    type: string
-                    description: The key in the key-value pair of the metadata.
-                    example: digital_ref_id
-                  value:
-                    type: string
-                    description: The value in the key-value pair of the metadata.
-                    example: INV-0123456-98765
-    Invoice:
-      type: object
-      required:
-      - invoice
-      properties:
-        invoice:
-          $ref: '#/components/schemas/InvoiceObjectExtended'
-    IntegrationCustomer:
-      type: object
-      description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier for the integration customer object in the Lago application.
-        type:
-          type: string
-          example: netsuite
-          description: 'The integration type used for accounting and tax syncs.
-
-            Accepted values: `netsuite, anrok`.'
-          enum:
-          - netsuite
-          - anrok
-        integration_code:
-          type: string
-          example: netsuite-eu-1
-          description: Unique code used to identify an integration connection.
-        external_customer_id:
-          type: string
-          example: cus_12345
-          description: The customer ID within the integration's system. If this field is not provided, Lago has the option to create a new customer record within the integration's system on behalf of the customer.
-        sync_with_provider:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-        subsidiary_id:
-          type: string
-          example: '2'
-          description: This optional field is needed only when working with `netsuite` connection.
-    CustomerBillingConfiguration:
-      type: object
-      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
-      properties:
-        invoice_grace_period:
+        status:
           type: integer
-          example: 3
-          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
-        payment_provider:
+          format: int32
+          example: 405
+        error:
           type: string
-          example: stripe
-          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
-
-            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
-          enum:
-          - stripe
-          - adyen
-          - gocardless
-        payment_provider_code:
+          example: Method Not Allowed
+        code:
           type: string
-          example: stripe-eu-1
-          description: Unique code used to identify a payment provider connection.
-        provider_customer_id:
-          type: string
-          example: cus_12345
-          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
-        sync:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
-        sync_with_provider:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-        document_locale:
-          type: string
-          example: fr
-          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
-        provider_payment_methods:
-          type: array
-          nullable: true
-          items:
-            type: string
-          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
-          example:
-          - card
-          - sepa_debit
+          example: not_allowed
     CustomerObject:
       allOf:
       - type: object
@@ -2322,18 +2227,113 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/IntegrationCustomer'
-    InvoicesPaginated:
+    BaseAppliedTax:
+      type: object
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the applied tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_tax_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        tax_name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        tax_code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        tax_rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        tax_description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        amount_cents:
+          type: integer
+          description: Amount of the tax
+          example: 2000
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: Currency of the tax
+            example: USD
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
+          example: '2022-09-14T16:35:31Z'
+    InvoiceAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_invoice_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the invoice, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        fees_amount_cents:
+          type: integer
+          description: Fees total amount on which the tax is applied
+          example: 20000
+    ApiErrorBadRequest:
       type: object
       required:
-      - invoices
-      - meta
+      - status
+      - error
       properties:
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    UsageThresholdObject:
+      type: object
+      required:
+      - lago_id
+      - amount_cents
+      - recurring
+      - created_at
+      - updated_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the usage threshold created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        threshold_display_name:
+          type: string
+          nullable: true
+          description: The display name of the usage threshold.
+          example: Threshold 1
+        amount_cents:
+          type: integer
+          description: The amount to reach to trigger a `progressive_billing` invoice.
+          example: 10000
+        recurring:
+          type: boolean
+          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
     Timezone:
       type: string
       example: America/Los_Angeles
@@ -2474,33 +2474,6 @@ components:
       - Pacific/Port_Moresby
       - Pacific/Tongatapu
   parameters:
-    lago_invoice_id:
-      name: lago_id
-      in: path
-      description: Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system.
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
     external_customer_id:
       name: external_customer_id
       in: query
@@ -2510,37 +2483,64 @@ components:
       schema:
         type: string
         example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    lago_invoice_id:
+      name: lago_id
+      in: path
+      description: Unique identifier assigned to the invoice within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the invoice's record within the Lago system.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
   responses:
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
     UnprocessableEntity:
       description: Unprocessable entity error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
   securitySchemes:
     bearerAuth:
       type: http

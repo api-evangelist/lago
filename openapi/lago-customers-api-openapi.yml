@@ -325,6 +325,95 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
+    CustomerUsageObject:
+      type: object
+      required:
+      - from_datetime
+      - to_datetime
+      - issuing_date
+      - amount_cents
+      - taxes_amount_cents
+      - total_amount_cents
+      - charges_usage
+      properties:
+        from_datetime:
+          type: string
+          format: date-time
+          description: The lower bound of the billing period, expressed in the ISO 8601 datetime format in Coordinated Universal Time (UTC).
+          example: '2022-07-01T00:00:00Z'
+        to_datetime:
+          type: string
+          format: date-time
+          description: The upper bound of the billing period, expressed in the ISO 8601 datetime format in Coordinated Universal Time (UTC).
+          example: '2022-07-31T23:59:59Z'
+        issuing_date:
+          type: string
+          format: date
+          description: The date of creation of the invoice.
+          example: '2022-08-01'
+        lago_invoice_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier associated with the invoice related to this particular usage record.
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of the customer's current usage.
+            example: EUR
+        amount_cents:
+          type: integer
+          description: The amount in cents, tax excluded.
+          example: 123
+        taxes_amount_cents:
+          type: integer
+          description: The tax amount in cents.
+          example: 200
+        total_amount_cents:
+          type: integer
+          description: The total amount in cents, tax included.
+          example: 123
+        charges_usage:
+          type: array
+          description: Array of charges that comprise the current usage. It contains detailed information about individual charge items associated with the usage.
+          items:
+            $ref: '#/components/schemas/CustomerChargeUsageObject'
+    CustomerChargeFiltersUsageObject:
+      type: array
+      description: Array of filter object, representing multiple dimensions for a charge item.
+      required:
+      - values
+      - units
+      - events_count
+      - amount_cents
+      items:
+        type: object
+        properties:
+          units:
+            type: string
+            pattern: ^[0-9]+.?[0-9]*$
+            example: '0.9'
+            description: The number of units consumed for a specific charge filter related to a charge item.
+          amount_cents:
+            type: integer
+            example: 1000
+            description: The amount in cents, tax excluded, consumed for a specific charge filter related to a charge item.
+          events_count:
+            type: integer
+            example: 10
+            description: The quantity of usage events that have been recorded for a particular charge filter during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+          invoice_display_name:
+            type: string
+            description: Specifies the name that will be displayed on an invoice.
+            example: AWS eu-east-1
+          values:
+            type: object
+            description: List of filter values applied to the usage.
+            additionalProperties:
+              type: string
+            example:
+              region: us-east-1
     Country:
       type: string
       example: US
@@ -578,66 +667,542 @@ components:
       - ZA
       - ZM
       - ZW
-    ApiErrorBadRequest:
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
+      - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 400
+          example: 422
         error:
           type: string
-          example: Bad request
-    CustomerPastUsage:
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SZL
+      - THB
+      - TJS
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    CustomersPaginated:
       type: object
       required:
-      - usage_periods
+      - customers
       - meta
       properties:
-        usage_periods:
+        customers:
           type: array
           items:
-            $ref: '#/components/schemas/CustomerUsage'
+            $ref: '#/components/schemas/CustomerObjectExtended'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-    Address:
+    TaxObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - rate
+      - applied_to_organization
+      - customers_count
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+        add_ons_count:
+          type: integer
+          description: Number of add-ons this tax is applied to.
+          example: 0
+        charges_count:
+          type: integer
+          description: Number of charges this tax is applied to.
+          example: 0
+        customers_count:
+          type: integer
+          description: Number of customers this tax is applied to (directly or via the organization's default).
+          example: 0
+        plans_count:
+          type: integer
+          description: Number of plans this tax is applied to.
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    CustomerChargeUsageObject:
+      type: object
+      required:
+      - units
+      - events_count
+      - amount_cents
+      - amount_currency
+      - charge
+      - billable_metric
+      - groups
+      properties:
+        units:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          example: '1.0'
+          description: The number of units consumed by the customer for a specific charge item.
+        events_count:
+          type: integer
+          example: 10
+          description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+        amount_cents:
+          type: integer
+          example: 123
+          description: The amount in cents, tax excluded, consumed by the customer for a specific charge item.
+        amount_currency:
+          allOf:
+          - $ref: '#/components/schemas/Currency'
+          - description: The currency of a usage item consumed by the customer.
+            example: EUR
+        charge:
+          type: object
+          description: Object listing all the properties for a specific charge item.
+          required:
+          - lago_id
+          - charge_model
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Unique identifier assigned to the charge within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the charge's record within the Lago system.
+            charge_model:
+              type: string
+              description: The pricing model applied to this charge. Possible values are standard, `graduated`, `percentage`, `package` or `volume`.
+              enum:
+              - standard
+              - graduated
+              - package
+              - percentage
+              - volume
+              example: graduated
+            invoice_display_name:
+              type: string
+              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+              example: Setup
+        billable_metric:
+          type: object
+          description: The related billable metric object.
+          required:
+          - lago_id
+          - name
+          - code
+          - aggregation_type
+          properties:
+            lago_id:
+              type: string
+              format: uuid
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Unique identifier assigned to the billable metric within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the billable metric's record within the Lago system.
+            name:
+              type: string
+              example: Storage
+              description: The name of the billable metric used for this charge.
+            code:
+              type: string
+              example: storage
+              description: The code of the billable metric used for this charge.
+            aggregation_type:
+              type: string
+              description: The aggregation type of the billable metric used for this charge. Possible values are `count_agg`, `sum_agg`, `max_agg` or `unique_count_agg`.
+              enum:
+              - count_agg
+              - sum_agg
+              - max_agg
+              - unique_count_agg
+              - weighted_sum_agg
+              - latest_agg
+              example: sum_agg
+        filters:
+          $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
+        grouped_usage:
+          $ref: '#/components/schemas/CustomerChargeGroupedUsageObject'
+    Customer:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          $ref: '#/components/schemas/CustomerObjectExtended'
+    CustomerBillingConfiguration:
       type: object
       description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
       properties:
-        address_line1:
+        invoice_grace_period:
+          type: integer
+          example: 3
+          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
+        payment_provider:
           type: string
-          example: 5230 Penfield Ave
-          description: The first line of the billing address
-          nullable: true
-        address_line2:
+          example: stripe
+          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
+
+            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
+          enum:
+          - stripe
+          - adyen
+          - gocardless
+        payment_provider_code:
           type: string
-          example: null
-          description: The second line of the billing address
-          nullable: true
-        city:
+          example: stripe-eu-1
+          description: Unique code used to identify a payment provider connection.
+        provider_customer_id:
           type: string
-          example: Woodland Hills
-          description: The city of the customer's billing address
+          example: cus_12345
+          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
+        sync:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
+        sync_with_provider:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        document_locale:
+          type: string
+          example: fr
+          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
+        provider_payment_methods:
+          type: array
           nullable: true
-        country:
+          items:
+            type: string
+          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
+          example:
+          - card
+          - sepa_debit
+    CustomerMetadata:
+      type: object
+      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
+      required:
+      - lago_id
+      - key
+      - value
+      - display_in_invoice
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
+        key:
+          type: string
+          example: Purchase Order
+          description: The metadata object key
+        value:
+          type: string
+          example: '123456789'
+          description: The metadata object value
+        display_in_invoice:
+          type: boolean
+          example: true
+          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
+    AppliedCouponObject:
+      type: object
+      required:
+      - lago_id
+      - lago_coupon_id
+      - coupon_code
+      - coupon_name
+      - external_customer_id
+      - lago_customer_id
+      - status
+      - frequency
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the applied coupon, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_coupon_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the coupon, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        coupon_code:
+          type: string
+          description: Unique code used to identify the coupon.
+          example: startup_deal
+        coupon_name:
+          type: string
+          description: The name of the coupon.
+          example: Startup Deal
+        lago_customer_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the customer, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        external_customer_id:
+          type: string
+          description: The customer external unique identifier (provided by your own application)
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+        status:
+          type: string
+          enum:
+          - active
+          - terminated
+          description: The status of the coupon. Can be either `active` or `terminated`.
+          example: active
+        amount_cents:
+          type: integer
+          nullable: true
+          description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
+          example: 2000
+        amount_cents_remaining:
+          type: integer
+          nullable: true
+          description: The remaining amount in cents for a `fixed_amount` coupon with a frequency set to `once`. This field indicates the remaining balance or value that can still be utilized from the coupon.
+          example: 50
+        amount_currency:
           allOf:
-          - $ref: '#/components/schemas/Country'
+          - $ref: '#/components/schemas/Currency'
           - nullable: true
-            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
-            example: US
-        state:
+            description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
+            example: EUR
+        percentage_rate:
           type: string
-          example: CA
-          description: The state of the customer's billing address
+          pattern: ^[0-9]+.?[0-9]*$
           nullable: true
-        zipcode:
+          description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
+          example: null
+        frequency:
           type: string
-          example: '91364'
-          description: The zipcode of the customer's billing address
+          enum:
+          - once
+          - recurring
+          - forever
+          description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
+
+
+            - If set to `once`, the coupon is applicable only for a single use.
+
+            - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
+
+            - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
+          example: recurring
+        frequency_duration:
+          type: integer
           nullable: true
+          description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
+          example: 3
+        frequency_duration_remaining:
+          type: integer
+          nullable: true
+          description: The remaining number of billing periods to which the coupon is applicable. This field determines the remaining usage or availability of the coupon based on the remaining billing periods.
+          example: 1
+        expiration_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time after which the coupon will stop applying to customer's invoices. Once the expiration date is reached, the coupon will no longer be applicable, and any further invoices generated for the customer will not include the coupon discount.
+          example: '2022-04-29T08:59:51Z'
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the coupon was assigned to a customer. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2022-04-29T08:59:51Z'
+        terminated_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: This field indicates the specific moment when the coupon amount is fully utilized or when the coupon is removed from the customer's coupon list. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2022-04-29T08:59:51Z'
     CustomerCreateInput:
       type: object
       required:
@@ -848,178 +1413,26 @@ components:
                     type: boolean
                     example: true
                     description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
-    AppliedCouponObject:
+    ApiErrorUnauthorized:
       type: object
       required:
-      - lago_id
-      - lago_coupon_id
-      - coupon_code
-      - coupon_name
-      - external_customer_id
-      - lago_customer_id
       - status
-      - frequency
-      - created_at
+      - error
       properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the applied coupon, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_coupon_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the coupon, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        coupon_code:
-          type: string
-          description: Unique code used to identify the coupon.
-          example: startup_deal
-        coupon_name:
-          type: string
-          description: The name of the coupon.
-          example: Startup Deal
-        lago_customer_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the customer, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        external_customer_id:
-          type: string
-          description: The customer external unique identifier (provided by your own application)
-          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
         status:
-          type: string
-          enum:
-          - active
-          - terminated
-          description: The status of the coupon. Can be either `active` or `terminated`.
-          example: active
-        amount_cents:
           type: integer
-          nullable: true
-          description: The amount of the coupon in cents. This field is required only for coupon with `fixed_amount` type.
-          example: 2000
-        amount_cents_remaining:
-          type: integer
-          nullable: true
-          description: The remaining amount in cents for a `fixed_amount` coupon with a frequency set to `once`. This field indicates the remaining balance or value that can still be utilized from the coupon.
-          example: 50
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - nullable: true
-            description: The currency of the coupon. This field is required only for coupon with `fixed_amount` type.
-            example: EUR
-        percentage_rate:
+          format: int32
+          example: 401
+        error:
           type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          nullable: true
-          description: The percentage rate of the coupon. This field is required only for coupons with a `percentage` coupon type.
-          example: null
-        frequency:
-          type: string
-          enum:
-          - once
-          - recurring
-          - forever
-          description: 'The type of frequency for the coupon. It can have three possible values: `once`, `recurring` or `forever`.
-
-
-            - If set to `once`, the coupon is applicable only for a single use.
-
-            - If set to `recurring`, the coupon can be used multiple times for recurring billing periods.
-
-            - If set to `forever`, the coupon has unlimited usage and can be applied indefinitely.'
-          example: recurring
-        frequency_duration:
-          type: integer
-          nullable: true
-          description: Specifies the number of billing periods to which the coupon applies. This field is required only for coupons with a `recurring` frequency type
-          example: 3
-        frequency_duration_remaining:
-          type: integer
-          nullable: true
-          description: The remaining number of billing periods to which the coupon is applicable. This field determines the remaining usage or availability of the coupon based on the remaining billing periods.
-          example: 1
-        expiration_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time after which the coupon will stop applying to customer's invoices. Once the expiration date is reached, the coupon will no longer be applicable, and any further invoices generated for the customer will not include the coupon discount.
-          example: '2022-04-29T08:59:51Z'
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the coupon was assigned to a customer. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2022-04-29T08:59:51Z'
-        terminated_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: This field indicates the specific moment when the coupon amount is fully utilized or when the coupon is removed from the customer's coupon list. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2022-04-29T08:59:51Z'
-    Customer:
+          example: Unauthorized
+    CustomerUsage:
       type: object
       required:
-      - customer
+      - customer_usage
       properties:
-        customer:
-          $ref: '#/components/schemas/CustomerObjectExtended'
-    CustomerUsageObject:
-      type: object
-      required:
-      - from_datetime
-      - to_datetime
-      - issuing_date
-      - amount_cents
-      - taxes_amount_cents
-      - total_amount_cents
-      - charges_usage
-      properties:
-        from_datetime:
-          type: string
-          format: date-time
-          description: The lower bound of the billing period, expressed in the ISO 8601 datetime format in Coordinated Universal Time (UTC).
-          example: '2022-07-01T00:00:00Z'
-        to_datetime:
-          type: string
-          format: date-time
-          description: The upper bound of the billing period, expressed in the ISO 8601 datetime format in Coordinated Universal Time (UTC).
-          example: '2022-07-31T23:59:59Z'
-        issuing_date:
-          type: string
-          format: date
-          description: The date of creation of the invoice.
-          example: '2022-08-01'
-        lago_invoice_id:
-          type: string
-          format: uuid
-          nullable: true
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier associated with the invoice related to this particular usage record.
-        currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the customer's current usage.
-            example: EUR
-        amount_cents:
-          type: integer
-          description: The amount in cents, tax excluded.
-          example: 123
-        taxes_amount_cents:
-          type: integer
-          description: The tax amount in cents.
-          example: 200
-        total_amount_cents:
-          type: integer
-          description: The total amount in cents, tax included.
-          example: 123
-        charges_usage:
-          type: array
-          description: Array of charges that comprise the current usage. It contains detailed information about individual charge items associated with the usage.
-          items:
-            $ref: '#/components/schemas/CustomerChargeUsageObject'
+        customer_usage:
+          $ref: '#/components/schemas/CustomerUsageObject'
     PaginationMeta:
       type: object
       required:
@@ -1049,315 +1462,6 @@ components:
           type: integer
           description: Total number of records.
           example: 70
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
-    AppliedCoupon:
-      type: object
-      required:
-      - applied_coupon
-      properties:
-        applied_coupon:
-          $ref: '#/components/schemas/AppliedCouponObject'
-    Currency:
-      type: string
-      example: USD
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BRL
-      - BSD
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHF
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - CRC
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HRK
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - ISK
-      - JMD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KRW
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRO
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SEK
-      - SGD
-      - SHP
-      - SLL
-      - SOS
-      - SRD
-      - STD
-      - SZL
-      - THB
-      - TJS
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - UYU
-      - UZS
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XOF
-      - XPF
-      - YER
-      - ZAR
-      - ZMW
-    CustomerChargeFiltersUsageObject:
-      type: array
-      description: Array of filter object, representing multiple dimensions for a charge item.
-      required:
-      - values
-      - units
-      - events_count
-      - amount_cents
-      items:
-        type: object
-        properties:
-          units:
-            type: string
-            pattern: ^[0-9]+.?[0-9]*$
-            example: '0.9'
-            description: The number of units consumed for a specific charge filter related to a charge item.
-          amount_cents:
-            type: integer
-            example: 1000
-            description: The amount in cents, tax excluded, consumed for a specific charge filter related to a charge item.
-          events_count:
-            type: integer
-            example: 10
-            description: The quantity of usage events that have been recorded for a particular charge filter during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-          invoice_display_name:
-            type: string
-            description: Specifies the name that will be displayed on an invoice.
-            example: AWS eu-east-1
-          values:
-            type: object
-            description: List of filter values applied to the usage.
-            additionalProperties:
-              type: string
-            example:
-              region: us-east-1
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
-    CustomerMetadata:
-      type: object
-      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
-      required:
-      - lago_id
-      - key
-      - value
-      - display_in_invoice
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
-        key:
-          type: string
-          example: Purchase Order
-          description: The metadata object key
-        value:
-          type: string
-          example: '123456789'
-          description: The metadata object value
-        display_in_invoice:
-          type: boolean
-          example: true
-          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-04-29T08:59:51Z'
-          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    CustomersPaginated:
-      type: object
-      required:
-      - customers
-      - meta
-      properties:
-        customers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerObjectExtended'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    CustomerChargeGroupedUsageObject:
-      type: array
-      description: Array of aggregated fees, grouped by the event properties defined in a `standard` charge model.
-      required:
-      - amount_cents
-      - events_count
-      - units
-      - grouped_by
-      - groups
-      items:
-        type: object
-        properties:
-          amount_cents:
-            type: integer
-            example: 1000
-            description: The amount in cents, tax excluded, consumed for a specific group related to a charge item.
-          events_count:
-            type: integer
-            example: 10
-            description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-          units:
-            type: string
-            pattern: ^[0-9]+.?[0-9]*$
-            example: '0.9'
-            description: The number of units consumed for a specific group related to a charge item.
-          grouped_by:
-            type: object
-            description: Key value list of event properties aggregated by the charge model
-            additionalProperties:
-              type: string
-          filters:
-            $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
     CustomerObjectExtended:
       allOf:
       - $ref: '#/components/schemas/CustomerObject'
@@ -1372,6 +1476,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TaxObject'
+    Address:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        address_line1:
+          type: string
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+          nullable: true
+        address_line2:
+          type: string
+          example: null
+          description: The second line of the billing address
+          nullable: true
+        city:
+          type: string
+          example: Woodland Hills
+          description: The city of the customer's billing address
+          nullable: true
+        country:
+          allOf:
+          - $ref: '#/components/schemas/Country'
+          - nullable: true
+            description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+            example: US
+        state:
+          type: string
+          example: CA
+          description: The state of the customer's billing address
+          nullable: true
+        zipcode:
+          type: string
+          example: '91364'
+          description: The zipcode of the customer's billing address
+          nullable: true
     IntegrationCustomer:
       type: object
       description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
@@ -1406,53 +1545,6 @@ components:
           type: string
           example: '2'
           description: This optional field is needed only when working with `netsuite` connection.
-    CustomerBillingConfiguration:
-      type: object
-      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
-      properties:
-        invoice_grace_period:
-          type: integer
-          example: 3
-          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items
-        payment_provider:
-          type: string
-          example: stripe
-          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
-
-            Accepted values: `stripe`, `adyen`, `gocardless` or null. This field is required if you intend to assign a `provider_customer_id`.'
-          enum:
-          - stripe
-          - adyen
-          - gocardless
-        payment_provider_code:
-          type: string
-          example: stripe-eu-1
-          description: Unique code used to identify a payment provider connection.
-        provider_customer_id:
-          type: string
-          example: cus_12345
-          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
-        sync:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
-        sync_with_provider:
-          type: boolean
-          example: true
-          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
-        document_locale:
-          type: string
-          example: fr
-          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
-        provider_payment_methods:
-          type: array
-          nullable: true
-          items:
-            type: string
-          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit` and `link`. Note that when `link` is selected, `card` should also be provided in the array.
-          example:
-          - card
-          - sepa_debit
     CustomerObject:
       allOf:
       - type: object
@@ -1632,70 +1724,58 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/IntegrationCustomer'
-    TaxObject:
+    CustomerChargeGroupedUsageObject:
+      type: array
+      description: Array of aggregated fees, grouped by the event properties defined in a `standard` charge model.
+      required:
+      - amount_cents
+      - events_count
+      - units
+      - grouped_by
+      - groups
+      items:
+        type: object
+        properties:
+          amount_cents:
+            type: integer
+            example: 1000
+            description: The amount in cents, tax excluded, consumed for a specific group related to a charge item.
+          events_count:
+            type: integer
+            example: 10
+            description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
+          units:
+            type: string
+            pattern: ^[0-9]+.?[0-9]*$
+            example: '0.9'
+            description: The number of units consumed for a specific group related to a charge item.
+          grouped_by:
+            type: object
+            description: Key value list of event properties aggregated by the charge model
+            additionalProperties:
+              type: string
+          filters:
+            $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
+    AppliedCoupon:
       type: object
       required:
-      - lago_id
-      - name
-      - code
-      - rate
-      - applied_to_organization
-      - customers_count
-      - created_at
+      - applied_coupon
       properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
-        add_ons_count:
-          type: integer
-          description: Number of add-ons this tax is applied to.
-          example: 0
-        charges_count:
-          type: integer
-          description: Number of charges this tax is applied to.
-          example: 0
-        customers_count:
-          type: integer
-          description: Number of customers this tax is applied to (directly or via the organization's default).
-          example: 0
-        plans_count:
-          type: integer
-          description: Number of plans this tax is applied to.
-          example: 0
-        created_at:
-          type: string
-          format: date-time
-          description: Creation date of the tax.
-          example: '2023-07-06T14:35:58Z'
-    CustomerUsage:
+        applied_coupon:
+          $ref: '#/components/schemas/AppliedCouponObject'
+    ApiErrorBadRequest:
       type: object
       required:
-      - customer_usage
+      - status
+      - error
       properties:
-        customer_usage:
-          $ref: '#/components/schemas/CustomerUsageObject'
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
     Timezone:
       type: string
       example: America/Los_Angeles
@@ -1835,105 +1915,25 @@ components:
       - Pacific/Pago_Pago
       - Pacific/Port_Moresby
       - Pacific/Tongatapu
-    CustomerChargeUsageObject:
+    CustomerPastUsage:
       type: object
       required:
-      - units
-      - events_count
-      - amount_cents
-      - amount_currency
-      - charge
-      - billable_metric
-      - groups
+      - usage_periods
+      - meta
       properties:
-        units:
-          type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          example: '1.0'
-          description: The number of units consumed by the customer for a specific charge item.
-        events_count:
-          type: integer
-          example: 10
-          description: The quantity of usage events that have been recorded for a particular charge during the specified time period. These events may also be referred to as the number of transactions in some contexts.
-        amount_cents:
-          type: integer
-          example: 123
-          description: The amount in cents, tax excluded, consumed by the customer for a specific charge item.
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of a usage item consumed by the customer.
-            example: EUR
-        charge:
-          type: object
-          description: Object listing all the properties for a specific charge item.
-          required:
-          - lago_id
-          - charge_model
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Unique identifier assigned to the charge within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the charge's record within the Lago system.
-            charge_model:
-              type: string
-              description: The pricing model applied to this charge. Possible values are standard, `graduated`, `percentage`, `package` or `volume`.
-              enum:
-              - standard
-              - graduated
-              - package
-              - percentage
-              - volume
-              example: graduated
-            invoice_display_name:
-              type: string
-              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-              example: Setup
-        billable_metric:
-          type: object
-          description: The related billable metric object.
-          required:
-          - lago_id
-          - name
-          - code
-          - aggregation_type
-          properties:
-            lago_id:
-              type: string
-              format: uuid
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Unique identifier assigned to the billable metric within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the billable metric's record within the Lago system.
-            name:
-              type: string
-              example: Storage
-              description: The name of the billable metric used for this charge.
-            code:
-              type: string
-              example: storage
-              description: The code of the billable metric used for this charge.
-            aggregation_type:
-              type: string
-              description: The aggregation type of the billable metric used for this charge. Possible values are `count_agg`, `sum_agg`, `max_agg` or `unique_count_agg`.
-              enum:
-              - count_agg
-              - sum_agg
-              - max_agg
-              - unique_count_agg
-              - weighted_sum_agg
-              - latest_agg
-              example: sum_agg
-        filters:
-          $ref: '#/components/schemas/CustomerChargeFiltersUsageObject'
-        grouped_usage:
-          $ref: '#/components/schemas/CustomerChargeGroupedUsageObject'
+        usage_periods:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerUsage'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
   responses:
-    BadRequest:
-      description: Bad Request error
+    UnprocessableEntity:
+      description: Unprocessable entity error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     Unauthorized:
       description: Unauthorized error
       content:
@@ -1946,12 +1946,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
+    BadRequest:
+      description: Bad Request error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+            $ref: '#/components/schemas/ApiErrorBadRequest'
   parameters:
     page:
       name: page

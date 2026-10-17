@@ -142,245 +142,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ChargeFilterInput:
-      type: object
-      description: Values used to apply differentiated pricing based on additional event properties.
-      properties:
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
-          example: AWS
-          nullable: true
-        properties:
-          allOf:
-          - $ref: '#/components/schemas/ChargeProperties'
-          - description: List of all thresholds utilized for calculating the charge.
-        values:
-          type: object
-          description: List of possible filter values. The key and values must match one of the billable metric filters.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          example:
-            region:
-            - us-east-1
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
-    ChargeObject:
-      type: object
-      required:
-      - lago_id
-      - lago_billable_metric_id
-      - billable_metric_code
-      - created_at
-      - charge_model
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of charge, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_billable_metric_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the billable metric created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        billable_metric_code:
-          type: string
-          description: Unique code identifying a billable metric.
-          example: requests
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-          example: Setup
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the charge was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2022-09-14T16:35:31Z'
-        charge_model:
-          type: string
-          description: Specifies the pricing model used for the calculation of the final fee. It can be `standard`, `graduated`, `graduated_percentage`, `package`, `percentage`, `volume` or `dynamic`.
-          enum:
-          - standard
-          - graduated
-          - graduated_percentage
-          - package
-          - percentage
-          - volume
-          - dynamic
-        pay_in_advance:
-          type: boolean
-          description: This field determines the billing timing for this specific usage-based charge. When set to `true`, the charge is due and invoiced immediately. Conversely, when set to `false`, the charge is due and invoiced at the end of each billing period.
-          example: true
-        invoiceable:
-          type: boolean
-          description: This field specifies whether the charge should be included in a proper invoice. If set to `false`, no invoice will be issued for this charge. You can only set it to `false` when `pay_in_advance` is `true`.
-          example: true
-        regroup_paid_fees:
-          type: string
-          nullable: true
-          enum:
-          - null
-          - invoice
-          description: 'This setting can only be configured if `pay_in_advance` is `true` and `invoiceable` is `false`.
-
-            This field determines whether and when the charge fee should be included in
-
-            the invoice. If `null`, no invoice will be issued for this charge fee.
-
-            If `invoice`, an invoice will be generated at the end of the period,
-
-            consolidating all charge fees with a succeeded payment status.'
-          example: invoice
-        prorated:
-          type: boolean
-          example: false
-          description: 'Specifies whether a charge is prorated based on the remaining number of days in the billing period or billed fully.
-
-
-            - If set to `true`, the charge is prorated based on the remaining days in the current billing period.
-
-            - If set to `false`, the charge is billed in full.
-
-            - If not defined in the request, default value is `false`.'
-        min_amount_cents:
-          type: integer
-          description: The minimum spending amount required for the charge, measured in cents and excluding any applicable taxes. It indicates the minimum amount that needs to be charged for each billing period.
-          example: 1200
-        properties:
-          allOf:
-          - $ref: '#/components/schemas/ChargeProperties'
-          - description: List of all thresholds utilized for calculating the charge.
-        filters:
-          type: array
-          description: List of filters used to apply differentiated pricing based on additional event properties.
-          items:
-            $ref: '#/components/schemas/ChargeFilterObject'
-        taxes:
-          type: array
-          description: All taxes applied to the charge.
-          items:
-            $ref: '#/components/schemas/TaxObject'
-    MinimumCommitmentObject:
-      type: object
-      nullable: true
-      required:
-      - lago_id
-      - amount_cents
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the minimum commitment, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        plan_code:
-          type: string
-          example: premium
-          description: The unique code representing the plan to be attached to the customer.
-        amount_cents:
-          type: integer
-          description: The amount of the minimum commitment in cents.
-          example: 100000
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
-          example: Minimum Commitment (C1)
-        interval:
-          type: string
-          description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly` or `weekly`.'
-          enum:
-          - weekly
-          - monthly
-          - quarterly
-          - yearly
-          example: monthly
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the minimum commitment was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
-          example: '2022-04-29T08:59:51Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time when the minimum commitment was updated. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
-          example: '2022-04-29T08:59:51Z'
-        taxes:
-          type: array
-          description: All taxes applied to the minimum commitment.
-          items:
-            $ref: '#/components/schemas/TaxObject'
-    PlansPaginated:
-      type: object
-      required:
-      - plans
-      - meta
-      properties:
-        plans:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
-    PaginationMeta:
-      type: object
-      required:
-      - current_page
-      - total_pages
-      - total_count
-      properties:
-        current_page:
-          type: integer
-          description: Current page.
-          example: 2
-        next_page:
-          type: integer
-          description: Next page.
-          example: 3
-          nullable: true
-        prev_page:
-          type: integer
-          description: Previous page.
-          example: 1
-          nullable: true
-        total_pages:
-          type: integer
-          description: Total number of pages.
-          example: 4
-        total_count:
-          type: integer
-          description: Total number of records.
-          example: 70
     PlanObject:
       type: object
       required:
@@ -582,6 +343,56 @@ components:
           description: List of usage thresholds applied to the plan.
           items:
             $ref: '#/components/schemas/UsageThresholdObject'
+    ChargeFilterInput:
+      type: object
+      description: Values used to apply differentiated pricing based on additional event properties.
+      properties:
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the values of the filter will be used as the default display name.
+          example: AWS
+          nullable: true
+        properties:
+          allOf:
+          - $ref: '#/components/schemas/ChargeProperties'
+          - description: List of all thresholds utilized for calculating the charge.
+        values:
+          type: object
+          description: List of possible filter values. The key and values must match one of the billable metric filters.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            region:
+            - us-east-1
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    Plan:
+      type: object
+      required:
+      - plan
+      properties:
+        plan:
+          $ref: '#/components/schemas/PlanObject'
     Currency:
       type: string
       example: USD
@@ -723,322 +534,198 @@ components:
       - YER
       - ZAR
       - ZMW
-    ApiErrorUnprocessableEntity:
+    MinimumCommitmentInput:
+      type: object
+      description: Minimum commitment for this plan.
+      nullable: true
+      required:
+      - amount_cents
+      properties:
+        amount_cents:
+          type: integer
+          description: The amount of the minimum commitment in cents.
+          example: 100000
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
+          example: Minimum Commitment (C1)
+        tax_codes:
+          type: array
+          items:
+            type: string
+          description: List of unique code used to identify the taxes.
+          example:
+          - french_standard_vat
+    TaxObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - rate
+      - applied_to_organization
+      - customers_count
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
+          type: string
+          description: Internal description of the taxe
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+        add_ons_count:
+          type: integer
+          description: Number of add-ons this tax is applied to.
+          example: 0
+        charges_count:
+          type: integer
+          description: Number of charges this tax is applied to.
+          example: 0
+        customers_count:
+          type: integer
+          description: Number of customers this tax is applied to (directly or via the organization's default).
+          example: 0
+        plans_count:
+          type: integer
+          description: Number of plans this tax is applied to.
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    ApiErrorNotFound:
       type: object
       required:
       - status
       - error
       - code
-      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 422
+          example: 404
         error:
           type: string
-          example: Unprocessable entity
+          example: Not Found
         code:
           type: string
-          example: validation_errors
-        error_details:
-          type: object
-    PlanCreateInput:
-      type: object
-      required:
-      - plan
-      properties:
-        plan:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Startup
-              description: The name of the plan.
-            invoice_display_name:
-              type: string
-              example: Startup plan
-              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the plan will be used as the default display name.
-            code:
-              type: string
-              example: startup
-              description: The code of the plan. It serves as a unique identifier associated with a particular plan. The code is typically used for internal or system-level identification purposes, like assigning a subscription, for instance.
-            interval:
-              type: string
-              description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly`, or `weekly`.'
-              example: monthly
-              enum:
-              - weekly
-              - monthly
-              - quarterly
-              - yearly
-            description:
-              type: string
-              description: The description on the plan.
-              example: Plan for early stage startups.
-            amount_cents:
-              type: integer
-              description: The base cost of the plan, excluding any applicable taxes, that is billed on a recurring basis. This value is defined at 0 if your plan is a pay-as-you-go plan.
-              example: 10000
-            amount_currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - description: The currency of the plan. It indicates the monetary unit in which the plan's cost, including taxes and usage-based charges, is expressed.
-                example: USD
-            trial_period:
-              type: number
-              description: The duration in days during which the base cost of the plan is offered for free.
-              example: 5
-            pay_in_advance:
-              type: boolean
-              description: This field determines the billing timing for the plan. When set to `true`, the base cost of the plan is due at the beginning of each billing period. Conversely, when set to `false`, the base cost of the plan is due at the end of each billing period.
-              example: true
-            bill_charges_monthly:
-              type: boolean
-              description: This field, when set to `true`, enables to invoice usage-based charges on monthly basis, even if the cadence of the plan is yearly. This allows customers to pay charges overage on a monthly basis. This can be set to true only if the plan's interval is `yearly`.
-              nullable: true
-              example: null
-            tax_codes:
-              type: array
-              items:
-                type: string
-              description: List of unique code used to identify the taxes.
-              example:
-              - french_standard_vat
-            minimum_commitment:
-              $ref: '#/components/schemas/MinimumCommitmentInput'
-            charges:
-              type: array
-              description: Additional usage-based charges for this plan.
-              items:
-                type: object
-                properties:
-                  billable_metric_id:
-                    type: string
-                    format: uuid
-                    description: Unique identifier of the billable metric created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  charge_model:
-                    type: string
-                    description: Specifies the pricing model used for the calculation of the final fee. It can be `standard`, `graduated`, `graduated_percentage` `package`, `percentage`, `volume` or `dynamic`.
-                    enum:
-                    - standard
-                    - graduated
-                    - graduated_percentage
-                    - package
-                    - percentage
-                    - volume
-                    - dynamic
-                    example: standard
-                  pay_in_advance:
-                    type: boolean
-                    example: false
-                    description: This field determines the billing timing for this specific usage-based charge. When set to `true`, the charge is due and invoiced immediately. Conversely, when set to false, the charge is due and invoiced at the end of each billing period.
-                  invoiceable:
-                    type: boolean
-                    description: This field specifies whether the charge should be included in a proper invoice. If set to false, no invoice will be issued for this charge. You can only set it to `false` when `pay_in_advance` is `true`.
-                    example: true
-                  regroup_paid_fees:
-                    type: string
-                    nullable: true
-                    enum:
-                    - null
-                    - invoice
-                    description: 'This setting can only be configured if `pay_in_advance` is `true` and `invoiceable` is `false`.
-
-                      This field determines whether and when the charge fee should be included in
-
-                      the invoice. If `null`, no invoice will be issued for this charge fee.
-
-                      If `invoice`, an invoice will be generated at the end of the period,
-
-                      consolidating all charge fees with a succeeded payment status.'
-                    example: invoice
-                  invoice_display_name:
-                    type: string
-                    description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-                    example: Setup
-                  prorated:
-                    type: boolean
-                    example: false
-                    description: 'Specifies whether a charge is prorated based on the remaining number of days in the billing period or billed fully.
-
-
-                      - If set to `true`, the charge is prorated based on the remaining days in the current billing period.
-
-                      - If set to `false`, the charge is billed in full.
-
-                      - If not defined in the request, default value is `false`.'
-                  min_amount_cents:
-                    type: integer
-                    description: The minimum spending amount required for the charge, measured in cents and excluding any applicable taxes. It indicates the minimum amount that needs to be charged for each billing period.
-                    example: 0
-                  properties:
-                    allOf:
-                    - $ref: '#/components/schemas/ChargeProperties'
-                    - description: List of all thresholds utilized for calculating the charge.
-                  filters:
-                    type: array
-                    description: List of filters used to apply differentiated pricing based on additional event properties.
-                    items:
-                      $ref: '#/components/schemas/ChargeFilterInput'
-                  tax_codes:
-                    type: array
-                    items:
-                      type: string
-                    description: List of unique code used to identify the taxes.
-                    example:
-                    - french_standard_vat
-              example:
-              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
-                charge_model: package
-                invoiceable: true
-                invoice_display_name: Setup
-                pay_in_advance: false
-                regroup_paid_fees: null
-                prorated: false
-                min_amount_cents: 3000
-                properties:
-                  amount: '30'
-                  free_units: 100
-                  package_size: 1000
-                tax_codes:
-                - french_standard_vat
-              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a92
-                charge_model: graduated
-                invoiceable: true
-                invoice_display_name: Setup
-                pay_in_advance: false
-                prorated: false
-                min_amount_cents: 0
-                properties:
-                  graduated_ranges:
-                  - to_value: 10
-                    from_value: 0
-                    flat_amount: '10'
-                    per_unit_amount: '0.5'
-                  - to_value: null
-                    from_value: 11
-                    flat_amount: '0'
-                    per_unit_amount: '0.4'
-              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a93
-                charge_model: standard
-                invoiceable: true
-                invoice_display_name: Setup
-                pay_in_advance: true
-                prorated: false
-                min_amount_cents: 0
-                properties: {}
-              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a94
-                charge_model: volume
-                invoiceable: true
-                invoice_display_name: Setup
-                pay_in_advance: false
-                prorated: false
-                min_amount_cents: 0
-                properties:
-                  volume_ranges:
-                  - from_value: 0
-                    to_value: 100
-                    flat_amount: '0'
-                    per_unit_amount: '0'
-                  - from_value: 101
-                    to_value: null
-                    flat_amount: '0'
-                    per_unit_amount: '0.5'
-              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a95
-                charge_model: percentage
-                invoiceable: false
-                invoice_display_name: Setup
-                pay_in_advance: true
-                regroup_paid_fees: invoice
-                prorated: false
-                min_amount_cents: 0
-                properties:
-                  rate: '1'
-                  fixed_amount: '0.5'
-                  free_units_per_events: 5
-                  free_units_per_total_aggregation: '500'
-            usage_thresholds:
-              type: array
-              description: List of usage thresholds to apply to the plan.
-              items:
-                $ref: '#/components/schemas/UsageThresholdInput'
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    UsageThresholdObject:
+          example: object_not_found
+    ChargeObject:
       type: object
       required:
       - lago_id
-      - amount_cents
-      - recurring
+      - lago_billable_metric_id
+      - billable_metric_code
       - created_at
-      - updated_at
+      - charge_model
       properties:
         lago_id:
           type: string
           format: uuid
-          description: Unique identifier of the usage threshold created by Lago.
+          description: Unique identifier of charge, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        threshold_display_name:
+        lago_billable_metric_id:
           type: string
-          nullable: true
-          description: The display name of the usage threshold.
-          example: Threshold 1
-        amount_cents:
-          type: integer
-          description: The amount to reach to trigger a `progressive_billing` invoice.
-          example: 10000
-        recurring:
-          type: boolean
-          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
-          example: true
+          format: uuid
+          description: Unique identifier of the billable metric created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        billable_metric_code:
+          type: string
+          description: Unique code identifying a billable metric.
+          example: requests
+        invoice_display_name:
+          type: string
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+          example: Setup
         created_at:
           type: string
           format: date-time
-          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
-        updated_at:
+          description: The date and time when the charge was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2022-09-14T16:35:31Z'
+        charge_model:
           type: string
-          format: date-time
-          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
-          example: '2023-06-27T19:43:42Z'
-    UsageThresholdInput:
-      type: object
-      required:
-      - amount_cents
-      - recurring
-      properties:
-        id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier of the usage threshold created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        threshold_display_name:
-          type: string
-          nullable: true
-          description: The display name of the usage threshold.
-          example: Threshold 1
-        amount_cents:
-          type: integer
-          description: The amount to reach to trigger a `progressive_billing` invoice.
-          example: 10000
-        recurring:
+          description: Specifies the pricing model used for the calculation of the final fee. It can be `standard`, `graduated`, `graduated_percentage`, `package`, `percentage`, `volume` or `dynamic`.
+          enum:
+          - standard
+          - graduated
+          - graduated_percentage
+          - package
+          - percentage
+          - volume
+          - dynamic
+        pay_in_advance:
           type: boolean
-          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
+          description: This field determines the billing timing for this specific usage-based charge. When set to `true`, the charge is due and invoiced immediately. Conversely, when set to `false`, the charge is due and invoiced at the end of each billing period.
           example: true
+        invoiceable:
+          type: boolean
+          description: This field specifies whether the charge should be included in a proper invoice. If set to `false`, no invoice will be issued for this charge. You can only set it to `false` when `pay_in_advance` is `true`.
+          example: true
+        regroup_paid_fees:
+          type: string
+          nullable: true
+          enum:
+          - null
+          - invoice
+          description: 'This setting can only be configured if `pay_in_advance` is `true` and `invoiceable` is `false`.
+
+            This field determines whether and when the charge fee should be included in
+
+            the invoice. If `null`, no invoice will be issued for this charge fee.
+
+            If `invoice`, an invoice will be generated at the end of the period,
+
+            consolidating all charge fees with a succeeded payment status.'
+          example: invoice
+        prorated:
+          type: boolean
+          example: false
+          description: 'Specifies whether a charge is prorated based on the remaining number of days in the billing period or billed fully.
+
+
+            - If set to `true`, the charge is prorated based on the remaining days in the current billing period.
+
+            - If set to `false`, the charge is billed in full.
+
+            - If not defined in the request, default value is `false`.'
+        min_amount_cents:
+          type: integer
+          description: The minimum spending amount required for the charge, measured in cents and excluding any applicable taxes. It indicates the minimum amount that needs to be charged for each billing period.
+          example: 1200
+        properties:
+          allOf:
+          - $ref: '#/components/schemas/ChargeProperties'
+          - description: List of all thresholds utilized for calculating the charge.
+        filters:
+          type: array
+          description: List of filters used to apply differentiated pricing based on additional event properties.
+          items:
+            $ref: '#/components/schemas/ChargeFilterObject'
+        taxes:
+          type: array
+          description: All taxes applied to the charge.
+          items:
+            $ref: '#/components/schemas/TaxObject'
     PlanUpdateInput:
       type: object
       required:
@@ -1269,6 +956,19 @@ components:
               type: boolean
               description: This field determines whether the changes made to the plan should be cascaded to the children plans. When set to `true`, the changes will be cascaded into children. Conversely, when set to `false`, the changes will only be applied to the plan itself. If not defined in the request, default value is `false`.
               example: true
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
     ChargeFilterObject:
       type: object
       description: Values used to apply differentiated pricing based on additional event properties.
@@ -1296,28 +996,268 @@ components:
           example:
             region:
             - us-east-1
-    MinimumCommitmentInput:
+    PaginationMeta:
       type: object
-      description: Minimum commitment for this plan.
-      nullable: true
       required:
-      - amount_cents
+      - current_page
+      - total_pages
+      - total_count
       properties:
-        amount_cents:
+        current_page:
           type: integer
-          description: The amount of the minimum commitment in cents.
-          example: 100000
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
-          example: Minimum Commitment (C1)
-        tax_codes:
+          description: Current page.
+          example: 2
+        next_page:
+          type: integer
+          description: Next page.
+          example: 3
+          nullable: true
+        prev_page:
+          type: integer
+          description: Previous page.
+          example: 1
+          nullable: true
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    PlansPaginated:
+      type: object
+      required:
+      - plans
+      - meta
+      properties:
+        plans:
           type: array
           items:
-            type: string
-          description: List of unique code used to identify the taxes.
-          example:
-          - french_standard_vat
+            $ref: '#/components/schemas/PlanObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PlanCreateInput:
+      type: object
+      required:
+      - plan
+      properties:
+        plan:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Startup
+              description: The name of the plan.
+            invoice_display_name:
+              type: string
+              example: Startup plan
+              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the plan will be used as the default display name.
+            code:
+              type: string
+              example: startup
+              description: The code of the plan. It serves as a unique identifier associated with a particular plan. The code is typically used for internal or system-level identification purposes, like assigning a subscription, for instance.
+            interval:
+              type: string
+              description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly`, or `weekly`.'
+              example: monthly
+              enum:
+              - weekly
+              - monthly
+              - quarterly
+              - yearly
+            description:
+              type: string
+              description: The description on the plan.
+              example: Plan for early stage startups.
+            amount_cents:
+              type: integer
+              description: The base cost of the plan, excluding any applicable taxes, that is billed on a recurring basis. This value is defined at 0 if your plan is a pay-as-you-go plan.
+              example: 10000
+            amount_currency:
+              allOf:
+              - $ref: '#/components/schemas/Currency'
+              - description: The currency of the plan. It indicates the monetary unit in which the plan's cost, including taxes and usage-based charges, is expressed.
+                example: USD
+            trial_period:
+              type: number
+              description: The duration in days during which the base cost of the plan is offered for free.
+              example: 5
+            pay_in_advance:
+              type: boolean
+              description: This field determines the billing timing for the plan. When set to `true`, the base cost of the plan is due at the beginning of each billing period. Conversely, when set to `false`, the base cost of the plan is due at the end of each billing period.
+              example: true
+            bill_charges_monthly:
+              type: boolean
+              description: This field, when set to `true`, enables to invoice usage-based charges on monthly basis, even if the cadence of the plan is yearly. This allows customers to pay charges overage on a monthly basis. This can be set to true only if the plan's interval is `yearly`.
+              nullable: true
+              example: null
+            tax_codes:
+              type: array
+              items:
+                type: string
+              description: List of unique code used to identify the taxes.
+              example:
+              - french_standard_vat
+            minimum_commitment:
+              $ref: '#/components/schemas/MinimumCommitmentInput'
+            charges:
+              type: array
+              description: Additional usage-based charges for this plan.
+              items:
+                type: object
+                properties:
+                  billable_metric_id:
+                    type: string
+                    format: uuid
+                    description: Unique identifier of the billable metric created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  charge_model:
+                    type: string
+                    description: Specifies the pricing model used for the calculation of the final fee. It can be `standard`, `graduated`, `graduated_percentage` `package`, `percentage`, `volume` or `dynamic`.
+                    enum:
+                    - standard
+                    - graduated
+                    - graduated_percentage
+                    - package
+                    - percentage
+                    - volume
+                    - dynamic
+                    example: standard
+                  pay_in_advance:
+                    type: boolean
+                    example: false
+                    description: This field determines the billing timing for this specific usage-based charge. When set to `true`, the charge is due and invoiced immediately. Conversely, when set to false, the charge is due and invoiced at the end of each billing period.
+                  invoiceable:
+                    type: boolean
+                    description: This field specifies whether the charge should be included in a proper invoice. If set to false, no invoice will be issued for this charge. You can only set it to `false` when `pay_in_advance` is `true`.
+                    example: true
+                  regroup_paid_fees:
+                    type: string
+                    nullable: true
+                    enum:
+                    - null
+                    - invoice
+                    description: 'This setting can only be configured if `pay_in_advance` is `true` and `invoiceable` is `false`.
+
+                      This field determines whether and when the charge fee should be included in
+
+                      the invoice. If `null`, no invoice will be issued for this charge fee.
+
+                      If `invoice`, an invoice will be generated at the end of the period,
+
+                      consolidating all charge fees with a succeeded payment status.'
+                    example: invoice
+                  invoice_display_name:
+                    type: string
+                    description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
+                    example: Setup
+                  prorated:
+                    type: boolean
+                    example: false
+                    description: 'Specifies whether a charge is prorated based on the remaining number of days in the billing period or billed fully.
+
+
+                      - If set to `true`, the charge is prorated based on the remaining days in the current billing period.
+
+                      - If set to `false`, the charge is billed in full.
+
+                      - If not defined in the request, default value is `false`.'
+                  min_amount_cents:
+                    type: integer
+                    description: The minimum spending amount required for the charge, measured in cents and excluding any applicable taxes. It indicates the minimum amount that needs to be charged for each billing period.
+                    example: 0
+                  properties:
+                    allOf:
+                    - $ref: '#/components/schemas/ChargeProperties'
+                    - description: List of all thresholds utilized for calculating the charge.
+                  filters:
+                    type: array
+                    description: List of filters used to apply differentiated pricing based on additional event properties.
+                    items:
+                      $ref: '#/components/schemas/ChargeFilterInput'
+                  tax_codes:
+                    type: array
+                    items:
+                      type: string
+                    description: List of unique code used to identify the taxes.
+                    example:
+                    - french_standard_vat
+              example:
+              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
+                charge_model: package
+                invoiceable: true
+                invoice_display_name: Setup
+                pay_in_advance: false
+                regroup_paid_fees: null
+                prorated: false
+                min_amount_cents: 3000
+                properties:
+                  amount: '30'
+                  free_units: 100
+                  package_size: 1000
+                tax_codes:
+                - french_standard_vat
+              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a92
+                charge_model: graduated
+                invoiceable: true
+                invoice_display_name: Setup
+                pay_in_advance: false
+                prorated: false
+                min_amount_cents: 0
+                properties:
+                  graduated_ranges:
+                  - to_value: 10
+                    from_value: 0
+                    flat_amount: '10'
+                    per_unit_amount: '0.5'
+                  - to_value: null
+                    from_value: 11
+                    flat_amount: '0'
+                    per_unit_amount: '0.4'
+              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a93
+                charge_model: standard
+                invoiceable: true
+                invoice_display_name: Setup
+                pay_in_advance: true
+                prorated: false
+                min_amount_cents: 0
+                properties: {}
+              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a94
+                charge_model: volume
+                invoiceable: true
+                invoice_display_name: Setup
+                pay_in_advance: false
+                prorated: false
+                min_amount_cents: 0
+                properties:
+                  volume_ranges:
+                  - from_value: 0
+                    to_value: 100
+                    flat_amount: '0'
+                    per_unit_amount: '0'
+                  - from_value: 101
+                    to_value: null
+                    flat_amount: '0'
+                    per_unit_amount: '0.5'
+              - billable_metric_id: 1a901a90-1a90-1a90-1a90-1a901a901a95
+                charge_model: percentage
+                invoiceable: false
+                invoice_display_name: Setup
+                pay_in_advance: true
+                regroup_paid_fees: invoice
+                prorated: false
+                min_amount_cents: 0
+                properties:
+                  rate: '1'
+                  fixed_amount: '0.5'
+                  free_units_per_events: 5
+                  free_units_per_total_aggregation: '500'
+            usage_thresholds:
+              type: array
+              description: List of usage thresholds to apply to the plan.
+              items:
+                $ref: '#/components/schemas/UsageThresholdInput'
     ChargeProperties:
       type: object
       properties:
@@ -1478,77 +1418,137 @@ components:
                 pattern: ^[0-9]+.?[0-9]*$
                 description: The flat amount for a whole tier, excluding tax, for a `volume` charge model. It is expressed as a decimal value.
                 example: '0.5'
-    Plan:
+    ApiErrorBadRequest:
       type: object
       required:
-      - plan
+      - status
+      - error
       properties:
-        plan:
-          $ref: '#/components/schemas/PlanObject'
-    TaxObject:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    UsageThresholdObject:
       type: object
       required:
       - lago_id
-      - name
-      - code
-      - rate
-      - applied_to_organization
-      - customers_count
+      - amount_cents
+      - recurring
+      - created_at
+      - updated_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the usage threshold created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        threshold_display_name:
+          type: string
+          nullable: true
+          description: The display name of the usage threshold.
+          example: Threshold 1
+        amount_cents:
+          type: integer
+          description: The amount to reach to trigger a `progressive_billing` invoice.
+          example: 10000
+        recurring:
+          type: boolean
+          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was created. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the usage threshold was last updated. It is expressed in UTC format according to the ISO 8601 datetime standard.
+          example: '2023-06-27T19:43:42Z'
+    UsageThresholdInput:
+      type: object
+      required:
+      - amount_cents
+      - recurring
+      properties:
+        id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Unique identifier of the usage threshold created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        threshold_display_name:
+          type: string
+          nullable: true
+          description: The display name of the usage threshold.
+          example: Threshold 1
+        amount_cents:
+          type: integer
+          description: The amount to reach to trigger a `progressive_billing` invoice.
+          example: 10000
+        recurring:
+          type: boolean
+          description: This field when set to `true` indicates that a `progressive_billing` invoice will be created every time the lifetime usage increases by the specified amount.
+          example: true
+    MinimumCommitmentObject:
+      type: object
+      nullable: true
+      required:
+      - lago_id
+      - amount_cents
       - created_at
       properties:
         lago_id:
           type: string
           format: uuid
-          description: Unique identifier of the tax, created by Lago.
+          description: Unique identifier of the minimum commitment, created by Lago.
           example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        name:
+        plan_code:
           type: string
-          description: Name of the tax.
-          example: TVA
-        code:
+          example: premium
+          description: The unique code representing the plan to be attached to the customer.
+        amount_cents:
+          type: integer
+          description: The amount of the minimum commitment in cents.
+          example: 100000
+        invoice_display_name:
           type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        description:
+          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the default name will be used as the display name.
+          example: Minimum Commitment (C1)
+        interval:
           type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
-        add_ons_count:
-          type: integer
-          description: Number of add-ons this tax is applied to.
-          example: 0
-        charges_count:
-          type: integer
-          description: Number of charges this tax is applied to.
-          example: 0
-        customers_count:
-          type: integer
-          description: Number of customers this tax is applied to (directly or via the organization's default).
-          example: 0
-        plans_count:
-          type: integer
-          description: Number of plans this tax is applied to.
-          example: 0
+          description: 'The interval used for recurring billing. It represents the frequency at which subscription billing occurs. The interval can be one of the following values: `yearly`, `quarterly`, `monthly` or `weekly`.'
+          enum:
+          - weekly
+          - monthly
+          - quarterly
+          - yearly
+          example: monthly
         created_at:
           type: string
           format: date-time
-          description: Creation date of the tax.
-          example: '2023-07-06T14:35:58Z'
+          description: The date and time when the minimum commitment was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
+          example: '2022-04-29T08:59:51Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the minimum commitment was updated. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the minimum commitment was initially created.
+          example: '2022-04-29T08:59:51Z'
+        taxes:
+          type: array
+          description: All taxes applied to the minimum commitment.
+          items:
+            $ref: '#/components/schemas/TaxObject'
   responses:
-    BadRequest:
-      description: Bad Request error
+    UnprocessableEntity:
+      description: Unprocessable entity error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
     Unauthorized:
       description: Unauthorized error
       content:
@@ -1561,12 +1561,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
+    BadRequest:
+      description: Bad Request error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+            $ref: '#/components/schemas/ApiErrorBadRequest'
   parameters:
     page:
       name: page

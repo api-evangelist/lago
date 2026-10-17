@@ -163,77 +163,8 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Page number.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of records per page.
-      required: false
-      explode: true
-      schema:
-        type: integer
-        example: 20
   schemas:
-    TaxBaseInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        rate:
-          type: string
-          pattern: ^[0-9]+.?[0-9]*$
-          description: The percentage rate of the tax
-          example: '20.0'
-        description:
-          type: string
-          nullable: true
-          description: Internal description of the taxe
-          example: French standard VAT
-        applied_to_organization:
-          type: boolean
-          description: Set to `true` if the tax is used as one of the organization's default
-          example: true
-    ApiErrorBadRequest:
+    ApiErrorUnauthorized:
       type: object
       required:
       - status
@@ -242,30 +173,10 @@ components:
         status:
           type: integer
           format: int32
-          example: 400
+          example: 401
         error:
           type: string
-          example: Bad request
-    ApiErrorUnprocessableEntity:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      - error_details
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 422
-        error:
-          type: string
-          example: Unprocessable entity
-        code:
-          type: string
-          example: validation_errors
-        error_details:
-          type: object
+          example: Unauthorized
     TaxObject:
       type: object
       required:
@@ -323,6 +234,35 @@ components:
           format: date-time
           description: Creation date of the tax.
           example: '2023-07-06T14:35:58Z'
+    TaxesPaginated:
+      type: object
+      required:
+      - taxes
+      - meta
+      properties:
+        taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     TaxUpdateInput:
       type: object
       required:
@@ -331,19 +271,14 @@ components:
         tax:
           allOf:
           - $ref: '#/components/schemas/TaxBaseInput'
-    TaxCreateInput:
+    Tax:
       type: object
       required:
       - tax
       properties:
         tax:
-          allOf:
-          - $ref: '#/components/schemas/TaxBaseInput'
-          - required:
-            - name
-            - code
-            - rate
-    ApiErrorUnauthorized:
+          $ref: '#/components/schemas/TaxObject'
+    ApiErrorBadRequest:
       type: object
       required:
       - status
@@ -352,17 +287,10 @@ components:
         status:
           type: integer
           format: int32
-          example: 401
+          example: 400
         error:
           type: string
-          example: Unauthorized
-    Tax:
-      type: object
-      required:
-      - tax
-      properties:
-        tax:
-          $ref: '#/components/schemas/TaxObject'
+          example: Bad request
     PaginationMeta:
       type: object
       required:
@@ -392,35 +320,107 @@ components:
           type: integer
           description: Total number of records.
           example: 70
-    ApiErrorNotFound:
+    TaxCreateInput:
+      type: object
+      required:
+      - tax
+      properties:
+        tax:
+          allOf:
+          - $ref: '#/components/schemas/TaxBaseInput'
+          - required:
+            - name
+            - code
+            - rate
+    TaxBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        rate:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: The percentage rate of the tax
+          example: '20.0'
+        description:
+          type: string
+          nullable: true
+          description: Internal description of the taxe
+          example: French standard VAT
+        applied_to_organization:
+          type: boolean
+          description: Set to `true` if the tax is used as one of the organization's default
+          example: true
+    ApiErrorUnprocessableEntity:
       type: object
       required:
       - status
       - error
       - code
+      - error_details
       properties:
         status:
           type: integer
           format: int32
-          example: 404
+          example: 422
         error:
           type: string
-          example: Not Found
+          example: Unprocessable entity
         code:
           type: string
-          example: object_not_found
-    TaxesPaginated:
-      type: object
-      required:
-      - taxes
-      - meta
-      properties:
-        taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxObject'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
+          example: validation_errors
+        error_details:
+          type: object
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     bearerAuth:
       type: http
