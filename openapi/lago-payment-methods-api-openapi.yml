@@ -1,0 +1,314 @@
+openapi: 3.2.0
+info:
+  title: Lago API documentation Payment Methods API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.55.0
+  license:
+    name: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lago cluster
+security:
+- bearerAuth: []
+tags:
+- name: Payment Methods
+  description: Everything about Payment Methods
+  externalDocs:
+    description: Find out more
+    url: https://getlago.com/docs/api-reference/payment-methods/payment-method-object
+paths:
+  /customers/{external_customer_id}/payment_methods:
+    get:
+      tags:
+      - Payment Methods
+      summary: List all customer payment methods
+      description: This endpoint retrieves all payment methods of a customer.
+      operationId: findAllCustomersPaymentMethods
+      parameters:
+      - $ref: '#/components/parameters/external_customer_id_path'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of customer's payment methods
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{external_customer_id}/payment_methods/{lago_id}/set_as_default:
+    parameters:
+    - name: lago_id
+      in: path
+      description: The payment method unique identifier, created by Lago.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    - $ref: '#/components/parameters/external_customer_id_path'
+    put:
+      tags:
+      - Payment Methods
+      operationId: paymentMethodSetAsDefault
+      summary: Set the payment method as default
+      description: This endpoint sets a payment method as the customer's default one. It is the payment method Lago uses when a payment is triggered without an explicit one. Any other default payment method of the customer is unset.
+      responses:
+        '200':
+          description: Payment method set as default
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /customers/{external_customer_id}/payment_methods/{lago_id}:
+    parameters:
+    - name: lago_id
+      in: path
+      description: The payment method unique identifier, created by Lago.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    - $ref: '#/components/parameters/external_customer_id_path'
+    delete:
+      tags:
+      - Payment Methods
+      summary: Delete a payment method
+      description: This endpoint deletes a specific payment method for a customer.
+      operationId: destroyPaymentMethod
+      responses:
+        '200':
+          description: Payment method deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PaymentMethod:
+      type: object
+      required:
+      - payment_method
+      properties:
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethodObject'
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page.
+          example: 3
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page.
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    PaymentMethodsPaginated:
+      type: object
+      required:
+      - payment_methods
+      - meta
+      properties:
+        payment_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    PaymentMethodObject:
+      type: object
+      required:
+      - lago_id
+      - is_default
+      - payment_provider_code
+      - payment_provider_name
+      - payment_provider_type
+      - provider_method_id
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The unique identifier of the payment method, created by Lago.
+          example: 4cf085a7-c196-4f07-a543-97c50ec6e8b2
+        is_default:
+          type: boolean
+          description: Indicates whether this payment method is the default one for the customer.
+          example: true
+        payment_provider_code:
+          type:
+          - string
+          - 'null'
+          description: Code of the payment provider associated with this payment method.
+          example: stripe_prod
+        payment_provider_name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name of the payment provider.
+          example: Stripe
+        payment_provider_type:
+          type:
+          - string
+          - 'null'
+          description: The type of the payment provider. It is `null` when the payment method is no longer attached to a payment provider.
+          enum:
+          - null
+          - adyen
+          - cashfree
+          - gocardless
+          - stripe
+          - flutterwave
+          - moneyhash
+          example: stripe
+        provider_method_id:
+          type: string
+          description: Unique identifier of the payment method within the payment provider.
+          example: pm_1N8ZQX2eZvKYlo2CkL9Y8XYZ
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the payment method was created in Lago's database.
+          example: '2025-01-21T00:10:29Z'
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    external_customer_id_path:
+      name: external_customer_id
+      in: path
+      description: The customer external unique identifier (provided by your own application)
+      required: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

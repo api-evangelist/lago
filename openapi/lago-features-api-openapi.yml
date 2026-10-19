@@ -1,0 +1,565 @@
+openapi: 3.2.0
+info:
+  title: Lago API documentation Features API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.55.0
+  license:
+    name: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lago cluster
+security:
+- bearerAuth: []
+tags:
+- name: Features
+  description: Everything about Feature collection
+  externalDocs:
+    description: Find out more
+    url: https://getlago.com/docs/api-reference/entitlements/features/feature-object
+paths:
+  /features:
+    post:
+      tags:
+      - Features
+      summary: Create a feature
+      description: This endpoint creates a new feature representing an entitlement component of your application.
+      operationId: createFeature
+      requestBody:
+        description: Feature payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureCreateInput'
+        required: true
+      responses:
+        '200':
+          description: Feature created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    get:
+      tags:
+      - Features
+      summary: List all features
+      description: This endpoint retrieves all existing features that represent entitlement components of your application.
+      operationId: findAllFeatures
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: search_term
+        in: query
+        description: Filter features by search term. The term is matched against the name, the code and the description of the feature.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: seats
+      responses:
+        '200':
+          description: List of features
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeaturesPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /features/{code}:
+    parameters:
+    - name: code
+      in: path
+      description: Code of the existing feature.
+      required: true
+      schema:
+        type: string
+        example: seats
+    put:
+      tags:
+      - Features
+      summary: Update a feature
+      description: This endpoint updates an existing feature representing an entitlement component of your application. Only the fields present in the payload are updated. Privileges are matched by their code, an unknown code adds a new privilege and a known one updates its name and adds the select options of the payload to the existing ones. The value type of an existing privilege cannot be changed. Privileges left out of the payload are kept, use the delete privilege endpoint to remove one.
+      operationId: updateFeature
+      requestBody:
+        description: Feature payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureUpdateInput'
+        required: true
+      responses:
+        '200':
+          description: Feature updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      tags:
+      - Features
+      summary: Delete a feature
+      description: This endpoint deletes an existing feature representing an entitlement component of your application. Deleting a feature will remove it from all plans and subscriptions.
+      operationId: destroyFeature
+      responses:
+        '200':
+          description: Feature deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags:
+      - Features
+      summary: Retrieve a feature
+      description: This endpoint retrieves an existing feature that represents an entitlement component of your application. The feature is identified by its unique code.
+      operationId: findFeature
+      responses:
+        '200':
+          description: Feature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /features/{code}/privileges/{privilege_code}:
+    parameters:
+    - name: code
+      in: path
+      description: Code of the existing feature.
+      required: true
+      schema:
+        type: string
+        example: seats
+    - name: privilege_code
+      in: path
+      description: Code of the existing privilege.
+      required: true
+      schema:
+        type: string
+        example: max_admins
+    delete:
+      tags:
+      - Features
+      summary: Delete a privilege
+      description: This endpoint deletes a privilege from a feature. Deleting a privilege removes it from all plans and subscriptions.
+      operationId: deleteFeaturePrivilege
+      responses:
+        '200':
+          description: Feature with deleted privilege.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page.
+          example: 3
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page.
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    FeatureUpdateInput:
+      type: object
+      required:
+      - feature
+      properties:
+        feature:
+          $ref: '#/components/schemas/FeatureBaseInput'
+    FeaturesPaginated:
+      type: object
+      required:
+      - features
+      - meta
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorForbidden:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 403
+        error:
+          type: string
+          example: Forbidden
+        code:
+          type: string
+          example: feature_unavailable
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    FeaturePrivilegeObject:
+      type: object
+      required:
+      - code
+      - name
+      - value_type
+      - config
+      properties:
+        code:
+          type: string
+          example: max
+          description: Unique code for the privilege.
+        name:
+          type:
+          - string
+          - 'null'
+          example: Maximum
+          description: Display name for the privilege.
+        value_type:
+          type: string
+          enum:
+          - integer
+          - boolean
+          - string
+          - select
+          example: integer
+          description: Data type of the privilege value. It defaults to `string`.
+        config:
+          type: object
+          description: Extra configuration of the privilege. It is empty unless the value type is `select`.
+          properties:
+            select_options:
+              type: array
+              items:
+                type: string
+              example:
+              - google
+              - okta
+              description: The values the privilege accepts. It is only sent when the value type is `select`.
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    FeatureBaseInput:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Number of seats
+          description: Name of the feature. Max 255 characters.
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 600
+          example: Number of users of the account
+          description: Internal description of the feature. Max 600 characters.
+        privileges:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            properties:
+              code:
+                type: string
+                maxLength: 255
+                example: max
+                description: Unique code for the privilege. Max 255 characters.
+              name:
+                type:
+                - string
+                - 'null'
+                maxLength: 255
+                example: Maximum
+                description: Display name for the privilege. Max 255 characters.
+              value_type:
+                type: string
+                enum:
+                - integer
+                - boolean
+                - string
+                - select
+                example: integer
+                description: Data type of the privilege value. It defaults to `string`. It cannot be changed once the privilege exists.
+              config:
+                type: object
+                description: Extra configuration of the privilege. It must be left out unless the value type is `select`.
+                properties:
+                  select_options:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - google
+                    - okta
+                    description: The values the privilege accepts. It is required when the value type is `select`, must hold at least one value, and must be left out for the other value types.
+          example:
+          - code: max
+            name: Maximum
+            value_type: integer
+          - code: max_admins
+            name: Max Admins
+            value_type: integer
+          - code: root
+            name: Allow root user
+            value_type: boolean
+          - code: provider
+            name: SSO Provider
+            value_type: select
+            config:
+              select_options:
+              - google
+              - okta
+          description: Privileges associated with this feature. Can be empty.
+    FeatureObject:
+      type: object
+      required:
+      - code
+      - name
+      - description
+      - privileges
+      - created_at
+      properties:
+        code:
+          type: string
+          example: seats
+          description: Unique code used to identify the feature. Max 255 characters.
+        name:
+          type:
+          - string
+          - 'null'
+          example: Number of seats
+          description: Name of the feature. Max 255 characters.
+        description:
+          type:
+          - string
+          - 'null'
+          example: Number of users of the account
+          description: Description of the feature. Max 600 characters.
+        privileges:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeaturePrivilegeObject'
+          example:
+          - code: max
+            name: Maximum
+            value_type: integer
+            config: {}
+          - code: max_admins
+            name: Max Admins
+            value_type: integer
+            config: {}
+          - code: root
+            name: Allow root user
+            value_type: boolean
+            config: {}
+          - code: provider
+            name: SSO Provider
+            value_type: select
+            config:
+              select_options:
+              - google
+              - okta
+          description: Privileges associated with this feature. Can be empty.
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-07-17T12:34:35Z'
+          description: Creation date of the feature.
+    FeatureCreateInput:
+      type: object
+      required:
+      - feature
+      properties:
+        feature:
+          allOf:
+          - $ref: '#/components/schemas/FeatureBaseInput'
+          - type: object
+            required:
+            - code
+            properties:
+              code:
+                type: string
+                maxLength: 255
+                example: seats
+                description: Unique code used to identify the feature. Max 255 characters.
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    Feature:
+      type: object
+      required:
+      - feature
+      properties:
+        feature:
+          $ref: '#/components/schemas/FeatureObject'
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorForbidden'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

@@ -1,0 +1,375 @@
+openapi: 3.2.0
+info:
+  title: Lago API documentation API Logs API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.55.0
+  license:
+    name: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lago cluster
+security:
+- bearerAuth: []
+tags:
+- name: api_logs
+  description: Everything about API logs
+  externalDocs:
+    description: Find out more
+    url: https://getlago.com/docs/api-reference/audit-logs/api-logs-object
+paths:
+  /api_logs:
+    get:
+      tags:
+      - api_logs
+      summary: List all API logs
+      description: This endpoint retrieves all existing API logs, which represent the requests made to Lago's API. Logs older than the retention period of your organization are left out. The retention period is 30 days unless another one was set for your organization.
+      operationId: findAllApiLogs
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: from_date
+        in: query
+        description: Filter API logs logged at or after this date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: to_date
+        in: query
+        description: Filter API logs logged at or before this date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: http_methods[]
+        in: query
+        description: Filter results by HTTP methods.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - post
+            - put
+            - patch
+            - delete
+          example:
+          - post
+          - put
+      - name: http_statuses[]
+        in: query
+        description: Filter results by HTTP status or by generic request status. When `succeeded` or `failed` is passed, the numeric values of the filter are ignored.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            anyOf:
+            - type: string
+              enum:
+              - succeeded
+              - failed
+            - type: integer
+              minimum: 100
+              maximum: 599
+          example:
+          - failed
+          - succeeded
+          - 404
+      - name: api_version
+        in: query
+        description: Filter results by API version.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: v1
+      - name: request_paths[]
+        in: query
+        description: Filter results by the path of the request. A value containing `*` is matched as a wildcard, otherwise the path must match exactly.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - /api/v1/billable_metrics
+          - '*billable_metrics*'
+      - name: clients[]
+        in: query
+        description: Filter results by the client that issued the request, as reported by its user agent.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - Lago Ruby v1.26.0
+      responses:
+        '200':
+          description: List of API logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiLogsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api_logs/{request_id}:
+    parameters:
+    - name: request_id
+      in: path
+      description: The unique identifier of the API log, which is the identifier of the request.
+      required: true
+      schema:
+        type: string
+        example: bdc0eda6-ea52-4f72-a46a-94f47a89b546
+    get:
+      tags:
+      - api_logs
+      summary: Retrieve an API log
+      description: This endpoint retrieves an existing API log, which represents a request made to Lago's API. The API log is identified by its request id.
+      operationId: findApiLog
+      responses:
+        '200':
+          description: API log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiLog'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page.
+          example: 3
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page.
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiLogObject:
+      type: object
+      required:
+      - api_version
+      - client
+      - http_method
+      - http_status
+      - logged_at
+      - request_body
+      - request_origin
+      - request_path
+      - created_at
+      - request_id
+      - request_response
+      properties:
+        api_version:
+          type: string
+          example: v1
+          description: Lago API version used in the request.
+        client:
+          type: string
+          example: Lago Ruby v1.26.0
+          description: The client that made the request, as reported by its user agent.
+        http_method:
+          type: string
+          example: post
+          enum:
+          - post
+          - put
+          - patch
+          - delete
+          description: The HTTP method of the request. Requests made with the GET method are not logged.
+        http_status:
+          type: integer
+          example: 200
+          description: The HTTP status Lago returned for the request.
+        logged_at:
+          type: string
+          format: date-time
+          example: '2025-03-31T12:31:44Z'
+          description: The date when the request was logged, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC).
+        request_body:
+          type: object
+          additionalProperties: true
+          description: The parameters of the request, keyed by their top-level name. Nested values are returned JSON-encoded. When the log is too large to be stored, this object is replaced by a `truncated` key set to `"true"` and an `original_bytesize` key holding the size of the log before truncation.
+          example:
+            billable_metric: '{"name":"Storage","code":"storage"}'
+        request_origin:
+          type: string
+          description: The base URL the request was sent to.
+          example: https://api.getlago.com
+        request_path:
+          type: string
+          description: The path of the request.
+          example: /api/v1/billable_metrics
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The creation date of the API log record in the Lago application, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC).
+        request_id:
+          type: string
+          description: Unique identifier of the API log. It is the identifier of the request, taken from the `X-Request-Id` header when the request carries one, and generated by Lago otherwise.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        request_response:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: The body Lago returned for the request, keyed by its top-level name. Nested values are returned JSON-encoded. It is `null` when the response had no body. When the log is too large to be stored, this object is replaced by a `truncated` key set to `"true"` and an `original_bytesize` key holding the size of the log before truncation.
+          example:
+            billable_metric: '{"lago_id":"b9155544-e261-4e92-b54e-f65d7609294c"}'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ApiLog:
+      type: object
+      required:
+      - api_log
+      properties:
+        api_log:
+          $ref: '#/components/schemas/ApiLogObject'
+    ApiLogsPaginated:
+      type: object
+      required:
+      - api_logs
+      - meta
+      properties:
+        api_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiLogObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ApiErrorForbidden:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 403
+        error:
+          type: string
+          example: Forbidden
+        code:
+          type: string
+          example: feature_unavailable
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorForbidden'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

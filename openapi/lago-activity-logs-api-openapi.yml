@@ -1,0 +1,406 @@
+openapi: 3.2.0
+info:
+  title: Lago API documentation Activity Logs API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.55.0
+  license:
+    name: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lago cluster
+security:
+- bearerAuth: []
+tags:
+- name: Activity Logs
+  description: Everything about Activity logs
+  externalDocs:
+    description: Find out more
+    url: https://getlago.com/docs/api-reference/audit-logs/activity-logs-object
+paths:
+  /activity_logs:
+    get:
+      tags:
+      - Activity Logs
+      summary: List all activity logs
+      description: This endpoint retrieves all existing activity logs that represent actions performed on application resources.
+      operationId: findAllActivityLogs
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: from_date
+        in: query
+        description: Filter activity logs logged at or after this date. A date or a full ISO 8601 datetime is accepted.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: to_date
+        in: query
+        description: Filter activity logs logged at or before this date. A date or a full ISO 8601 datetime is accepted.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: activity_types[]
+        in: query
+        description: Filter results by activity types.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - billable_metric.created
+          - billable_metric.updated
+      - name: activity_sources[]
+        in: query
+        description: Filter results by activity sources.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - api
+            - front
+            - system
+          example:
+          - api
+          - front
+      - name: user_emails[]
+        in: query
+        description: Filter results by the email of the user who performed the activity.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - dinesh@piedpiper.example
+      - $ref: '#/components/parameters/external_customer_id'
+      - $ref: '#/components/parameters/external_subscription_id'
+      - name: resource_ids[]
+        in: query
+        description: Filter results by the unique identifiers of the resources the actions were applied to.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          example:
+          - 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+          - 1a901a90-1a90-1a90-1a90-1a901a901a90
+      - name: resource_types[]
+        in: query
+        description: Filter results by resource types.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - BillableMetric
+          - Invoice
+      responses:
+        '200':
+          description: List of activity logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityLogsPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /activity_logs/{activity_id}:
+    parameters:
+    - name: activity_id
+      in: path
+      description: The unique identifier of the activity log, created by Lago.
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: bdc0eda6-ea52-4f72-a46a-94f47a89b546
+    get:
+      tags:
+      - Activity Logs
+      summary: Retrieve an activity log
+      description: This endpoint retrieves an existing activity log that represents an action performed on some resource. The activity log is identified by its unique activity_id.
+      operationId: findActivityLog
+      responses:
+        '200':
+          description: Activity log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityLog'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page.
+          example: 3
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page.
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ActivityLogObject:
+      type: object
+      required:
+      - activity_id
+      - activity_source
+      - activity_type
+      - activity_object
+      - activity_object_changes
+      - user_email
+      - external_customer_id
+      - external_subscription_id
+      - logged_at
+      - resource_id
+      - resource_type
+      - created_at
+      properties:
+        activity_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the activity log within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the activity log record within the Lago system.
+        user_email:
+          type:
+          - string
+          - 'null'
+          format: email
+          example: dinesh@piedpiper.example
+          description: The email of the user who performed the activity. It is null when the action was performed with an API key or by the system.
+        activity_type:
+          type: string
+          example: billable_metric.created
+          description: The action that was performed on the resource.
+        activity_source:
+          type: string
+          example: api
+          enum:
+          - api
+          - front
+          - system
+          description: The source that triggered the action.
+        activity_object:
+          type:
+          - object
+          - 'null'
+          example:
+            lago_id: dad68bc7-c01a-4ad8-a87b-13e78693a5bc
+            plan_id: b9155544-e261-4e92-b54e-f65d7609294c
+          description: The state of the resource after the action, keyed by top-level attribute name. Nested values are returned JSON-encoded.
+        activity_object_changes:
+          type:
+          - object
+          - 'null'
+          example:
+            plan_id: '[null,"b9155544-e261-4e92-b54e-f65d7609294c"]'
+          description: The attributes the action changed, keyed by attribute name. Each value is the JSON-encoded pair of the previous and the new value. It is empty when the activity type is not an update.
+        external_customer_id:
+          type:
+          - string
+          - 'null'
+          description: The customer external unique identifier (provided by your own application).
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+        external_subscription_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier assigned to the subscription in your application.
+          example: external_id
+        resource_id:
+          type: string
+          description: The unique identifier of the resource the action was applied to.
+          format: uuid
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+        resource_type:
+          type: string
+          description: The type of the resource the action was applied to.
+          example: BillableMetric
+        logged_at:
+          type: string
+          format: date-time
+          example: '2025-03-31T12:31:44Z'
+          description: The date when the action happened, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC).
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The creation date of the activity log record in the Lago application, presented in the ISO 8601 datetime format, specifically in Coordinated Universal Time (UTC).
+    ActivityLogsPaginated:
+      type: object
+      required:
+      - activity_logs
+      - meta
+      properties:
+        activity_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityLogObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    ActivityLog:
+      type: object
+      required:
+      - activity_log
+      properties:
+        activity_log:
+          $ref: '#/components/schemas/ActivityLogObject'
+    ApiErrorForbidden:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 403
+        error:
+          type: string
+          example: Forbidden
+        code:
+          type: string
+          example: feature_unavailable
+  parameters:
+    external_subscription_id:
+      name: external_subscription_id
+      in: query
+      description: External subscription ID
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    external_customer_id:
+      name: external_customer_id
+      in: query
+      description: Unique identifier assigned to the customer in your application.
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    page:
+      name: page
+      in: query
+      description: Page number.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of records per page.
+      required: false
+      explode: true
+      schema:
+        type: integer
+        example: 20
+  responses:
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorForbidden'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

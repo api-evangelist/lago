@@ -2,35 +2,35 @@ openapi: 3.2.0
 info:
   title: Lago API documentation Webhook Endpoints API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
-  version: 1.15.0
+  version: 1.55.0
   license:
     name: AGPLv3
-    identifier: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
   contact:
     email: tech@getlago.com
 servers:
 - url: https://api.getlago.com/api/v1
   description: US Lago cluster
 - url: https://api.eu.getlago.com/api/v1
-  description: EU Lagos cluster
+  description: EU Lago cluster
 security:
 - bearerAuth: []
 tags:
-- name: Webhook Endpoints
+- name: webhook_endpoints
   description: Everything about Webhook Endpoints
   externalDocs:
     description: Find out more
-    url: https://doc.getlago.com/docs/api/webhook_endpoints/webhook-endpoint-object
+    url: https://getlago.com/docs/api-reference/webhook-endpoints/webhook-endpoint-object
 paths:
   /webhook_endpoints:
     post:
       tags:
-      - Webhook Endpoints
-      summary: Lago Create a webhook_endpoint
+      - webhook_endpoints
+      summary: Create a webhook endpoint
       description: This endpoint is used to create a webhook endpoint.
       operationId: createWebhookEndpoint
       requestBody:
-        description: Webhook Endpoint payload
+        description: Webhook endpoint payload
         content:
           application/json:
             schema:
@@ -38,7 +38,7 @@ paths:
         required: true
       responses:
         '200':
-          description: Webhook Endpoint created
+          description: Webhook endpoint created
           content:
             application/json:
               schema:
@@ -51,8 +51,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-      - Webhook Endpoints
-      summary: Lago List all webhook endpoints
+      - webhook_endpoints
+      summary: List all webhook endpoints
       description: This endpoint is used to list all webhook endpoints.
       operationId: findAllWebhookEndpoints
       parameters:
@@ -60,7 +60,7 @@ paths:
       - $ref: '#/components/parameters/per_page'
       responses:
         '200':
-          description: WebhookEndpoints
+          description: Webhook endpoints
           content:
             application/json:
               schema:
@@ -79,12 +79,12 @@ paths:
         example: 1a901a90-1a90-1a90-1a90-1a901a901a90
     put:
       tags:
-      - Webhook Endpoints
-      summary: Lago Update a webhook endpoint
+      - webhook_endpoints
+      summary: Update a webhook endpoint
       description: This endpoint is used to update an existing webhook endpoint.
       operationId: updateWebhookEndpoint
       requestBody:
-        description: Webhook Endpoint update payload
+        description: Webhook endpoint update payload
         content:
           application/json:
             schema:
@@ -92,7 +92,7 @@ paths:
         required: true
       responses:
         '200':
-          description: Webhook Endpoint updated
+          description: Webhook endpoint updated
           content:
             application/json:
               schema:
@@ -107,13 +107,13 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-      - Webhook Endpoints
-      summary: Lago Retrieve a webhook endpoint
+      - webhook_endpoints
+      summary: Retrieve a webhook endpoint
       description: This endpoint is used to retrieve an existing webhook endpoint.
       operationId: findWebhookEndpoint
       responses:
         '200':
-          description: WebhookEndpoint
+          description: Webhook endpoint
           content:
             application/json:
               schema:
@@ -124,13 +124,13 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       tags:
-      - Webhook Endpoints
-      summary: Lago Delete a webhook endpoint
+      - webhook_endpoints
+      summary: Delete a webhook endpoint
       description: This endpoint is used to delete an existing webhook endpoint.
       operationId: destroyWebhookEndpoint
       responses:
         '200':
-          description: Webhook Endpoint deleted
+          description: Webhook endpoint deleted
           content:
             application/json:
               schema:
@@ -139,134 +139,33 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
-        '405':
-          $ref: '#/components/responses/NotAllowed'
 components:
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   schemas:
-    WebhookEndpointObject:
-      type: object
-      required:
-      - lago_id
-      - lago_organization_id
-      - webhook_url
-      - created_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the wallet within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_organization_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the organization attached to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the organization's record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        webhook_url:
-          type: string
-          description: The name of the wallet.
-          example: Prepaid
-        signature_algo:
-          type: string
-          description: The signature algo for the webhook.
-          example: hmac
-          enum:
-          - jwt
-          - hmac
-        created_at:
-          type: string
-          format: date-time
-          description: The date of the webhook endpoint creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
-          example: '2022-04-29T08:59:51Z'
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
-    WebhookEndpointUpdateInput:
-      type: object
-      properties:
-        webhook_endpoint:
-          type: object
-          required:
-          - webhook_url
-          properties:
-            webhook_url:
-              type: string
-              description: The URL of the webhook endpoint.
-              example: https://foo.bar
-            signature_algo:
-              type: string
-              description: The signature used for the webhook. If no value is passed,
-              example: hmac
-              nullable: true
-              enum:
-              - jwt
-              - hmac
-    WebhookEndpointCreateInput:
-      type: object
-      properties:
-        webhook_endpoint:
-          type: object
-          required:
-          - webhook_url
-          properties:
-            webhook_url:
-              type: string
-              description: The URL of the webhook endpoint.
-              example: https://foo.bar
-            signature_algo:
-              type: string
-              description: The signature used for the webhook. If no value is passed,
-              example: hmac
-              nullable: true
-              enum:
-              - jwt
-              - hmac
-    WebhookEndpoint:
-      type: object
-      required:
-      - webhook_endpoint
-      properties:
-        webhook_endpoint:
-          $ref: '#/components/schemas/WebhookEndpointObject'
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
     PaginationMeta:
       type: object
       required:
@@ -279,15 +178,17 @@ components:
           description: Current page.
           example: 2
         next_page:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Next page.
           example: 3
-          nullable: true
         prev_page:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Previous page.
           example: 1
-          nullable: true
         total_pages:
           type: integer
           description: Total number of pages.
@@ -316,6 +217,23 @@ components:
           example: validation_errors
         error_details:
           type: object
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
     WebhookEndpointsPaginated:
       type: object
       required:
@@ -328,54 +246,171 @@ components:
             $ref: '#/components/schemas/WebhookEndpointObject'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
-    ApiErrorNotAllowed:
+    ApiErrorUnauthorized:
       type: object
       required:
       - status
       - error
-      - code
       properties:
         status:
           type: integer
           format: int32
-          example: 405
+          example: 401
         error:
           type: string
-          example: Method Not Allowed
-        code:
+          example: Unauthorized
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
           type: string
-          example: not_allowed
-  responses:
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    BadRequest:
-      description: Bad Request error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorBadRequest'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
+          example: Bad request
+    WebhookEndpointObject:
+      type: object
+      required:
+      - lago_id
+      - lago_organization_id
+      - webhook_url
+      - signature_algo
+      - name
+      - event_types
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the webhook endpoint's record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_organization_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the organization attached to the webhook endpoint within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the organization's record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        webhook_url:
+          type: string
+          description: The URL of the webhook endpoint.
+          example: https://foo.bar
+        signature_algo:
+          type: string
+          description: The algorithm used to sign the webhook payload.
+          example: hmac
+          enum:
+          - jwt
+          - hmac
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the webhook endpoint.
+          example: EC2-production
+        event_types:
+          type:
+          - array
+          - 'null'
+          description: The list of event types sent to this webhook endpoint. When the value is `null`, every event type is sent. When the value is an empty array, no event is sent.
+          items:
+            type: string
+          example:
+          - invoice.voided
+          - customer.created
+        created_at:
+          type: string
+          format: date-time
+          description: The date of the webhook endpoint creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC).
+          example: '2022-04-29T08:59:51Z'
+    WebhookEndpointCreateInput:
+      type: object
+      required:
+      - webhook_endpoint
+      properties:
+        webhook_endpoint:
+          type: object
+          required:
+          - webhook_url
+          properties:
+            webhook_url:
+              type: string
+              description: The URL of the webhook endpoint.
+              example: https://foo.bar
+            signature_algo:
+              type:
+              - string
+              - 'null'
+              description: The algorithm used to sign the webhook payload. Defaults to `jwt` when no value is passed.
+              default: jwt
+              example: hmac
+              enum:
+              - jwt
+              - hmac
+              - null
+            name:
+              type:
+              - string
+              - 'null'
+              description: The name of the webhook endpoint.
+              example: EC2-production
+            event_types:
+              type:
+              - array
+              - 'null'
+              description: The list of event types sent to this webhook endpoint. Pass `null` or `["*"]` to receive every event type. An empty array stops every delivery.
+              items:
+                type: string
+              example:
+              - invoice.voided
+              - customer.created
+    WebhookEndpoint:
+      type: object
+      required:
+      - webhook_endpoint
+      properties:
+        webhook_endpoint:
+          $ref: '#/components/schemas/WebhookEndpointObject'
+    WebhookEndpointUpdateInput:
+      type: object
+      required:
+      - webhook_endpoint
+      properties:
+        webhook_endpoint:
+          type: object
+          properties:
+            webhook_url:
+              type: string
+              description: The URL of the webhook endpoint.
+              example: https://foo.bar
+            signature_algo:
+              type:
+              - string
+              - 'null'
+              description: The algorithm used to sign the webhook payload. When the field is omitted, the current value is kept.
+              example: hmac
+              enum:
+              - jwt
+              - hmac
+              - null
+            name:
+              type:
+              - string
+              - 'null'
+              description: The name of the webhook endpoint.
+              example: EC2-production
+            event_types:
+              type:
+              - array
+              - 'null'
+              description: The list of event types sent to this webhook endpoint. Pass `null` or `["*"]` to receive every event type. An empty array stops every delivery.
+              items:
+                type: string
+              example:
+              - invoice.voided
+              - customer.created
   parameters:
     page:
       name: page

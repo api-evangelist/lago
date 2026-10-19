@@ -291,6 +291,114 @@ apis:
     url: https://doc.getlago.com/
   - type: GettingStarted
     url: https://doc.getlago.com/docs/introduction
+- aid: lago:lago-activity-logs-api
+  name: Lago Activity Logs API
+  description: Everything about Activity logs
+  humanURL: https://getlago.com/
+  tags:
+  - activity_logs
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-activity-logs-api-openapi.yml
+- aid: lago:lago-api-logs-api
+  name: Lago API Logs API
+  description: Everything about API logs
+  humanURL: https://getlago.com/
+  tags:
+  - api_logs
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-api-logs-api-openapi.yml
+- aid: lago:lago-billing-entities-api
+  name: Lago Billing Entities API
+  description: Everything about Billing Entities
+  humanURL: https://getlago.com/
+  tags:
+  - billing_entities
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-billing-entities-api-openapi.yml
+- aid: lago:lago-entitlements-api
+  name: Lago Entitlements API
+  description: Everything about Entitlement collection
+  humanURL: https://getlago.com/
+  tags:
+  - entitlements
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-entitlements-api-openapi.yml
+- aid: lago:lago-features-api
+  name: Lago Features API
+  description: Everything about Feature collection
+  humanURL: https://getlago.com/
+  tags:
+  - features
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-features-api-openapi.yml
+- aid: lago:lago-lago-api-documentation-api
+  name: Lago Lago API Documentation API
+  description: The Lago API Documentation API from Lago — 0 operation(s) for lago api documentation.
+  humanURL: https://getlago.com/
+  tags:
+  - Lago API Documentation
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-lago-api-documentation-api-openapi.yml
+- aid: lago:lago-order-forms-api
+  name: Lago Order Forms API
+  description: Everything about Order form collection
+  humanURL: https://getlago.com/
+  tags:
+  - order_forms
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-order-forms-api-openapi.yml
+- aid: lago:lago-orders-api
+  name: Lago Orders API
+  description: Everything about Order collection
+  humanURL: https://getlago.com/
+  tags:
+  - orders
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-orders-api-openapi.yml
+- aid: lago:lago-payment-methods-api
+  name: Lago Payment Methods API
+  description: Everything about Payment Methods
+  humanURL: https://getlago.com/
+  tags:
+  - payment_methods
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-payment-methods-api-openapi.yml
+- aid: lago:lago-payment-receipts-api
+  name: Lago Payment Receipts API
+  description: Everything about Payment receipts
+  humanURL: https://getlago.com/
+  tags:
+  - payment_receipts
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-payment-receipts-api-openapi.yml
+- aid: lago:lago-payments-api
+  name: Lago Payments API
+  description: Everything about Payments
+  humanURL: https://getlago.com/
+  tags:
+  - payments
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-payments-api-openapi.yml
+- aid: lago:lago-quotes-api
+  name: Lago Quotes API
+  description: Everything about Quote collection
+  humanURL: https://getlago.com/
+  tags:
+  - quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/lago-quotes-api-openapi.yml
 common:
   - type: Plans
     url: plans/lago-plans-pricing.yml

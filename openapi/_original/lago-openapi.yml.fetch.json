@@ -1,0 +1,12 @@
+{
+ "url": "https://getlago.com/api/openapi.yaml",
+ "final": "https://getlago.com/api/openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 1068150,
+ "sha256": "a4172f6f64e999ba212980cf444b224aaa6f29cbbde699d478e6d817649ff354",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

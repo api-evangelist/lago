@@ -2,32 +2,34 @@ openapi: 3.2.0
 info:
   title: Lago API documentation Credit Notes API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
-  version: 1.15.0
+  version: 1.55.0
   license:
     name: AGPLv3
-    identifier: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
   contact:
     email: tech@getlago.com
 servers:
 - url: https://api.getlago.com/api/v1
   description: US Lago cluster
 - url: https://api.eu.getlago.com/api/v1
-  description: EU Lagos cluster
+  description: EU Lago cluster
 security:
 - bearerAuth: []
 tags:
-- name: Credit Notes
+- name: credit_notes
   description: Everything about Credit notes collection
   externalDocs:
     description: Find out more
-    url: https://doc.getlago.com/docs/api/credit_notes/credit-note-object
+    url: https://getlago.com/docs/api-reference/credit-notes/credit-note-object
 paths:
   /credit_notes:
     post:
       tags:
-      - Credit Notes
-      summary: Lago Create a credit note
-      description: This endpoint creates a new credit note.
+      - credit_notes
+      summary: Create a credit note
+      description: 'This endpoint creates a new credit note.
+
+        This is a premium feature.'
       operationId: createCreditNote
       requestBody:
         description: Credit note payload
@@ -42,32 +44,171 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditNote'
+                $ref: '#/components/schemas/CreditNoteExtended'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/NotAllowed'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-      - Credit Notes
-      summary: Lago List all credit notes
-      description: This endpoint list all existing credit notes.
+      - credit_notes
+      summary: List all credit notes
+      description: This endpoint lists all existing credit notes.
       operationId: findAllCreditNotes
       parameters:
       - $ref: '#/components/parameters/page'
       - $ref: '#/components/parameters/per_page'
       - $ref: '#/components/parameters/external_customer_id'
+      - name: issuing_date_from
+        in: query
+        description: Filter credit notes starting from a specific date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-07-08'
+      - name: issuing_date_to
+        in: query
+        description: Filter credit notes up to a specific date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: search_term
+        in: query
+        description: Search credit notes by id, number, customer name, customer external_id or customer email.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: Jane
+      - name: currency
+        in: query
+        description: Filter credit notes by currency. Possible values ISO 4217 currency codes.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: EUR
+      - name: reason
+        in: query
+        description: Filter credit notes by reasons. Possible values are `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge`, `duplicated_charge` or `other`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - product_unsatisfactory
+          - order_change
+          - order_cancellation
+          - fraudulent_charge
+          - duplicated_charge
+          - other
+      - name: credit_status
+        in: query
+        description: Filter credit notes by credit status. Possible values are `available`, `consumed` or `voided`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - available
+          - consumed
+          - voided
+      - name: refund_status
+        in: query
+        description: Filter credit notes by refund status. Possible values are `pending`, `succeeded` or `failed`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+      - name: invoice_number
+        in: query
+        description: Filter credit notes by their related invoice number.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: INV-001-002
+      - $ref: '#/components/parameters/purchase_order_number'
+      - name: amount_from
+        in: query
+        description: Filter credit notes of at least a specific amount. This parameter must be defined in cents to ensure consistent handling for all currency types.
+        required: false
+        explode: true
+        schema:
+          type: integer
+          example: 9000
+      - name: amount_to
+        in: query
+        description: Filter credit notes up to a specific amount. This parameter must be defined in cents to ensure consistent handling for all currency types.
+        required: false
+        explode: true
+        schema:
+          type: integer
+          example: 100000
+      - name: types[]
+        in: query
+        description: Filter credit notes by the kind of amount they carry. `credit` matches credit notes with a credited amount, `refund` those with a refunded amount and `offset` those with an amount deducted from the invoice balance. A credit note can match several types.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - credit
+            - refund
+            - offset
+          example:
+          - credit
+          - refund
+      - name: self_billed
+        in: query
+        description: Filter credit notes belonging to a self billed invoice. Possible values are `true` or `false`.
+        required: false
+        explode: true
+        schema:
+          type: boolean
+          example: true
+      - name: billing_entity_codes[]
+        in: query
+        description: Filter credit notes by billing entity codes.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - billing_entity_code_1
+          - billing_entity_code_2
       responses:
         '200':
           description: Credit notes
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditNotes'
+                $ref: '#/components/schemas/CreditNotesPaginated'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /credit_notes/{lago_id}:
     parameters:
     - name: lago_id
@@ -79,8 +220,8 @@ paths:
         example: '12345'
     put:
       tags:
-      - Credit Notes
-      summary: Lago Update a credit note
+      - credit_notes
+      summary: Update a credit note
       description: This endpoint updates an existing credit note.
       operationId: updateCreditNote
       requestBody:
@@ -96,7 +237,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditNote'
+                $ref: '#/components/schemas/CreditNoteExtended'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -107,8 +248,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
     get:
       tags:
-      - Credit Notes
-      summary: Lago Retrieve a credit note
+      - credit_notes
+      summary: Retrieve a credit note
       description: This endpoint retrieves an existing credit note.
       operationId: findCreditNote
       responses:
@@ -117,7 +258,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditNote'
+                $ref: '#/components/schemas/CreditNoteExtended'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -125,9 +266,11 @@ paths:
   /credit_notes/{lago_id}/download:
     post:
       tags:
-      - Credit Notes
-      summary: Lago Download a credit note PDF
-      description: This endpoint downloads the PDF of an existing credit note.
+      - credit_notes
+      summary: Download a credit note PDF
+      description: 'This endpoint downloads the PDF of an existing credit note. Only `finalized` credit notes can be downloaded; any other credit note returns a `404` error.
+
+        When the PDF has already been generated, the credit note object is returned and its `file_url` points to the document. When it has not been generated yet, the response is a `200` with an empty body and the generation starts in the background. Call the endpoint again to get the credit note object with its `file_url`.'
       parameters:
       - name: lago_id
         in: path
@@ -152,15 +295,18 @@ paths:
   /credit_notes/estimate:
     post:
       tags:
-      - Credit Notes
-      summary: Lago Estimate amounts for a new credit note
-      description: This endpoint allows you to retrieve amounts for a new credit note creation.
+      - credit_notes
+      summary: Estimate amounts for a new credit note
+      description: 'This endpoint allows you to retrieve amounts for a new credit note creation.
+
+        This is a premium feature.'
       requestBody:
         description: Credit note estimate payload
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreditNoteEstimateInput'
+        required: true
       operationId: estimateCreditNote
       responses:
         '200':
@@ -173,13 +319,19 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/NotAllowed'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
   /credit_notes/{lago_id}/void:
     put:
       tags:
-      - Credit Notes
-      summary: Lago Void available credit
+      - credit_notes
+      summary: Void available credit
       description: This endpoint voids the available credit linked to a specific credit note.
       parameters:
       - name: lago_id
@@ -197,15 +349,2465 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditNote'
+                $ref: '#/components/schemas/CreditNoteExtended'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
         '405':
           $ref: '#/components/responses/NotAllowed'
+  /credit_notes/{lago_id}/metadata:
+    post:
+      tags:
+      - credit_notes
+      summary: Replace credit note metadata
+      description: 'This endpoint replaces all existing metadata on a credit note with the provided key-value pairs.
+
+        Any existing metadata keys not included in the request will be removed.'
+      parameters:
+      - name: lago_id
+        in: path
+        description: The credit note unique identifier, created by Lago.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1f615414-ceb0-11f0-94bf-0f2d5b311aba
+      operationId: replaceCreditNoteMetadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditNoteMetadataResponse'
+      responses:
+        '200':
+          description: Credit note metadata replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNoteMetadataResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    patch:
+      tags:
+      - credit_notes
+      summary: Merge credit note metadata
+      description: 'This endpoint merges the provided metadata with existing metadata on the credit note.
+
+        Existing keys not in the request are preserved. New keys are added, existing keys are updated.'
+      parameters:
+      - name: lago_id
+        in: path
+        description: The credit note unique identifier, created by Lago.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+      operationId: mergeCreditNoteMetadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditNoteMetadataResponse'
+      responses:
+        '200':
+          description: Credit note metadata merged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNoteMetadataResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      tags:
+      - credit_notes
+      summary: Delete all credit note metadata
+      description: This endpoint removes all metadata from a credit note.
+      parameters:
+      - name: lago_id
+        in: path
+        description: The credit note unique identifier, created by Lago.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+      operationId: deleteAllCreditNoteMetadata
+      responses:
+        '200':
+          description: Credit note metadata deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNoteMetadataResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /credit_notes/{lago_id}/metadata/{key}:
+    delete:
+      tags:
+      - credit_notes
+      summary: Delete a metadata key
+      description: This endpoint removes a single metadata key from a credit note.
+      parameters:
+      - name: lago_id
+        in: path
+        description: The credit note unique identifier, created by Lago.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+      - name: key
+        in: path
+        description: The metadata key to delete.
+        required: true
+        schema:
+          type: string
+          example: external_id
+      operationId: deleteCreditNoteMetadataKey
+      responses:
+        '200':
+          description: Metadata key deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNoteMetadataResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{external_customer_id}/credit_notes:
+    get:
+      tags:
+      - credit_notes
+      summary: List all customer's credit notes
+      description: This endpoint lists all existing credit notes for a customer.
+      operationId: findAllCustomerCreditNotes
+      parameters:
+      - $ref: '#/components/parameters/external_customer_id_path'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: issuing_date_from
+        in: query
+        description: Filter credit notes starting from a specific date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-07-08'
+      - name: issuing_date_to
+        in: query
+        description: Filter credit notes up to a specific date.
+        required: false
+        explode: true
+        schema:
+          type: string
+          format: date
+          example: '2022-08-09'
+      - name: search_term
+        in: query
+        description: Search credit notes by id, number, customer name, customer external_id or customer email.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: Jane
+      - name: currency
+        in: query
+        description: Filter credit notes by currency. Possible values ISO 4217 currency codes.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: EUR
+      - name: reason
+        in: query
+        description: Filter credit notes by reasons. Possible values are `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge`, `duplicated_charge` or `other`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - product_unsatisfactory
+          - order_change
+          - order_cancellation
+          - fraudulent_charge
+          - duplicated_charge
+          - other
+      - name: credit_status
+        in: query
+        description: Filter credit notes by credit status. Possible values are `available`, `consumed` or `voided`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - available
+          - consumed
+          - voided
+      - name: refund_status
+        in: query
+        description: Filter credit notes by refund status. Possible values are `pending`, `succeeded` or `failed`.
+        required: false
+        explode: true
+        schema:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+      - name: invoice_number
+        in: query
+        description: Filter credit notes by their related invoice number.
+        required: false
+        explode: true
+        schema:
+          type: string
+          example: INV-001-002
+      - $ref: '#/components/parameters/purchase_order_number'
+      - name: amount_from
+        in: query
+        description: Filter credit notes of at least a specific amount. This parameter must be defined in cents to ensure consistent handling for all currency types.
+        required: false
+        explode: true
+        schema:
+          type: integer
+          example: 9000
+      - name: amount_to
+        in: query
+        description: Filter credit notes up to a specific amount. This parameter must be defined in cents to ensure consistent handling for all currency types.
+        required: false
+        explode: true
+        schema:
+          type: integer
+          example: 100000
+      - name: types[]
+        in: query
+        description: Filter credit notes by the kind of amount they carry. `credit` matches credit notes with a credited amount, `refund` those with a refunded amount and `offset` those with an amount deducted from the invoice balance. A credit note can match several types.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - credit
+            - refund
+            - offset
+          example:
+          - credit
+          - refund
+      - name: self_billed
+        in: query
+        description: Filter credit notes belonging to a self billed invoice. Possible values are `true` or `false`.
+        required: false
+        explode: true
+        schema:
+          type: boolean
+          example: true
+      - name: billing_entity_codes[]
+        in: query
+        description: Filter credit notes by billing entity codes.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example:
+          - billing_entity_code_1
+          - billing_entity_code_2
+      responses:
+        '200':
+          description: Credit notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditNotesPaginated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Timezone:
+      type: string
+      example: America/Los_Angeles
+      enum:
+      - UTC
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Casablanca
+      - Africa/Harare
+      - Africa/Johannesburg
+      - Africa/Monrovia
+      - Africa/Nairobi
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Caracas
+      - America/Chicago
+      - America/Chihuahua
+      - America/Denver
+      - America/Guatemala
+      - America/Guyana
+      - America/Halifax
+      - America/Indiana/Indianapolis
+      - America/Juneau
+      - America/La_Paz
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mazatlan
+      - America/Mexico_City
+      - America/Monterrey
+      - America/Montevideo
+      - America/New_York
+      - America/Nuuk
+      - America/Phoenix
+      - America/Puerto_Rico
+      - America/Regina
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/St_Johns
+      - America/Tijuana
+      - Asia/Almaty
+      - Asia/Baghdad
+      - Asia/Baku
+      - Asia/Bangkok
+      - Asia/Chongqing
+      - Asia/Colombo
+      - Asia/Dhaka
+      - Asia/Hong_Kong
+      - Asia/Irkutsk
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Kabul
+      - Asia/Kamchatka
+      - Asia/Karachi
+      - Asia/Kathmandu
+      - Asia/Kolkata
+      - Asia/Krasnoyarsk
+      - Asia/Kuala_Lumpur
+      - Asia/Kuwait
+      - Asia/Magadan
+      - Asia/Muscat
+      - Asia/Novosibirsk
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Srednekolymsk
+      - Asia/Taipei
+      - Asia/Tashkent
+      - Asia/Tbilisi
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Ulaanbaatar
+      - Asia/Urumqi
+      - Asia/Vladivostok
+      - Asia/Yakutsk
+      - Asia/Yangon
+      - Asia/Yekaterinburg
+      - Asia/Yerevan
+      - Atlantic/Azores
+      - Atlantic/Cape_Verde
+      - Atlantic/South_Georgia
+      - Australia/Adelaide
+      - Australia/Brisbane
+      - Australia/Darwin
+      - Australia/Hobart
+      - Australia/Melbourne
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Amsterdam
+      - Europe/Athens
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Bratislava
+      - Europe/Brussels
+      - Europe/Bucharest
+      - Europe/Budapest
+      - Europe/Copenhagen
+      - Europe/Dublin
+      - Europe/Helsinki
+      - Europe/Istanbul
+      - Europe/Kaliningrad
+      - Europe/Kyiv
+      - Europe/Lisbon
+      - Europe/Ljubljana
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Minsk
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Prague
+      - Europe/Riga
+      - Europe/Rome
+      - Europe/Samara
+      - Europe/Sarajevo
+      - Europe/Skopje
+      - Europe/Sofia
+      - Europe/Stockholm
+      - Europe/Tallinn
+      - Europe/Vienna
+      - Europe/Vilnius
+      - Europe/Volgograd
+      - Europe/Warsaw
+      - Europe/Zagreb
+      - Europe/Zurich
+      - GMT+12
+      - Pacific/Apia
+      - Pacific/Auckland
+      - Pacific/Chatham
+      - Pacific/Fakaofo
+      - Pacific/Fiji
+      - Pacific/Guadalcanal
+      - Pacific/Guam
+      - Pacific/Honolulu
+      - Pacific/Majuro
+      - Pacific/Midway
+      - Pacific/Noumea
+      - Pacific/Pago_Pago
+      - Pacific/Port_Moresby
+      - Pacific/Tongatapu
+    CreditNoteExtendedObject:
+      allOf:
+      - $ref: '#/components/schemas/CreditNoteObject'
+      - type: object
+        properties:
+          customer:
+            $ref: '#/components/schemas/CustomerObject'
+    CreditNoteAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_credit_note_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the credit note, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        base_amount_cents:
+          type: integer
+          example: 100
+    PaginationMeta:
+      type: object
+      required:
+      - current_page
+      - total_pages
+      - total_count
+      properties:
+        current_page:
+          type: integer
+          description: Current page.
+          example: 2
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page.
+          example: 3
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page.
+          example: 1
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 4
+        total_count:
+          type: integer
+          description: Total number of records.
+          example: 70
+    TimezoneOrNull:
+      type:
+      - string
+      - 'null'
+      example: America/Los_Angeles
+      enum:
+      - null
+      - UTC
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Casablanca
+      - Africa/Harare
+      - Africa/Johannesburg
+      - Africa/Monrovia
+      - Africa/Nairobi
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Caracas
+      - America/Chicago
+      - America/Chihuahua
+      - America/Denver
+      - America/Godthab
+      - America/Guatemala
+      - America/Guyana
+      - America/Halifax
+      - America/Indiana/Indianapolis
+      - America/Juneau
+      - America/La_Paz
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mazatlan
+      - America/Mexico_City
+      - America/Monterrey
+      - America/Montevideo
+      - America/New_York
+      - America/Phoenix
+      - America/Puerto_Rico
+      - America/Regina
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/St_Johns
+      - America/Tijuana
+      - Asia/Almaty
+      - Asia/Baghdad
+      - Asia/Baku
+      - Asia/Bangkok
+      - Asia/Chongqing
+      - Asia/Colombo
+      - Asia/Dhaka
+      - Asia/Hong_Kong
+      - Asia/Irkutsk
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Kabul
+      - Asia/Kamchatka
+      - Asia/Karachi
+      - Asia/Kathmandu
+      - Asia/Kolkata
+      - Asia/Krasnoyarsk
+      - Asia/Kuala_Lumpur
+      - Asia/Kuwait
+      - Asia/Magadan
+      - Asia/Muscat
+      - Asia/Novosibirsk
+      - Asia/Rangoon
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Srednekolymsk
+      - Asia/Taipei
+      - Asia/Tashkent
+      - Asia/Tbilisi
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Ulaanbaatar
+      - Asia/Urumqi
+      - Asia/Vladivostok
+      - Asia/Yakutsk
+      - Asia/Yekaterinburg
+      - Asia/Yerevan
+      - Atlantic/Azores
+      - Atlantic/Cape_Verde
+      - Atlantic/South_Georgia
+      - Australia/Adelaide
+      - Australia/Brisbane
+      - Australia/Darwin
+      - Australia/Hobart
+      - Australia/Melbourne
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Amsterdam
+      - Europe/Athens
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Bratislava
+      - Europe/Brussels
+      - Europe/Bucharest
+      - Europe/Budapest
+      - Europe/Copenhagen
+      - Europe/Dublin
+      - Europe/Helsinki
+      - Europe/Istanbul
+      - Europe/Kaliningrad
+      - Europe/Kiev
+      - Europe/Lisbon
+      - Europe/Ljubljana
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Minsk
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Prague
+      - Europe/Riga
+      - Europe/Rome
+      - Europe/Samara
+      - Europe/Sarajevo
+      - Europe/Skopje
+      - Europe/Sofia
+      - Europe/Stockholm
+      - Europe/Tallinn
+      - Europe/Vienna
+      - Europe/Vilnius
+      - Europe/Volgograd
+      - Europe/Warsaw
+      - Europe/Zagreb
+      - Europe/Zurich
+      - GMT+12
+      - Pacific/Apia
+      - Pacific/Auckland
+      - Pacific/Chatham
+      - Pacific/Fakaofo
+      - Pacific/Fiji
+      - Pacific/Guadalcanal
+      - Pacific/Guam
+      - Pacific/Honolulu
+      - Pacific/Majuro
+      - Pacific/Midway
+      - Pacific/Noumea
+      - Pacific/Pago_Pago
+      - Pacific/Port_Moresby
+      - Pacific/Tongatapu
+    CountryOrNull:
+      type:
+      - string
+      - 'null'
+      example: US
+      enum:
+      - null
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KP
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+    FeeObject:
+      type: object
+      required:
+      - item
+      - amount_cents
+      - amount_currency
+      - taxes_amount_cents
+      - taxes_rate
+      - total_amount_cents
+      - total_amount_currency
+      - pay_in_advance
+      - invoiceable
+      - units
+      - total_aggregated_units
+      - precise_unit_amount
+      - sub_total_excluding_taxes_amount_cents
+      - sub_total_excluding_taxes_precise_amount_cents
+      - payment_status
+      properties:
+        lago_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_charge_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the charge that the fee belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_charge_filter_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the charge filter that the fee belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_fixed_charge_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the fixed charge that the fee belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_invoice_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the invoice that the fee belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_true_up_fee_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the true-up fee when a minimum has been set to the charge. This identifier helps to distinguish and manage the true-up fee associated with the charge, which may be applicable when a minimum threshold or limit is set for the charge amount.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_true_up_parent_fee_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the parent fee on which the true-up fee is assigned. This identifier establishes the relationship between the parent fee and the associated true-up fee.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_original_fee_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the fee this fee was derived from. It is set on fees regenerated from an existing fee, and `null` otherwise.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_subscription_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the subscription, created by Lago. This field is specifically displayed when the fee type is charge or subscription.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_customer_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier assigned to the customer, created by Lago. This field is specifically displayed when the fee type is charge or subscription.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        external_customer_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier assigned to the customer in your application. This field is specifically displayed when the fee type is charge or subscription.
+          example: external_id
+        external_subscription_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier assigned to the subscription in your application. This field is specifically displayed when the fee type is charge or subscription.
+          example: external_id
+        amount_cents:
+          type: integer
+          description: The cost of this specific fee, excluding any applicable taxes.
+          example: 100
+        precise_amount:
+          type: string
+          description: The cost of this specific fee, excluding any applicable taxes, with precision.
+          example: '1.0001'
+        precise_total_amount:
+          type: string
+          description: The cost of this specific fee, including any applicable taxes, with precision.
+          example: '1.0212'
+        amount_currency:
+          $ref: '#/components/schemas/Currency'
+          description: The currency of this specific fee. It indicates the monetary unit in which the fee's cost is expressed.
+          example: EUR
+        taxes_amount_cents:
+          type: integer
+          description: The cost of the tax associated with this specific fee.
+          example: 20
+        taxes_precise_amount:
+          type: string
+          description: The cost of the tax associated with this specific fee, with precision.
+          example: '0.20123'
+        taxes_rate:
+          type: number
+          description: The tax rate associated with this specific fee.
+          example: 20
+        units:
+          type: string
+          description: The number of units used to charge the customer. This field indicates the quantity or count of units consumed or utilized in the context of the charge. It helps in determining the basis for calculating the fee or cost associated with the usage of the service or product provided to the customer.
+          example: '0.32'
+        precise_unit_amount:
+          type: string
+          description: The unit amount of the fee per unit, with precision.
+          example: '312.5'
+        total_aggregated_units:
+          type:
+          - string
+          - 'null'
+          description: The total number of units that have been aggregated for this specific fee. It is `null` on fees that do not aggregate units, such as `subscription`, `add_on` and `credit` fees.
+          example: '0.32'
+        total_amount_cents:
+          type: integer
+          description: The cost of this specific fee, including any applicable taxes.
+          example: 120
+        total_amount_currency:
+          $ref: '#/components/schemas/Currency'
+          description: The currency of this specific fee, including any applicable taxes.
+          example: EUR
+        events_count:
+          type:
+          - integer
+          - 'null'
+          description: The number of events that have been sent and used to charge the customer. This field indicates the count or quantity of events that have been processed and considered in the charging process.
+          example: 23
+        pay_in_advance:
+          type: boolean
+          description: Flag that indicates whether the fee was paid in advance. It serves as a boolean value, where `true` represents that the fee was paid in advance (straightaway), and `false` indicates that the fee was not paid in arrears (at the end of the period).
+          example: true
+        invoiceable:
+          type: boolean
+          description: Flag that indicates whether the fee was included on the invoice. It serves as a boolean value, where `true` represents that the fee was included on the invoice, and `false` indicates that the fee was not included on the invoice.
+          example: true
+        from_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The beginning date of the period that the fee covers. It is applicable only to `subscription`, `charge`, `fixed_charge` and `commitment` fees. This field indicates the start date of the billing period or subscription period associated with the fee.
+          example: '2022-04-29T08:59:51Z'
+        to_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The ending date of the period that the fee covers. It is applicable only to `subscription`, `charge`, `fixed_charge` and `commitment` fees. This field indicates the end date of the billing period or subscription period associated with the fee.
+          example: '2022-05-29T08:59:51Z'
+        payment_status:
+          type: string
+          enum:
+          - pending
+          - succeeded
+          - failed
+          - refunded
+          description: Indicates the payment status of the fee. It represents the current status of the payment associated with the fee. The possible values for this field are `pending`, `succeeded`, `failed` and `refunded`.
+          example: pending
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the fee was created. It is provided in Coordinated Universal Time (UTC) format.
+          example: '2022-08-24T14:58:59Z'
+        succeeded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the payment for the fee was successfully processed. It is provided in Coordinated Universal Time (UTC) format.
+          example: '2022-08-24T14:58:59Z'
+        failed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the payment for the fee failed to process. It is provided in Coordinated Universal Time (UTC) format.
+          example: '2022-08-24T14:58:59Z'
+        refunded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the payment for the fee was refunded. It is provided in Coordinated Universal Time (UTC) format
+          example: '2022-08-24T14:58:59Z'
+        event_transaction_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier assigned to the transaction. This field is specifically displayed when the fee type is `charge` and the payment for the fee is made in advance (`pay_in_advance` is set to `true`).
+          example: transaction_1234567890
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the fee.
+          example: Fee description
+        precise_coupons_amount_cents:
+          type: string
+          description: The coupon amount applied to the fee, with precision.
+          example: '0.0'
+        sub_total_excluding_taxes_amount_cents:
+          type: integer
+          description: The sub total of the fee excluding taxes, in cents.
+          example: 100
+        sub_total_excluding_taxes_precise_amount_cents:
+          type: string
+          description: The sub total of the fee excluding taxes, with precision.
+          example: '100.0'
+        amount_details:
+          $ref: '#/components/schemas/FeeAmountDetails'
+          description: List of all unit amount details for calculating the fee.
+        self_billed:
+          type: boolean
+          example: false
+          description: Indicates if the fee belongs to self-billed invoice. Self-billing is a process where an organization creates the invoice on behalf of the partner.
+        item:
+          type: object
+          description: Item attached to the fee
+          required:
+          - type
+          - code
+          - name
+          - description
+          - invoice_display_name
+          - filters
+          - filter_invoice_display_name
+          - lago_item_id
+          - item_type
+          - grouped_by
+          properties:
+            type:
+              type: string
+              enum:
+              - charge
+              - fixed_charge
+              - add_on
+              - subscription
+              - credit
+              - commitment
+              description: The fee type. Possible values are `add_on`, `charge`, `fixed_charge`, `credit`, `subscription` or `commitment`.
+              example: subscription
+            code:
+              type: string
+              description: 'The code of the fee item. The value depends on the type of the fee item:
+
+
+                - If the fee item is a `charge`, it is the billable metric code.
+
+                - If the fee item is an `add_on` or a `fixed_charge`, it is the add-on code.
+
+                - If the fee item is a `credit`, it is always `"credit"`.
+
+                - For all the other fee items, it is the subscription plan code.
+
+                '
+              example: startup
+            name:
+              type: string
+              description: 'The name of the fee item. The value depends on the type of the fee item:
+
+
+                - If the fee item is a `charge`, it is the billable metric name.
+
+                - If the fee item is an `add_on`, it is the add-on name.
+
+                - If the fee item is a `credit`, it is the wallet transaction name if set, or `"credit"` if not.
+
+                - If the fee item is a `fixed_charge`, it is the fixed charge add-on name.
+
+                - For all the other fee items, it is the subscription plan name.
+
+                '
+              example: Startup
+            description:
+              type:
+              - string
+              - 'null'
+              description: 'The description of the fee item. The value depends on the type of the fee item:
+
+
+                - If the fee item is a `charge`, it is the billable metric description.
+
+                - If the fee item is an `add_on`, it is the add-on description.
+
+                - If the fee item is a `credit`, it is always `"credit"`.
+
+                - If the fee item is a `fixed_charge`, it is the fixed charge add-on description.
+
+                - For all the other fee items, it is the subscription plan description.
+
+                '
+              example: Startup
+            invoice_display_name:
+              type: string
+              description: 'Specifies the name that will be displayed on an invoice. If no value is set for this field, we''ll fallback to a value that depends on the type of the fee items:
+
+
+                - If the fee item is a `charge`, we''ll fallback to the `invoice_display_name` of the `charge` or the billable metric name if no `invoice_display_name` is set.
+
+                - If the fee item is an `add_on`, we''ll fallback to the `invoice_name` of the `add_on` or the `name` of the `add_on`.
+
+                - If the fee item is a `credit`, we''ll fallback to the wallet transaction name if set, or `credit` if not.
+
+                - If the fee item is a `fixed_charge`, we''ll fallback to the `invoice_display_name` of the `fixed_charge` or the `invoice_name` of the `fixed_charge_add_on` if no `invoice_display_name` is set.
+
+                - For all the other fee items, we''ll fallback to the `invoice_display_name` of the subscription plan.
+
+                '
+              example: Setup Fee (SF1)
+            filter_invoice_display_name:
+              type:
+              - string
+              - 'null'
+              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the actual charge filter values will be used as the default display name.
+              example: AWS eu-east-1
+            filters:
+              type:
+              - object
+              - 'null'
+              description: Key value list of event properties
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+            lago_item_id:
+              type: string
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: 'Unique identifier of the fee item, created by Lago. The object it points to is given by `item_type`:
+
+
+                - If the fee item is a `charge`, it is the billable metric identifier.
+
+                - If the fee item is an `add_on` or a `fixed_charge`, it is the add-on identifier.
+
+                - If the fee item is a `credit`, it is the wallet transaction identifier.
+
+                - For all the other fee items, it is the subscription identifier.
+
+                '
+              format: uuid
+            item_type:
+              type: string
+              enum:
+              - AddOn
+              - BillableMetric
+              - Subscription
+              - WalletTransaction
+              description: The type of the fee item. Possible values are `AddOn`, `BillableMetric`, `WalletTransaction`, `Subscription`.
+              example: Subscription
+            grouped_by:
+              type: object
+              description: Key value list of event properties aggregated by the charge model
+              additionalProperties:
+                type: string
+        applied_taxes:
+          type: array
+          description: List of fee applied taxes
+          items:
+            $ref: '#/components/schemas/FeeAppliedTaxObject'
+        pricing_unit_details:
+          type:
+          - object
+          - 'null'
+          description: Details about the pricing unit used and amounts for this fee.
+          $ref: '#/components/schemas/PricingUnitDetailsObject'
+        presentation_breakdowns:
+          $ref: '#/components/schemas/PresentationBreakdownsObject'
+    CreditNoteItemObject:
+      type: object
+      required:
+      - lago_id
+      - amount_cents
+      - precise_amount_cents
+      - amount_currency
+      - fee
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The credit note's item unique identifier, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        amount_cents:
+          type: integer
+          description: The credit note's item amount, expressed in cents.
+          example: 100
+        precise_amount_cents:
+          type: string
+          description: The credit note's item amount, expressed in cents, with precision.
+          example: '100.0001'
+        amount_currency:
+          $ref: '#/components/schemas/Currency'
+          description: The credit note's item currency.
+          example: EUR
+        fee:
+          $ref: '#/components/schemas/FeeObject'
+          description: The fee object related to the credit note item.
+    IntegrationCustomer:
+      type: object
+      required:
+      - lago_id
+      - type
+      - external_customer_id
+      - integration_code
+      - code
+      - is_default
+      - category
+      description: Configuration specific to the accounting and tax integrations. This object contains settings and parameters necessary for syncing documents and payments.
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the integration customer object in the Lago application.
+        type:
+          type: string
+          example: netsuite
+          description: 'The integration type used for accounting, tax and CRM syncs.
+
+            Accepted values: `netsuite`, `anrok`, `avalara`, `xero`, `hubspot`, `salesforce`.'
+          enum:
+          - netsuite
+          - anrok
+          - avalara
+          - xero
+          - hubspot
+          - salesforce
+        integration_code:
+          type: string
+          example: netsuite-eu-1
+          description: Unique code used to identify an integration connection.
+        code:
+          type:
+          - string
+          - 'null'
+          example: netsuite-eu-1
+          description: Unique code identifying this integration customer. It defaults to the code of the integration connection.
+        is_default:
+          type: boolean
+          example: true
+          description: Whether this integration customer is the default one of its category for the customer.
+        category:
+          type:
+          - string
+          - 'null'
+          example: accounting
+          description: 'The category of the integration connection. It is derived from the integration type.
+
+            Accepted values: `payment`, `tax`, `accounting`, `crm`.'
+          enum:
+          - payment
+          - tax
+          - accounting
+          - crm
+          - null
+        external_customer_id:
+          type:
+          - string
+          - 'null'
+          example: cus_12345
+          description: The customer ID within the integration's system. It is `null` when the customer has not been created in the integration's system yet.
+        sync_with_provider:
+          type:
+          - boolean
+          - 'null'
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the integration's system. This option is applicable only when the `external_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        subsidiary_id:
+          type: string
+          example: '2'
+          description: This optional field is needed only when working with `netsuite` connection.
+        targeted_object:
+          type:
+          - string
+          - 'null'
+          example: contacts
+          description: This optional field is present only when working with `hubspot` connection.
+        email:
+          type:
+          - string
+          - 'null'
+          example: dinesh@piedpiper.example
+          description: This optional field is present only when working with `hubspot` connection.
+    BaseAppliedTax:
+      type: object
+      required:
+      - lago_id
+      - lago_tax_id
+      - tax_name
+      - tax_code
+      - tax_rate
+      - tax_description
+      - amount_cents
+      - amount_currency
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the applied tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        lago_tax_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        tax_name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        tax_code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        tax_rate:
+          type: number
+          description: The percentage rate of the tax
+          example: 20
+        tax_description:
+          type:
+          - string
+          - 'null'
+          description: Internal description of the tax
+          example: French standard VAT
+        amount_cents:
+          type: integer
+          description: Amount of the tax
+          example: 2000
+        amount_currency:
+          $ref: '#/components/schemas/Currency'
+          description: Currency of the tax
+          example: USD
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
+          example: '2022-09-14T16:35:31Z'
+    CustomerBillingConfiguration:
+      type: object
+      description: Configuration specific to the payment provider, utilized for billing the customer. This object contains settings and parameters necessary for processing payments and invoicing the customer.
+      properties:
+        invoice_grace_period:
+          type:
+          - integer
+          - 'null'
+          example: 3
+          description: The grace period, expressed in days, for the invoice. This period refers to the additional time granted to the customer beyond the invoice due date to adjust usage and line items. It is null when the customer has no grace period of its own and falls back to the billing entity.
+        subscription_invoice_issuing_date_anchor:
+          type:
+          - string
+          - 'null'
+          example: next_period_start
+          description: Defines whether the issuing date follows the current billing period's end date or the next period starting date.
+          enum:
+          - current_period_end
+          - next_period_start
+          - null
+          default: null
+        subscription_invoice_issuing_date_adjustment:
+          type:
+          - string
+          - 'null'
+          example: keep_anchor
+          description: The logic applied on top of the subscription_invoice_issuing_date_anchor rule. You can opt to use the invoice finalization date, that includes any configured grace period.
+          enum:
+          - align_with_finalization_date
+          - keep_anchor
+          - null
+          default: null
+        payment_provider:
+          type:
+          - string
+          - 'null'
+          example: stripe
+          description: 'The payment provider utilized to initiate payments for invoices issued by Lago.
+
+            Accepted values: `stripe`, `adyen`, `cashfree`, `flutterwave`, `gocardless`, `moneyhash` or null. This field is required if you intend to assign a `provider_customer_id`. Send null to detach the customer from its current payment provider.'
+          enum:
+          - stripe
+          - adyen
+          - cashfree
+          - flutterwave
+          - gocardless
+          - moneyhash
+          - null
+        payment_provider_code:
+          type:
+          - string
+          - 'null'
+          example: stripe-eu-1
+          description: Unique code used to identify a payment provider connection.
+        provider_customer_id:
+          type: string
+          example: cus_12345
+          description: The customer ID within the payment provider's system. If this field is not provided, Lago has the option to create a new customer record within the payment provider's system on behalf of the customer
+        sync:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create the customer in the payment provider synchronously with the customer creation process in Lago. This option is applicable only when the `provider_customer_id` is `null` and the customer is automatically created in the payment provider through Lago. By default, the value is set to `false`
+        sync_with_provider:
+          type: boolean
+          example: true
+          description: Set this field to `true` if you want to create a customer record in the payment provider's system. This option is applicable only when the `provider_customer_id` is null and the `sync_with_provider` field is set to `true`. By default, the value is set to `false`
+        document_locale:
+          type:
+          - string
+          - 'null'
+          example: fr
+          description: The document locale, specified in the ISO 639-1 format. This field represents the language or locale used for the documents issued by Lago
+        provider_payment_methods:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Specifies the available payment methods that can be used for this customer when `payment_provider` is set to `stripe`. The `provider_payment_methods` field is an array that allows multiple payment options to be defined. If this field is not explicitly set, the payment methods will be set to `card`. For now, possible values are `card`, `sepa_debit`, `us_bank_account`, `bacs_debit`, `boleto`, `link`, `crypto` and `customer_balance`. Note that when `link` is selected, `card` should also be provided in the array. When `customer_balance` is selected, no other payment can be selected.
+          example:
+          - card
+          - sepa_debit
+          - us_bank_account
+          - bacs_debit
+          - link
+          - boleto
+          - crypto
+          - customer_balance
+    MetadataInput:
+      type: object
+      description: Metadata to set as key-value pairs. Keys are strings (max 100 characters), values can be strings (max 255 characters) or null.
+      additionalProperties:
+        type:
+        - string
+        - 'null'
+      example:
+        external_id: ext-123
+        synced_at: '2024-01-15'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    CreditNoteEstimated:
+      type: object
+      required:
+      - estimated_credit_note
+      properties:
+        estimated_credit_note:
+          type: object
+          required:
+          - lago_invoice_id
+          - invoice_number
+          - currency
+          - taxes_amount_cents
+          - precise_taxes_amount_cents
+          - sub_total_excluding_taxes_amount_cents
+          - max_creditable_amount_cents
+          - max_refundable_amount_cents
+          - max_offsettable_amount_cents
+          - coupons_adjustment_amount_cents
+          - precise_coupons_adjustment_amount_cents
+          - taxes_rate
+          - items
+          properties:
+            lago_invoice_id:
+              type: string
+              format: uuid
+              description: Unique identifier assigned to the invoice that the credit note belongs to
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            invoice_number:
+              type: string
+              description: The invoice unique number, related to the credit note.
+              example: LAG-1234
+            currency:
+              $ref: '#/components/schemas/Currency'
+              description: The currency of the credit note.
+              example: EUR
+            taxes_amount_cents:
+              type: integer
+              description: The tax amount of the credit note, expressed in cents.
+              example: 20
+            precise_taxes_amount_cents:
+              type: string
+              description: The precise tax amount of the credit note, expressed in cents with decimal precision.
+              example: '20.1'
+            taxes_rate:
+              type: number
+              description: The tax rate associated with this specific credit note.
+              example: 20
+            sub_total_excluding_taxes_amount_cents:
+              type: integer
+              description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
+              example: 100
+            max_creditable_amount_cents:
+              type: integer
+              description: The maximum amount that can be credited to the customer balance for the requested items, taxes included, expressed in cents.
+              example: 100
+            max_refundable_amount_cents:
+              type: integer
+              description: The maximum amount that can be refunded for the requested items, expressed in cents. It is capped by the amount the customer already paid on the invoice, so it is lower than `max_creditable_amount_cents` on an unpaid invoice.
+              example: 0
+            max_offsettable_amount_cents:
+              type: integer
+              description: The maximum amount that can be deducted from the invoice balance for the requested items, expressed in cents.
+              example: 0
+            coupons_adjustment_amount_cents:
+              type: integer
+              description: The pro-rated amount of the coupons applied to the source invoice.
+              example: 20
+            precise_coupons_adjustment_amount_cents:
+              type: string
+              description: The precise pro-rated amount with decimal precision of the coupons applied to the source invoice.
+              example: '20.1'
+            items:
+              type: array
+              items:
+                type: object
+                required:
+                - amount_cents
+                - lago_fee_id
+                properties:
+                  amount_cents:
+                    type: integer
+                    description: The credit note's item amount, expressed in cents.
+                    example: 100
+                  lago_fee_id:
+                    type:
+                    - string
+                    - 'null'
+                    format: uuid
+                    description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+              description: Array of credit note's items.
+            applied_taxes:
+              type: array
+              items:
+                type: object
+                properties:
+                  lago_tax_id:
+                    type: string
+                    format: uuid
+                    description: Unique identifier of the tax, created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  tax_name:
+                    type: string
+                    description: Name of the tax.
+                    example: TVA
+                  tax_code:
+                    type: string
+                    description: Unique code used to identify the tax associated with the API request.
+                    example: french_standard_vat
+                  tax_rate:
+                    type: number
+                    description: The percentage rate of the tax
+                    example: 20
+                  tax_description:
+                    type: string
+                    description: Internal description of the tax
+                    example: French standard VAT
+                  base_amount_cents:
+                    type: integer
+                    example: 100
+                  amount_cents:
+                    type: integer
+                    description: Amount of the tax
+                    example: 2000
+                  amount_currency:
+                    $ref: '#/components/schemas/Currency'
+                    description: Currency of the tax
+                    example: USD
+    PresentationBreakdownsObject:
+      type: array
+      description: Array of usage breakdowns split by presentation group keys without affecting pricing or aggregation.
+      items:
+        type: object
+        properties:
+          presentation_by:
+            type: object
+            description: Key value list of event properties used for presentation grouping.
+            additionalProperties:
+              type: string
+          units:
+            type: string
+            example: '9.0'
+            description: The number of units consumed for a specific presentation group.
+    CreditNoteErrorDetailsObject:
+      type: object
+      required:
+      - lago_id
+      - error_code
+      - details
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The credit note error details unique identifier, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        error_code:
+          type: string
+          enum:
+          - not_provided
+          - tax_error
+          - tax_voiding_error
+          - invoice_generation_error
+          description: The type of the error.
+          example: tax_error
+        details:
+          type: object
+          description: The details of the error.
+    CreditNoteObject:
+      type: object
+      required:
+      - lago_id
+      - sequential_id
+      - billing_entity_code
+      - number
+      - lago_invoice_id
+      - invoice_number
+      - purchase_order_number
+      - issuing_date
+      - credit_status
+      - refund_status
+      - reason
+      - description
+      - currency
+      - total_amount_cents
+      - precise_total_amount_cents
+      - credit_amount_cents
+      - refund_amount_cents
+      - offset_amount_cents
+      - balance_amount_cents
+      - taxes_amount_cents
+      - precise_taxes_amount_cents
+      - taxes_rate
+      - sub_total_excluding_taxes_amount_cents
+      - coupons_adjustment_amount_cents
+      - created_at
+      - updated_at
+      - file_url
+      - xml_url
+      - self_billed
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: The credit note unique identifier, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        billing_entity_code:
+          type: string
+          example: acme_corp
+          description: The unique code of the billing entity associated with the credit note.
+        sequential_id:
+          type: integer
+          description: The sequential identifier of the credit note, specifically scoped on the associated invoice. It provides a unique numerical identifier for the credit note within the context of the invoice.
+          example: 2
+        number:
+          type: string
+          description: The credit note unique number.
+          example: LAG-1234-CN2
+        lago_invoice_id:
+          type: string
+          format: uuid
+          description: Unique identifier assigned to the invoice that the credit note belongs to
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        invoice_number:
+          type: string
+          description: The invoice unique number, related to the credit note.
+          example: LAG-1234
+        purchase_order_number:
+          type:
+          - string
+          - 'null'
+          example: PO-123
+          description: The purchase order number of the invoice the credit note belongs to.
+        issuing_date:
+          type: string
+          format: date
+          description: The date of creation of the credit note. It follows the ISO 8601 date format and provides the specific date when the credit note was created.
+          example: '2022-12-06'
+        credit_status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - available
+          - consumed
+          - voided
+          - null
+          description: 'The status of the credit portion of the credit note. It indicates the current state or condition of the credit amount associated with the credit note. The possible values for this field are:
+
+
+            - `available`: this status indicates that an amount remains available for future usage. The credit can be applied towards future transactions or invoices.
+
+            - `consumed`: this status indicates that the credit amount has been fully consumed. The remaining amount is 0, indicating that the credit has been utilized in its entirety.
+
+            - `voided`: this status indicates that the remaining amount of the credit cannot be used any further. The credit has been voided and is no longer available for application or redemption.'
+          example: available
+        refund_status:
+          type:
+          - string
+          - 'null'
+          enum:
+          - pending
+          - succeeded
+          - failed
+          - null
+          description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
+
+
+            - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
+
+            - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
+
+            - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
+          example: pending
+        reason:
+          type: string
+          enum:
+          - duplicated_charge
+          - product_unsatisfactory
+          - order_change
+          - order_cancellation
+          - fraudulent_charge
+          - other
+          description: 'The reason of the credit note creation.
+
+            Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
+          example: other
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the credit note.
+          example: Free text
+        currency:
+          $ref: '#/components/schemas/Currency'
+          description: The currency of the credit note.
+          example: EUR
+        total_amount_cents:
+          type: integer
+          description: The total amount of the credit note, expressed in cents.
+          example: 120
+        precise_total_amount_cents:
+          type: string
+          description: The total amount of the credit note, expressed in cents, with precision.
+          example: '120.0001'
+        taxes_amount_cents:
+          type: integer
+          description: The tax amount of the credit note, expressed in cents.
+          example: 20
+        precise_taxes_amount_cents:
+          type: string
+          description: The tax amount of the credit note, expressed in cents, with precision.
+          example: '20.0001'
+        taxes_rate:
+          type: number
+          description: The tax rate associated with this specific credit note.
+          example: 20
+        sub_total_excluding_taxes_amount_cents:
+          type: integer
+          description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
+          example: 100
+        balance_amount_cents:
+          type: integer
+          description: The remaining credit note amount, expressed in cents.
+          example: 100
+        credit_amount_cents:
+          type: integer
+          description: The credited amount of the credit note, expressed in cents.
+          example: 100
+        refund_amount_cents:
+          type: integer
+          description: The refunded amount of the credit note, expressed in cents.
+          example: 0
+        offset_amount_cents:
+          type: integer
+          description: The offset amount (deducted from the invoice balance) of the credit note, expressed in cents.
+          example: 0
+        coupons_adjustment_amount_cents:
+          type: integer
+          description: The pro-rated amount of the coupons applied to the source invoice.
+          example: 20
+        created_at:
+          type: string
+          format: date-time
+          description: The date when the credit note was created. It is expressed in Coordinated Universal Time (UTC).
+          example: '2022-09-14T16:35:31Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date when the credit note was last updated. It is expressed in Coordinated Universal Time (UTC).
+          example: '2022-09-14T16:35:31Z'
+        file_url:
+          type:
+          - string
+          - 'null'
+          description: The PDF file of the credit note. It is `null` while no PDF has been generated.
+          example: https://getlago.com/credit_note/file
+        xml_url:
+          type:
+          - string
+          - 'null'
+          description: The e-invoicing XML file of the credit note. It is `null` while no XML file has been generated.
+          example: https://getlago.com/credit_note/xml
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteItemObject'
+          description: Array of credit note's items.
+        applied_taxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteAppliedTaxObject'
+        self_billed:
+          type: boolean
+          example: false
+          description: Indicates if the credit note belongs to self-billed invoice. Self-billing is a process where an organization creates the invoice on behalf of the partner.
+        customer:
+          $ref: '#/components/schemas/CustomerObject'
+        metadata:
+          $ref: '#/components/schemas/MetadataObject'
+        error_details:
+          type: array
+          description: The errors raised while the credit note was issued. When the key is present it is always an array, empty when no error was raised.
+          items:
+            $ref: '#/components/schemas/CreditNoteErrorDetailsObject'
+    CreditNotesPaginated:
+      type: object
+      required:
+      - credit_notes
+      - meta
+      properties:
+        credit_notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditNoteObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    CreditNoteMetadataResponse:
+      type: object
+      required:
+      - metadata
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataObject'
+    CreditNoteEstimateInput:
+      type: object
+      required:
+      - credit_note
+      properties:
+        credit_note:
+          type: object
+          required:
+          - invoice_id
+          - items
+          properties:
+            invoice_id:
+              type: string
+              format: uuid
+              description: The invoice unique identifier, created by Lago.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            items:
+              type: array
+              items:
+                type: object
+                required:
+                - fee_id
+                - amount_cents
+                properties:
+                  fee_id:
+                    type: string
+                    format: uuid
+                    description: The fee unique identifier, created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  amount_cents:
+                    type: integer
+                    description: The amount of the credit note item, expressed in cents.
+                    example: 10
+              description: The list of credit note's items.
+              example:
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                amount_cents: 10
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
+                amount_cents: 5
+    FeeAmountDetails:
+      type: object
+      properties:
+        plan_amount_cents:
+          type: integer
+          description: The base cost of the plan, excluding any applicable taxes, that is billed on a recurring basis. This value is defined at 0 if your plan is a pay-as-you-go plan.
+          example: 10000
+        graduated_ranges:
+          type: array
+          description: Graduated ranges, used for a `graduated` charge model.
+          items:
+            type: object
+            required:
+            - units
+            - from_value
+            - to_value
+            - flat_unit_amount
+            - per_unit_amount
+            - per_unit_total_amount
+            - total_with_flat_amount
+            properties:
+              units:
+                type: string
+                pattern: ^[0-9]+.?[0-9]*$
+                example: '10.0'
+                description: Total units received in Lago.
+              from_value:
+                type: integer
+                description: Lower value of a tier. It is either 0 or the previous range's `to_value + 1`.
+                example: 0
+              to_value:
+                type:
+                - integer
+                - 'null'
+                description: 'Highest value of a tier.
+
+                  - This value is higher than the from_value of the same tier.
+
+                  - This value is null for the last tier.'
+                example: 10
+              flat_unit_amount:
+                type: string
+                description: Flat unit amount within a specified tier.
+                example: '1.0'
+              per_unit_amount:
+                type: string
+                description: Amount per unit within a specified tier.
+                example: '1.0'
+              per_unit_total_amount:
+                type: string
+                description: Total amount of received units to be charged within a specified tier.
+                example: '10.0'
+              total_with_flat_amount:
+                type: string
+                description: Total amount to be charged for a specific tier, taking into account the flat_unit_amount and the per_unit_total_amount.
+                example: '11.0'
+        graduated_percentage_ranges:
+          type: array
+          description: Graduated percentage ranges, used for a `graduated_percentage` charge model.
+          items:
+            type: object
+            required:
+            - units
+            - from_value
+            - to_value
+            - flat_unit_amount
+            - rate
+            - per_unit_total_amount
+            - total_with_flat_amount
+            properties:
+              units:
+                type: string
+                pattern: ^[0-9]+.?[0-9]*$
+                example: '10.0'
+                description: Total units received in Lago.
+              from_value:
+                type: integer
+                description: Lower value of a tier. It is either 0 or the previous range's `to_value + 1`.
+                example: 0
+              to_value:
+                type:
+                - integer
+                - 'null'
+                description: 'Highest value of a tier.
+
+                  - This value is higher than the from_value of the same tier.
+
+                  - This value is null for the last tier.'
+                example: 10
+              flat_unit_amount:
+                type: string
+                description: Flat unit amount within a specified tier.
+                example: '1.0'
+              rate:
+                type: string
+                format: ^[0-9]+.?[0-9]*$
+                description: Percentage rate applied within a specified tier.
+                example: '1.0'
+              per_unit_total_amount:
+                type: string
+                description: Total amount of received units to be charged within a specified tier.
+                example: '10.0'
+              total_with_flat_amount:
+                type: string
+                description: Total amount to be charged for a specific tier, taking into account the flat_unit_amount and the per_unit_total_amount.
+                example: '11.0'
+        free_units:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          example: '10.0'
+          description: The quantity of units that are provided free of charge for each billing period in a `package` charge model.
+        paid_units:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          example: '40.0'
+          description: The quantity of units that are not provided free of charge for each billing period in a `package` charge model.
+        per_package_size:
+          type: integer
+          description: The quantity of units included, defined for Package or Percentage charge model.
+          example: 1000
+        per_package_unit_amount:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: Total amount to charge for received paid_units, defined for Package or Percentage charge model.
+          example: '0.5'
+        per_unit_total_amount:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: Total amount of received units to be charged for the Volume or Percentage charge model.
+          example: '10.0'
+        units:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          example: '20.0'
+          description: The total units received in Lago for the Percentage charge model.
+        free_events:
+          type: integer
+          example: 10
+          description: Total number of free events allowed for the Percentage charge model.
+        rate:
+          type: string
+          format: ^[0-9]+.?[0-9]*$
+          description: Percentage rate applied for the Percentage charge model.
+          example: '1.0'
+        paid_events:
+          type: integer
+          example: 20
+          description: Total number of paid events for the Percentage charge model.
+        fixed_fee_unit_amount:
+          type: string
+          description: Fixed fee unit price per received paid_event for the Percentage charge model.
+          example: '1.0'
+        fixed_fee_total_amount:
+          type: string
+          description: Total amount to charge for received paid_events for the Percentage charge model.
+          example: '20.0'
+        min_max_adjustment_total_amount:
+          type: string
+          description: Total adjustment amount linked to minimum and maximum spending per transaction for the Percentage charge model.
+          example: '20.0'
+        per_unit_amount:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: The flat amount for a whole tier, excluding tax, for a `volume` charge model.
+          example: '0.5'
+        flat_unit_amount:
+          type: string
+          pattern: ^[0-9]+.?[0-9]*$
+          description: The unit price, excluding tax, for a specific tier of a `volume` charge model.
+          example: '10.0'
+    CustomerObject:
+      allOf:
+      - $ref: '#/components/schemas/CustomerBaseObject'
+      - type: object
+        properties:
+          integration_customers:
+            type: array
+            items:
+              $ref: '#/components/schemas/IntegrationCustomer'
+    ApiErrorForbidden:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 403
+        error:
+          type: string
+          example: Forbidden
+        code:
+          type: string
+          example: feature_unavailable
+    CreditNoteExtended:
+      type: object
+      required:
+      - credit_note
+      properties:
+        credit_note:
+          $ref: '#/components/schemas/CreditNoteExtendedObject'
+    Address:
+      type: object
+      description: The shipping address of the customer.
+      properties:
+        address_line1:
+          type:
+          - string
+          - 'null'
+          example: 5230 Penfield Ave
+          description: The first line of the shipping address
+        address_line2:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: The second line of the shipping address
+        city:
+          type:
+          - string
+          - 'null'
+          example: Woodland Hills
+          description: The city of the customer's shipping address
+        country:
+          $ref: '#/components/schemas/CountryOrNull'
+          description: Country code of the customer's shipping address. Format must be ISO 3166 (alpha-2)
+          example: US
+        state:
+          type:
+          - string
+          - 'null'
+          example: CA
+          description: The state of the customer's shipping address
+        zipcode:
+          type:
+          - string
+          - 'null'
+          example: '91364'
+          description: The zipcode of the customer's shipping address
+    CreditNoteCreateInput:
+      type: object
+      required:
+      - credit_note
+      properties:
+        credit_note:
+          type: object
+          required:
+          - invoice_id
+          - items
+          properties:
+            invoice_id:
+              type: string
+              format: uuid
+              description: The invoice unique identifier, created by Lago.
+              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+            reason:
+              type:
+              - string
+              - 'null'
+              enum:
+              - duplicated_charge
+              - product_unsatisfactory
+              - order_change
+              - order_cancellation
+              - fraudulent_charge
+              - other
+              - null
+              description: 'The reason of the credit note creation.
+
+                Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
+              example: duplicated_charge
+            description:
+              type: string
+              description: The description of the credit note.
+              example: description
+            credit_amount_cents:
+              type:
+              - integer
+              - 'null'
+              description: The total amount to be credited to the customer balance for discounts on future invoices. For a total or partial refund, credit or offset, the amount in cents must include both the item amount and the applicable tax. The refunded, credited and offsetted amounts should always balance. The total, including taxes, cannot exceed the invoice's total fees.
+              example: 100
+            refund_amount_cents:
+              type:
+              - integer
+              - 'null'
+              description: The total amount to be refunded immediately to the payment method used by the customer. For a total or partial refund, credit or offset, the amount in cents must include both the item amount and the applicable tax. The refunded, credited and offsetted amounts should always balance. The total, including taxes, cannot exceed the invoice's total fees.
+              example: 500
+            offset_amount_cents:
+              type:
+              - integer
+              - 'null'
+              description: The total amount to be immediately deducted from the invoice balance. For a total or partial refund, credit or offset, the amount in cents must include both the item amount and the applicable tax. The refunded, credited and offsetted amounts should always balance. The total, including taxes, cannot exceed the invoice's total fees.
+              example: 200
+            items:
+              type: array
+              items:
+                type: object
+                required:
+                - fee_id
+                - amount_cents
+                properties:
+                  fee_id:
+                    type: string
+                    format: uuid
+                    description: The fee unique identifier, created by Lago.
+                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                  amount_cents:
+                    type: integer
+                    description: This is the amount of the credit note item excluding taxes, expressed in cents.
+                    example: 100
+              description: The list of credit note's items.
+              example:
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
+                amount_cents: 100
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
+                amount_cents: 500
+              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a92
+                amount_cents: 200
+            metadata:
+              $ref: '#/components/schemas/MetadataInput'
     ApiErrorUnprocessableEntity:
       type: object
       required:
@@ -226,10 +2828,438 @@ components:
           example: validation_errors
         error_details:
           type: object
-    Currency:
-      type: string
+    FeeAppliedTaxObject:
+      allOf:
+      - $ref: '#/components/schemas/BaseAppliedTax'
+      type: object
+      properties:
+        lago_fee_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the fee, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    CustomerMetadata:
+      type: object
+      description: Set of key-value pairs that you can attach to a customer. This can be useful for storing additional information about the customer in a structured format
+      required:
+      - lago_id
+      - key
+      - value
+      - display_in_invoice
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the customer metadata object in the Lago application. Can be used to update a key-value pair
+        key:
+          type: string
+          example: Purchase Order
+          description: The metadata object key
+        value:
+          type: string
+          example: '123456789'
+          description: The metadata object value
+        display_in_invoice:
+          type: boolean
+          example: true
+          description: Determines whether the item or information should be displayed in the invoice. If set to true, the item or information will be included and visible in the generated invoice. If set to false, the item or information will be excluded and not displayed in the invoice.
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the metadata object creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the metadata object was created
+    CreditNoteUpdateInput:
+      type: object
+      required:
+      - credit_note
+      properties:
+        credit_note:
+          type: object
+          properties:
+            refund_status:
+              type: string
+              enum:
+              - pending
+              - succeeded
+              - failed
+              description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
+
+
+                - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
+
+                - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
+
+                - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
+              example: succeeded
+            metadata:
+              $ref: '#/components/schemas/MetadataInput'
+    PricingUnitDetailsObject:
+      type: object
+      required:
+      - lago_pricing_unit_id
+      - pricing_unit_code
+      - short_name
+      - amount_cents
+      - precise_amount_cents
+      - unit_amount_cents
+      - precise_unit_amount
+      - conversion_rate
+      properties:
+        lago_pricing_unit_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the pricing unit, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        pricing_unit_code:
+          type: string
+          description: The code of the pricing unit.
+          example: credits
+        short_name:
+          type: string
+          description: The short name of the pricing unit. Will be used as currency name in the UI and PDFs.
+          example: CR
+        amount_cents:
+          type: integer
+          description: The amount in cents in the pricing unit.
+          example: 200
+        precise_amount_cents:
+          type: string
+          description: The precise amount in cents in the pricing unit.
+          example: '200.0'
+        unit_amount_cents:
+          type: integer
+          description: The unit amount in cents in the pricing unit.
+          example: 100
+        precise_unit_amount:
+          type: string
+          description: The precise unit amount in the pricing unit.
+          example: '100.0'
+        conversion_rate:
+          type: string
+          description: The conversion rate from pricing units to the plan's currency.
+          example: '0.5'
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    CustomerBaseObject:
+      type: object
+      required:
+      - lago_id
+      - sequential_id
+      - slug
+      - external_id
+      - billing_entity_code
+      - address_line1
+      - address_line2
+      - applicable_timezone
+      - city
+      - country
+      - currency
+      - email
+      - legal_name
+      - legal_number
+      - logo_url
+      - name
+      - firstname
+      - lastname
+      - account_type
+      - customer_type
+      - phone
+      - state
+      - tax_identification_number
+      - timezone
+      - url
+      - zipcode
+      - net_payment_term
+      - external_salesforce_id
+      - created_at
+      - updated_at
+      - finalize_zero_amount_invoice
+      - skip_invoice_custom_sections
+      - billing_configuration
+      - shipping_address
+      - metadata
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: Unique identifier assigned to the customer within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the customer's record within the Lago system
+        sequential_id:
+          type: integer
+          example: 1
+          description: The unique identifier assigned to the customer within the organization's scope. This identifier is used to track and reference the customer's order of creation within the organization's system. It ensures that each customer has a distinct `sequential_id` associated with them, allowing for easy identification and sorting based on the order of creation
+        slug:
+          type: string
+          example: LAG-1234-001
+          description: A concise and unique identifier for the customer, formed by combining the Organization's `name`, `id`, and customer's `sequential_id`
+        external_id:
+          type: string
+          example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+          description: The customer external unique identifier (provided by your own application)
+        billing_entity_code:
+          type: string
+          example: acme_corp
+          description: The unique code of the billing entity associated with the customer.
+        address_line1:
+          type:
+          - string
+          - 'null'
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+        address_line2:
+          type:
+          - string
+          - 'null'
+          example: null
+          description: The second line of the billing address
+        applicable_timezone:
+          $ref: '#/components/schemas/Timezone'
+          description: The customer's applicable timezone, used for billing purposes in their local time.
+        city:
+          type:
+          - string
+          - 'null'
+          example: Woodland Hills
+          description: The city of the customer's billing address
+        country:
+          $ref: '#/components/schemas/CountryOrNull'
+          description: Country code of the customer's billing address. Format must be ISO 3166 (alpha-2)
+          example: US
+        currency:
+          $ref: '#/components/schemas/CurrencyOrNull'
+          example: USD
+          description: Currency of the customer. Format must be ISO 4217
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          example: dinesh@piedpiper.example
+          description: The email of the customer
+        legal_name:
+          type:
+          - string
+          - 'null'
+          example: Coleman-Blair
+          description: The legal company name of the customer
+        legal_number:
+          type:
+          - string
+          - 'null'
+          example: 49-008-2965
+          description: The legal company number of the customer
+        logo_url:
+          type:
+          - string
+          - 'null'
+          example: http://hooli.com/logo.png
+          description: The logo URL of the customer
+        name:
+          type:
+          - string
+          - 'null'
+          example: Gavin Belson
+          description: The full name of the customer
+        firstname:
+          type:
+          - string
+          - 'null'
+          example: Gavin
+          description: First name of the customer
+        lastname:
+          type:
+          - string
+          - 'null'
+          example: Belson
+          description: Last name of the customer
+        account_type:
+          type: string
+          enum:
+          - customer
+          - partner
+          example: customer
+          description: 'The type of the account. It can have one of the following values:
+
+            - `customer`: the account is a customer.
+
+            - `partner`: the account is a partner.'
+        customer_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - company
+          - individual
+          - null
+          example: company
+          description: 'The type of the customer. It can have one of the following values:
+
+            - `company`: the customer is a company.
+
+            - `individual`: the customer is an individual.'
+        phone:
+          type:
+          - string
+          - 'null'
+          example: 1-171-883-3711 x245
+          description: The phone number of the customer
+        state:
+          type:
+          - string
+          - 'null'
+          example: CA
+          description: The state of the customer's billing address
+        tax_identification_number:
+          type:
+          - string
+          - 'null'
+          example: EU123456789
+          description: The tax identification number of the customer
+        timezone:
+          $ref: '#/components/schemas/TimezoneOrNull'
+          description: The customer's timezone, used for billing purposes in their local time. Overrides the organization's timezone
+        url:
+          type:
+          - string
+          - 'null'
+          example: http://hooli.com
+          description: The custom website URL of the customer
+        zipcode:
+          type:
+          - string
+          - 'null'
+          example: '91364'
+          description: The zipcode of the customer's billing address
+        net_payment_term:
+          type:
+          - integer
+          - 'null'
+          example: 30
+          description: The net payment term, expressed in days, specifies the duration within which a customer is expected to remit payment after the invoice is finalized.
+        external_salesforce_id:
+          type:
+          - string
+          - 'null'
+          example: 0015p00001JQx1QAAT
+          description: The customer ID within the Salesforce system
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the customer creation, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The creation_date provides a standardized and internationally recognized timestamp for when the customer object was created
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date of the customer update, represented in ISO 8601 datetime format and expressed in Coordinated Universal Time (UTC). The update_date provides a standardized and internationally recognized timestamp for when the customer object was updated
+        finalize_zero_amount_invoice:
+          type: string
+          enum:
+          - inherit
+          - skip
+          - finalize
+          example: inherit
+          description: 'Specifies how invoices with a zero total amount should be handled:
+
+            - `inherit`: (Default) Follows the organization-level configuration.
+
+            - `finalize`: Invoices are issued and finalized even if the total amount is zero.
+
+            - `skip`: Invoices with a total amount of zero are not finalized.'
+        skip_invoice_custom_sections:
+          type: boolean
+          example: false
+          description: Set to true to exclude all invoice custom sections from PDF generation for this customer only.
+        billing_configuration:
+          $ref: '#/components/schemas/CustomerBillingConfiguration'
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerMetadata'
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+    MetadataObject:
+      type:
+      - object
+      - 'null'
+      description: 'Custom metadata stored as key-value pairs.
+
+        Keys are strings (max 100 characters), values can be strings (max 255 characters) or null.'
+      additionalProperties:
+        type:
+        - string
+        - 'null'
+      example:
+        external_id: ext-123
+        synced_at: '2024-01-15'
+        source: null
+    ApiErrorNotAllowed:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 405
+        error:
+          type: string
+          example: Method Not Allowed
+        code:
+          type: string
+          example: not_allowed
+    CurrencyOrNull:
+      type:
+      - string
+      - 'null'
       example: USD
       enum:
+      - null
       - AED
       - AFN
       - ALL
@@ -344,9 +3374,11 @@ components:
       - SOS
       - SRD
       - STD
+      - SYP
       - SZL
       - THB
       - TJS
+      - TND
       - TOP
       - TRY
       - TTD
@@ -367,961 +3399,6 @@ components:
       - YER
       - ZAR
       - ZMW
-    CreditNoteEstimateInput:
-      type: object
-      required:
-      - credit_note
-      properties:
-        credit_note:
-          type: object
-          required:
-          - invoice_id
-          - items
-          properties:
-            invoice_id:
-              type: string
-              format: uuid
-              description: The invoice unique identifier, created by Lago.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            items:
-              type: array
-              items:
-                type: object
-                required:
-                - fee_id
-                - amount_cents
-                properties:
-                  fee_id:
-                    type: string
-                    format: uuid
-                    description: The fee unique identifier, created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  amount_cents:
-                    type: integer
-                    description: The amount of the credit note item, expressed in cents.
-                    example: 10
-              description: The list of credit note's items.
-              example:
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                amount_cents: 10
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
-                amount_cents: 5
-    CreditNoteObject:
-      type: object
-      required:
-      - lago_id
-      - sequential_id
-      - number
-      - lago_invoice_id
-      - invoice_number
-      - issuing_date
-      - reason
-      - currency
-      - total_amount_cents
-      - credit_amount_cents
-      - refund_amount_cents
-      - balance_amount_cents
-      - taxes_amount_cents
-      - taxes_rate
-      - sub_total_excluding_taxes_amount_cents
-      - coupons_adjustment_amount_cents
-      - created_at
-      - updated_at
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: The credit note unique identifier, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        sequential_id:
-          type: integer
-          description: The sequential identifier of the credit note, specifically scoped on the associated invoice. It provides a unique numerical identifier for the credit note within the context of the invoice.
-          example: 2
-        number:
-          type: string
-          description: The credit note unique number.
-          example: LAG-1234-CN2
-        lago_invoice_id:
-          type: string
-          format: uuid
-          description: Unique identifier assigned to the invoice that the credit note belongs to
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        invoice_number:
-          type: string
-          description: The invoice unique number, related to the credit note.
-          example: LAG-1234
-        issuing_date:
-          type: string
-          format: date
-          description: The date of creation of the credit note. It follows the ISO 8601 date format and provides the specific date when the credit note was created.
-          example: '2022-12-06'
-        credit_status:
-          type: string
-          enum:
-          - available
-          - consumed
-          - voided
-          nullable: true
-          description: 'The status of the credit portion of the credit note. It indicates the current state or condition of the credit amount associated with the credit note. The possible values for this field are:
-
-
-            - `available`: this status indicates that an amount remains available for future usage. The credit can be applied towards future transactions or invoices.
-
-            - `consumed`: this status indicates that the credit amount has been fully consumed. The remaining amount is 0, indicating that the credit has been utilized in its entirety.
-
-            - `voided`: this status indicates that the remaining amount of the credit cannot be used any further. The credit has been voided and is no longer available for application or redemption.'
-          example: available
-        refund_status:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-          nullable: true
-          description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
-
-
-            - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
-
-            - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
-
-            - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
-          example: pending
-        reason:
-          type: string
-          enum:
-          - duplicated_charge
-          - product_unsatisfactory
-          - order_change
-          - order_cancellation
-          - fraudulent_charge
-          - other
-          description: 'The reason of the credit note creation.
-
-            Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
-          example: other
-        description:
-          type: string
-          nullable: true
-          description: The description of the credit note.
-          example: Free text
-        currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of the credit note.
-            example: EUR
-        total_amount_cents:
-          type: integer
-          description: The total amount of the credit note, expressed in cents.
-          example: 120
-        taxes_amount_cents:
-          type: integer
-          description: The tax amount of the credit note, expressed in cents.
-          example: 20
-        taxes_rate:
-          type: number
-          description: The tax rate associated with this specific credit note.
-          example: 20
-        sub_total_excluding_taxes_amount_cents:
-          type: integer
-          description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
-          example: 100
-        balance_amount_cents:
-          type: integer
-          description: The remaining credit note amount, expressed in cents.
-          example: 100
-        credit_amount_cents:
-          type: integer
-          description: The credited amount of the credit note, expressed in cents.
-          example: 100
-        refund_amount_cents:
-          type: integer
-          description: The refunded amount of the credit note, expressed in cents.
-          example: 0
-        coupons_adjustment_amount_cents:
-          type: integer
-          description: The pro-rated amount of the coupons applied to the source invoice.
-          example: 20
-        created_at:
-          type: string
-          format: date-time
-          description: The date when the credit note was created. It is expressed in Coordinated Universal Time (UTC).
-          example: '2022-09-14T16:35:31Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: The date when the credit note was last updated. It is expressed in Coordinated Universal Time (UTC).
-          example: '2022-09-14T16:35:31Z'
-        file_url:
-          type: string
-          nullable: true
-          description: The PDF file of the credit note.
-          example: https://getlago.com/credit_note/file
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteItemObject'
-          description: Array of credit note's items.
-        applied_taxes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteAppliedTaxObject'
-    ApiErrorNotFound:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 404
-        error:
-          type: string
-          example: Not Found
-        code:
-          type: string
-          example: object_not_found
-    CreditNotes:
-      type: object
-      required:
-      - credit_notes
-      properties:
-        credit_notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditNoteObject'
-    CreditNoteEstimated:
-      type: object
-      required:
-      - estimated_credit_note
-      properties:
-        estimated_credit_note:
-          type: object
-          required:
-          - lago_invoice_id
-          - invoice_number
-          - currency
-          - taxes_amount_cents
-          - sub_total_excluding_taxes_amount_cents
-          - max_creditable_amount_cents
-          - max_refundable_amount_cents
-          - coupons_adjustment_amount_cents
-          - taxes_rate
-          - items
-          properties:
-            lago_invoice_id:
-              type: string
-              format: uuid
-              description: Unique identifier assigned to the invoice that the credit note belongs to
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            invoice_number:
-              type: string
-              description: The invoice unique number, related to the credit note.
-              example: LAG-1234
-            currency:
-              allOf:
-              - $ref: '#/components/schemas/Currency'
-              - description: The currency of the credit note.
-                example: EUR
-            taxes_amount_cents:
-              type: integer
-              description: The tax amount of the credit note, expressed in cents.
-              example: 20
-            taxes_rate:
-              type: number
-              description: The tax rate associated with this specific credit note.
-              example: 20
-            sub_total_excluding_taxes_amount_cents:
-              type: integer
-              description: The subtotal of the credit note excluding any applicable taxes, expressed in cents.
-              example: 100
-            max_creditable_amount_cents:
-              type: integer
-              description: The credited amount of the credit note, expressed in cents.
-              example: 100
-            max_refundable_amount_cents:
-              type: integer
-              description: The refunded amount of the credit note, expressed in cents.
-              example: 0
-            coupons_adjustment_amount_cents:
-              type: integer
-              description: The pro-rated amount of the coupons applied to the source invoice.
-              example: 20
-            items:
-              type: array
-              items:
-                type: object
-                required:
-                - amount_cents
-                - lago_fee_id
-                properties:
-                  amount_cents:
-                    type: integer
-                    description: The credit note's item amount, expressed in cents.
-                    example: 100
-                  lago_fee_id:
-                    type: string
-                    format: uuid
-                    nullable: true
-                    description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Array of credit note's items.
-            applied_taxes:
-              type: array
-              items:
-                type: object
-                properties:
-                  lago_tax_id:
-                    type: string
-                    format: uuid
-                    description: Unique identifier of the tax, created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  tax_name:
-                    type: string
-                    description: Name of the tax.
-                    example: TVA
-                  tax_code:
-                    type: string
-                    description: Unique code used to identify the tax associated with the API request.
-                    example: french_standard_vat
-                  tax_rate:
-                    type: number
-                    description: The percentage rate of the tax
-                    example: 20
-                  tax_description:
-                    type: string
-                    description: Internal description of the taxe
-                    example: French standard VAT
-                  base_amount_cents:
-                    type: integer
-                    example: 100
-                  amount_cents:
-                    type: integer
-                    description: Amount of the tax
-                    example: 2000
-                  amount_currency:
-                    allOf:
-                    - $ref: '#/components/schemas/Currency'
-                    - description: Currency of the tax
-                      example: USD
-    FeeAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
-      type: object
-      properties:
-        lago_fee_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the fee, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-    CreditNoteItemObject:
-      type: object
-      required:
-      - lago_id
-      - amount_cents
-      - amount_currency
-      - fee
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: The credit note's item unique identifier, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        amount_cents:
-          type: integer
-          description: The credit note's item amount, expressed in cents.
-          example: 100
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The credit note's item currency.
-            example: EUR
-        fee:
-          allOf:
-          - $ref: '#/components/schemas/FeeObject'
-          - description: The fee object related to the credit note item.
-    ApiErrorUnauthorized:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 401
-        error:
-          type: string
-          example: Unauthorized
-    FeeObject:
-      type: object
-      required:
-      - item
-      - amount_cents
-      - amount_currency
-      - taxes_amount_cents
-      - taxes_rate
-      - total_amount_cents
-      - total_amount_currency
-      - pay_in_advance
-      - invoiceable
-      - units
-      - precise_unit_amount
-      - payment_status
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the fee within the Lago application. This ID is exclusively created by Lago and serves as a unique identifier for the fee's record within the Lago system.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_charge_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the charge that the fee belongs to
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_charge_filter_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the charge filter that the fee belongs to
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_invoice_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the invoice that the fee belongs to
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_true_up_fee_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the true-up fee when a minimum has been set to the charge. This identifier helps to distinguish and manage the true-up fee associated with the charge, which may be applicable when a minimum threshold or limit is set for the charge amount.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_true_up_parent_fee_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the parent fee on which the true-up fee is assigned. This identifier establishes the relationship between the parent fee and the associated true-up fee.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_subscription_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the subscription, created by Lago. This field is specifically displayed when the fee type is charge or subscription.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_customer_id:
-          type: string
-          format: uuid
-          nullable: true
-          description: Unique identifier assigned to the customer, created by Lago. This field is specifically displayed when the fee type is charge or subscription.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        external_customer_id:
-          type: string
-          nullable: true
-          description: Unique identifier assigned to the customer in your application. This field is specifically displayed when the fee type is charge or subscription.
-          example: external_id
-        external_subscription_id:
-          type: string
-          nullable: true
-          description: Unique identifier assigned to the subscription in your application. This field is specifically displayed when the fee type is charge or subscription.
-          example: external_id
-        invoice_display_name:
-          type: string
-          description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-          example: Setup Fee (SF1)
-        amount_cents:
-          type: integer
-          description: The cost of this specific fee, excluding any applicable taxes.
-          example: 100
-        precise_amount:
-          type: string
-          description: The cost of this specific fee, excluding any applicable taxes, with precision.
-          example: '1.0001'
-        precise_total_amount:
-          type: string
-          description: The cost of this specific fee, including any applicable taxes, with precision.
-          example: '1.0212'
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of this specific fee. It indicates the monetary unit in which the fee's cost is expressed.
-            example: EUR
-        taxes_amount_cents:
-          type: integer
-          description: The cost of the tax associated with this specific fee.
-          example: 20
-        taxes_precise_amount:
-          type: string
-          description: The cost of the tax associated with this specific fee, with precision.
-          example: '0.20123'
-        taxes_rate:
-          type: number
-          description: The tax rate associated with this specific fee.
-          example: 20
-        units:
-          type: string
-          description: The number of units used to charge the customer. This field indicates the quantity or count of units consumed or utilized in the context of the charge. It helps in determining the basis for calculating the fee or cost associated with the usage of the service or product provided to the customer.
-          example: '0.32'
-        precise_unit_amount:
-          type: string
-          description: The unit amount of the fee per unit, with precision.
-          example: '312.5'
-        total_amount_cents:
-          type: integer
-          description: The cost of this specific fee, including any applicable taxes.
-          example: 120
-        total_amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: The currency of this specific fee, including any applicable taxes.
-            example: EUR
-        events_count:
-          type: integer
-          description: The number of events that have been sent and used to charge the customer. This field indicates the count or quantity of events that have been processed and considered in the charging process.
-          example: 23
-        pay_in_advance:
-          type: boolean
-          description: Flag that indicates whether the fee was paid in advance. It serves as a boolean value, where `true` represents that the fee was paid in advance (straightaway), and `false` indicates that the fee was not paid in arrears (at the end of the period).
-          example: true
-        invoiceable:
-          type: boolean
-          description: Flag that indicates whether the fee was included on the invoice. It serves as a boolean value, where `true` represents that the fee was included on the invoice, and `false` indicates that the fee was not included on the invoice.
-          example: true
-        from_date:
-          type: string
-          format: date-time
-          nullable: true
-          description: The beginning date of the period that the fee covers. It is applicable only to `subscription` and `charge` fees. This field indicates the start date of the billing period or subscription period associated with the fee.
-          example: '2022-04-29T08:59:51Z'
-        to_date:
-          type: string
-          format: date-time
-          nullable: true
-          description: The ending date of the period that the fee covers. It is applicable only to `subscription` and `charge` fees. This field indicates the end date of the billing period or subscription period associated with the fee.
-          example: '2022-05-29T08:59:51Z'
-        payment_status:
-          type: string
-          enum:
-          - pending
-          - succeeded
-          - failed
-          - refunded
-          description: Indicates the payment status of the fee. It represents the current status of the payment associated with the fee. The possible values for this field are `pending`, `succeeded`, `failed` and `refunded`.
-          example: pending
-        created_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time when the fee was created. It is provided in Coordinated Universal Time (UTC) format.
-          example: '2022-08-24T14:58:59Z'
-        succeeded_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time when the payment for the fee was successfully processed. It is provided in Coordinated Universal Time (UTC) format.
-          example: '2022-08-24T14:58:59Z'
-        failed_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time when the payment for the fee failed to process. It is provided in Coordinated Universal Time (UTC) format.
-          example: '2022-08-24T14:58:59Z'
-        refunded_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The date and time when the payment for the fee was refunded. It is provided in Coordinated Universal Time (UTC) format
-          example: '2022-08-24T14:58:59Z'
-        event_transaction_id:
-          type: string
-          nullable: true
-          description: Unique identifier assigned to the transaction. This field is specifically displayed when the fee type is `charge` and the payment for the fee is made in advance (`pay_in_advance` is set to `true`).
-          example: transaction_1234567890
-        amount_details:
-          allOf:
-          - type: object
-            properties:
-              graduated_ranges:
-                type: array
-                description: Graduated ranges, used for a `graduated` charge model.
-                items:
-                  type: object
-                  required:
-                  - units
-                  - from_value
-                  - to_value
-                  - flat_unit_amount
-                  - per_unit_amount
-                  - per_unit_total_amount
-                  - total_with_flat_amount
-                  properties:
-                    units:
-                      type: string
-                      pattern: ^[0-9]+.?[0-9]*$
-                      example: '10.0'
-                      description: Total units received in Lago.
-                    from_value:
-                      type: integer
-                      description: Lower value of a tier. It is either 0 or the previous range's `to_value + 1`.
-                      example: 0
-                    to_value:
-                      type: integer
-                      description: 'Highest value of a tier.
-
-                        - This value is higher than the from_value of the same tier.
-
-                        - This value is null for the last tier.'
-                      nullable: true
-                      example: 10
-                    flat_unit_amount:
-                      type: string
-                      description: Flat unit amount within a specified tier.
-                      example: '1.0'
-                    per_unit_amount:
-                      type: string
-                      description: Amount per unit within a specified tier.
-                      example: '1.0'
-                    per_unit_total_amount:
-                      type: string
-                      description: Total amount of received units to be charged within a specified tier.
-                      example: '10.0'
-                    total_with_flat_amount:
-                      type: string
-                      description: Total amount to be charged for a specific tier, taking into account the flat_unit_amount and the per_unit_total_amount.
-                      example: '11.0'
-              graduated_percentage_ranges:
-                type: array
-                description: Graduated percentage ranges, used for a `graduated_percentage` charge model.
-                items:
-                  type: object
-                  required:
-                  - units
-                  - from_value
-                  - to_value
-                  - flat_unit_amount
-                  - rate
-                  - per_unit_total_amount
-                  - total_with_flat_amount
-                  properties:
-                    units:
-                      type: string
-                      pattern: ^[0-9]+.?[0-9]*$
-                      example: '10.0'
-                      description: Total units received in Lago.
-                    from_value:
-                      type: integer
-                      description: Lower value of a tier. It is either 0 or the previous range's `to_value + 1`.
-                      example: 0
-                    to_value:
-                      type: integer
-                      description: 'Highest value of a tier.
-
-                        - This value is higher than the from_value of the same tier.
-
-                        - This value is null for the last tier.'
-                      nullable: true
-                      example: 10
-                    flat_unit_amount:
-                      type: string
-                      description: Flat unit amount within a specified tier.
-                      example: '1.0'
-                    rate:
-                      type: string
-                      format: ^[0-9]+.?[0-9]*$
-                      description: Percentage rate applied within a specified tier.
-                      example: '1.0'
-                    per_unit_total_amount:
-                      type: string
-                      description: Total amount of received units to be charged within a specified tier.
-                      example: '10.0'
-                    total_with_flat_amount:
-                      type: string
-                      description: Total amount to be charged for a specific tier, taking into account the flat_unit_amount and the per_unit_total_amount.
-                      example: '11.0'
-              free_units:
-                type: string
-                pattern: ^[0-9]+.?[0-9]*$
-                example: '10.0'
-                description: The quantity of units that are provided free of charge for each billing period in a `package` charge model.
-              paid_units:
-                type: string
-                pattern: ^[0-9]+.?[0-9]*$
-                example: '40.0'
-                description: The quantity of units that are not provided free of charge for each billing period in a `package` charge model.
-              per_package_size:
-                type: integer
-                description: The quantity of units included, defined for Package or Percentage charge model.
-                example: 1000
-              per_package_unit_amount:
-                type: string
-                pattern: ^[0-9]+.?[0-9]*$
-                description: Total amount to charge for received paid_units, defined for Package or Percentage charge model.
-                example: '0.5'
-              units:
-                type: string
-                pattern: ^[0-9]+.?[0-9]*$
-                example: '20.0'
-                description: The total units received in Lago for the Percentage charge model.
-              free_events:
-                type: integer
-                example: 10
-                description: Total number of free events allowed for the Percentage charge model.
-              rate:
-                type: string
-                format: ^[0-9]+.?[0-9]*$
-                description: Percentage rate applied for the Percentage charge model.
-                example: '1.0'
-              per_unit_total_amount:
-                type: string
-                description: Total amount of received units to be charged for the Percentage charge model.
-                example: '10.0'
-              paid_events:
-                type: integer
-                example: 20
-                description: Total number of paid events for the Percentage charge model.
-              fixed_fee_unit_amount:
-                type: string
-                description: Fixed fee unit price per received paid_event for the Percentage charge model.
-                example: '1.0'
-              fixed_fee_total_amount:
-                type: string
-                description: Total amount to charge for received paid_events for the Percentage charge model.
-                example: '20.0'
-              min_max_adjustment_total_amount:
-                type: string
-                description: Total adjustment amount linked to minimum and maximum spending per transaction for the Percentage charge model.
-                example: '20.0'
-              volume_ranges:
-                type: array
-                description: Volume ranges, used for a `volume` charge model.
-                items:
-                  type: object
-                  required:
-                  - per_unit_amount
-                  - flat_unit_amount
-                  - per_unit_total_amount
-                  properties:
-                    per_unit_amount:
-                      type: string
-                      pattern: ^[0-9]+.?[0-9]*$
-                      description: The flat amount for a whole tier, excluding tax, for a `volume` charge model.
-                      example: '0.5'
-                    flat_unit_amount:
-                      type: string
-                      pattern: ^[0-9]+.?[0-9]*$
-                      description: The unit price, excluding tax, for a specific tier of a `volume` charge model.
-                      example: '10.0'
-                    per_unit_total_amount:
-                      type: string
-                      pattern: ^[0-9]+.?[0-9]*$
-                      description: Total amount of received units to be charged.
-                      example: '10.0'
-          - description: List of all unit amount details for calculating the fee.
-        item:
-          type: object
-          description: Item attached to the fee
-          required:
-          - type
-          - code
-          - name
-          - lago_item_id
-          - item_type
-          properties:
-            type:
-              type: string
-              enum:
-              - charge
-              - add_on
-              - subscription
-              - credit
-              description: The fee type. Possible values are `add-on`, `charge`, `credit` or `subscription`.
-              example: subscription
-            code:
-              type: string
-              description: The code of the fee item. It can be the code of the `add-o`n, the code of the `charge`, the code of the `credit` or the code of the `subscription`.
-              example: startup
-            name:
-              type: string
-              description: The name of the fee item. It can be the name of the `add-on`, the name of the `charge`, the name of the `credit` or the name of the `subscription`.
-              example: Startup
-            invoice_display_name:
-              type: string
-              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the name of the actual charge will be used as the default display name.
-              example: Setup Fee (SF1)
-            filter_invoice_display_name:
-              type: string
-              description: Specifies the name that will be displayed on an invoice. If no value is set for this field, the actual charge filter values will be used as the default display name.
-              example: AWS eu-east-1
-            filters:
-              type: object
-              description: Key value list of event properties
-              additionalProperties:
-                type: array
-                items:
-                  type: string
-            lago_item_id:
-              type: string
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-              description: Unique identifier of the fee item, created by Lago. It can be the identifier of the `add-on`, the identifier of the `charge`, the identifier of the `credit` or the identifier of the `subscription`.
-              format: uuid
-            item_type:
-              type: string
-              enum:
-              - AddOn
-              - BillableMetric
-              - Subscription
-              - WalletTransaction
-              description: The type of the fee item. Possible values are `AddOn`, `BillableMetric`, `WalletTransaction` or `Subscription`.
-              example: Subscription
-            grouped_by:
-              type: object
-              description: Key value list of event properties aggregated by the charge model
-              additionalProperties:
-                type: string
-        applied_taxes:
-          type: array
-          description: List of fee applied taxes
-          items:
-            $ref: '#/components/schemas/FeeAppliedTaxObject'
-    CreditNoteAppliedTaxObject:
-      allOf:
-      - $ref: '#/components/schemas/BaseAppliedTax'
-      type: object
-      properties:
-        lago_credit_note_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the credit note, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        base_amount_cents:
-          type: integer
-          example: 100
-    CreditNoteCreateInput:
-      type: object
-      required:
-      - credit_note
-      properties:
-        credit_note:
-          type: object
-          required:
-          - invoice_id
-          - items
-          properties:
-            invoice_id:
-              type: string
-              format: uuid
-              description: The invoice unique identifier, created by Lago.
-              example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-            reason:
-              type: string
-              enum:
-              - duplicated_charge
-              - product_unsatisfactory
-              - order_change
-              - order_cancellation
-              - fraudulent_charge
-              - other
-              nullable: true
-              description: 'The reason of the credit note creation.
-
-                Possible values are `duplicated_charge`, `product_unsatisfactory`, `order_change`, `order_cancellation`, `fraudulent_charge` or `other`.'
-              example: duplicated_charge
-            description:
-              type: string
-              description: The description of the credit note.
-              example: description
-            credit_amount_cents:
-              type: integer
-              nullable: true
-              description: The total amount to be credited on the customer balance.
-              example: 10
-            refund_amount_cents:
-              type: integer
-              nullable: true
-              description: The total amount to be refunded to the customer.
-              example: 5
-            items:
-              type: array
-              items:
-                type: object
-                required:
-                - fee_id
-                - amount_cents
-                properties:
-                  fee_id:
-                    type: string
-                    format: uuid
-                    description: The fee unique identifier, created by Lago.
-                    example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                  amount_cents:
-                    type: integer
-                    description: The amount of the credit note item, expressed in cents.
-                    example: 10
-              description: The list of credit note's items.
-              example:
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a90
-                amount_cents: 10
-              - fee_id: 1a901a90-1a90-1a90-1a90-1a901a901a91
-                amount_cents: 5
-    ApiErrorNotAllowed:
-      type: object
-      required:
-      - status
-      - error
-      - code
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 405
-        error:
-          type: string
-          example: Method Not Allowed
-        code:
-          type: string
-          example: not_allowed
-    CreditNoteUpdateInput:
-      type: object
-      required:
-      - credit_note
-      properties:
-        credit_note:
-          type: object
-          required:
-          - refund_status
-          properties:
-            refund_status:
-              type: string
-              enum:
-              - pending
-              - succeeded
-              - failed
-              description: 'The status of the refund portion of the credit note. It indicates the current state or condition of the refund associated with the credit note. The possible values for this field are:
-
-
-                - `pending`: this status indicates that the refund is pending execution. The refund request has been initiated but has not been processed or completed yet.
-
-                - `succeeded`: this status indicates that the refund has been successfully executed. The refund amount has been processed and returned to the customer or the designated recipient.
-
-                - `failed`: this status indicates that the refund failed to execute. The refund request encountered an error or unsuccessful processing, and the refund amount could not be returned.'
-              example: succeeded
-    ApiErrorBadRequest:
-      type: object
-      required:
-      - status
-      - error
-      properties:
-        status:
-          type: integer
-          format: int32
-          example: 400
-        error:
-          type: string
-          example: Bad request
     CreditNote:
       type: object
       required:
@@ -1329,56 +3406,30 @@ components:
       properties:
         credit_note:
           $ref: '#/components/schemas/CreditNoteObject'
-    BaseAppliedTax:
-      type: object
-      properties:
-        lago_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the applied tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        lago_tax_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the tax, created by Lago.
-          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
-        tax_name:
-          type: string
-          description: Name of the tax.
-          example: TVA
-        tax_code:
-          type: string
-          description: Unique code used to identify the tax associated with the API request.
-          example: french_standard_vat
-        tax_rate:
-          type: number
-          description: The percentage rate of the tax
-          example: 20
-        tax_description:
-          type: string
-          description: Internal description of the taxe
-          example: French standard VAT
-        amount_cents:
-          type: integer
-          description: Amount of the tax
-          example: 2000
-        amount_currency:
-          allOf:
-          - $ref: '#/components/schemas/Currency'
-          - description: Currency of the tax
-            example: USD
-        created_at:
-          type: string
-          format: date-time
-          description: The date and time when the applied tax was created. It is expressed in UTC format according to the ISO 8601 datetime standard. This field provides the timestamp for the exact moment when the applied tax was initially created.
-          example: '2022-09-14T16:35:31Z'
   parameters:
+    purchase_order_number:
+      name: purchase_order_number
+      in: query
+      description: Filter by the invoice purchase order number. The match is exact but case-insensitive.
+      required: false
+      explode: true
+      schema:
+        type: string
+        example: PO-123
     external_customer_id:
       name: external_customer_id
       in: query
       description: Unique identifier assigned to the customer in your application.
       required: false
       explode: true
+      schema:
+        type: string
+        example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
+    external_customer_id_path:
+      name: external_customer_id
+      in: path
+      description: The customer external unique identifier (provided by your own application)
+      required: true
       schema:
         type: string
         example: 5eb02857-a71e-4ea2-bcf9-57d3a41bc6ba
@@ -1401,36 +3452,42 @@ components:
         type: integer
         example: 20
   responses:
-    NotAllowed:
-      description: Not Allowed error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotAllowed'
-    UnprocessableEntity:
-      description: Unprocessable entity error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
-    Unauthorized:
-      description: Unauthorized error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorUnauthorized'
-    NotFound:
-      description: Not Found error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiErrorNotFound'
     BadRequest:
       description: Bad Request error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorBadRequest'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorForbidden'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotAllowed:
+      description: Not Allowed error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotAllowed'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
   securitySchemes:
     bearerAuth:
       type: http

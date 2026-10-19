@@ -1,0 +1,1485 @@
+openapi: 3.2.0
+info:
+  title: Lago API documentation Billing Entities API
+  description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
+  version: 1.55.0
+  license:
+    name: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
+  contact:
+    email: tech@getlago.com
+servers:
+- url: https://api.getlago.com/api/v1
+  description: US Lago cluster
+- url: https://api.eu.getlago.com/api/v1
+  description: EU Lago cluster
+security:
+- bearerAuth: []
+tags:
+- name: billing_entities
+  description: Everything about Billing Entities
+  externalDocs:
+    description: Find out more
+    url: https://getlago.com/docs/api-reference/billing-entities/object
+paths:
+  /billing_entities:
+    get:
+      tags:
+      - billing_entities
+      summary: List all billing entities
+      description: This endpoint returns a list of all billing entities in the organization
+      operationId: listBillingEntities
+      responses:
+        '200':
+          description: List of billing entities
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - billing_entities
+                properties:
+                  billing_entities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BillingEntityObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+      - billing_entities
+      summary: Create a billing entity
+      description: This endpoint is used to create a new billing entity
+      operationId: createBillingEntity
+      requestBody:
+        description: The billing entity payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingEntityCreateInput'
+        required: true
+      responses:
+        '200':
+          description: Billing entity created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - billing_entity
+                properties:
+                  billing_entity:
+                    $ref: '#/components/schemas/BillingEntityObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /billing_entities/{code}:
+    parameters:
+    - name: code
+      in: path
+      required: true
+      schema:
+        type: string
+        example: acme_corp
+      description: The unique code of the billing entity
+    get:
+      tags:
+      - billing_entities
+      summary: Retrieve a billing entity
+      description: This endpoint returns a specific billing entity by its code
+      operationId: getBillingEntity
+      responses:
+        '200':
+          description: Billing entity details
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - billing_entity
+                properties:
+                  billing_entity:
+                    $ref: '#/components/schemas/BillingEntityObjectExtended'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+      - billing_entities
+      summary: Update a billing entity
+      description: This endpoint is used to update an existing billing entity
+      operationId: updateBillingEntity
+      requestBody:
+        description: The billing entity update payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingEntityUpdateInput'
+        required: true
+      responses:
+        '200':
+          description: Billing entity updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - billing_entity
+                properties:
+                  billing_entity:
+                    $ref: '#/components/schemas/BillingEntityObjectExtended'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  schemas:
+    Timezone:
+      type: string
+      example: America/Los_Angeles
+      enum:
+      - UTC
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Casablanca
+      - Africa/Harare
+      - Africa/Johannesburg
+      - Africa/Monrovia
+      - Africa/Nairobi
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Caracas
+      - America/Chicago
+      - America/Chihuahua
+      - America/Denver
+      - America/Guatemala
+      - America/Guyana
+      - America/Halifax
+      - America/Indiana/Indianapolis
+      - America/Juneau
+      - America/La_Paz
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mazatlan
+      - America/Mexico_City
+      - America/Monterrey
+      - America/Montevideo
+      - America/New_York
+      - America/Nuuk
+      - America/Phoenix
+      - America/Puerto_Rico
+      - America/Regina
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/St_Johns
+      - America/Tijuana
+      - Asia/Almaty
+      - Asia/Baghdad
+      - Asia/Baku
+      - Asia/Bangkok
+      - Asia/Chongqing
+      - Asia/Colombo
+      - Asia/Dhaka
+      - Asia/Hong_Kong
+      - Asia/Irkutsk
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Kabul
+      - Asia/Kamchatka
+      - Asia/Karachi
+      - Asia/Kathmandu
+      - Asia/Kolkata
+      - Asia/Krasnoyarsk
+      - Asia/Kuala_Lumpur
+      - Asia/Kuwait
+      - Asia/Magadan
+      - Asia/Muscat
+      - Asia/Novosibirsk
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Srednekolymsk
+      - Asia/Taipei
+      - Asia/Tashkent
+      - Asia/Tbilisi
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Ulaanbaatar
+      - Asia/Urumqi
+      - Asia/Vladivostok
+      - Asia/Yakutsk
+      - Asia/Yangon
+      - Asia/Yekaterinburg
+      - Asia/Yerevan
+      - Atlantic/Azores
+      - Atlantic/Cape_Verde
+      - Atlantic/South_Georgia
+      - Australia/Adelaide
+      - Australia/Brisbane
+      - Australia/Darwin
+      - Australia/Hobart
+      - Australia/Melbourne
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Amsterdam
+      - Europe/Athens
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Bratislava
+      - Europe/Brussels
+      - Europe/Bucharest
+      - Europe/Budapest
+      - Europe/Copenhagen
+      - Europe/Dublin
+      - Europe/Helsinki
+      - Europe/Istanbul
+      - Europe/Kaliningrad
+      - Europe/Kyiv
+      - Europe/Lisbon
+      - Europe/Ljubljana
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Minsk
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Prague
+      - Europe/Riga
+      - Europe/Rome
+      - Europe/Samara
+      - Europe/Sarajevo
+      - Europe/Skopje
+      - Europe/Sofia
+      - Europe/Stockholm
+      - Europe/Tallinn
+      - Europe/Vienna
+      - Europe/Vilnius
+      - Europe/Volgograd
+      - Europe/Warsaw
+      - Europe/Zagreb
+      - Europe/Zurich
+      - GMT+12
+      - Pacific/Apia
+      - Pacific/Auckland
+      - Pacific/Chatham
+      - Pacific/Fakaofo
+      - Pacific/Fiji
+      - Pacific/Guadalcanal
+      - Pacific/Guam
+      - Pacific/Honolulu
+      - Pacific/Majuro
+      - Pacific/Midway
+      - Pacific/Noumea
+      - Pacific/Pago_Pago
+      - Pacific/Port_Moresby
+      - Pacific/Tongatapu
+    TaxObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      - description
+      - rate
+      - applied_to_organization
+      - created_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the tax, created by Lago.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the tax.
+          example: TVA
+        code:
+          type: string
+          description: Unique code used to identify the tax associated with the API request.
+          example: french_standard_vat
+        description:
+          type:
+          - string
+          - 'null'
+          description: Internal description of the tax.
+          example: French standard VAT
+        rate:
+          type: number
+          description: The percentage rate of the tax.
+          example: 20
+        applied_to_organization:
+          type: boolean
+          deprecated: true
+          description: '**Deprecated.** This field will be removed in a future version. When set to true, it applies the tax to the organization''s default billing entity. To apply or remove a tax from any billing entity (including the default one), please use the `PUT /billing_entities/:code` endpoint instead.'
+          example: true
+        applied_to_billing_entities_codes:
+          type: array
+          items:
+            type: string
+          description: The codes of the billing entities the tax is applied to, sorted alphabetically. It is empty when the tax is only attached to customers. This field is only returned by the tax endpoints, not by taxes nested in another object.
+          example:
+          - acme_corp
+          - foo_bar
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    CountryOrNull:
+      type:
+      - string
+      - 'null'
+      example: US
+      enum:
+      - null
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KP
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+    BillingEntityObjectExtended:
+      allOf:
+      - $ref: '#/components/schemas/BillingEntityObject'
+      - type: object
+        properties:
+          taxes:
+            type: array
+            items:
+              $ref: '#/components/schemas/TaxObject'
+          selected_invoice_custom_sections:
+            type: array
+            items:
+              $ref: '#/components/schemas/InvoiceCustomSectionObject'
+    Currency:
+      type: string
+      example: USD
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BRL
+      - BSD
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHF
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - CRC
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HRK
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - ISK
+      - JMD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KRW
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRO
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SEK
+      - SGD
+      - SHP
+      - SLL
+      - SOS
+      - SRD
+      - STD
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - UYU
+      - UZS
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XOF
+      - XPF
+      - YER
+      - ZAR
+      - ZMW
+    InvoiceCustomSectionObject:
+      type: object
+      required:
+      - lago_id
+      - name
+      - code
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the invoice custom section in the Lago application, generated by Lago to ensure record uniqueness within the system.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        name:
+          type: string
+          description: Name of the invoice custom section.
+          example: EU Bank Details
+        code:
+          type: string
+          description: Unique code identifying the invoice custom section for the API request.
+          example: eu_bank_details
+        description:
+          type: string
+          description: Internal description of the invoice custom section.
+          example: This section contains the bank details for EU customers.
+        details:
+          type: string
+          description: The value shown on the invoice PDF.
+          example: 'Bank Name: Lago Bank, IBAN: FR7630004000031234567890143'
+        display_name:
+          type: string
+          description: The name of the invoice custom section displayed on the invoice.
+          example: 'Bank Details:'
+        applied_to_organization:
+          type: boolean
+          deprecated: true
+          description: '**Deprecated.** This field will be removed in a future version. When set to true, it applies the invoice custom section to the organization''s default billing entity. To apply or remove an invoice custom section from any billing entity (including the default one), please use the `PUT /billing_entities/:code` endpoint instead.'
+          example: true
+        organization_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the organization associated with the invoice custom section.
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+        created_at:
+          type: string
+          format: date-time
+          description: Creation date of the tax.
+          example: '2023-07-06T14:35:58Z'
+    BillingEntityObject:
+      type: object
+      description: Billing entity object
+      required:
+      - lago_id
+      - code
+      - name
+      - default_currency
+      - document_locale
+      - document_numbering
+      - document_number_prefix
+      - finalize_zero_amount_invoice
+      - invoice_footer
+      - invoice_grace_period
+      - subscription_invoice_issuing_date_anchor
+      - subscription_invoice_issuing_date_adjustment
+      - is_default
+      - net_payment_term
+      - address_line1
+      - address_line2
+      - phone
+      - city
+      - state
+      - country
+      - zipcode
+      - email
+      - legal_name
+      - legal_number
+      - tax_identification_number
+      - timezone
+      - email_settings
+      - eu_tax_management
+      - einvoicing
+      - logo_url
+      - created_at
+      - updated_at
+      properties:
+        lago_id:
+          type: string
+          format: uuid
+          example: 1a901a90-1a90-1a90-1a90-1a901a901a90
+          description: A unique identifier for the billing entity in the Lago application
+        code:
+          type: string
+          example: acme_corp
+          description: The unique code of the billing entity
+        name:
+          type: string
+          example: Acme Corp
+          description: The name of the billing entity
+        default_currency:
+          $ref: '#/components/schemas/Currency'
+          description: The default currency of the billing entity
+          example: USD
+        document_locale:
+          type: string
+          example: en
+          description: The language of the documents generated for this billing entity, in the ISO 639-1 format.
+        document_numbering:
+          type: string
+          enum:
+          - per_customer
+          - per_billing_entity
+          description: 'The type of document numbering for this billing entity:
+
+            - `per_customer`: document numbers are unique per customer
+
+            - `per_billing_entity`: document numbers are unique per billing entity'
+          example: per_customer
+        document_number_prefix:
+          type:
+          - string
+          - 'null'
+          example: ABC-123
+          description: The prefix used in document numbers for this billing entity. It is upper cased. When no prefix is given at creation, Lago builds one from the first three letters of the name and the last four characters of the identifier.
+        finalize_zero_amount_invoice:
+          type: boolean
+          example: true
+          description: Whether to finalize invoices with zero amount for this billing entity
+        invoice_footer:
+          type:
+          - string
+          - 'null'
+          example: Thank you for your business
+          description: The footer text to be displayed on invoices for this billing entity
+        invoice_grace_period:
+          type: integer
+          example: 0
+          description: The grace period (in days) for invoice finalization
+        subscription_invoice_issuing_date_anchor:
+          type: string
+          description: Defines whether the issuing date follows the current billing period's end date or the next period starting date.
+          enum:
+          - current_period_end
+          - next_period_start
+          default: next_period_start
+        subscription_invoice_issuing_date_adjustment:
+          type: string
+          description: The logic applied on top of the subscription_invoice_issuing_date_anchor rule. You can opt to use the invoice finalization date, that includes any configured grace period.
+          enum:
+          - align_with_finalization_date
+          - keep_anchor
+          default: align_with_finalization_date
+        is_default:
+          type: boolean
+          example: false
+          description: Whether this billing entity is the organization's default billing entity. The default billing entity is the oldest active one, and is used as a fallback whenever no billing entity is provided, for example when an invoice is created. This flag cannot be changed.
+        net_payment_term:
+          type: integer
+          example: 0
+          description: The net payment term (in days) for this billing entity
+        address_line1:
+          type:
+          - string
+          - 'null'
+          example: 5230 Penfield Ave
+          description: The first line of the billing address
+        address_line2:
+          type:
+          - string
+          - 'null'
+          example: Suite 100
+          description: The second line of the billing address
+        phone:
+          type:
+          - string
+          - 'null'
+          example: 1-171-883-3711 x245
+          description: The phone number of the billing entity
+        city:
+          type:
+          - string
+          - 'null'
+          example: Woodland Hills
+          description: The city of the billing address
+        state:
+          type:
+          - string
+          - 'null'
+          example: CA
+          description: The state of the billing address
+        country:
+          $ref: '#/components/schemas/CountryOrNull'
+          description: The country code of the billing address
+        zipcode:
+          type:
+          - string
+          - 'null'
+          example: '91364'
+          description: The zipcode of the billing address
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          example: billing@acme.com
+          description: The email address of the billing entity
+        legal_name:
+          type:
+          - string
+          - 'null'
+          example: Acme Corporation
+          description: The legal name of the billing entity
+        legal_number:
+          type:
+          - string
+          - 'null'
+          example: US123456789
+          description: The legal registration number of the billing entity
+        tax_identification_number:
+          type:
+          - string
+          - 'null'
+          example: EU123456789
+          description: The tax identification number of the billing entity
+        timezone:
+          $ref: '#/components/schemas/Timezone'
+          description: The timezone of the billing entity
+          example: UTC
+        email_settings:
+          type: array
+          items:
+            type: string
+            enum:
+            - invoice.finalized
+            - credit_note.created
+            - payment_receipt.created
+          description: The email notification settings for this billing entity
+        eu_tax_management:
+          type:
+          - boolean
+          - 'null'
+          example: false
+          description: Whether EU tax management is enabled for this billing entity. It can only be enabled when the billing entity country is in the European Union.
+        einvoicing:
+          type: boolean
+          example: false
+          description: Whether e-invoicing is enabled for this billing entity. It can only be enabled when the billing entity country is `FR` or `DE`.
+        logo_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: https://getlago.com/logo.png
+          description: The URL of the billing entity's logo
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date and time when the billing entity was created
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-04-29T08:59:51Z'
+          description: The date and time when the billing entity was last updated
+    TaxCodes:
+      type: array
+      items:
+        type: string
+      description: List of unique code used to identify the taxes.
+      example:
+      - french_standard_vat
+    BillingEntityCreateInput:
+      type: object
+      description: Billing entity create input
+      required:
+      - billing_entity
+      properties:
+        billing_entity:
+          type: object
+          required:
+          - code
+          - name
+          properties:
+            code:
+              type: string
+              example: acme_corp
+              description: The unique code of the billing entity
+            name:
+              type: string
+              example: Acme Corp
+              description: The name of the billing entity
+            default_currency:
+              $ref: '#/components/schemas/Currency'
+              description: The default currency of the billing entity
+              example: USD
+            document_numbering:
+              type: string
+              enum:
+              - per_customer
+              - per_billing_entity
+              description: 'The type of document numbering for this billing entity:
+
+                - `per_customer`: document numbers are unique per customer
+
+                - `per_billing_entity`: document numbers are unique per billing entity'
+            document_number_prefix:
+              type:
+              - string
+              - 'null'
+              minLength: 1
+              maxLength: 10
+              example: ABC-123
+              description: The prefix used in document numbers for this billing entity (1 to 10 characters). It is upper cased. When it is not provided, Lago builds one from the first three letters of the name and the last four characters of the identifier.
+            finalize_zero_amount_invoice:
+              type: boolean
+              example: true
+              description: Whether to finalize invoices with zero amount for this billing entity
+            billing_configuration:
+              type: object
+              properties:
+                invoice_footer:
+                  type: string
+                  maxLength: 600
+                  example: Thank you for your business
+                  description: The footer text to be displayed on invoices for this billing entity (600 characters max).
+                document_locale:
+                  type: string
+                  example: en
+                  description: The language of the documents generated for this billing entity, in the ISO 639-1 format.
+                invoice_grace_period:
+                  type: integer
+                  example: 0
+                  description: The grace period (in days) for invoice finalization
+                subscription_invoice_issuing_date_anchor:
+                  type: string
+                  description: Defines whether the issuing date follows the current billing period's end date or the next period starting date.
+                  enum:
+                  - current_period_end
+                  - next_period_start
+                  default: next_period_start
+                subscription_invoice_issuing_date_adjustment:
+                  type: string
+                  description: The logic applied on top of the subscription_invoice_issuing_date_anchor rule. You can opt to use the invoice finalization date, that includes any configured grace period.
+                  enum:
+                  - align_with_finalization_date
+                  - keep_anchor
+                  default: align_with_finalization_date
+            net_payment_term:
+              type: integer
+              example: 0
+              description: The net payment term (in days) for this billing entity
+            address_line1:
+              type:
+              - string
+              - 'null'
+              example: 5230 Penfield Ave
+              description: The first line of the billing address
+            address_line2:
+              type:
+              - string
+              - 'null'
+              example: Suite 100
+              description: The second line of the billing address
+            phone:
+              type:
+              - string
+              - 'null'
+              example: 1-171-883-3711 x245
+              description: The phone number of the billing entity
+            city:
+              type:
+              - string
+              - 'null'
+              example: Woodland Hills
+              description: The city of the billing address
+            state:
+              type:
+              - string
+              - 'null'
+              example: CA
+              description: The state of the billing address
+            country:
+              $ref: '#/components/schemas/CountryOrNull'
+              description: The country code of the billing address
+            zipcode:
+              type:
+              - string
+              - 'null'
+              example: '91364'
+              description: The zipcode of the billing address
+            email:
+              type:
+              - string
+              - 'null'
+              format: email
+              example: billing@acme.com
+              description: The email address of the billing entity
+            legal_name:
+              type:
+              - string
+              - 'null'
+              example: Acme Corporation
+              description: The legal name of the billing entity
+            legal_number:
+              type:
+              - string
+              - 'null'
+              example: US123456789
+              description: The legal registration number of the billing entity
+            tax_identification_number:
+              type:
+              - string
+              - 'null'
+              example: EU123456789
+              description: The tax identification number of the billing entity
+            timezone:
+              $ref: '#/components/schemas/Timezone'
+              description: The timezone of the billing entity
+              example: UTC
+            email_settings:
+              type: array
+              items:
+                type: string
+                enum:
+                - invoice.finalized
+                - credit_note.created
+                - payment_receipt.created
+              description: The email notification settings for this billing entity
+            eu_tax_management:
+              type: boolean
+              example: false
+              description: Whether EU tax management is enabled for this billing entity. It can only be enabled when the billing entity country is in the European Union.
+            einvoicing:
+              type: boolean
+              example: false
+              description: Whether e-invoicing is enabled for this billing entity. It can only be enabled when the billing entity country is `FR` or `DE`.
+            logo:
+              type:
+              - string
+              - 'null'
+              format: uri
+              example: data:image/png;base64,...
+              description: The base64 encoded logo image for the billing entity. Accepted formats are PNG, JPG and JPEG, up to 800 kB.
+    ApiErrorForbidden:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 403
+        error:
+          type: string
+          example: Forbidden
+        code:
+          type: string
+          example: feature_unavailable
+    BillingEntityUpdateInput:
+      type: object
+      description: Billing entity update input
+      required:
+      - billing_entity
+      properties:
+        billing_entity:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Acme Corp
+              description: The name of the billing entity
+            default_currency:
+              $ref: '#/components/schemas/Currency'
+              description: The default currency of the billing entity
+              example: USD
+            document_numbering:
+              type: string
+              enum:
+              - per_customer
+              - per_billing_entity
+              description: 'The type of document numbering for this billing entity:
+
+                - `per_customer`: document numbers are unique per customer
+
+                - `per_billing_entity`: document numbers are unique per billing entity'
+            document_number_prefix:
+              type:
+              - string
+              - 'null'
+              minLength: 1
+              maxLength: 10
+              example: ABC-123
+              description: The prefix used in document numbers for this billing entity (1 to 10 characters). It is upper cased.
+            finalize_zero_amount_invoice:
+              type: boolean
+              example: true
+              description: Whether to finalize invoices with zero amount for this billing entity
+            billing_configuration:
+              type: object
+              properties:
+                invoice_footer:
+                  type: string
+                  maxLength: 600
+                  example: Thank you for your business
+                  description: The footer text to be displayed on invoices for this billing entity (600 characters max).
+                document_locale:
+                  type: string
+                  example: en
+                  description: The language of the documents generated for this billing entity, in the ISO 639-1 format.
+                invoice_grace_period:
+                  type: integer
+                  example: 0
+                  description: The grace period (in days) for invoice finalization
+                subscription_invoice_issuing_date_anchor:
+                  type: string
+                  description: Defines whether the issuing date follows the current billing period's end date or the next period starting date.
+                  enum:
+                  - current_period_end
+                  - next_period_start
+                  default: next_period_start
+                subscription_invoice_issuing_date_adjustment:
+                  type: string
+                  description: The logic applied on top of the subscription_invoice_issuing_date_anchor rule. You can opt to use the invoice finalization date, that includes any configured grace period.
+                  enum:
+                  - align_with_finalization_date
+                  - keep_anchor
+                  default: align_with_finalization_date
+            net_payment_term:
+              type: integer
+              example: 0
+              description: The net payment term (in days) for this billing entity
+            address_line1:
+              type:
+              - string
+              - 'null'
+              example: 5230 Penfield Ave
+              description: The first line of the billing address
+            address_line2:
+              type:
+              - string
+              - 'null'
+              example: Suite 100
+              description: The second line of the billing address
+            phone:
+              type:
+              - string
+              - 'null'
+              example: 1-171-883-3711 x245
+              description: The phone number of the billing entity
+            city:
+              type:
+              - string
+              - 'null'
+              example: Woodland Hills
+              description: The city of the billing address
+            state:
+              type:
+              - string
+              - 'null'
+              example: CA
+              description: The state of the billing address
+            country:
+              $ref: '#/components/schemas/CountryOrNull'
+              description: The country code of the billing address
+            zipcode:
+              type:
+              - string
+              - 'null'
+              example: '91364'
+              description: The zipcode of the billing address
+            email:
+              type:
+              - string
+              - 'null'
+              format: email
+              example: billing@acme.com
+              description: The email address of the billing entity
+            legal_name:
+              type:
+              - string
+              - 'null'
+              example: Acme Corporation
+              description: The legal name of the billing entity
+            legal_number:
+              type:
+              - string
+              - 'null'
+              example: US123456789
+              description: The legal registration number of the billing entity
+            tax_identification_number:
+              type:
+              - string
+              - 'null'
+              example: EU123456789
+              description: The tax identification number of the billing entity
+            timezone:
+              $ref: '#/components/schemas/Timezone'
+              description: The timezone of the billing entity
+              example: UTC
+            tax_codes:
+              $ref: '#/components/schemas/TaxCodes'
+              description: The tax codes that should be associated with this billing entity
+            email_settings:
+              type: array
+              items:
+                type: string
+                enum:
+                - invoice.finalized
+                - credit_note.created
+                - payment_receipt.created
+              description: The email notification settings for this billing entity
+            eu_tax_management:
+              type: boolean
+              example: false
+              description: Whether EU tax management is enabled for this billing entity. It can only be enabled when the billing entity country is in the European Union.
+            einvoicing:
+              type: boolean
+              example: false
+              description: Whether e-invoicing is enabled for this billing entity. It can only be enabled when the billing entity country is `FR` or `DE`.
+            logo:
+              type:
+              - string
+              - 'null'
+              format: uri
+              example: data:image/png;base64,...
+              description: The base64 encoded logo image for the billing entity. Accepted formats are PNG, JPG and JPEG, up to 800 kB. Sending "null" removes the current logo.
+            invoice_custom_section_codes:
+              type: array
+              items:
+                type: string
+              example:
+              - custom_section_1
+              - custom_section_2
+              description: The codes of the invoice custom section that should be associated with this billing entity
+    ApiErrorUnprocessableEntity:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      - error_details
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 422
+        error:
+          type: string
+          example: Unprocessable entity
+        code:
+          type: string
+          example: validation_errors
+        error_details:
+          type: object
+    ApiErrorUnauthorized:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 401
+        error:
+          type: string
+          example: Unauthorized
+    ApiErrorNotFound:
+      type: object
+      required:
+      - status
+      - error
+      - code
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        code:
+          type: string
+          example: object_not_found
+    ApiErrorBadRequest:
+      type: object
+      required:
+      - status
+      - error
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: Bad request
+  responses:
+    BadRequest:
+      description: Bad Request error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBadRequest'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorForbidden'
+    UnprocessableEntity:
+      description: Unprocessable entity error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnprocessableEntity'
+    NotFound:
+      description: Not Found error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorNotFound'
+    Unauthorized:
+      description: Unauthorized error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorUnauthorized'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Lago Github
+  url: https://github.com/getlago

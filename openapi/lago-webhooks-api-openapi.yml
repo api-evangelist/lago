@@ -2,17 +2,17 @@ openapi: 3.2.0
 info:
   title: Lago API documentation Webhooks API
   description: Lago API allows your application to push customer information and metrics (events) from your application to the billing application.
-  version: 1.15.0
+  version: 1.55.0
   license:
     name: AGPLv3
-    identifier: AGPLv3
+    url: https://github.com/getlago/lago-openapi/blob/main/LICENSE
   contact:
     email: tech@getlago.com
 servers:
 - url: https://api.getlago.com/api/v1
   description: US Lago cluster
 - url: https://api.eu.getlago.com/api/v1
-  description: EU Lagos cluster
+  description: EU Lago cluster
 security:
 - bearerAuth: []
 tags:
@@ -20,14 +20,15 @@ tags:
   description: Everything about Webhooks
   externalDocs:
     description: Find out more
-    url: https://doc.getlago.com/docs/api/webhooks/message-signature#1-retrieve-the-public-key
+    url: https://getlago.com/docs/api-reference/webhooks/format---signature#1-retrieve-the-public-key
 paths:
   /webhooks/public_key:
     get:
       tags:
       - Webhooks
-      summary: Lago Retrieve webhook public key
-      description: This endpoint is used to retrieve the public key used to verify the webhooks signature
+      summary: Retrieve webhook public key
+      description: '**Deprecated.** Use `GET /webhooks/json_public_key` instead. This endpoint is used to retrieve the public key used to verify the webhook signature.'
+      deprecated: true
       operationId: fetchPublicKey
       responses:
         '200':
@@ -36,11 +37,81 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: MEgCQQCo9+BpMRYQ/dL3DS2CyJxRF+j6ctbT3/Qp84+KeFhnii7NT7fELilKUSnxS30WAvQCCo2yU1orfgqr41mM70MBAgMBAAE=
+                description: The RSA public key used to verify webhook signatures. The key is PEM encoded, then Base64 encoded with line breaks.
+                example: 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3
+
+                  MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFyRVBKd3hlZUJwSmRGSXFyRTBO
+
+                  MQpnTWxUamNaaTRSeGlwN2FsZ0RqQ3B1M2VlUDU5clZ4TUxmb3ZxVnNndENn
+
+                  aWZYWGp0WmpFc3NnZVJRejh4TW9MCks1YWY5YjhjTjJlaTNMVlRPMDdxaFRF
+
+                  YjBjakM3NmhON1NabnF1aTVvS3haNGVOVml4MTZCWXNLb3pyamd2eWEKWDB2
+
+                  cUtNNDlGNzM3dloyTld5M1luS2w3cXNTaGs5NGM5bVlFM1creUNMMERSUFQ5
+
+                  Z1AxYlliQ1FHc0hZdVV3TgpIQjVxdlM3OFhhUFY5d1doUGNsNzBYSWlreXhR
+
+                  L3BiZGtpOEhoRUhtRTAxVnJwSFhNQW1zNzBXQkQyT0toVTJICm1rdGZaZVpJ
+
+                  VmROeU5MUXNacGx3TmphUjZOdWxrdUFyOUZnRStWWXVmL01jUEZYZ1ViRUFt
+
+                  MkM3emU4Ulp1eUkKb1FJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t
+
+                  Cg==
+
+                  '
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/json_public_key:
+    get:
+      tags:
+      - Webhooks
+      summary: Retrieve webhook public key (JSON)
+      description: This endpoint is used to retrieve the public key used to verify the webhook signature, wrapped in a JSON object. Prefer this endpoint over the deprecated `GET /webhooks/public_key`.
+      operationId: fetchJsonPublicKey
+      responses:
+        '200':
+          description: Public key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookPublicKey'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    WebhookPublicKeyObject:
+      type: object
+      required:
+      - public_key
+      properties:
+        public_key:
+          type: string
+          description: The RSA public key used to verify webhook signatures. The key is PEM encoded, then Base64 encoded with line breaks.
+          example: 'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3
+
+            MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFyRVBKd3hlZUJwSmRGSXFyRTBO
+
+            MQpnTWxUamNaaTRSeGlwN2FsZ0RqQ3B1M2VlUDU5clZ4TUxmb3ZxVnNndENn
+
+            aWZYWGp0WmpFc3NnZVJRejh4TW9MCks1YWY5YjhjTjJlaTNMVlRPMDdxaFRF
+
+            YjBjakM3NmhON1NabnF1aTVvS3haNGVOVml4MTZCWXNLb3pyamd2eWEKWDB2
+
+            cUtNNDlGNzM3dloyTld5M1luS2w3cXNTaGs5NGM5bVlFM1creUNMMERSUFQ5
+
+            Z1AxYlliQ1FHc0hZdVV3TgpIQjVxdlM3OFhhUFY5d1doUGNsNzBYSWlreXhR
+
+            L3BiZGtpOEhoRUhtRTAxVnJwSFhNQW1zNzBXQkQyT0toVTJICm1rdGZaZVpJ
+
+            VmROeU5MUXNacGx3TmphUjZOdWxrdUFyOUZnRStWWXVmL01jUEZYZ1ViRUFt
+
+            MkM3emU4Ulp1eUkKb1FJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t
+
+            Cg==
+
+            '
     ApiErrorUnauthorized:
       type: object
       required:
@@ -54,6 +125,13 @@ components:
         error:
           type: string
           example: Unauthorized
+    WebhookPublicKey:
+      type: object
+      required:
+      - webhook
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookPublicKeyObject'
   responses:
     Unauthorized:
       description: Unauthorized error
