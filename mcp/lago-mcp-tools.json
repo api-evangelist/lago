@@ -1,0 +1,54 @@
+{
+  "endpoint": "https://getlago.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "Lago Agent Discovery",
+    "version": "1.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "find_lago_resource",
+        "title": "Find a Lago developer resource",
+        "description": "Find public Lago API, authentication, webhook, OpenAPI, SDK, or MCP resources for a technical topic.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "A concise Lago integration topic such as API keys, subscriptions, invoices, webhooks, OpenAPI, or MCP."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "get_lago_capabilities",
+        "title": "Get Lago capabilities",
+        "description": "Return a concise overview of Lago billing capabilities and the canonical developer entry points.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      }
+    ]
+  }
+}
