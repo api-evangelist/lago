@@ -1,4 +1,4 @@
-# Lago (lago)
+# Lago
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,56 +66,164 @@
 
 Lago offers a self-hosted and cloud, scalable and modular architecture for metering and usage-based billing, at every stage of your company.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/apis.yml)
+**Areas:** Billing · Metering · Open Source · Usage-Based
 
-## Scope
+## Lago on APIs.io
 
-- **Type:** Index
+Everything profiled for Lago is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lago/](https://apis.io/providers/lago/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (17)
 
-- Billing
-- Metering
-- Open Source
-- Usage-Based
+- [Lago Add_ons API](https://apis.io/apis/lago/lago-add-ons-api/) — Everything about Add-on collection
+- [Lago Analytics API](https://apis.io/apis/lago/lago-analytics-api/) — Everything about Analytics
+- [Lago Billable_metrics API](https://apis.io/apis/lago/lago-billable-metrics-api/) — Everything about Billable metric collection
+- [Lago Coupons API](https://apis.io/apis/lago/lago-coupons-api/) — Everything about Coupon collection
+- [Lago Credit_notes API](https://apis.io/apis/lago/lago-credit-notes-api/) — Everything about Credit notes collection
+- [Lago Customers API](https://apis.io/apis/lago/lago-customers-api/) — Everything about Customer collection
+- [Lago Events API](https://apis.io/apis/lago/lago-events-api/) — Everything about Event collection
+- [Lago Fees API](https://apis.io/apis/lago/lago-fees-api/) — Everything about Fees
+- [Lago Invoices API](https://apis.io/apis/lago/lago-invoices-api/) — Everything about Invoice collection
+- [Lago Organizations API](https://apis.io/apis/lago/lago-organizations-api/) — Everything about Organization collection
+- [Lago Payment_requests API](https://apis.io/apis/lago/lago-payment-requests-api/) — Everything about PaymentRequests
+- [Lago Plans API](https://apis.io/apis/lago/lago-plans-api/) — Everything about Plan collection
+- [Lago Subscriptions API](https://apis.io/apis/lago/lago-subscriptions-api/) — Everything about Subscription collection
+- [Lago Taxes API](https://apis.io/apis/lago/lago-taxes-api/) — Everything about Tax collection
+- [Lago Wallets API](https://apis.io/apis/lago/lago-wallets-api/) — Everything about Wallet collection
+- [Lago Webhook_endpoints API](https://apis.io/apis/lago/lago-webhook-endpoints-api/) — Everything about Webhook Endpoints
+- [Lago Webhooks API](https://apis.io/apis/lago/lago-webhooks-api/) — Everything about Webhooks
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-07-02
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Lago API
+Model Context Protocol servers that expose the API to agents.
 
-Lago's API for metering and usage-based billing, providing programmatic access to customers, subscriptions, events, and invoices.
+- [lago](https://apis.io/servers/lago/lago/)
 
-- **Human URL:** [https://getlago.com/](https://getlago.com/)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Billing
-- Metering
-- Usage-Based
+- [Lago Agentic Access](https://apis.io/agentic-access/lago/lago-agentic-access/)
 
-#### Properties
+#### Collections (18)
 
-- [Documentation](https://doc.getlago.com/)
-- [Getting Started](https://doc.getlago.com/docs/introduction)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/lago/refs/heads/main/openapi/lago-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lago.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lago.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Lago API documentation](https://apis.io/collections/lago/open-lago/)
+- [Lago API documentation Add_ons API](https://apis.io/collections/lago/open-lago-add-ons-api/)
+- [Lago API documentation Add_ons Analytics API](https://apis.io/collections/lago/open-lago-analytics-api/)
+- [Lago API documentation Add_ons Billable_metrics API](https://apis.io/collections/lago/open-lago-billable-metrics-api/)
+- [Lago API documentation Add_ons Coupons API](https://apis.io/collections/lago/open-lago-coupons-api/)
+- [Lago API documentation Add_ons Credit_notes API](https://apis.io/collections/lago/open-lago-credit-notes-api/)
+- [Lago API documentation Add_ons Customers API](https://apis.io/collections/lago/open-lago-customers-api/)
+- [Lago API documentation Add_ons Events API](https://apis.io/collections/lago/open-lago-events-api/)
+- [Lago API documentation Add_ons Fees API](https://apis.io/collections/lago/open-lago-fees-api/)
+- [Lago API documentation Add_ons Invoices API](https://apis.io/collections/lago/open-lago-invoices-api/)
+- [Lago API documentation Add_ons Organizations API](https://apis.io/collections/lago/open-lago-organizations-api/)
+- [Lago API documentation Add_ons Payment_requests API](https://apis.io/collections/lago/open-lago-payment-requests-api/)
+- [Lago API documentation Add_ons Plans API](https://apis.io/collections/lago/open-lago-plans-api/)
+- [Lago API documentation Add_ons Subscriptions API](https://apis.io/collections/lago/open-lago-subscriptions-api/)
+- [Lago API documentation Add_ons Taxes API](https://apis.io/collections/lago/open-lago-taxes-api/)
+- [Lago API documentation Add_ons Wallets API](https://apis.io/collections/lago/open-lago-wallets-api/)
+- [Lago API documentation Add_ons Webhook_endpoints API](https://apis.io/collections/lago/open-lago-webhook-endpoints-api/)
+- [Lago API documentation Add_ons Webhooks API](https://apis.io/collections/lago/open-lago-webhooks-api/)
 
-- [LinkedIn](https://www.linkedin.com/company/getlago)
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Lago — lago openapi rules](https://apis.io/rules/lago/lago-lago-openapi-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lago Authentication](https://apis.io/security/lago/lago-authentication/)
+- [Lago Domain Security](https://apis.io/security/lago/lago-domain-security/)
+- [Lago Trust Center](https://apis.io/security/lago/lago-trust-center/)
+- [Lago Vulnerability Disclosure](https://apis.io/security/lago/lago-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Lago Plans Pricing](https://apis.io/plans/lago/lago-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Lago Rate Limits](https://apis.io/rate-limits/lago/lago-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Lago Finops](https://apis.io/finops/lago/lago-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://getlago.com/)
 - [Documentation](https://doc.getlago.com/)
-- [GitHub Organization](https://github.com/getlago/lago)
-- [Agent Skill](https://github.com/getlago/inside-lago-voice-skill)
-- [L L Ms Txt](https://getlago.com/llms.txt)
+- [Blog](https://getlago.com/blog)
+- [GitHub](https://github.com/getlago/lago)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 39.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 50.0 |
+| Contract quality | 56.7 |
+| Contract governance | 45.5 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 30.2 |
+| Access clarity | 15.8 |
+
+**Agent readiness 41.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | unknown |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lago/](https://apis.io/providers/lago/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lago: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lago/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
